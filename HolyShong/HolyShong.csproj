@@ -193,7 +193,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\CSS\layout.css" />
+    <Content Include="Assets\CSS\layout1.css" />
     <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Content\bootstrap-theme.css" />

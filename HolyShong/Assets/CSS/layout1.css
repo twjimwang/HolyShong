@@ -286,9 +286,9 @@ option{
         left: -500px;
         transition: .5s;
     }
-    
-    .logo a img{
-        width: 180px;
+
+    .logo a img {
+           width: 180px;
     }
 
     #menu-check:checked~header .menu {
