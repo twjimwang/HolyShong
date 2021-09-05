@@ -34,5 +34,10 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
