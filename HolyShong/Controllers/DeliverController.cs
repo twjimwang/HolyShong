@@ -9,7 +9,7 @@ namespace HolyShong.Controllers
     public class DeliverController : Controller
     {
         // GET: Deliver
-        public ActionResult Index()
+        public ActionResult Home()
         {
             return View();
         }
