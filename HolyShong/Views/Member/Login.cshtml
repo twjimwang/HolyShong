@@ -4,5 +4,65 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h2>Login</h2>
+<div class="container">
+    <div class="login">
+        <div>
+            <h4>歡迎回來</h4>
+            <label for="account">Email/手機</label>
+            <input type="text" placeholder="您的電子郵件或手機號碼" class="w-100" id="account">
+            <label for="password">密碼</label>
+            <input type="text" placeholder="您的密碼" class="w-100" id="password">
+            <button class="btn w-100" id="nextbtn">下一步</button>
+        </div>
+        <div class="my-4">
+            <div>還沒用過 HolyShong 嗎？<a href="#">建立帳戶</a></div>
+            <div><a href="#">忘記密碼？</a></div>
+        </div>
+    </div>
+</div>
 
+@section topCSS
+{
+    <style>
+        * {
+            font-size: 16px;
+        }
+
+        .login {
+            margin: auto;
+            width: 550px;
+        }
+
+        h4 {
+            font-size: 26px;
+            margin-bottom: 36px;
+        }
+
+        #account {
+            padding: 8px 18px;
+            margin-bottom: 10px;
+        }
+
+        #password {
+            padding: 8px 18px;
+            margin-bottom: 24px;
+        }
+
+        #nextbtn {
+            height: 48px;
+            background-color: rgb(255,205,0);
+        }
+
+            #nextbtn:hover {
+                background-color: #FFC20E;
+            }
+
+        .login a {
+            text-decoration: none;
+        }
+
+            .login a:hover {
+                text-decoration: underline;
+            }
+    </style>
+}
