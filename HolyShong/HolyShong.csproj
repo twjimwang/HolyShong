@@ -261,6 +261,7 @@
     <Content Include="Views\Member\Checkout.cshtml" />
     <Content Include="Views\Member\Eatpass.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
+    <Content Include="Views\Member\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
