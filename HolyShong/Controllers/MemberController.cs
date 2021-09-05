@@ -25,5 +25,10 @@ namespace HolyShong.Controllers
             return View();
         }
 
+
+        public ActionResult Eatpass()
+        {
+            return View();
+        }
     }
 }
