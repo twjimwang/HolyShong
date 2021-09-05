@@ -246,6 +246,7 @@ option{
     background-color: rgb(246, 246, 246);
     line-height:24px;
 }
+
 @media screen and (min-width: 992px) {
     .top {
         height: 95px;
@@ -258,7 +259,7 @@ option{
     .cart,
     .status {
         margin: auto 0;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     .head {
@@ -323,7 +324,6 @@ option{
 
     .status .login {
         display: block;
-        padding: 15px 30px;
         background-color: #EEEEEE;
         border-radius: 500px;
         margin-left: 20px;
@@ -385,5 +385,19 @@ option{
     .cartList .list-bottom i {
         font-size: 30px;
         color: #888;
+    }
+}
+@media screen and (min-width:1024px)
+{
+    .status .login {
+        padding: 15px 30px;
+    }
+
+    .deliver,
+    .search,
+    .cart,
+    .status {
+        margin: auto 0;
+        margin-left: 20px;
     }
 }

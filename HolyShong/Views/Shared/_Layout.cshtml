@@ -25,9 +25,9 @@
             <div class="head d-flex">
                 <label for="menu-check" class="hb my-auto"><i class="fas fa-bars align-middle"></i></label>
                 <div class="logo m-auto">
-                    <a class="d-block" href="#"><img src="~/Assets/Images/logo.jpg"></a>
+                    <a class="d-block" href="~/Home/index"><img src="~/Assets/Images/logo.jpg"></a>
                 </div>
-                <button class="login btn">登入</button>
+                <button class="login btn" onclick="location.href = '@Url.Action("Login","Member")'">登入</button>
             </div>
             <div class="lookup">
                 <!-- 地址/時間 -->
@@ -54,10 +54,10 @@
             <!-- 購物車&登入 -->
             <div class="status d-flex">
                 <input type="checkbox" class="d-none" id="cart-check">
-                <label for="cart-check" class="cart text-light bg-dark p-3">
-                    <i class="fas fa-shopping-cart mr-2"></i>
-                    <span>購物車．</span>
-                    <span>0</span>
+                <label for="cart-check" class="cart text-light bg-dark p-3" onclick="location.href = '@Url.Action("Checkout","Member")'">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        <span>購物車．</span>
+                        <span>0</span>
                 </label>
                 <div class="cartList">
                     <div class="list-bottom">
@@ -68,23 +68,23 @@
                         </div>
                     </div>
                 </div>
-                <button class="login btn mr-3">登入</button>
+                <button class="login btn mr-3" onclick="location.href = '@Url.Action("Login","Member")'">登入</button>
             </div>
 
             <div class="menu">
                 <div class="name py-4 border-bottom">會員姓名</div>
                 <div class="function">
-                    <div class="account item"><i class="fas fa-user"></i>帳戶資訊</div>
+                    <div class="account item" onclick="location.href = '@Url.Action("Profile","Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
                     <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
                     <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠
                     </div>
-                    <div class="eatPass item text-success d-flex">
+                    <div class="eatPass item text-success d-flex" onclick="location.href = '@Url.Action("Eatpass","Member")'">
                         <div><i class="fas fa-ticket-alt"></i></div>
                         <div>
-                            <div>優饗方案</div>
-                            <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
+                             <div>送送方案</div>
+                             <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
                         </div>
                     </div>
                     <div class="invite item d-flex">
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div class="switch">
-                    <button class="btn btn-dark d-block w-100 mb-2">我想要訂餐</button>
+                    <button class="btn btn-dark d-block w-100 mb-2" onclick="location.href = '@Url.Action("Index","Home")'">我想要訂餐</button>
                     <button class="btn btn-dark d-block w-100 mb-2">餐廳登入</button>
                     <button class="btn btn-dark d-block w-100 mb-2">外送夥伴</button>
                     <button class="btn border-secondary w-100">登出</button>
@@ -111,7 +111,7 @@
         <div class="container">
             <div class="footer-top">
                 <div class="info-img">
-                    <div class="logo">
+                    <div class="logo" onclick="location.href = '@Url.Action("Index","Home")'">
                         <img src="~/Assets/Images/logo.jpg">
                     </div>
                     <div class="download">
