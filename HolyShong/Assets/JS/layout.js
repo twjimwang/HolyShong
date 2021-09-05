@@ -20,7 +20,7 @@ menuCheck.addEventListener('click', function () {
     }
 });
 
-// 優惠
+// 序號modal 關閉新增優惠modal
 let discountAdd = document.querySelector('#discountAdd');
 let discountModal = document.querySelector('#discountModal');
 discountAdd.addEventListener('click', function(){
@@ -33,4 +33,16 @@ ONdiscount.forEach(button =>{
     button.addEventListener('click', function(){
         discountModal.classList.remove('d-none');
     })
+});
+
+//時間地點Modal on Modal
+let changeDest = document.querySelector("#deliverModal .modal-body div:first-of-type button");
+changeDest.addEventListener('click', function(){
+    changeDest.parentNode.parentElement.offsetParent.classList.add('opacity-0');
+});
+let destModalBtn = document.querySelectorAll('#destModal button');
+destModalBtn.forEach(button => {
+    button.addEventListener('click',function(){
+        changeDest.parentNode.parentElement.offsetParent.classList.remove('opacity-0');
+    });
 });

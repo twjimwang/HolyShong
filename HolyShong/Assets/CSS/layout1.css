@@ -22,6 +22,9 @@
     padding: 0 30px;
     background-color: #fff;
 }
+.head i{
+    font-size: 30px;
+}
 
 .head button {
     margin: 15px 10px;
@@ -31,8 +34,8 @@
 }
 
 .hb {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin: 0 15px;
     cursor: pointer;
 }
@@ -48,6 +51,11 @@
     transition: .5s;
     border-right: 1px solid #EEEEEE;
     z-index: 10;
+}
+
+.logo a img{
+    width: 130px;
+    vertical-align: baseline;
 }
 
 #menu-check:checked~header .menu {
@@ -75,10 +83,6 @@
     justify-content: space-between;
     border-width: 0;
     cursor: pointer;
-}
-
-.deliver:hover {
-    background-color: #DBDBDB;
 }
 
 .deliver>div {
@@ -206,13 +210,41 @@ footer a:hover {
     background-color: #EEEEEE;
     border-radius: 30px;
 }
-#ONdiscountModal input{
+#ONdiscountModal input,
+#destModal input{
     outline: none;
     width: 100%;
     border-width: 0;
     padding: 12px 16px;
     box-shadow:inset 0px -1px 0px #e2e2e2;
     background-color:#F6F6F6;
+}
+#destlist{
+    padding: 15px;
+}
+
+.info-img .logo img{
+    width: 200px;
+}
+
+.opacity-0{
+    opacity: 0;
+}
+select{
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    outline: none;
+    box-shadow:inset 0px -1px 0px #e2e2e2;
+    background-color:#F6F6F6;
+    border: none;
+    font-size:16px;
+    line-height:24px;
+    cursor:pointer;
+}
+option{
+    font-size: 16px;
+    background-color: rgb(246, 246, 246);
+    line-height:24px;
 }
 @media screen and (min-width: 992px) {
     .top {
@@ -242,11 +274,21 @@ footer a:hover {
         display: none;
     }
 
+    .lookup{
+        display: flex;
+        justify-content: space-around;
+        flex-grow: 1;
+    }
+
     .menu {
         position: fixed;
         top: 0;
         left: -500px;
         transition: .5s;
+    }
+
+    .logo a img {
+           width: 180px;
     }
 
     #menu-check:checked~header .menu {
@@ -258,6 +300,7 @@ footer a:hover {
         flex-grow: 1;
         width: auto;
         border-radius: 0;
+        box-shadow:inset  0px -1px 0px #e2e2e2;
     }
 
     .search .filter {
@@ -269,6 +312,9 @@ footer a:hover {
         padding: 10px;
         border-radius: 30px;
         height: 40px;
+    }
+    .deliver:hover {
+        background-color: #DBDBDB;
     }
 
     .status {
@@ -329,13 +375,6 @@ footer a:hover {
         border: 1px solid #EEEEEE;
         box-shadow: 0 0 1px;
         overflow-y: scroll;
-    }
-
-    .cartList .list-top button {
-        background-color: transparent;
-        border-width: 0;
-        color: #000;
-        padding: 15px;
     }
 
     .cartList .list-bottom {
