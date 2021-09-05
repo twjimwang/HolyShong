@@ -260,13 +260,13 @@
     <Content Include="Views\Member\_ViewStart.cshtml" />
     <Content Include="Views\Member\Checkout.cshtml" />
     <Content Include="Views\Member\Eatpass.cshtml" />
+    <Content Include="Views\Store\Restaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Deliver\" />
     <Folder Include="Views\Order\" />
-    <Folder Include="Views\Store\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
