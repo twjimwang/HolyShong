@@ -197,7 +197,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\CSS\layout.css" />
     <Content Include="Assets\CSS\LayoutLogin.css" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Content\bootstrap-theme.css" />
