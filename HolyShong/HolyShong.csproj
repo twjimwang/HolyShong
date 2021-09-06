@@ -198,7 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
+    <Content Include="Assets\CSS\layout1.css" />
     <Content Include="Assets\CSS\LayoutLogin.css" />
+    <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -259,10 +261,16 @@
     <Content Include="Views\Shared\_Layout-mainpage.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Member\Checkout.cshtml" />
+    <Content Include="Views\Member\Eatpass.cshtml" />
+    <Content Include="Views\Member\ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
+    <Content Include="Views\Store\Restaurant.cshtml" />
+    <Content Include="Views\Deliver\Home.cshtml" />
+    <Content Include="Views\Member\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Images\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
