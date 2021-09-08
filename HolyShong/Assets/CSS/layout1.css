@@ -21,6 +21,7 @@
     left: 0;
     padding: 0 30px;
     background-color: #fff;
+    z-index:100;
 }
 .head i{
     font-size: 30px;
