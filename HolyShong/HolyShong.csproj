@@ -268,7 +268,7 @@
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Deliver\Home.cshtml" />
     <Content Include="Views\Member\Profile.cshtml" />
-    <Content Include="Views\Shared\_Layout - 複製.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
