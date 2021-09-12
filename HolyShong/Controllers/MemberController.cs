@@ -44,10 +44,5 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
-        public ActionResult Favorite()
-        {
-            return View();
-        }
     }
 }
