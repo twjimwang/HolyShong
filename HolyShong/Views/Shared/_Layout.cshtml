@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;500;900&display=swap"
           rel="stylesheet">
-    <link href="~/Assets/CSS/layout.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/layout1.css" rel="stylesheet" />
     @RenderSection("topJS", required: false)
     @RenderSection("topCSS", required: false)
 
@@ -25,42 +25,41 @@
             <div class="head d-flex">
                 <label for="menu-check" class="hb my-auto"><i class="fas fa-bars align-middle"></i></label>
                 <div class="logo m-auto">
-                    <a href="#"><img src="https://picsum.photos/120/20/?random=1"></a>
+                    <a class="d-block" href="~/Home/index"><img src="~/Assets/Images/logo.jpg"></a>
                 </div>
-                <button class="login btn">登入</button>
+                <button class="login btn" onclick="location.href = '@Url.Action("Login","Member")'">登入</button>
             </div>
-            <!-- 地址/時間 -->
-            <div class="deliver" data-toggle="modal" data-target="#deliverModal">
-                <div class="item my-auto d-flex">
-                    <i class="fas fa-map-marker-alt px-2 m-auto"></i>
-                    <div class="destination">台北市</div>
-                    <span>．</span>
-                    <div class="time">立刻</div>
+            <div class="lookup">
+                <!-- 地址/時間 -->
+                <div class="deliver" data-toggle="modal" data-target="#deliverModal">
+                    <div class="item my-auto d-flex">
+                        <i class="fas fa-map-marker-alt px-2 m-auto"></i>
+                        <div class="destination">台北市</div>
+                        <span>．</span>
+                        <div class="time">立刻</div>
+                    </div>
+                    <div class="my-auto">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
-                <div class="my-auto">
-                    <i class="fas fa-chevron-down"></i>
+                <!-- 搜尋 -->
+                <div class="search d-flex">
+                    <label class="w-100">
+                        <i class="fas fa-search p-2"></i>
+                        <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                    </label>
+                    <div class="filter"><i class="fas fa-sliders-h"></i></div>
                 </div>
-            </div>
-            <!-- 搜尋 -->
-            <div class="search d-flex">
-                <label class="w-100">
-                    <i class="fas fa-search p-2"></i>
-                    <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
-                </label>
-                <div class="filter"><i class="fas fa-sliders-h"></i></div>
             </div>
             <!-- 購物車&登入 -->
             <div class="status d-flex">
                 <input type="checkbox" class="d-none" id="cart-check">
-                <label for="cart-check" class="cart text-light bg-dark p-3">
-                    <i class="fas fa-shopping-cart mr-2"></i>
-                    <span>購物車．</span>
-                    <span>0</span>
+                <label for="cart-check" class="cart text-light bg-dark p-3" onclick="location.href = '@Url.Action("Checkout","Member")'">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        <span>購物車．</span>
+                        <span>0</span>
                 </label>
                 <div class="cartList">
-                    <div class="list-top">
-                        <button>X</button>
-                    </div>
                     <div class="list-bottom">
                         <div>
                             <i class="fas fa-shopping-cart mb-3"></i>
@@ -69,21 +68,23 @@
                         </div>
                     </div>
                 </div>
-                <button class="login btn mr-3">登入</button>
+                <button class="login btn mr-3" onclick="location.href = '@Url.Action("Login","Member")'">登入</button>
             </div>
 
             <div class="menu">
                 <div class="name py-4 border-bottom">會員姓名</div>
                 <div class="function">
-                    <div class="account item"><i class="fas fa-user"></i>帳戶資訊</div>
+                    <div class="account item" onclick="location.href = '@Url.Action("Profile","Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
                     <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
                     <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
-                    <div class="discount item" data-toggle="modal" data-target="#discountModal"><i class="fas fa-tag"></i>優惠</div>
-                    <div class="eatPass item text-success d-flex">
+                    <div class="discount item" data-toggle="modal" data-target="#discountModal">
+                        <i class="fas fa-tag"></i>優惠
+                    </div>
+                    <div class="eatPass item text-success d-flex" onclick="location.href = '@Url.Action("Eatpass","Member")'">
                         <div><i class="fas fa-ticket-alt"></i></div>
                         <div>
-                            <div>優饗方案</div>
-                            <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
+                             <div>送送方案</div>
+                             <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
                         </div>
                     </div>
                     <div class="invite item d-flex">
@@ -95,7 +96,7 @@
                     </div>
                 </div>
                 <div class="switch">
-                    <button class="btn btn-dark d-block w-100 mb-2">我想要訂餐</button>
+                    <button class="btn btn-dark d-block w-100 mb-2" onclick="location.href = '@Url.Action("Index","Home")'">我想要訂餐</button>
                     <button class="btn btn-dark d-block w-100 mb-2">餐廳登入</button>
                     <button class="btn btn-dark d-block w-100 mb-2">外送夥伴</button>
                     <button class="btn border-secondary w-100">登出</button>
@@ -104,15 +105,14 @@
         </div>
     </header>
 
-    <div class="content">
-    </div>
+    @RenderBody()
 
     <footer>
         <div class="container">
             <div class="footer-top">
                 <div class="info-img">
-                    <div class="logo">
-                        <img src="https://picsum.photos/150/35/?random=2">
+                    <div class="logo" onclick="location.href = '@Url.Action("Index","Home")'">
+                        <img src="~/Assets/Images/logo.jpg">
                     </div>
                     <div class="download">
                         <img class="me-3" src="https://picsum.photos/135/40/?random=3">
@@ -120,7 +120,6 @@
                     </div>
                 </div>
                 <div class="info-txt">
-                    <a href="#">取得協助</a>
                     <a href="#">新增您的餐廳</a>
                     <a href="#">註冊成為合作夥伴</a>
                     <a href="#">首份訂單可享折扣優惠</a>
@@ -142,7 +141,7 @@
                     </div>
                     <div class="copyright">
                         <span>本網站受到 reCAPTCHA 和 Google 隱私政策的保護，且適用服務條款。</span>
-                        <span> &copy; 2021 Uber Technologies Inc.</span>
+                        <span> &copy; Holy Shong Technologies Inc.</span>
                     </div>
                 </div>
             </div>
@@ -167,7 +166,7 @@
                             <br>
                             <span>忠孝東路三段96號11號樓之1, 台北市大安區</span>
                         </div>
-                        <button>變更</button>
+                        <button data-toggle="modal" data-target="#destModal">變更</button>
                     </div>
                     <div class="item d-flex justify-content-between">
                         <div class="px-2 m-auto"><i class="fas fa-clock"></i></div>
@@ -176,11 +175,11 @@
                             <br>
                             <span>時間</span>
                         </div>
-                        <button>安排時間</button>
+                        <button data-toggle="modal" data-target="#timeModal">安排時間</button>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark py-3 w-100">完成</button>
+                    <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
                 </div>
             </div>
         </div>
@@ -197,7 +196,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button class="btn px-3 py-2" data-toggle="modal" data-target="#ONdiscountModal" id="discountAdd">新增優惠</button>
+                    <button class="btn px-3 py-2" data-toggle="modal" data-target="#ONdiscountModal"
+                            id="discountAdd">
+                        新增優惠
+                    </button>
                     <div class="discount-body">
                         <!-- 優惠內容 -->
                         <div class="discount-item my-3 py-3">
@@ -230,7 +232,8 @@
     </div>
 
     <!-- ON 優惠Modal -->
-    <div class="modal fade" id="ONdiscountModal" tabindex="-1" aria-labelledby="ONdiscountModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ONdiscountModal" tabindex="-1" aria-labelledby="ONdiscountModalLabel" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -250,9 +253,90 @@
             </div>
         </div>
     </div>
+
+    <!-- 外送地點 -->
+    <div class="modal fade" id="destModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="destlist" class="modal-body">
+                    <div class="dest-body">
+                        <h4 class="modal-title mb-3" id="destModalLabel">外送地點？</h4>
+                        <input type="text" placeholder="輸入外送地址">
+                        <!-- 紀錄地址 -->
+                        <div class="d-flex justify-content-between my-3">
+                            <div>
+                                <i class="fas fa-map-marker-alt p-3"></i>
+                                <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-pencil-alt p-3"></i>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between my-3">
+                            <div>
+                                <i class="fas fa-map-marker-alt p-3"></i>
+                                <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-pencil-alt p-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 外送時間 -->
+    <div class="modal fade" id="timeModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="timelist" class="modal-body">
+                    <div class="time-body">
+                        <h4 class="modal-title mb-3" id="timeModalLabel">挑選時間</h4>
+                        <select class="w-100">
+                            <option value="2021-09-04">9月4日 週六</option>
+                            <option value="2021-09-05">9月5日 週日</option>
+                            <option value="2021-09-06">9月6日 週一</option>
+                            <option value="2021-09-07">9月7日 週二</option>
+                        </select>
+                        <select class="w-100">
+                            <option value="1">14:00 - 14:30</option>
+                            <option value="2">14:30 - 15:00</option>
+                            <option value="3">15:00 - 15:30</option>
+                            <option value="4">15:30 - 16:00</option>
+                            <option value="5">16:00 - 16:30</option>
+                            <option value="6">16:30 - 17:00</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
+                    <button type="button" class="btn btn-outline-secondary py-3 w-100" data-dismiss="modal">立刻外送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="bg"></div>
 
-        @RenderBody()
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
