@@ -1,7 +1,7 @@
 ﻿
 <div class="container-fluid container-sm ">
     <div class="row align-items-start">
-        <div class="col-lg-6 col-sm-12 px-5 left">
+        <div class="col-lg-6 col-sm-12 left">
             <h1 class="my-3">五桐號 WooTEA 忠孝復興店</h1>
             <div class="mapDiv">
                 <div id=map class="mb-3">
@@ -195,12 +195,16 @@
                 <label class="w-100" for="checkbox"><div>索取餐具、吸管等用品</div></label>
                 <input class="" id="checkbox" type="checkbox" style="zoom:180%">
             </div>
+            <div class="plasticBag my-3">
+                <label class="w-100" for="checkbox2"><div>索取袋子</div></label>
+                <input class="" id="checkbox2" type="checkbox" style="zoom:180%">
+            </div>
         </div>
-        <div class="col-lg-6 col-sm-12 px-5 sticky-top">
+        <div class="col-lg-6 col-sm-12 sticky-top right">
             <div class="right">
                 <div class="mt-3">
-                    <button type="button" class="order rounded-0 btn w-100">
-                        一鍵下訂單
+                    <button type="button" class="finallyOrder rounded-0 btn w-100">
+                        <span>一鍵下訂單</span>
                     </button>
                 </div>
                 <div class="rule border-bottom my-4">
@@ -239,7 +243,7 @@
     </div>
 </div>
 
-
+<footer></footer>
 
 <!-- ------- -->
 <!-- Modal 內容明細-->
@@ -318,6 +322,7 @@
         </div>
     </div>
 </div>
+
 @section topCSS
  {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -497,12 +502,12 @@
             }
 
         .finallyOrder {
-            background-color: rgb(175, 175, 175);
+            background-color: rgb(255,205,0);
             border: 0px;
             width: 600px;
             margin: auto;
             height: 60px;
-            color: white;
+            color: black;
             justify-content: center;
             align-items: center;
             display: flex;
@@ -642,146 +647,141 @@
         }
 
         .right {
-            padding: 0px 30px 0px 30px;
+            padding: 0px 15px 0px 15px;
         }
+
         .storeModalContent {
-    border: none;
-  }
+            border: none;
+        }
 
-  .storeModalBody {
-    padding: 0;
-  }
+        .storeModalBody {
+            padding: 0;
+        }
 
-  .imgAndClose {
-    position: relative;
+        .imgAndClose {
+            position: relative;
+        }
 
-  }
+        .imgAndClosePic {
+            width: 100%;
+            height: 200px;
+        }
 
-  .imgAndClosePic {
-    width: 100%;
-    height: 200px;
-  }
+            .imgAndClosePic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-  .imgAndClosePic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+        .imgAndClose .fa-times-circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+        }
 
-  .imgAndClose .fa-times-circle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #fff;
-  }
+        .addGroup {
+            display: flex;
+            text-align: center;
+        }
 
-  .addGroup {
-    display: flex;
-    text-align: center;
-  }
+        .quantityAddWrap {
+            justify-content: center;
+        }
 
-  .quantityAddWrap {
-    justify-content: center;
-  }
+        .selectedBgc {
+            background: rgb(246, 246, 246);
+        }
 
-  .selectedBgc {
-    background: rgb(246, 246, 246);
-  }
+        .addItemBgC {
+            padding: 10px 0;
+        }
 
-  .addItemBgC {
-    padding: 10px 0;
-  }
+            .addItemBgC i {
+                padding: 0 15px;
+            }
 
-  .addItemBgC i {
-    padding: 0 15px;
-  }
+        .addToCart {
+            text-align: center;
+        }
 
-  .addToCart {
-    text-align: center;
-  }
+        .price {
+            text-align: right;
+        }
 
-  .price {
-    text-align: right;
-  }
+        .cardWrap input {
+            border: none;
+            padding: 24px;
+        }
 
-  .cardWrap input {
-    border: none;
-    padding: 24px;
-  }
+        .input {
+            width: 100%;
+        }
 
-  .input {
-    width: 100%;
-  }
+        .cardWrap {
+            height: 500px;
+        }
 
-  .cardWrap {
-    height: 500px;
+        .billTxt {
+            background: rgb(246, 246, 246);
+        }
 
-  }
+            .billTxt p {
+                padding: 10px;
+            }
 
-  .billTxt {
-    background: rgb(246, 246, 246);
-  }
+        .scroll {
+            overflow: auto;
+            height: 500px;
+            display: block;
+        }
 
-  .billTxt p {
-    padding: 10px;
-  }
+        .addGroup {
+            display: flex;
+        }
 
-  .scroll {
-    overflow: auto;
-    height: 500px;
-    display: block;
-  }
+        .quantityAddWrap {
+            justify-content: space-between;
+            margin: auto;
+        }
 
-  .addGroup {
-    display: flex;
-  }
+        .addToCartWrap button {
+            margin: 10px;
+        }
 
-  .quantityAddWrap {
-    justify-content: space-between;
-    margin: auto;
-  }
+        /* 桌機 */
+        @@media screen and (min-width: 992px) {
+            .card img {
+                width: 88px;
+                height: 120px;
+            }
 
-  .addToCartWrap button {
-    margin: 10px;
-  }
+            .addGroup {
+                display: flex;
+                text-align: center;
+            }
 
-  /* 桌機 */
-  @@media screen and (min-width: 992px) {
-    .card img {
-      width: 88px;
-      height: 120px;
-    }
+            .quantityAddWrap {
+                justify-content: center;
+            }
 
-    .addGroup {
-      display: flex;
-      text-align: center;
-    }
+            .storeModalBody {
+                display: flex;
+                width: 100%;
+            }
 
-    .quantityAddWrap {
-      justify-content: center;
-    }
+            .imgAndClose {
+                width: 50%;
+            }
 
-    .storeModalBody {
-      display: flex;
-      width: 100%;
-    }
+            .imgAndClosePic img {
+                height: 500px;
+            }
 
-    .imgAndClose {
-      width: 50%;
-    }
-
-    .imgAndClosePic img {
-      height: 500px;
-    }
-
-    .cardWrap {
-      width: 50%;
-    }
-  }
-
-
-
-
+            .cardWrap {
+                width: 50%;
+            }
+        }
     </style>
 }
 @section endJS
