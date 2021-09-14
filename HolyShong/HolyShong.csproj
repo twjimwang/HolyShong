@@ -200,6 +200,7 @@
     <Content Include="Assets\CSS\deliver_layout.css" />
     <Content Include="Assets\CSS\layout1.css" />
     <Content Include="Assets\CSS\LayoutLogin.css" />
+    <Content Include="Assets\Images\deliverRegister.png" />
     <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
@@ -270,6 +271,7 @@
     <Content Include="Views\Member\Profile.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Member\DeliverRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

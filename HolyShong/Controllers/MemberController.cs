@@ -39,5 +39,9 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult DeliverRegister()
+        {
+            return View();
+        }
     }
 }

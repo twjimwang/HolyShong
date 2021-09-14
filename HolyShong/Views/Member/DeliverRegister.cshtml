@@ -1,0 +1,246 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="captionItem col-12 col-xl-5">
+            <div class="caption">
+                <h1>Deliver with Uber in Taiwan</h1>
+                <h4>No boss. Flexible schedule. Quick pay.</h4>
+                <p>
+                    Now you can earn cash by delivering the Uber Eats food orders that people crave—all while
+                    exploring your city.
+                </p>
+            </div>
+            <div class="captionPic">
+                <img src="~/Assets/Images/deliverRegister.png" alt="圖片">
+            </div>
+        </div>
+        <div class="space col-xl-1"></div>
+        <form class="signInItem col-12 col-xl-6">
+            <div class="row">
+                <div class="signIn col-12">
+                    <h3>立即註冊</h3>
+                </div>
+                <div class="col-12 col-md-6">
+                    <input class="personalInfo" type="text" placeholder="名字">
+                </div>
+                <div class="col-12 col-md-6">
+                    <input class="personalInfo" type="text" placeholder="姓氏">
+                </div>
+                <div class="col-12">
+                    <input class="personalInfo" type="email" placeholder="電子郵件地址">
+                </div>
+                <div class="passwordAndEye col-12">
+                    <input class="personalInfo" id="isDisplayPWD" type="text" placeholder="密碼">
+
+                    <div class="fa-stack fa-1x eye">
+                        <i class="fas fa-eye fa-stack-1x eyeOpen"></i>
+                        <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <input class="personalInfo" type="tel" placeholder="電話號碼">
+                </div>
+            </div>
+            <div class="description">
+                <p>
+                    繼續操作即表示本人同意 Uber 的使用條款，並確認已閱讀隱私政策。<br><br>
+                    我亦同意 Uber 或其代表可透過我提供的電子郵件、電話、或簡訊與我聯絡 (包含透過自動方式)，而上述聯絡方式可包含銷售用途。
+                </p>
+            </div>
+            <div class="deliverBtnAndSignIn">
+                <button type="button" class="btn btn-dark">註冊成為合作外送夥伴</button>
+                <div class="deliverSignIn">
+                    <span>已經有帳戶了嗎？</span>
+                    <a href="#">登入</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section topCSS
+{
+    <style>
+        .header {
+            background-color: black;
+            height: 64px;
+        }
+
+        /* 圖文 */
+        .container {
+            max-width: 1920px;
+        }
+
+        .captionItem {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .caption h4 {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .caption p {
+            font-size: 16px;
+        }
+
+        .caption {
+            padding: 24px 24px 0
+        }
+
+            .caption h1 {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+
+        .captionPic {
+            width: 100%;
+            height: 211px;
+        }
+
+            .captionPic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        /* 註冊 */
+        .signInItem {
+            padding: 28px;
+            z-index: 2;
+        }
+
+            .signInItem .signIn {
+                margin-bottom: 28px;
+            }
+
+        .personal input {
+            padding-left: 14px;
+        }
+
+        .form-group input {
+            box-sizing: border-box;
+        }
+
+        .personalInfo {
+            padding: 10px 14px;
+            width: 100%;
+            background-color: rgb(226, 226, 226);
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 12px;
+            margin: 24px 0;
+        }
+
+        .deliverBtnAndSignIn .btn {
+            padding: 14px 25px;
+        }
+
+        .deliverSignIn {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+            .deliverSignIn span {
+                margin-right: 4px;
+            }
+
+        .passwordAndEye {
+            position: relative;
+        }
+
+        .eye {
+            position: absolute;
+            top: 11px;
+            right: 35px;
+        }
+
+        .fa-stack.eye {
+            position: absolute;
+        }
+
+        @@media screen and (min-width: 768px) and (max-width:991px) {
+            .captionPic {
+                width: 100%;
+                height: 500px;
+            }
+
+            .deliverBtnAndSignIn {
+                display: flex;
+                align-items: baseline;
+            }
+
+            .deliverSignIn {
+                margin-left: 15px;
+            }
+        }
+
+        @@media screen and (min-width: 992px) {
+            .caption h1 {
+                font-size: 52px;
+            }
+
+            .caption {
+                padding: 64px;
+            }
+
+            .captionPic {
+                width: 80%;
+                height: 50%;
+                margin: auto;
+            }
+
+                .captionPic img {
+                    width: 100%;
+                    height: 500px;
+                }
+
+            .signInItem {
+                padding: 73px;
+            }
+
+            .personalInfo {
+                line-height: 33px;
+            }
+
+            .deliverBtnAndSignIn {
+                display: flex;
+                align-items: baseline;
+            }
+
+            .deliverSignIn {
+                margin-left: 15px;
+            }
+        }
+
+        @@media screen and (min-width: 1025px) {
+            .captionPic img {
+                height: 350px;
+            }
+        }
+    </style>
+}
+
+@section endJS
+{
+    <script>
+        //eye jQuery
+        $('.eye').on('click', function () {
+            if ($('.eyeOpen').hasClass("fa-eye")) {
+                //如果eyeOpen有fa-eye(show)這個屬性
+                $('.eyeOpen').removeClass("fa-eye") //就去掉
+                $('.eyeOpen').addClass("fa-eye-slash") //改加fa-eye-slash(hide)
+                $('#isDisplayPWD').attr('type', 'password')
+                //把input type屬性text改password
+            } else {
+                $('.eyeOpen').addClass("fa-eye")
+                $('.eyeOpen').removeClass("fa-eye-slash")
+                $('#isDisplayPWD').attr('type', 'text')
+            }
+        })
+    </script>
+}
+
