@@ -248,7 +248,7 @@
                                     <input type="checkbox" id="checkbox2" style="zoom:180%">
                                 </div>
                                 <div class="previewOrderDiv">
-                                    <button class="btn btn-dark previewOrderBtn">
+                                    <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
                                         <span class="previewOrderSpan">前往結帳 • $99.00</span>
                                     </button>
                                 </div>
@@ -257,19 +257,19 @@
 
                     </div>
                 </div>
-                <button class="login btn mr-3">登入</button>
+                <button class="login btn mr-3" onclick="location.href='@Url.Action("Login", "Member")'">登入</button>
             </div>
 
             <div class="menu">
                 <div class="name py-4 border-bottom">會員姓名</div>
                 <div class="function">
-                    <div class="account item"><i class="fas fa-user"></i>帳戶資訊</div>
-                    <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
-                    <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
+                    <div class="account item" onclick="location.href='@Url.Action("Profile", "Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
+                    <div class="order item" ><i class="fas fa-receipt"></i>訂單</div>
+                    <div class="favorite item" ><i class="fas fa-heart"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠
                     </div>
-                    <div class="eatPass item text-success d-flex">
+                    <div class="eatPass item text-success d-flex" onclick="location.href='@Url.Action("Eatpass", "Member")'">
                         <div><i class="fas fa-ticket-alt"></i></div>
                         <div>
                             <div>優饗方案</div>
@@ -287,7 +287,7 @@
                 <div class="switch">
                     <button class="btn btn-dark d-block w-100 mb-2">我想要訂餐</button>
                     <button class="btn btn-dark d-block w-100 mb-2">餐廳登入</button>
-                    <button class="btn btn-dark d-block w-100 mb-2">外送夥伴</button>
+                    <button class="btn btn-dark d-block w-100 mb-2" onclick="location.href='@Url.Action("DeliverRegister", "Member")'">外送夥伴</button>
                     <button class="btn border-secondary w-100">登出</button>
                 </div>
             </div>
