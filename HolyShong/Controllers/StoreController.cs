@@ -21,5 +21,9 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult RestaurantRegister()
+        {
+            return View();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<!-- top -->
+﻿ <!-- top -->
 <div class="topTitle container-fluid">
     <div class="discount row">
         <div class="col-12">
@@ -37,7 +37,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="timeModalContent modal-content">
                         <div class="btn-time btnTimeClose">
-                            <button type="button-time" class="close" data-dismiss="modal" aria-label="Close">
+                            <button class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <div class="time">
+                <div class="startTime">
                     <div class="clock p-3">
                         <i class="fas fa-clock"></i>
                     </div>
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <div class="checkboxDiv d-flex align-items-center p-4">
-                                <label for="checkbox">
+                                <label>
                                     <input id="checkbox" type="checkbox">加辣
                                 </label>
                             </div>
@@ -230,7 +230,7 @@
         </div>
     </div>
 </div>
-  </div>
+
 <!-- navbar -->
 <div class="container position-relative">
     <div class="navMove row">
@@ -435,384 +435,483 @@
 @section topCSS
 {
     <style>
-    /* top */
-    .container {
-    max-width: 1920px;
-    }
-    html{
-    scroll-behavior: smooth;
-    }
-    .layout{
-    background-color:red;
-    height: 96px;
-    }
-    .topTitle {
-    background-color: rgb(238, 247, 237);
-    width: 100%;
-    text-align: center;
-    z-index: 2;
-    position: sticky;
-    top:0;
-    }
-    .discount {
-    width: 100%;
-    }
-    .topTitle a {
-    color: green;
-    padding: 10px 0;
-    display: inline-block;
-    text-decoration: none;
-    }
-    /* banner */
-    .banner {
-    width: 100%;
-    position: relative;
-    }
-    .carouselItem{
-    width: 100%;
-    height: 256px;
-    }
-    .carouselItem img {
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    }
-    .bannerTxtBtn{
-    position: relative;
-    }
-    .text {
-    position: absolute;
-    bottom: 0;
-    padding: 0 0 20px 27px;
-    color: white;
-    }
-    .text img {
-    width: 14px;
-    height: 14px;
-    }
-    .text h1 {
-    font-size: 36px;
-    font-weight: bold;
-    }
-    .timeHeartBtn {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 0 20px 20px 0;
-    }
-    .btn-oblong {
-    border-radius: 30px 30px 30px 30px;
-    }
-    /* heart */
-    .heart .heartSolid {
-    display: none;
-    }
-    .heart .heartSolid {
-    color: white;
-    }
-    .heart .heartEmpty {
-    color: white;
-    }
-    .heart {
-    cursor: pointer;
-    }
-    /* timeModal */
-    .timeModalContent{
-    border-radius: 0;
-    }
-    .btnTimeClose {
-    padding: 5px;
-    position: absolute;
-    top: 0px;
-    }
-    .modal-footer {
-    border-top: none;
-    }
-    .openTime {
-    font-size: 36px;
-    position: relative;
-    }
-    .openTime span {
-    font-size: 16px;
-    }
-    /* 下拉選單modal */
-    .formSelect {
-    width: 100%;
-    padding: 12px 32px 12px 16px;
-    margin-bottom: 12px;
-    background-color: #F6F6F6;
-    border: none;
-    }
-    .selectTime button {
-    width: 100%;
-    }
-    /* 地址 */
-    .address {
-    padding: 0 27px;
-    }
-    .address a {
-    color: black;
-    text-decoration: underline;
-    }
-    /* dataModal */
-    .dataModalHeader img {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    }
-    .dataModalHeader {
-    width: 200%;
-    }
-    .imgClose {
-    position: relative;
-    width: 100%;
-    }
+        /* top */
+        .container {
+            max-width: 1920px;
+        }
 
-    .imgClosePic img {
-    display: block;
-    width: 50%;
-    }
-    .dataModalContent{
-    border: none;
-    }
-    .imgClose .fa-times-circle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #fff;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .line {
-    height: 2px;
-    border-bottom: 2px solid #e2e2e2;
-    }
-    .map {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    padding: 10px 0;
-    align-items: center;
-    }
-    .time {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    padding: 10px 0;
-    align-items: center;
-    }
+        .layout {
+            background-color: red;
+            height: 96px;
+        }
 
-    .joinEats {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    padding: 10px 0;
-    align-items: center;
-    }
+        .topTitle {
+            background-color: rgb(238, 247, 237);
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            position: sticky;
+               top: 72px;
+        }
 
-    .joinEats span {
-    color: #545454;
-    font-size: 14px;
-    }
-    .ticket img {
-    width: 21px;
-    height: 21px;
-    }
-    .score {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    padding: 10px 0;
-    align-items: center;
-    }
+        .discount {
+            width: 100%;
+            margin: auto;
+        }
 
-    .bill {
-    padding-left: 20px;
-    }
+        .topTitle a {
+            color: green;
+            padding: 10px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
 
-    .bill p {
-    font-size: 14px;
-    color: rgb(117, 117, 117);
-    }
-    /* storeModal */
-    .storeModalContent{
-    border: none;
-    }
-    .storeModalBody{
-    padding: 0;
-    }
-    .imgAndClose {
-    position: relative;
+        /* banner */
+        .banner {
+            width: 100%;
+            position: relative;
+        }
 
-    }
-    .imgAndClosePic{
-    width: 100%;
-    height: 200px;
-    }
-    .imgAndClosePic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
+        .carouselItem {
+            width: 100%;
+            height: 256px;
+        }
 
-    .imgAndClose .fa-times-circle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #fff;
-    }
+            .carouselItem img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-    .addGroup {
-    display: flex;
-    text-align: center;
-    }
-    .quantityAddWrap {
-    justify-content: center;
-    }
-    .selectedBgc {
-    background: rgb(246, 246, 246);
-    }
-    .addItemBgC {
-    padding: 10px 0;
-    }
+        .bannerTxtBtn {
+            position: relative;
+        }
 
-    .addItemBgC i {
-    padding: 0 15px;
-    }
+        .text {
+            position: absolute;
+            bottom: 0;
+            padding: 0 0 20px 27px;
+            color: white;
+        }
 
-    .addToCart {
-    text-align: center;
-    }
+            .text img {
+                width: 14px;
+                height: 14px;
+            }
 
-    .price {
-    text-align: right;
-    }
+            .text h1 {
+                font-size: 36px;
+                font-weight: bold;
+            }
 
-    .cardWrap input {
-    border: none;
-    padding: 24px;
-    }
-    .input{
-    width: 100%;
-    }
-    .cardWrap {
-    height: 500px;
+        .timeHeartBtn {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 20px 20px 0;
+        }
 
-    }
-    .billTxt {
-    background: rgb(246, 246, 246);
-    }
-    .billTxt p{
-    padding: 10px;
-    }
-    .scroll {
-    overflow: auto;
-    height: 500px;
-    display: block;
-    }
-    .addGroup {
-    display: flex;
-    }
+        .btn-oblong {
+            border-radius: 30px 30px 30px 30px;
+        }
 
-    .quantityAddWrap {
-    justify-content: space-between;
-    margin: auto;
-    }
-    .addToCartWrap button{
-    margin: 10px;
-    }
-    /* navbar */
-    .navMove{
-    position: sticky;
-    top: 40px;
-    z-index: 4;
-    }
-    .navbar a {
-    color: black;
-    padding: 0 10px;
-    text-decoration: none;
-    }
+        /* heart */
+        .heart .heartSolid {
+            display: none;
+        }
 
-    .navbar {
-    justify-content: start;
-    background-color: white;
-    border-bottom: 2px solid #E2E2E2;
-    z-index: 3;
-    width: 100%;
-    height: 78px;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+        .heart .heartSolid {
+            color: white;
+        }
 
-    }
-    /* 您專屬的推薦商品 */
-    :target{
-    content:'';
-    display: block;
-    padding-top: 122px;
-    margin-top: -122px;
-    }
-    .title {
-    margin-left: 0;
-    margin-right: 0;
-    }
-    .card img {
-    width: 88px;
-    height: 120px;
-    }
-    .card-body {
-    width: 50%;
-    }
-    .card {
-    margin: 10px 0;
-    }
+        .heart .heartEmpty {
+            color: white;
+        }
 
-    .card:hover {
-    border: 1px solid black;
-    }
-    .card .row,
-    .item-group {
-    margin-left: 0;
-    margin-right: 0;
-    }
+        .heart {
+            cursor: pointer;
+        }
 
-    .item-group {
-    cursor: pointer;
-    }
+        /* timeModal */
+        .timeModalContent {
+            border-radius: 0;
+        }
 
-    .title .txt {
-    font-size: 23px;
-    font-weight: bold;
-    }
+        .btnTimeClose {
+            padding: 5px;
+            position: absolute;
+            top: 0px;
+        }
 
-    /* 桌機 */
-    @@media screen and (min-width: 992px) {
-    .card img {
-    width: 88px;
-    height: 120px;
-    }
+        .modal-footer {
+            border-top: none;
+        }
 
-    .addGroup {
-    display: flex;
-    text-align: center;
-    }
+        .openTime {
+            font-size: 36px;
+            position: relative;
+        }
 
-    .quantityAddWrap {
-    justify-content: center;
-    }
-    .storeModalBody{
-    display: flex;
-    width: 100%;
-    }
-    .imgAndClose{
-    width: 50%;
-    }
-    .imgAndClosePic img{
-    height: 500px;
-    }
-    .cardWrap{
-    width: 50%;
-    }
-    }
+            .openTime span {
+                font-size: 16px;
+            }
+
+        /* 下拉選單modal */
+        .formSelect {
+            width: 100%;
+            padding: 12px 32px 12px 16px;
+            margin-bottom: 12px;
+            background-color: #F6F6F6;
+            border: none;
+        }
+
+        .selectTime button {
+            width: 100%;
+        }
+
+        /* 地址 */
+        .address {
+            padding: 0 27px;
+        }
+
+            .address a {
+                color: black;
+                text-decoration: underline;
+            }
+            .address p{
+                margin-top:1rem;
+                margin-bottom:0;
+            }
+
+        /* dataModal */
+        .dataModalHeader img {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dataModalHeader {
+            width: 200%;
+        }
+
+        .imgClose {
+            position: relative;
+            width: 100%;
+        }
+
+        .imgClosePic img {
+            display: block;
+            width: 50%;
+        }
+
+        .dataModalContent {
+            border: none;
+        }
+
+        .imgClose .fa-times-circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+        }
+
+        .line {
+            height: 2px;
+            border-bottom: 2px solid #e2e2e2;
+        }
+
+        .map {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .startTime {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .joinEats {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+            .joinEats span {
+                color: #545454;
+                font-size: 14px;
+            }
+
+        .ticket img {
+            width: 21px;
+            height: 21px;
+        }
+
+        .score {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .bill {
+            padding-left: 20px;
+        }
+
+            .bill p {
+                font-size: 14px;
+                color: rgb(117, 117, 117);
+            }
+
+        /* storeModal */
+        .storeModalContent {
+            border: none;
+        }
+
+        .storeModalBody {
+            padding: 0;
+        }
+
+        .imgAndClose {
+            position: relative;
+        }
+
+        .imgAndClosePic {
+            width: 100%;
+            height: 200px;
+        }
+
+            .imgAndClosePic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .imgAndClose .fa-times-circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+        }
+
+        .addGroup {
+            display: flex;
+            text-align: center;
+        }
+
+        .quantityAddWrap {
+            justify-content: center;
+        }
+
+        .selectedBgc {
+            background: rgb(246, 246, 246);
+        }
+
+        .addItemBgC {
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0) 2.5%, rgba(255, 255, 255, 0.92) 55.35%);
+        }
+
+            .addItemBgC i {
+                padding: 0 15px;
+            }
+
+        .addToCart {
+            text-align: center;
+        }
+
+        .price {
+            text-align: right;
+        }
+
+        .cardWrap input {
+            border: none;
+            padding: 24px;
+        }
+
+            .cardWrap input:focus-visible {
+                outline: none;
+            }
+
+        .input {
+            width: 100%;
+        }
+
+        .cardWrap {
+            height: 500px;
+            position: relative;
+        }
+
+        .billTxt {
+            background: rgb(246, 246, 246);
+            padding-bottom: 105px;
+        }
+
+            .billTxt p {
+                padding: 10px;
+            }
+
+        .scroll {
+            overflow-y: scroll;
+            height: 500px;
+            display: block;
+        }
+
+        .addGroup {
+            display: flex;
+        }
+
+        .quantityAddWrap {
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .addToCartWrap button {
+            margin: 10px;
+        }
+
+        .checkboxDiv label {
+            width: 100%;
+        }
+        .checkboxDiv label input{
+           margin-right:5px;
+        }
+
+        /* navbar */
+        .navMove {
+            position: sticky;
+            top: 112px;
+            z-index: 4;
+        }
+
+        .navbar a {
+            color: black;
+            padding: 0 10px;
+            text-decoration: none;
+        }
+
+        .navbar {
+            justify-content: start;
+            background-color: white;
+            border-bottom: 2px solid #E2E2E2;
+            z-index: 3;
+            width: 100%;
+            height: 78px;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            line-height:50px;
+        }
+
+        /* 您專屬的推薦商品 */
+        :target {
+            content: '';
+            display: block;
+            padding-top: 190px;
+            margin-top: -190px;
+        }
+
+        .title {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .card img {
+            width: 88px;
+            height: 120px;
+        }
+
+        .card-body {
+            width: 50%;
+        }
+
+        .card {
+            margin: 10px 0;
+        }
+
+            .card:hover {
+                border: 1px solid black;
+            }
+
+            .card .row,
+            .item-group {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+        .item-group {
+            cursor: pointer;
+        }
+
+        .title .txt {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        /* 桌機 */
+        @@media screen and (min-width: 992px) {
+            .card img {
+                width: 88px;
+                height: 120px;
+            }
+
+            .addGroup {
+                display: flex;
+                text-align: center;
+            }
+
+            .quantityAddWrap {
+                justify-content: center;
+                margin: auto 0;
+            }
+
+            .storeModalBody {
+                display: flex;
+                width: 100%;
+            }
+
+            .imgAndClose {
+                width: 50%;
+            }
+
+            .imgAndClosePic img {
+                height: 500px;
+            }
+
+            .cardWrap {
+                width: 50%;
+            }
+            .topTitle {
+                top: -1px;
+            }
+            .navMove {
+                position: sticky;
+                top: 39px;
+                z-index: 4;
+            }
+            :target {
+                content: '';
+                display: block;
+                padding-top: 122px;
+                margin-top: -122px;
+            }
+        }
     </style>
 }
 
@@ -834,7 +933,8 @@
             }
         }
         //下拉選單
-        $('.circleIcon').on('click', function () {
+        console.log($('.circleIcon'));
+        $('.circleIcon')[0].on('click', function () {
             if ($(".checkboxDiv").hasClass('d-flex')) {
                 $('.checkboxDiv').removeClass('d-flex');
                 $('.checkboxDiv').addClass('d-none')
@@ -851,5 +951,5 @@
             }
         });
     </script>
-    }
+}
 
