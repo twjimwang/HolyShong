@@ -13,5 +13,9 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult OrderDeliver()
+        {
+            return View();
+        }
     }
 }

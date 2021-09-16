@@ -272,10 +272,10 @@
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
+    <Content Include="Views\Order\OrderDeliver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
