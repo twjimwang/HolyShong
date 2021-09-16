@@ -380,7 +380,7 @@ footer {
     .cart,
     .status {
         margin: auto 0;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     .head {
@@ -448,7 +448,7 @@ footer {
             display: block;
             background-color: #EEEEEE;
             border-radius: 500px;
-            margin-left: 20px;
+            margin-left: 10px;
             cursor: pointer;
         }
 
