@@ -252,22 +252,18 @@
             display: block;
             max-width: 98%;
             width: 100%;
-            padding-right: 15px;
-            padding-left: 15px;
             margin-right: auto;
             margin-left: auto;
         }
-
-        .titleService {
+        .row{
+                margin-left: 0;
+                margin-right: 0;
+            }
+        .titleService{
             margin: 20px 0 20px 0;
         }
 
-        .p1 {
-            margin: 0 16px;
-            white-space: pre-wrap;
-        }
-
-        .Tag {
+        .Tag{
             line-height: 16px;
             display: inline-block;
             background-color: #05a357;
@@ -279,30 +275,24 @@
             left: 0;
             top: 10px;
         }
-
-        .headline {
+        .headline{
             position: relative;
         }
 
-        .cardCol {
+        .cardCol{
             margin-bottom: 30px;
             display: flex;
             position: relative;
-            padding-right: 15px;
-            padding-left: 15px;
         }
-
-        .touchZone {
+        .touchZone{
             position: absolute;
-            top: 0;
+            top:0;
             right: 0;
         }
-
-        .foodCard {
+        .foodCard{
             width: 100%;
         }
-
-        .favoriteHeart {
+        .favoriteHeart{
             display: flex;
             height: 28px;
             width: 50px;
@@ -312,46 +302,41 @@
             right: 0;
             top: 10px;
         }
-
-        .switchP {
+        .switchP{
             position: relative;
             display: flex;
             width: 20px;
             height: 20px;
             justify-content: center;
             align-items: center;
-        }
 
+        }
         .hSolid4hover {
             z-index: 2;
             position: absolute;
             color: rgb(177, 177, 177);
             display: none;
         }
-
         .hEmpty {
             position: absolute;
             color: rgb(253, 253, 253);
             display: none;
         }
 
-        .switchP:hover .hEmpty {
+        .switchP:hover .hEmpty{
             display: none;
         }
-
-        .switchP:hover .hSolid4hover {
+        .switchP:hover .hSolid4hover{
             z-index: 2;
             display: block;
         }
-
         .hSolid {
             z-index: 2;
             position: absolute;
             color: rgb(253, 253, 253);
             display: block;
         }
-
-        .shopNameandPoint {
+        .shopNameandPoint{
             display: flex;
             font-weight: 500;
             width: 100%;
@@ -361,8 +346,7 @@
             justify-content: space-between;
             color: black;
         }
-
-        .point {
+        .point{
             display: flex;
             height: 28px;
             width: 28px;
@@ -372,19 +356,45 @@
             justify-content: center;
             align-items: center;
         }
-
-        .shopName {
+        .shopName{
             font-size: 20px;
         }
 
-        .TWD {
+        .TWD{
             display: flex;
             color: black;
         }
-
-        .dotSpace {
+        .dotSpace{
             margin: 0 10px 0 10px;
         }
+        @@media screen and (max-width:992px) {
+            .favoriteHeart{
+            display: flex;
+            height: 28px;
+            width: 50px;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 0;
+            top: 10px;
+            }
+        }
+
+        @@media screen and (min-width:992px) {
+            .titleService{
+            margin: 20px 0 20px 0;
+            padding: 0 15px 0 15px;
+            }
+            .cardCol{
+            margin-bottom: 30px;
+            display: flex;
+            position: relative;
+            padding-right: 15px;
+            padding-left: 15px;
+            }
+
+        }
+
     </style>
     }
 
