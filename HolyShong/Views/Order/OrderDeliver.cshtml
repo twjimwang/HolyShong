@@ -17,25 +17,26 @@
                 </div>
                 <div class="item-progress">
                     <div class="progress my-3">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                             aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
                     </div>
                 </div>
                 <div class="item-info">
-                    <div class="pb-2">宗儒為您外送訂單餐點，訂單餐點送到您的門口時，您會收到通知</div>
+                    <div class="pb-2"> 宗儒為您外送訂單餐點，訂單餐點送到您的門口時，您會收到通知</div>
                 </div>
             </div>
             <div class="item">
                 <div id="map"></div>
             </div>
             <div class="item d-flex justify-content-between">
-                <h4 class="m-0">宗儒會騎摩托車前來</h4>
+                <h4 class="my-auto">宗儒會騎摩托車前來</h4>
                 <div>
                     <img src="https://picsum.photos/100/100/?random=1" class="rounded-circle">
                 </div>
             </div>
             <div class="item">
                 <h4>外送詳細資訊</h4>
-                <div>106台灣台北市大安區忠孝東路三段96號11樓之一</div>
+                <div class="mb-2">106台灣台北市大安區忠孝東路三段96號11樓之一</div>
                 <div>放在門口</div>
                 <div>備註：無接觸，放在門口</div>
             </div>
@@ -52,145 +53,147 @@
                 </div>
             </div>
             <div class="item invite d-flex">
-                <div>
+                <div class="my-auto">
                     <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/c51b2a12396d63d49b5272de6efa283d.svg">
                 </div>
                 <div class="flex-grow-1">
                     <div class="mb-2">只要您的好友嘗試使用HolyShong，您就能享有 $100折扣優惠</div>
-                    <button>邀請好友</button>
-                </div>
-            </div>
-            <div class="item invite d-flex">
-                <div>
-                    <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/c51b2a12396d63d49b5272de6efa283d.svg">
-                </div>
-                <div class="flex-grow-1">
-                    <div class="mb-2">只要您的好友嘗試使用HolyShong，您就能享有 $100折扣優惠</div>
-                    <button>邀請好友</button>
-                </div>
-            </div>
-            <div class="item invite d-flex">
-                <div>
-                    <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/c51b2a12396d63d49b5272de6efa283d.svg">
-                </div>
-                <div class="flex-grow-1">
-                    <div class="mb-2">只要您的好友嘗試使用HolyShong，您就能享有 $100折扣優惠</div>
-                    <button>邀請好友</button>
-                </div>
-            </div>
-            <div class="item invite d-flex">
-                <div>
-                    <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/c51b2a12396d63d49b5272de6efa283d.svg">
-                </div>
-                <div class="flex-grow-1">
-                    <div class="mb-2">只要您的好友嘗試使用HolyShong，您就能享有 $100折扣優惠</div>
-                    <button>邀請好友</button>
+                    <button>邀請好友<i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
-        <div class="box d-none d-lg-block"></div>
     </div>
 </main>
 
 @section topCSS{
     <style>
-
-        #map{
+        #map {
             height: 250px;
         }
-        .info{
-            margin:auto;
+
+        .info {
+            width: 100%;
+            margin: auto;
             background-color: #fff;
         }
+
             .info .item {
+                position: relative;
+                z-index: 50;
                 padding: 24px 16px;
                 border-bottom: 5px solid #EEEEEE;
+                background-color: #ffffff;
             }
+
                 .info .item:first-of-type {
                     position: sticky;
                     top: 0;
                     background-color: #fff;
-                    z-index: 50;
+                    z-index: 60;
                     border-bottom: 1px solid #EEEEEE;
                     padding: 15px 16px;
                 }
+
                 .info .item:last-of-type {
                     border-bottom: none;
                 }
+
                 .info .item:nth-of-type(3) {
                     padding: 0;
                     border-bottom: 0;
                 }
-        .time{
+
+        .time {
             position: sticky;
             top: 20px;
         }
-        .flex-grow-1{
+
+        .flex-grow-1 {
             flex-grow: 1;
             text-align: center;
         }
-        .info .item img{
+
+        .info .item img {
             width: 100px;
         }
-        .info .invite img{
-            width: 120px;
+
+        .info .invite img {
+            width: 100px;
         }
-        h4:first-of-type{
+
+        h4:first-of-type {
             vertical-align: middle;
         }
+
+        .invite button {
+            background-color: #EEEEEE;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 30px;
+        }
+        footer{
+            margin-top: 0;
+        }
         @@media screen and (min-width:992px) {
-            #map{
+            #map {
                 height: 100vh;
             }
-            main{
-                position:relative;
+
+            main {
+                position: relative;
                 padding: 0 56px 0 80px;
             }
-            .info{
+
+            .info {
                 width: 470px;
-                height: calc(100Vh - 100px);
-                margin: 50px 0;
+                height: calc(100Vh - 200px);
+                margin: 100px 0;
                 overflow-y: scroll;
                 box-shadow: 0 0 5px #CCC;
             }
+
                 .info .item:nth-of-type(3) {
                     position: absolute;
                     top: 0;
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    z-index: -1;
+                    z-index: 10;
                 }
-            .flex-grow-1{
+
+            .flex-grow-1 {
                 flex-grow: 1;
                 text-align: left;
                 padding-left: 10px;
-            }
-            .box{
-                width: calc( 100% - 470px);
-                z-index: -1;
             }
         }
     </style>
 }
 
 @section endJS{
+    <!-- GOOGLE MAP API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrccfSxlJhu9aNlFPl-JTsnRpvFoVUEs0&callback=initMap&libraries=&v=weekly"
             async></script>
     <script>
         var map;
         function initMap() {
-        //載入路線福武與路線顯示圖層
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
+            //載入路線福武與路線顯示圖層
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
 
-        //初始化地圖
-        map = new google.maps.Map(document.getElementById('map'),{
-            center:{lat:25.03416068163684, lng:121.56454962636319},
-            zoom: 12
-        })
-        //引用圖資
-        directionsDisplay.setMap(map);
+            //初始化地圖
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 25.03416068163684, lng: 121.56454962636319 },
+                zoom: 12,
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false
+            })
+            //引用圖資
+            directionsDisplay.setMap(map);
         }
 
     </script>
