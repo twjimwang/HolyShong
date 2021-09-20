@@ -66,7 +66,7 @@
 @section topCSS
 {
     <style>
-        .container{
+        section.container{
             max-width: 1100px;
         }
         .discount,
@@ -77,10 +77,11 @@
         p {
             font-size: 14px;
         }
-        img{
-            width: 100%;
+        .banner{
+            padding-top:20px;
         }
         .banner .item-txt.container{
+            max-width:1100px;
             margin: 20px;
             padding: 0;
             width: calc(100% - 40px);
@@ -89,17 +90,18 @@
             font-size: 18px;
             padding: 10px 0;
         }
-        .banner .item-txt button{
-            background-color: #000;
-            color: #fff;
-            position: fixed;
-            width: calc(100% - 20px);
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            padding: 15px;
-            z-index: 10;
-        }
+            .banner .item-txt button {
+                background-color: #000;
+                color: #fff;
+                position: fixed;
+                width: calc(100% - 20px);
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                padding: 15px;
+                z-index: 10;
+                border: 1px solid #fff;
+            }
         .banner .item-txt button:hover{
             background-color: rgb(26, 26, 26);
         }
@@ -132,12 +134,16 @@
             border-top: 1px solid #ccc;
             padding-top: 10px;
         }
+        footer {
+            padding: 60px 0 100px;
+        }
         @@media screen and (min-width:992px) {
             h2{
                 font-size: 44px;
                 margin-bottom: 20px;
             }
             .banner{
+                padding-top:0;
                 position: relative;
             }
             .banner .item-img{
@@ -152,11 +158,12 @@
                 top: 30%;
                 font-weight: bold;
                 width: 100%;
+                padding: 0 30px;
             }
             .container{
                 margin:auto;
             }
-            .banner .item-txt button{
+            .banner .item-txt button {
                 position: unset;
                 background-color: #EEEEEE;
                 color: #000;
@@ -164,6 +171,7 @@
                 display: block;
                 margin-top: 20px;
                 border-radius: 200px;
+                border: none;
             }
             .banner .item-txt button:hover{
                 background-color: #CCC;
@@ -190,7 +198,6 @@
             }
             .discount .item .item-txt{
                 margin-top: 20px;
-
             }
         }
     </style>
