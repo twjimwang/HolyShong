@@ -1,7 +1,9 @@
-﻿
+﻿@model  OrderDeliverVM
 @{
     ViewBag.Title = "OrderDeliver";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
 <main>
@@ -21,14 +23,14 @@
                     </div>
                 </div>
                 <div class="item-info">
-                    <div class="pb-2">宗儒為您外送訂單餐點，訂單餐點送到您的門口時，您會收到通知</div>
+                    <div class="pb-2">為您外送訂單餐點，訂單餐點送到您的門口時，您會收到通知</div>
                 </div>
             </div>
             <div class="item">
                 <div id="map"></div>
             </div>
             <div class="item d-flex justify-content-between">
-                <h4 class="m-0">宗儒會騎摩托車前來</h4>
+                <h4 class="m-0"> @Model.DeliverName 會騎摩托車前來</h4>
                 <div>
                     <img src="https://picsum.photos/100/100/?random=1" class="rounded-circle">
                 </div>
