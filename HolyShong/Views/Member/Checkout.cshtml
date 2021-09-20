@@ -176,10 +176,10 @@
                     </div>
                     <div>
                         <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
-                            <span>荔枝冰凍茶飲</span><br>
+                            <span>@ViewBag.xtest.ProductName</span><br>
                             <span>
-                                甜度選擇 Sweewness Level<br>
-                                無糖 Sugar-Free($9.00)<br>
+                                @ViewBag.xtest.ProductOption<br>
+                                @ViewBag.xtest.ProductOptionDetail<br>
                                 仙草凍 Herb Jelly
                             </span>
                         </button>
@@ -192,8 +192,9 @@
                 </div>
             </div>
             <div class="otherItems my-3">
-                <label class="w-100" for="checkbox"><div>索取餐具、吸管等用品</div></label>
-                <input class="" id="checkbox" type="checkbox" style="zoom:180%">
+                <label class="w-100" for="checkbox" ><div>索取餐具、吸管等用品</div></label>
+
+<input class="" id="checkbox" type="checkbox" style="zoom:180%">
             </div>
             <div class="plasticBag my-3">
                 <label class="w-100" for="checkbox2"><div>索取袋子</div></label>
@@ -340,7 +341,6 @@
 
 
     <style>
-
 
 
         body {
@@ -511,7 +511,8 @@
             display: flex;
             font-size: 18px;
         }
-          .finallyOrder:hover {
+
+            .finallyOrder:hover {
                 background-color: #FFC20E;
             }
 

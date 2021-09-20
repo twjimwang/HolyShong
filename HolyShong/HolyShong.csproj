@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,11 +192,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HolyShongModels\Cart.cs" />
+    <Compile Include="HolyShongModels\HolyShongContext.cs" />
+    <Compile Include="HolyShongModels\Item.cs" />
+    <Compile Include="HolyShongModels\ItemDetail.cs" />
+    <Compile Include="HolyShongModels\ProductOption.cs" />
+    <Compile Include="HolyShongModels\ProductOptionDetail.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Repositories\ProductOptionDetailRepository.cs" />
+    <Compile Include="Repositories\ProductOptionRepository.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\ItemDetailRepository.cs" />
+    <Compile Include="Repositories\ItemRepository.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
