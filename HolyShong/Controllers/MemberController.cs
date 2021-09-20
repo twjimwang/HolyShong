@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HolyShong.Services;
 
 namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
+        public ProfileService _memberProfileVM;
+        public MemberController()
+        {
+            _memberProfileVM = new ProfileService();
+        }
         // GET: Member
         public ActionResult Index()
         {
@@ -32,12 +38,15 @@ namespace HolyShong.Controllers
         }
         public ActionResult Profile()
         {
-            return View();
+            var memberProfileVM = _memberProfileVM.GetMemberProfileData().First();
+            return View(memberProfileVM);
         }
 
         public ActionResult ForgotPassword()
         {
             return View();
         }
+
+
     }
 }

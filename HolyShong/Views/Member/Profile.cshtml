@@ -1,18 +1,20 @@
-﻿<div class="personalGroup container">
+﻿@model MemberProfileViewModel
+
+<div class="personalGroup container">
     <div class="personalInfo">
         <h2>會員資料修改</h2>
         <div class="name">
-            <label for="text">中文全名</label>
-            <input type="text" id="text">
+            <label for="text">姓名</label>
+            <input type="text" id="text" value="@Model.FullName">
         </div>
         <div class="phone">
             <label for="tel">電話</label>
-            <input type="tel" id="tel">
+            <input type="tel" id="tel" value="@Model.Cellphone">
         </div>
         <div class="address">
             <div class="addressTxt">聯絡地址</div>
             <select name="縣市" id="">
-                <option value>請選擇郵遞區號</option>
+                <option value>@Model.Zipcode</option>
                 <option value="100 台北市 中正區">100 台北市 中正區</option>
                 <option value="103 台北市 大同區">103 台北市 大同區</option>
                 <option value="104 台北市 中山區">104 台北市 中山區</option>
@@ -404,7 +406,7 @@
         </div>
         <div class="email">
             <div class="emailTxt">電子郵件</div>
-            <div class="emailInfo">sherly800320@gmail.com</div>
+            <div class="emailInfo">@Model.Email</div>
         </div>
 
         <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
