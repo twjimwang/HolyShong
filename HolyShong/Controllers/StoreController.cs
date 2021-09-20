@@ -17,6 +17,10 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult Marketing()
+        {
+            return View();
+        }
         public ActionResult favorite()
         {
             return View();
