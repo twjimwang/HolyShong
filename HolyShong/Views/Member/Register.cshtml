@@ -1,0 +1,183 @@
+﻿<main>
+    <div class="core">
+        <div class="combined">
+            <!-- 區段 下-->
+            <div class="bottom">
+                <div>
+                    <h4 class="title">開始註冊</h4>
+                    <div class="colInfo">
+                        <div class="phText">請輸入您的手機號碼(必填)</div>
+                        <div class="inputPhonenumber">
+                            <input type="text" class="form-control phNum" id="phoneNum"></input>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputLastname4">名字(必填)</label>
+                                <input type="text" class="form-control" id="inputFirstname">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputFirstname4">姓氏(必填)</label>
+                                <input type="text" class="form-control" id="inputLastname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail4">信箱(必填)</label>
+                            <input type="text" class="form-control" id="inputEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword4">密碼(必填)</label>
+                            <input type="password" class="form-control" id="inputPassword" type="text"
+                                   placeholder="密碼">
+                            <div class="fa-stack fa-1x eye" id="tArea">
+                                <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
+                                <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-lg btn-secondary" id="nextStep" disabled>下一步</button>
+                    </div>
+                    <div class="signText">
+                        Already use Holy Shong?
+                        <a href="#" class="greenLink">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section topCSS
+    {
+    <style>
+        .bottom {
+            margin: auto;
+            max-width: 552px;
+            min-width: 289px;
+        }
+
+        h4 {
+            margin: 18px auto;
+        }
+
+        .colInfo {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .phText {
+            max-width: 552px;
+            min-width: 289px;
+            margin-bottom: 8px;
+        }
+
+        .inputPhonenumber {
+            margin-bottom: 12px;
+            display: flex;
+            max-width: 552px;
+            min-width: 289px;
+            justify-content: center;
+        }
+
+        .inputName {
+            display: flex;
+        }
+
+        .form-control {
+            margin: 0;
+            max-width: 75%;
+            min-width: 100%
+        }
+
+        .sel {
+            width: none;
+        }
+
+        button {
+            margin-top: 24px;
+        }
+
+        .signText {
+            margin: 24px auto;
+            text-align: center;
+        }
+
+        a {
+            color: rgb(255, 253, 253);
+        }
+
+        .btn {
+            background-color: rgb(255, 205, 0);
+        }
+
+            .btn:hover:enabled {
+                background-color: #FFC20E;
+            }
+
+        .greenLink {
+            color: rgb(49, 75, 88);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .eye {
+            position: absolute;
+            top: 35px;
+            right: 0px;
+        }
+
+        @@media screen and (max-width:992px) {
+            .bottom {
+                margin: auto;
+                max-width: 289px;
+                min-width: 289px;
+            }
+        }
+    </style>
+}
+
+@section endJS
+    {
+    <Script>
+        const phoneElement = document.getElementById("phoneNum");
+        const fnameElement = document.getElementById("inputFirstname");
+        const lnameElement = document.getElementById("inputLastname");
+        const emailElement = document.getElementById("inputEmail");
+        const passElement = document.getElementById("inputPassword");
+
+        const inputElements = [phoneElement, fnameElement, lnameElement, emailElement, passElement]
+
+        for (let i = 0; i < inputElements.length; i++) {
+            inputElements[i].addEventListener("change", function (event) {
+                if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "") {
+                    document.getElementById("nextStep").disabled = false;
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning")
+
+                }
+                else {
+                    document.getElementById("nextStep").disabled = true;
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-secondary")
+                }
+            });
+        }
+    </Script>
+    <script>
+        //eye jQuery
+        $('.eye').on('click', function () {
+            if ($('.eyeOpen').hasClass("fa-eye")) {
+                //如果eyeOpen有fa-eye(show)這個屬性
+                $('.eyeOpen').removeClass("fa-eye")//就去掉
+                $('.eyeOpen').addClass("fa-eye-slash")//改加fa-eye-slash(hide)
+                $('#inputPassword').attr('type', 'password')
+                //把input type屬性text改password
+            } else {
+                $('.eyeOpen').addClass("fa-eye")
+                $('.eyeOpen').removeClass("fa-eye-slash")
+                $('#inputPassword').attr('type', 'text')
+            }
+        })
+    </script>
+}
