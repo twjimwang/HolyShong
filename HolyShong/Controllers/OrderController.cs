@@ -8,6 +8,7 @@ using HolyShong.ViewModels;
 
 namespace HolyShong.Controllers
 {
+
     public class OrderController : Controller
     {
         public OrderService _service;
@@ -22,9 +23,9 @@ namespace HolyShong.Controllers
         }
         public ActionResult OrderDeliver()
         {
-            List<OrderDeliverVM> odlist = _service.GetOrderVM();
+            var odlist = _service.GetOrderVM().FirstOrDefault();
 
-            return View(odlist.First());
+            return View(odlist);
         }
     }
 }

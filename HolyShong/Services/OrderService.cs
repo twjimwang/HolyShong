@@ -29,6 +29,27 @@ namespace HolyShong.Services
             List<Product> products = _repo.GetProduct();
             List<ProductCategory> productCategories = _repo.GetProductCategory();
 
+
+            //DM -> VM
+            var productVM = from o in orders
+                       join od in orderDetails
+                       on o.OrderId equals od.OrderId
+                       join s in stores
+                       on o.StoreId equals s.StoreId
+                       join pc in productCategories
+                       on s.StoreId equals pc.StoreId
+                       join p in products
+                       on pc.ProductCategoryId equals p.ProductCategoryId
+                       where o.OrderId == 1
+                       select new OrderProductVM
+                       {
+                            ProductName = p.Name,
+                            ProductQuantity = od.Quantity,
+                            ProductUnitPrice = od.UnitPrice
+                       };
+            var productVMList = productVM.ToList();
+
+            //DM -> VM
             var odVM = from o in orders
                        join d in delivers
                        on o.DeliverId equals d.DeliverId
@@ -49,13 +70,11 @@ namespace HolyShong.Services
                            DeliverName = m.FirstName + m.LastName,
                            Address = o.DeliveryAddress,
                            Notes = o.Notes,
+                           OrderProduct = productVMList,
                            StoreName = s.Name,
-                           ProductName = p.Name,
-                           ProductQuantity = od.Quantity,
-                           ProductUnitPrice = od.UnitPrice,
-                           TotalPrice = od.Quantity * od.UnitPrice
                        };
-            //產品動態產生儲存方式
+
+            //產品動態產生儲存方式            
 
             return odVM.ToList();
 

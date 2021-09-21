@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "OrderDeliver";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var orderPrice = 0;
 }
 
 <main>
@@ -43,10 +44,21 @@
             <div class="item">
                 <h4 class="m-0">訂單摘要</h4>
                 <div>訂購餐廳：@Model.StoreName</div>
-                <div class="d-flex my-3">
-                    <div class="border px-2 mr-3">@Model.ProductQuantity</div>
-                    <div>@Model.ProductName</div>
-                </div>
+                @*<div class="d-flex my-3">
+                    <div class="border px-2 mr-3"> productQuantity </div>
+                    <div> product </div>
+                </div>*@
+
+                @foreach (var item in Model.OrderProduct)
+                {
+                    <div class="d-flex my-3">
+                        <div class="border px-2 mr-3"> @item.ProductQuantity </div>
+                        <div> @item.ProductName </div>
+                    </div>
+
+                    //@orderPrice += item.ProductQuantity * item.ProductUnitPrice;
+                }
+
                 <div class="d-flex justify-content-between">
                     <div>總計</div>
                     <div class="font-weight-bold">$ @Model.TotalPrice TWD</div>
