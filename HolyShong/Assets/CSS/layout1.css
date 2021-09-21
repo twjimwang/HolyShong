@@ -130,6 +130,7 @@
 .cartList {
     opacity: 0;
     display: none;
+    max-width:none;
 }
 
 .status .login {
