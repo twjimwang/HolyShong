@@ -380,7 +380,7 @@ footer {
     .cart,
     .status {
         margin: auto 0;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     .head {
@@ -446,10 +446,9 @@ footer {
 
         .status .login {
             display: block;
-            padding: 15px 30px;
             background-color: #EEEEEE;
             border-radius: 500px;
-            margin-left: 20px;
+            margin-left: 10px;
             cursor: pointer;
         }
 
@@ -717,5 +716,10 @@ footer {
 
     .cardWrap {
         width: 50%;
+    }
+}
+@media screen and (min-width:1024px) {
+    .status .login {
+        padding: 15px 25px;
     }
 }
