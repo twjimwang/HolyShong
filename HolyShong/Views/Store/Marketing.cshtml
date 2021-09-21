@@ -166,10 +166,15 @@
 @section topCSS
     {
     <style>
+        main{
+            max-width:1920px;
+            margin:auto;
+        }
         .pic {
             width: 100%;
         }
-        .dark{
+
+        .dark {
             position: absolute;
             background-color: rgba(24, 24, 24, 0.788);
             top: 0;
@@ -181,21 +186,26 @@
             flex-direction: column;
             display: none;
         }
+
         .unitContainer {
             display: block;
             max-width: 98%;
             width: 100%;
             margin-right: auto;
             margin-left: auto;
+            padding: 0 30px;
         }
-        .row{
-                margin-left: 0;
-                margin-right: 0;
-            }
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
         .p1 {
             margin: 0 16px;
             white-space: pre-wrap;
         }
+
         .Tag {
             line-height: 16px;
             display: inline-block;
@@ -208,22 +218,27 @@
             left: 0;
             top: 10px;
         }
+
         .headline {
             position: relative;
         }
+
         .cardCol {
             margin-bottom: 30px;
             display: flex;
             position: relative;
         }
+
         .touchZone {
             position: absolute;
             top: 0;
             right: 0;
         }
+
         .foodCard {
             width: 100%;
         }
+
         .favoriteHeart {
             display: flex;
             height: 28px;
@@ -234,6 +249,7 @@
             right: 0;
             top: 10px;
         }
+
         .switchP {
             position: relative;
             display: flex;
@@ -242,29 +258,35 @@
             justify-content: center;
             align-items: center;
         }
+
         .hSolid4hover {
             z-index: 2;
             position: absolute;
             color: rgb(177, 177, 177);
             display: none;
         }
+
         .hEmpty {
             position: absolute;
             color: rgb(253, 253, 253);
         }
+
         .switchP:hover .hEmpty {
             display: none;
         }
+
         .switchP:hover .hSolid4hover {
             z-index: 2;
             display: block;
         }
+
         .hSolid {
             z-index: 2;
             position: absolute;
             color: rgb(253, 253, 253);
             display: none;
         }
+
         .shopNameandPoint {
             display: flex;
             font-weight: 500;
@@ -275,6 +297,7 @@
             justify-content: space-between;
             color: black;
         }
+
         .point {
             display: flex;
             height: 28px;
@@ -285,50 +308,53 @@
             justify-content: center;
             align-items: center;
         }
+
         .shopName {
             font-size: 20px;
         }
+
         .TWD {
             display: flex;
             color: black;
         }
+
         .dotSpace {
             margin: 0 10px 0 10px;
         }
+
         @@media screen and (max-width:992px) {
-            .favoriteHeart{
-            display: flex;
-            height: 28px;
-            width: 50px;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            right: 0;
-            top: 10px;
+            .favoriteHeart {
+                display: flex;
+                height: 28px;
+                width: 50px;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                right: 0;
+                top: 10px;
             }
         }
 
         @@media screen and (min-width:992px) {
-            .titleService{
-            margin: 20px 0 20px 0;
-            padding: 0 15px 0 15px;
-            }
-            .cardCol{
-            margin-bottom: 30px;
-            display: flex;
-            position: relative;
-            padding-right: 15px;
-            padding-left: 15px;
+            .titleService {
+                margin: 20px 0 20px 0;
+                padding: 0 15px 0 15px;
             }
 
+            .cardCol {
+                margin-bottom: 30px;
+                display: flex;
+                position: relative;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
         }
     </style>
-    }
+}
 
 @section endJS
     {
-    <Script>
-        function clickChangeC() {
+    <Script>function clickChangeC() {
 
             let solid = event.path[1].childNodes[7];
             let empty = event.path[1].childNodes[3];
@@ -342,6 +368,6 @@
                 solid.style.display = "block"
                 empty.style.display = "none"
             }
-        };
-    </Script>
-    }
+        };</Script>
+}
+

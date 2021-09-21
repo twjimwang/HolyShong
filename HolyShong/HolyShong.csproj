@@ -235,7 +235,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Store\_StoreCard.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -266,22 +265,18 @@
     <Content Include="Views\Member\Eatpass.cshtml" />
     <Content Include="Views\Member\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
-    <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Deliver\Home.cshtml" />
     <Content Include="Views\Member\Profile.cshtml" />
-    <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Order\OrderDeliver.cshtml" />
-    <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Store\_StoreCardPartial.cshtml" />
-    <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Member\Favorite.cshtml" />
+    <Content Include="Views\Store\Marketing.cshtml" />
+    <Content Include="Views\Store\Restaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Images\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
