@@ -260,8 +260,8 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
-    <Content Include="Views\Store\favorite.cshtml" />
-    <Content Include="Views\Store\_store.cshtml" />
+    <Content Include="Views\Store\Favorite.cshtml" />
+    <Content Include="Views\Store\_StoreCardPartial.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
   </ItemGroup>
   <ItemGroup>

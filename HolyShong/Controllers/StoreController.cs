@@ -21,7 +21,7 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult favorite()
+        public ActionResult Favorite()
         {
             return View();
         }
