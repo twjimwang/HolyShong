@@ -239,7 +239,7 @@
             <div class="navbar">
                 @foreach (var ProductCategory in Model.PcgName)
                 {
-                    <a href="#titleOne">@ProductCategory.Name</a>
+                    <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
                                
                     }
                 @*<a href="#titleOne">您專屬的推薦商品</a>
@@ -255,7 +255,7 @@
     <!-- 您專屬的推薦商品 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleOne">您專屬的推薦商品</div>
+            <div class="txt" id="title_1">您專屬的推薦商品</div>
         </div>
     </div>
     <div class="itemGroup row d-flex ">
@@ -268,7 +268,7 @@
                              alt="...">
                     </div>
                     <div class="card-body">
-                        <p class="card-text">@Product.Name<br>@Product.Description</p>@Product.UnitPrice
+                        <p class="card-text">@Product.Name<br>@Product.Description</p>$@Product.UnitPrice
                     </div>
                 </div>
             </div>
@@ -344,7 +344,7 @@
     <!-- 人氣精選 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleTwo">人氣精選</div>
+            <div class="txt" id="title_2">人氣精選</div>
         </div>
     </div>
     <div class="item-group row d-flex">
@@ -384,7 +384,7 @@
     <!-- 主食 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleThree">主食</div>
+            <div class="txt" id="title_3">主食</div>
         </div>
     </div>
     <div class="item-group row d-flex">
@@ -416,7 +416,7 @@
     <!-- 單點 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleFour">單點</div>
+            <div class="txt" id="title_4">單點</div>
         </div>
     </div>
     <div class="item-group row d-flex">
