@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Services;
@@ -36,9 +37,14 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult Profile()
+        public ActionResult Profile(int? id)
         {
-            var memberProfileVM = _memberProfileVM.GetMemberProfileData().First();
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var memberProfileVM = _memberProfileVM.GetMemberProfileData(id).First();
             return View(memberProfileVM);
         }
 

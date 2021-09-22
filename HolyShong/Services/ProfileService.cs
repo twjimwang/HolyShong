@@ -17,7 +17,7 @@ namespace HolyShong.Services
             _holyShongRepository = new HolyShongRepository();
         }
 
-        public List<MemberProfileViewModel> GetMemberProfileData()
+        public List<MemberProfileViewModel> GetMemberProfileData(int? id)
         {
             List<Member> members = _holyShongRepository.GetMembers();
             List<Address> addresses = _holyShongRepository.GetAddresses();
@@ -29,6 +29,7 @@ namespace HolyShong.Services
                 on m.MemberId equals a.MemberId
                 join r in ranks
                 on m.MemberId equals r.MemberId
+                where m.MemberId == id
                 select new MemberProfileViewModel
                 {
                     MemberId = m.MemberId,
