@@ -1,8 +1,12 @@
-﻿
+﻿@{ 
+    ViewBag.xtest = ViewBag.xtest;
+}
+
+
 <div class="container-fluid container-sm ">
     <div class="row align-items-start">
         <div class="col-lg-6 col-sm-12 left">
-            <h1 class="my-3">五桐號 WooTEA 忠孝復興店</h1>
+            <h1 class="my-3">@ViewBag.xtest.StoreName</h1>
             <div class="mapDiv">
                 <div id=map class="mb-3">
                     map
@@ -15,7 +19,7 @@
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="mx-3 flex-grow-1">
-                    <span>Build School忠孝東路三段96號11樓之1</span><br>
+                    <span> @ViewBag.xtest.Address</span><br>
                     <span>台北市大安區</span>
                 </div>
                 <div>
@@ -42,7 +46,7 @@
                                 <div class="d-flex justify-content-between my-3">
                                     <div>
                                         <i class="fas fa-map-marker-alt p-3"></i>
-                                        <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
+                                        <p class="d-inline m-0">@ViewBag.xtest.Address</p>
                                     </div>
                                     <div>
                                         <i class="fas fa-pencil-alt p-3"></i>
@@ -187,7 +191,7 @@
                 </div>
                 <div>
                     <div id="price">
-                        $99元
+                        @ViewBag.xtest.Price
                     </div>
                 </div>
             </div>
@@ -219,7 +223,7 @@
                     <ul class="border-bottom">
                         <li class="d-flex ">
                             <div>小計</div>
-                            <span>$99.00</span>
+                            <span>@ViewBag.xtest.Price</span>
                         </li>
                         <li class="d-flex">
                             <div>折扣</div>
@@ -236,7 +240,7 @@
                     </ul>
                     <div class="total d-flex" id="totalPrice">
                         <div>總計</div>
-                        <div>$99.00</div>
+                        <div>@ViewBag.xtest.Price</div>
                     </div>
                 </div>
             </div>

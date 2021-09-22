@@ -28,6 +28,10 @@ namespace HolyShong.HolyShongModels
 
         public int? DiscountMemberId { get; set; }
 
+        public virtual Member Member { get; set; }
+
+        public virtual Store Store { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Item { get; set; }
     }

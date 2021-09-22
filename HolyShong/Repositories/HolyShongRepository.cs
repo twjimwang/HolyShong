@@ -39,6 +39,20 @@ namespace HolyShong.Repositories
             return _ctx.ProductOptionDetail.ToList();
         }
 
+        public List<Store> GetStores()
+        {
+           return _ctx.Store.ToList();
+        }
+
+        public List<Product> GetProducts()
+        {
+            return _ctx.Product.ToList();
+        }
+        public List<Address> GetAddresses()
+        {
+            return _ctx.Address.ToList();
+        }
+
 
 
     }

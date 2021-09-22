@@ -23,7 +23,9 @@ namespace HolyShong.Services
             List<ItemDetail> itemDetails = _holyShongRepository.GetItemDetail();
             List<ProductOption> productOptions = _holyShongRepository.GetProductOptions();
             List<ProductOptionDetail> productOptionDetails = _holyShongRepository.GetProductOptionDetails();
-
+            List<Store> stores = _holyShongRepository.GetStores();
+            List<Product> products = _holyShongRepository.GetProducts();
+            List<Address> addresses = _holyShongRepository.GetAddresses();
             var CartTest =
                 from c in carts
                 join i in items
@@ -34,19 +36,26 @@ namespace HolyShong.Services
                 on itemD.ProductOptionDetailId equals po.ProductOptionDetailId
                 join p in productOptions
                 on po.ProductOptionId equals p.ProductOptionId
-
+                join s in stores
+                on c.StroreId equals s.StoreId
+                join pr in products
+                on p.ProductId equals pr.ProductId
+                join a in addresses
+                on c.MemberId equals a.MemberId
                 select new CartViewModel
-                {
-                    ProductName = c.CartId.ToString(),
-                    ProductOption = po.ProductOptionId.ToString(),
-                    ProductOptionDetail = itemD.ProductOptionDetailId.ToString(),
+                {   
+                    StoreName = s.Name.ToString(),
+                    ProductName = pr.Name.ToString(),
+                    ProductOption = p.Name.ToString(),
+                    ProductOptionDetail = po.Name.ToString(),
+                    Price = pr.UnitPrice,
+                    Address = a.Address1.ToString(),
                     IsTableWares = c.IsTablewares,
                     IsBag = c.IsBag
-
                 };
 
 
-            return (List<CartViewModel>)CartTest.ToList();
+            return (List<CartViewModel>) CartTest.ToList();
         }
 
 

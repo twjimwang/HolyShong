@@ -6,29 +6,37 @@ namespace HolyShong.HolyShongModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ProductOption")]
-    public partial class ProductOption
+    [Table("ProductCategory")]
+    public partial class ProductCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductOption()
+        public ProductCategory()
         {
-            ProductOptionDetail = new HashSet<ProductOptionDetail>();
+            Product = new HashSet<Product>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductOptionId { get; set; }
+        public int ProductCategoryId { get; set; }
 
-        public int ProductId { get; set; }
+        public int StoreId { get; set; }
+
+        public int Sort { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
-        public bool IsNecessary { get; set; }
+        public bool IsEnable { get; set; }
 
-        public virtual Product Product { get; set; }
+        public bool IsDelete { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string SupplyTime { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOptionDetail> ProductOptionDetail { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
+
+        public virtual Store Store { get; set; }
     }
 }

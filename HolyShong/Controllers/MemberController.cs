@@ -21,7 +21,9 @@ namespace HolyShong.Controllers
         // GET: Member
         public ActionResult Index()
         {
-            return View();
+            ViewBag.xtest = _cartService.GetCartViewModels().First();
+            return View(ViewBag.xtest);
+            //return View();
         }
 
         public ActionResult Login()
@@ -33,7 +35,7 @@ namespace HolyShong.Controllers
         public ActionResult Checkout()
         {
             ViewBag.xtest = _cartService.GetCartViewModels().First();
-            return View(ViewBag.xtest);
+            return View();
         }
 
         //public ActionResult CheckoutTest()

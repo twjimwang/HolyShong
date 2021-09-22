@@ -26,6 +26,8 @@ namespace HolyShong.HolyShongModels
 
         public virtual Cart Cart { get; set; }
 
+        public virtual Product Product { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemDetail> ItemDetail { get; set; }
     }

@@ -11,8 +11,11 @@ namespace HolyShong.ViewModels
         public string ProductName { get; set; } 
         public string ProductOption { get; set; }
         public string ProductOptionDetail { get; set; }
+        public decimal Price { get; set; }
         public bool IsTableWares { get; set; }
         public bool IsBag { get; set; }
+        public string Address { get; set; }
+
 
     }
 }
