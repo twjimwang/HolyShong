@@ -28,7 +28,18 @@ namespace HolyShong.Controllers
             var Products = _ctx.Products.ToList();
             var Score = _ctx.Scores.ToList();
             var StoreCategory = _ctx.StoreCategory.ToList();
+            var Product =
+                 from s in Store
+                 join pc in ProductCategory on s.StoreId equals pc.StoreId
+                 join p in Products on pc.ProductCategoryID equals p.ProductCategoryId
+                 where s.StoreId == 2 && pc.ProductCategoryID == 1
+                 select new Product
+                 {
+                     Name = p.Name,
+                     Img = p.Img,
+                     UnitPrice = p.UnitPrice
 
+                 };
 
             var RestaurantVM =
                           from s in Store
@@ -48,12 +59,12 @@ namespace HolyShong.Controllers
                               StoreName = s.Name,
                               StorePicture = s.Picture,
                               StoreAddress = s.Address,
-                              Products = Products, //整筆資料
+                              Products = Product.ToList(), //整筆資料
                               Score1=sc.Score1,
-                              StoreCategoryName=stc.Name,
-                              
-
-                          };              
+                              StoreCategoryName=stc.Name,                   
+                              PcgName=ProductCategory
+                          };
+         
 
             return View(RestaurantVM.First());
         }

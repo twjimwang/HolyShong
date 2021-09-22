@@ -14,7 +14,7 @@ namespace HolyShong.ViewModels
         public int PcStoreId { get; set; }
         public int ProductCategorySort { get; set; }
         public string ProductCategoryName { get; set; }
-        public List<string> Name { get; set; }
+        public List<ProductCategory> PcgName { get; set; }
 
         public string SupplyTime { get; set; }
 
