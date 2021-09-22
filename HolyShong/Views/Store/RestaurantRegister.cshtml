@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "RestaurantRegister";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 
@@ -60,6 +61,7 @@
             margin-left: auto;
             margin-right: auto;
             padding: 0;
+            height: calc(100vh -197.975px);
         }
 
         .storeRegisterRow {
@@ -109,7 +111,8 @@
             .backgroundIMG {
                 background-image: url(../../Assets/Images/register.jpg);
                 background-size: cover;
-                height: 70vh;
+                /*height:calc(100vh -197.975px);*/
+                height:100%;
             }
 
             .register {
@@ -130,6 +133,12 @@
                 margin-top: auto;
                 margin-bottom: auto;
                 color: white;
+            }
+        }
+
+        @@media scream and (min-width:992px) {
+            .storeRegisterContainer {
+                height: calc(100vh -40px);
             }
         }
     </style>
