@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using HolyShong.Models;
 using Newtonsoft.Json;
 using HolyShong.Services;
+using System.Net;
 
 namespace HolyShong.Controllers
 {
@@ -32,8 +33,11 @@ namespace HolyShong.Controllers
         }
 
 
-        public ActionResult Checkout()
-        {
+        public ActionResult Checkout(int? Id)
+        {   if(Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ViewBag.xtest = _cartService.GetCartViewModels().First();
             return View();
         }
