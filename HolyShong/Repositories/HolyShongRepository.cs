@@ -14,17 +14,17 @@ namespace HolyShong.Repositories
             _ctx = new HolyShongDB();
         }
 
-        public List<Member> GetMembers()
+        public IQueryable<Member> GetMembers()
         {
-            return _ctx.Member.ToList();
+            return _ctx.Member;
         }
-        public List<Rank> GetRanks()
+        public IQueryable<Rank> GetRanks()
         {
-            return _ctx.Rank.ToList();
+            return _ctx.Rank;
         }
-        public List<Address> GetAddresses()
+        public IQueryable<Address> GetAddresses()
         {
-            return _ctx.Address.ToList();
+            return _ctx.Address;
         }
     }
 }
