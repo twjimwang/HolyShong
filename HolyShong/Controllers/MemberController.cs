@@ -51,7 +51,7 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        public ActionResult Register()
+        public ActionResult RestaurantRegister()
         {
             return View();
         }
