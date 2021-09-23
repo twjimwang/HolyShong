@@ -192,12 +192,12 @@
                 </div>
             </div>
             <div class="otherItems my-3">
-                <label class="w-100" for="checkbox"><div>索取餐具、吸管等用品</div></label>
-                <input class="" id="checkbox" type="checkbox" style="zoom:180%">
+                <label class="w-100" for="oItem"><div>索取餐具、吸管等用品</div></label>
+                <input class="" id="oItem" type="checkbox" style="zoom:180%">
             </div>
             <div class="plasticBag my-3">
-                <label class="w-100" for="checkbox2"><div>索取袋子</div></label>
-                <input class="" id="checkbox2" type="checkbox" style="zoom:180%">
+                <label class="w-100" for="plastic"><div>索取袋子</div></label>
+                <input class="" id="plastic" type="checkbox" style="zoom:180%">
             </div>
         </div>
         <div class="col-lg-6 col-sm-12 right">
@@ -341,7 +341,9 @@
 
     <style>
 
-
+        .leaflet-top, .leaflet-bottom, .leaflet-control {
+            z-index: 100;
+        }
 
         body {
             font-family: sans-serif;
