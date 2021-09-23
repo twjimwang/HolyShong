@@ -14,37 +14,37 @@ namespace HolyShong.Repositories
             _ctx = new HolyShongContext();
         }
 
-        public List<Order> GetOrder()
+        public IQueryable<Order> GetOrder()
         {
-            return _ctx.Order.ToList();
+            return _ctx.Order;
         }
-        public List<Member> GetMembers()
+        public IQueryable<Member> GetMembers()
         {
-            return _ctx.Member.ToList();
+            return _ctx.Member;
         }
-        public List<OrderDetail> GetOrderDetails()
+        public IQueryable<OrderDetail> GetOrderDetails()
         {
-            return _ctx.OrderDetail.ToList();
+            return _ctx.OrderDetail;
         }
-        public List<Deliver> GetDelivers()
+        public IQueryable<Deliver> GetDelivers()
         {
-            return _ctx.Deliver.ToList();
+            return _ctx.Deliver;
         }
-        public List<Address> GetAddress()
+        public IQueryable<Address> GetAddress()
         {
-            return _ctx.Address.ToList();
+            return _ctx.Address;
         }
-        public List<Store> GetStore()
+        public IQueryable<Store> GetStore()
         {
-            return _ctx.Store.ToList();
+            return _ctx.Store;
         }
-        public List<Product> GetProduct()
+        public IQueryable<Product> GetProduct()
         {
-            return _ctx.Product.ToList();
+            return _ctx.Product;
         }
-        public List<ProductCategory> GetProductCategory()
+        public IQueryable<ProductCategory> GetProductCategory()
         {
-            return _ctx.ProductCategory.ToList();
+            return _ctx.ProductCategory;
         }
     }
 }
