@@ -274,6 +274,7 @@
     <Content Include="Views\Member\Favorite.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
+    <Content Include="Views\Member\OrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

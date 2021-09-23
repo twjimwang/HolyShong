@@ -46,5 +46,9 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult OrderList()
+        {
+            return View();
+        }
     }
 }
