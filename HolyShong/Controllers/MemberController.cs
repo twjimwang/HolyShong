@@ -50,5 +50,10 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }
