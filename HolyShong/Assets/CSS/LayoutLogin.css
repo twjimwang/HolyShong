@@ -9,13 +9,10 @@ header img{
     width: 300px;
 }
 footer{
-    margin: 50px 0 0;
+    margin: 0;
     padding: 50px 0;
     background-color: rgb(49,75,88);
     color: #fff;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
 }
 .privacy a{
@@ -28,9 +25,28 @@ footer{
     border-right: 1px solid #fff;
 }
 
+/*footer RWD*/
+@media screen and (min-width:768px) {
+    footer {
+        padding: 50px 0;
+        bottom: 0;
+        height: 15vh;
+    }
+
+    .footer-body {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
 @media screen and (min-width:992px) {
     .footer-body{
         display: flex;
         justify-content: space-between;
+    }
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
 }
