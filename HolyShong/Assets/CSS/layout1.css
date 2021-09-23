@@ -10,6 +10,7 @@
 .top {
     margin: 0 auto;
     position: relative;
+    padding: 10px 0;
 }
 
 .head {
@@ -21,7 +22,7 @@
     left: 0;
     padding: 0 30px;
     background-color: #fff;
-    z-index: 100;
+    z-index: 500;
 }
 
     .head i {
@@ -45,14 +46,14 @@
 .menu {
     height: 100vh;
     width: 300px;
-    position: absolute;
-    top: -72px;
+    position: fixed;
+    top: 0;
     left: -500px;
     background-color: #fff;
     padding: 20px;
     transition: .5s;
     border-right: 1px solid #EEEEEE;
-    z-index: 102;
+    z-index: 502;
 }
 
 .logo a img {
@@ -61,7 +62,7 @@
 }
 
 #menu-check:checked ~ header .menu {
-    left: -30px;
+    left: 0;
 }
 
 .function .item {
@@ -199,7 +200,7 @@ footer {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     top: 0;
-    z-index: 101;
+    z-index: 501;
 }
 
 .discount-txt {
@@ -374,6 +375,7 @@ footer {
         height: 95px;
         display: flex;
         justify-content: space-between;
+        padding: 0;
     }
 
     .deliver,
@@ -412,10 +414,6 @@ footer {
 
     .logo a img {
         width: 180px;
-    }
-
-    #menu-check:checked ~ header .menu {
-        left: 0;
     }
 
     .search {
@@ -499,7 +497,7 @@ footer {
         left: -200px;
         border: 1px solid #EEEEEE;
         box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
-        z-index:102;
+        z-index:502;
     }
 
     .noneList {
