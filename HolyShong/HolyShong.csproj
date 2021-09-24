@@ -199,6 +199,7 @@
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
     <Content Include="Assets\CSS\LayoutLogin.css" />
+    <Content Include="Assets\Images\noSearch.jpg" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -259,10 +260,10 @@
     <Content Include="Views\Shared\_Layout-mainpage.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Home\NoSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Images\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
