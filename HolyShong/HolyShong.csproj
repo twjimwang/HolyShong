@@ -267,7 +267,6 @@
     <Content Include="Views\Member\Eatpass.cshtml" />
     <Content Include="Views\Member\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
-    <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Member\Profile.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
@@ -275,16 +274,16 @@
     <Content Include="Views\Store\_StoreCardPartial.cshtml" />
     <Content Include="Views\Member\Favorite.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
-    <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Member\OrderList.cshtml" />
     <Content Include="Views\Member\RestaurantRegister.cshtml" />
     <Content Include="Views\Member\Invite.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Deliver\Index.cshtml" />
+    <Content Include="Views\Home\NoSearch.cshtml" />
+    <Content Include="Views\Store\Restaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
