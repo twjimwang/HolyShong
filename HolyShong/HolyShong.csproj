@@ -203,6 +203,7 @@
     <Content Include="Assets\Images\deliverRegister.png" />
     <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\Images\register.jpg" />
+    <Content Include="Assets\Images\noSearch.jpg" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -283,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
