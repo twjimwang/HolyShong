@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Models;
@@ -20,8 +21,14 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult Restaurant()
+        public ActionResult Restaurant(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           
+
             //DB撈資料
             var Store = _ctx.Stores.ToList();
             var ProductCategory = _ctx.ProductCategories.ToList();
@@ -32,7 +39,7 @@ namespace HolyShong.Controllers
                  from s in Store
                  join pc in ProductCategory on s.StoreId equals pc.StoreId
                  join p in Products on pc.ProductCategoryID equals p.ProductCategoryId
-                 where s.StoreId == 2 && pc.ProductCategoryID == 1
+                 where s.StoreId == id && pc.ProductCategoryID == 1
                  select new Product
                  {
                      Name = p.Name,
@@ -47,7 +54,7 @@ namespace HolyShong.Controllers
                           join p in Products on pc.ProductCategoryID equals p.ProductCategoryId
                           join sc in Score on s.StoreId equals sc.StoreId
                           join stc in StoreCategory on s.StoreCategoryId equals stc.StoreCategoryId
-                          where s.StoreId==2
+                          where s.StoreId==id
                           select new RestaurantVM //把db的資料給RestaurantVM
                           {
                               ProductCategoryID = pc.ProductCategoryID,
