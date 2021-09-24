@@ -267,12 +267,12 @@
     <Content Include="Views\Member\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
-    <Content Include="Views\Deliver\Home.cshtml" />
     <Content Include="Views\Member\Profile.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Order\OrderDeliver.cshtml" />
+    <Content Include="Views\Deliver\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
