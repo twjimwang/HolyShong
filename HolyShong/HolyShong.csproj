@@ -223,6 +223,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderDeliverViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
@@ -314,7 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
