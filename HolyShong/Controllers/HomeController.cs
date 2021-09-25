@@ -27,6 +27,12 @@ namespace HolyShong.Controllers
             return View();
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+
         public ActionResult NoSearch()
         {            
             return View();
