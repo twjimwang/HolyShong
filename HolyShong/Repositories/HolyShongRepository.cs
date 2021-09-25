@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Repositories
 {
