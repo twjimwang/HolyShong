@@ -133,52 +133,49 @@
 
         </div>
         <!-- 商品類別 -->
-        <div id="shopcategory">
-            <!-- 店家欄(分類) -->
-            <div id="storecategory">
-                <!-- 搜尋頁面(套LEO) -->
-                <div class="unitContainer">
-                    <div class="row row-cols-1  row-cols-lg-3 ">
-                        <!-- 卡片區塊 -->
-                        @for (int i = 0; i <= 30; i++)
-                        {
-                            <div class="cardCol">
-                                <div class="foodCard " style="cursor:pointer;">
-                                    <a href="#" style="text-decoration:none;">
-                                        <div class="headline">
-                                            <img class="pic" src="https://picsum.photos/300/100/?random=1">
-                                            <div class="Tag">買1送1</div>
+        <!-- 店家欄(分類) -->
+            <!-- 搜尋頁面(套LEO) -->
+            <div class="unitContainer d-flex justify-content-center">
+                <div class="row row-cols-1  row-cols-lg-3 ">
+                    <!-- 卡片區塊 -->
+                    @for (int i = 0; i <= 10; i++)
+                    {
+                        <div class="cardCol">
+                            <div class="foodCard " style="cursor:pointer;">
+                                <a href="#" style="text-decoration:none;">
+                                    <div class="headline">
+                                        <img class="pic" src="https://picsum.photos/300/100/?random=1">
+                                        <div class="Tag">買1送1</div>
+                                    </div>
+                                    <div class="foodText">
+                                        <div class="shopNameandPoint">
+                                            <div id="spName" class="shopName">Burger King漢堡王 松山店</div>
+                                            <div id="pp" class="point">4.7</div>
                                         </div>
-                                        <div class="foodText">
-                                            <div class="shopNameandPoint">
-                                                <div id="spName" class="shopName">Burger King漢堡王 松山店</div>
-                                                <div id="pp" class="point">4.7</div>
-                                            </div>
-                                            <div class="TWD">
-                                                <span id="ntd" class="">55TWD 費用</span>
-                                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                                <span id="min" class="">25–35 分鐘</span>
-                                            </div>
+                                        <div class="TWD">
+                                            <span id="ntd" class="">55TWD 費用</span>
+                                            <div class="dotSpace"><span class="dot"> • </span></div>
+                                            <span id="min" class="">25–35 分鐘</span>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="touchZone" style="cursor:pointer;">
-                                    <div class="favoriteHeart">
-                                        <div class="switchP" id="sw" onclick="clickChangeC()">
-                                            <!-- 空心 -->
-                                            <i class="far fa-heart hEmpty"></i>
-                                            <!-- 實心 -->
-                                            <i class="fas fa-heart hSolid"></i>
-                                            <i class="fas fa-heart hSolid4hover"></i>
-                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="touchZone" style="cursor:pointer;">
+                                <div class="favoriteHeart">
+                                    <div class="switchP" id="sw" onclick="clickChangeC()">
+                                        <!-- 空心 -->
+                                        <i class="far fa-heart hEmpty"></i>
+                                        <!-- 實心 -->
+                                        <i class="fas fa-heart hSolid"></i>
+                                        <i class="fas fa-heart hSolid4hover"></i>
                                     </div>
                                 </div>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </div>
+   
     </div>
 </div>
 
@@ -335,7 +332,6 @@
     <style>
         /* 內容 */
         .container {
-            padding: 0px 40px;
             max-width: 1920px;
             margin: auto;
         }
