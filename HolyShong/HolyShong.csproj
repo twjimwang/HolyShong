@@ -299,7 +299,6 @@
     <Content Include="Views\Member\Profile.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
-    <Content Include="Views\Order\OrderDeliver.cshtml" />
     <Content Include="Views\Store\_StoreCardPartial.cshtml" />
     <Content Include="Views\Member\Favorite.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
@@ -312,6 +311,7 @@
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Order\Test.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
