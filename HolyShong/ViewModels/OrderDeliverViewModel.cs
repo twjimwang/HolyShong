@@ -8,9 +8,10 @@ namespace HolyShong.ViewModels
     public class OrderDeliverViewModel
     {
         public string DeliverName { get; set; }
-        public string Address { get; set; }
+        public string CustomerAddress { get; set; }
         public string Notes { get; set; }
         public string RestaurantName { get; set; }
+        public string RestaurantAddress { get; set; }
         public List<OrderList> OderLists { get; set; }
         public decimal Total { get; set; }
     }
