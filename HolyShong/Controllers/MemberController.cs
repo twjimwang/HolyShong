@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,12 @@ namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
+        private readonly OrderService _orderService;
+        public MemberController()
+        {
+            _orderService = new OrderService();
+        }
+
         // GET: Member
         public ActionResult Index()
         {
@@ -46,9 +53,14 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult OrderList()
+        public ActionResult OrderList(int? id)
         {
-            return View();
+            if(!id.HasValue)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            var result = _orderService.GetOrderByMemberId(id.Value);
+            return View(result);
         }
 
         public ActionResult RestaurantRegister()

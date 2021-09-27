@@ -52,19 +52,8 @@ namespace HolyShong.Services
                 total += p.ProductPrice * p.ProductQuantity;
             }
 
-            //orderResult = _repo.GetAll<Order>().Where(o => o.OrderId == order.OrderId).Select(o => new OrderDeliverViewModel
-            //{
-            //    DeliverName = member.LastName + member.FirstName,
-            //    CustomerAddress = o.DeliveryAddress,
-            //    CustomerNotes = o.Notes,
-            //    RestaurantName = store.Name,
-            //    RestaurantAddress = store.Address,
-            //    OderLists = productlist,
-            //    Total = total
-
-            //}).First();
-
             orderResult.DeliverName = member.LastName + member.FirstName;
+            orderResult.DeliverImg = deliver.HeadshotImg;
             orderResult.CustomerAddress = order.DeliveryAddress;
             orderResult.CustomerNotes = order.Notes;
             orderResult.RestaurantName = store.Name;
@@ -72,6 +61,58 @@ namespace HolyShong.Services
             orderResult.OderLists = productlist;
             orderResult.Total = total;
             return orderResult;
+        }
+
+        /// <summary>
+        /// 查詢會員歷史訂單
+        /// </summary>
+        public List<OrderListViewModel> GetOrderByMemberId(int memberId)
+        {
+            decimal total = 0;
+
+            var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
+            if(member == null)
+            {
+                return new List<OrderListViewModel>();
+            }
+
+            var order = _repo.GetAll<Order>().Where(o => o.MemberId == member.MemberId);
+            var deliver = _repo.GetAll<Deliver>().Where(d => order.Select(o=>o.OrderId).Contains(d.DeliverId));
+            var store = _repo.GetAll<Store>().Where(s => order.Select(o => o.StoreId).Contains(s.StoreId));
+            var orderDetail = _repo.GetAll<OrderDetail>().Where(od => order.Select(o => o.OrderId).Contains(od.OrderId));
+            var product = _repo.GetAll<Product>().Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId));
+            var productOption = _repo.GetAll<ProductOption>().Where(po => orderDetail.Select(od => od.ProductOptionId).Contains(po.ProductOptionId));
+            var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => orderDetail.Select(od=>od.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
+
+            //產品細節
+            var tempOption = orderDetail.Select(od => new OrderOptionDetail
+            {
+                ProdectOptionName = productOptionDetail.Select(pod => pod.Name).ToString()
+            }).ToList();
+
+            //產品
+            var tempProduct = orderDetail.Select(od => new OrderProduct
+            {
+                ProductName = product.First(p => p.ProductId == od.ProductId).Name,
+                ProductPrice = od.UnitPrice,
+                ProductQuantity = od.Quantity,
+                OrderOptions = tempOption
+            }).ToList();
+
+            foreach(var p in tempProduct)
+            {
+                total += p.ProductPrice * p.ProductQuantity;
+            }
+
+            var temp = order.Select(o => new OrderListViewModel
+            {
+                DeliverDate = o.RequiredDate == null ? o.CreateDate : o.RequiredDate,
+                RestaurantName = store.First(s => s.StoreId == o.OrderId).Name,
+                OrderLists = tempProduct,
+
+            }).ToList();
+
+            return temp;
         }
 
     }

@@ -8,6 +8,7 @@ namespace HolyShong.ViewModels
     public class OrderDeliverViewModel
     {
         public string DeliverName { get; set; }
+        public string DeliverImg { get; set; }
         public string CustomerAddress { get; set; }
         /// <summary>
         /// 消費者訂單備註
