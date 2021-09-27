@@ -44,13 +44,17 @@ namespace HolyShong.Models.HolyShongModel
 
         public bool OrderStatus { get; set; }
 
-        public DateTime? UpdateTime { get; set; }
-
         public DateTime CreateDate { get; set; }
 
         public DateTime RequiredDate { get; set; }
 
         public int? MemberDiscountId { get; set; }
+
+        public TimeSpan? PaymentStatusUpdateTime { get; set; }
+
+        public TimeSpan? DeliverStatusUpdateTime { get; set; }
+
+        public TimeSpan? OrderStatusUpdateTime { get; set; }
 
         public virtual Deliver Deliver { get; set; }
 

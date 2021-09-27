@@ -24,6 +24,7 @@ namespace HolyShong.Models.HolyShongModel
         public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
+        public virtual DbSet<OrderDetailOption> OrderDetailOption { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         public virtual DbSet<ProductOption> ProductOption { get; set; }
@@ -60,6 +61,10 @@ namespace HolyShong.Models.HolyShongModel
                 .HasMany(e => e.ItemDetail)
                 .WithRequired(e => e.Item)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ItemDetail>()
+                .Property(e => e.AddPrice)
+                .HasPrecision(18, 1);
 
             modelBuilder.Entity<Member>()
                 .Property(e => e.Cellphone)
@@ -113,6 +118,15 @@ namespace HolyShong.Models.HolyShongModel
                 .WithRequired(e => e.Order)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<OrderDetail>()
+                .HasMany(e => e.OrderDetailOption)
+                .WithRequired(e => e.OrderDetail)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<OrderDetailOption>()
+                .Property(e => e.AddPrice)
+                .HasPrecision(18, 1);
+
             modelBuilder.Entity<Product>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 1);
@@ -143,15 +157,13 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<ProductOptionDetail>()
                 .HasMany(e => e.ItemDetail)
-                .WithRequired(e => e.ProductOptionDetail)
-                .HasForeignKey(e => e.ProductOptionDetailId)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.ProductOptionDetail)
+                .HasForeignKey(e => e.ProductOptionDetailId);
 
             modelBuilder.Entity<ProductOptionDetail>()
                 .HasMany(e => e.ItemDetail1)
-                .WithRequired(e => e.ProductOptionDetail1)
-                .HasForeignKey(e => e.ProductOptionId)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.ProductOptionDetail1)
+                .HasForeignKey(e => e.ProductOptionId);
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.Businesshours)
