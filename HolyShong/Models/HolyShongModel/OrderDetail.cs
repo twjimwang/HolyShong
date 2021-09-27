@@ -9,6 +9,12 @@ namespace HolyShong.Models.HolyShongModel
     [Table("OrderDetail")]
     public partial class OrderDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderDetail()
+        {
+            OrderDetailOption = new HashSet<OrderDetailOption>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderDetailId { get; set; }
 
@@ -16,14 +22,13 @@ namespace HolyShong.Models.HolyShongModel
 
         public int ProductId { get; set; }
 
-        public int ProductOptionId { get; set; }
-
-        public int ProductOptionDetailId { get; set; }
-
         public decimal UnitPrice { get; set; }
 
         public int Quantity { get; set; }
 
         public virtual Order Order { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetailOption> OrderDetailOption { get; set; }
     }
 }
