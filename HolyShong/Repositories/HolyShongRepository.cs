@@ -42,5 +42,6 @@ namespace HolyShong.Repositories
         {
             return _context.Set<T>();
         }
+
     }
 }

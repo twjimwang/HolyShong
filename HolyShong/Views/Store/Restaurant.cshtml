@@ -1,4 +1,5 @@
-﻿ <!-- top -->
+﻿@model RestaurantVM
+<!-- top -->
 <div class="topTitle container-fluid">
     <div class="discount row">
         <div class="col-12">
@@ -11,15 +12,15 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carouselInner">
             <div class="carouselItem active">
-                <img class="d-block" src="https://picsum.photos/1500/1500/?random=1" alt="First slide">
+                <img class="d-block" src="@Model.StorePicture" alt="First slide">
             </div>
         </div>
     </div>
     <div class="bannerTxtBtn container">
         <div class="text">
-            <h1>康盒食堂</h1>
+            <h1>@Model.StoreName</h1>
             <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-            • 4.9 (21)
+            •<span class="starScore">@Model.Score1</span><span class="comment">(21)</span>
         </div>
         <div class="timeHeartBtn">
             <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="timeModalHeader modal-header">
                             <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在11:30
+                                在<span class="setOpenTime">@Model.SupplyTime</span>
                                 AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
                             </h3>
                         </div>
@@ -75,10 +76,10 @@
 <!--地址-->
 <div class="wrap container">
     <div class="address">
-        <p>$ • 健康飲食</p>
+        <p>$ • @Model.StoreCategoryName</p>
         <p>
-            Xiuqun Road Lane 457 2, Nanzi District, Kaohsiung City 811 • <a data-toggle="modal" data-target="#more"
-                                                                            href="#">顯示更多</a>
+            @Model.StoreAddress • <a data-toggle="modal" data-target="#more"
+                                     href="#">顯示更多</a>
         </p>
     </div>
 </div>
@@ -100,8 +101,8 @@
             </div>
             <div class="dataModalBody">
                 <div class="store-txt">
-                    <h2 class="p-3">康和食堂</h2>
-                    <span class="p-3">健康飲食 • $</span>
+                    <h2 class="p-3">@Model.StoreName</h2>
+                    <span class="p-3">@Model.StoreCategoryName • $</span>
                 </div>
                 <div class="line"></div>
                 <div class="map">
@@ -109,7 +110,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <div class="textCenter">
-                        Xiuqun Road Lane 457 2, Nanzi District, Kaohsiung City 811
+                        @Model.StoreAddress
                     </div>
                     <div class="copy p-3">
                         <i class="fas fa-clone"></i>
@@ -120,7 +121,7 @@
                     <div class="clock p-3">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="textCenter">營業時間</div>
+                    <div class="textCenter">營業時間:<span class="week">星期一</span> <span class="setOpenTime">@Model.SupplyTime</span></div>
                     <div class="plus p-3">
                         <i class="fas fa-plus"></i>
                     </div>
@@ -143,7 +144,7 @@
                     <div class="star p-3">
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="textCenter">4.9 (500+ 筆評分)</div>
+                    <div class="textCenter"><span class="starScore">@Model.Score1</span> <span class="comment">(21筆評分)</span></div>
                     <div class="space p-3"></div>
                 </div>
                 <div class="line"></div>
@@ -236,78 +237,114 @@
     <div class="navMove row">
         <div class="col-12">
             <div class="navbar">
-                <a href="#titleOne">您專屬的推薦商品</a>
-                <a href="#titleTwo">人氣精選</a>
-                <a href="#titleThree">主食</a>
-                <a href="#titleFour">單點</a>
-                <a href="#titleTwo">人氣精選</a>
-                <a href="#titleThree">主食</a>
-                <a href="#titleFour">單點</a>
+                @foreach (var ProductCategory in Model.productCategories)
+                {
+                    <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
+                               
+                    }
+                @*<a href="#titleOne">您專屬的推薦商品</a>
+                  <a href="#titleTwo">人氣精選</a>
+                  <a href="#titleThree">主食</a>
+                  <a href="#titleFour">單點</a>
+                  <a href="#titleTwo">人氣精選</a>
+                  <a href="#titleThree">主食</a>
+                  <a href="#titleFour">單點</a>*@
             </div>
         </div>
     </div>
     <!-- 您專屬的推薦商品 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleOne">您專屬的推薦商品</div>
+            <div class="txt" id="title_1">您專屬的推薦商品</div>
         </div>
     </div>
     <div class="itemGroup row d-flex ">
-        <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
-            <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞便當<br>附一杯飲料。</p>$140.00
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
+        @foreach (var Product in Model.Products)
+        {
+            <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
+                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Product.Img" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Product.Name<br>@Product.Description</p>$@Product.UnitPrice
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
+        }
+
+        @*<div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
+                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Model.ProductImg" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            </div>*@
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>*@
+
+        @*<div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Model.ProductImg" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
+                </div>
+            </div>*@
     </div>
     <!-- 人氣精選 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleTwo">人氣精選</div>
+            <div class="txt" id="title_2">人氣精選</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -355,7 +392,7 @@
     <!-- 主食 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleThree">主食</div>
+            <div class="txt" id="title_3">主食</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -393,7 +430,7 @@
     <!-- 單點 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleFour">單點</div>
+            <div class="txt" id="title_4">單點</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -470,8 +507,7 @@
     </div>
 </div>
 
-@section topCSS
-{
+@section topCSS{
     <style>
         /* top */
         .container {
@@ -493,7 +529,7 @@
             text-align: center;
             z-index: 2;
             position: sticky;
-            top: 72px;
+            top: 0;
         }
 
         .discount {
@@ -594,10 +630,12 @@
             position: relative;
         }
 
-            .openTime span {
-                font-size: 16px;
-            }
-
+        .openTime span {
+            font-size: 16px;
+        }
+        h3 .setOpenTime{
+            font-size:30px;
+        }
         /* 下拉選單modal */
         .formSelect {
             width: 100%;
@@ -671,7 +709,7 @@
             align-items: center;
         }
 
-        .startTime {
+        .time {
             display: flex;
             justify-content: space-between;
             margin: auto;
@@ -687,10 +725,10 @@
             align-items: center;
         }
 
-            .joinEats span {
-                color: #545454;
-                font-size: 14px;
-            }
+        .joinEats span {
+            color: #545454;
+            font-size: 14px;
+        }
 
         .ticket img {
             width: 21px;
@@ -709,11 +747,17 @@
             padding-left: 20px;
         }
 
-            .bill p {
-                font-size: 14px;
-                color: rgb(117, 117, 117);
-            }
-
+        .bill p {
+            font-size: 14px;
+            color: rgb(117, 117, 117);
+        }
+        .startTime {
+            display: flex;
+            justify-content: space-between;
+        }
+        .textCenter{
+            margin:auto;
+        }
         /* storeModal */
         .storeModalContent {
             border: none;
@@ -836,7 +880,7 @@
         /* navbar */
         .navMove {
             position: sticky;
-            top: 112px;
+            top: 41px;
             z-index: 4;
         }
 
@@ -863,8 +907,8 @@
         :target {
             content: '';
             display: block;
-            padding-top: 190px;
-            margin-top: -190px;
+            padding-top: 122px;
+            margin-top: -122px;
         }
 
         .title {
@@ -872,10 +916,10 @@
             margin-right: 0;
         }
 
-        .card img {
-            width: 88px;
-            height: 120px;
-        }
+        /* .card img {
+              width: 88px;
+              height: 120px;
+            } */
 
         .card-body {
             width: 50%;
@@ -897,6 +941,10 @@
 
         .itemGroup {
             cursor: pointer;
+        }
+
+        .itemGroupPic {
+            width: 45%;
         }
 
         .title .txt {
@@ -937,14 +985,30 @@
                 width: 50%;
             }
 
-            .topTitle {
-                top: -1px;
+            .itemGroupPic {
+                width: 40%;
+            }
+
+                .itemGroupPic img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+        }
+
+        /* ipad橫直*/
+        @@media screen and (min-width: 768px) and (max-width:1024px) {
+            .itemGroup .card {
+                height: 128px;
             }
 
             .navMove {
                 position: sticky;
                 top: 39px;
                 z-index: 4;
+
+            .itemGroupPic {
+                width: 22%;
             }
 
             :target {
