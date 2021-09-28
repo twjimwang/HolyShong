@@ -225,6 +225,7 @@
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MemberProfileViewModel.cs" />
+    <Compile Include="ViewModels\MemberRegistrViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />

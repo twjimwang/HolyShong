@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -60,8 +61,17 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// 註冊頁面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(MemberRegistrViewModel registerViewModel)
         {
             return View();
         }

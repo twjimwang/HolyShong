@@ -5,6 +5,14 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
+    /// <summary>
+    /// 會員頁面
+    /// 用於呈現會員個人資料
+    /// 使用資料表：
+    /// Member
+    /// Rank
+    /// Address
+    /// </summary>
     public class MemberProfileViewModel
     {
         /// <summary>
@@ -42,12 +50,12 @@ namespace HolyShong.ViewModels
         /// </summary>
         public string Email { get; set; }
 
-        public string ShowPrimary()
-        {
-            if (IsPrimary)
-                return "送送會員";
-            else return "一般會員";
+        //public string ShowPrimary()
+        //{
+        //    if (IsPrimary)
+        //        return "送送會員";
+        //    else return "一般會員";
 
-        }
+        //}
     }
 }
