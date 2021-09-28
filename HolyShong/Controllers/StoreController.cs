@@ -21,59 +21,30 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult Restaurant(int? id)
+        public ActionResult Restaurant(int storeId = 0)
         {
-            if (id == null)
+            RestaurantVM result = new RestaurantVM();
+            var store =_ctx.Stores.FirstOrDefault((x) => x.StoreId == storeId);
+            if (store == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                RedirectToAction("NoSearch", "Home");
             }
-           
+            var productCategories = _ctx.ProductCategories.Where((x) => x.StoreId == store.StoreId);
 
-            //DB撈資料
-            var Store = _ctx.Stores.ToList();
-            var ProductCategory = _ctx.ProductCategories.ToList();
-            var Products = _ctx.Products.ToList();
-            var Score = _ctx.Scores.ToList();
-            var StoreCategory = _ctx.StoreCategory.ToList();
-            var Product =
-                 from s in Store
-                 join pc in ProductCategory on s.StoreId equals pc.StoreId
-                 join p in Products on pc.ProductCategoryID equals p.ProductCategoryId
-                 where s.StoreId == id && pc.ProductCategoryID == 1
-                 select new Product
-                 {
-                     Name = p.Name,
-                     Img = p.Img,
-                     UnitPrice = p.UnitPrice
+            var products = _ctx.Products.Where(x => productCategories.Select(y => y.ProductCategoryID).Contains(x.ProductCategoryId)).ToList();
 
-                 };
+            result.StoreId = store.StoreId;
+            result.StoreName = store.Name;
+            result.StorePicture = store.Picture;
+            result.StoreAddress = store.Address;
+            result.Products = products;
+            result.productCategories = productCategories.ToList();
+            result.Score1 = _ctx.Scores.Where(x => x.ScoreId == store.StoreId).Average(x=>x.Score1);
+            result.StoreCategoryName = _ctx.StoreCategory.First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
 
-            var RestaurantVM =
-                          from s in Store
-                          join pc in ProductCategory on s.StoreId equals pc.StoreId
-                          join p in Products on pc.ProductCategoryID equals p.ProductCategoryId
-                          join sc in Score on s.StoreId equals sc.StoreId
-                          join stc in StoreCategory on s.StoreCategoryId equals stc.StoreCategoryId
-                          where s.StoreId==id
-                          select new RestaurantVM //把db的資料給RestaurantVM
-                          {
-                              ProductCategoryID = pc.ProductCategoryID,
-                              PcStoreId = pc.StoreId,                 
-                              ProductCategorySort = pc.Sort,         
-                              ProductCategoryName = pc.Name,
-                              SupplyTime=pc.SupplyTime,
-                              StoreCategoryId = s.StoreCategoryId,                           
-                              StoreName = s.Name,
-                              StorePicture = s.Picture,
-                              StoreAddress = s.Address,
-                              Products = Product.ToList(), //整筆資料
-                              Score1=sc.Score1,
-                              StoreCategoryName=stc.Name,                   
-                              PcgName=ProductCategory
-                          };
-         
+            
+            return View(result);
 
-            return View(RestaurantVM.First());
         }
         //public ActionResult Test()
         //{
