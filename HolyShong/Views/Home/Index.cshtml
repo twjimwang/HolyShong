@@ -1,4 +1,8 @@
 ﻿@model List<HomeViewModel>
+
+@*@{ 
+    var cards = Model.StoreCards;
+}*@
 <main>
     <!-- 副分類按鈕(合併進JC) -->
     <div id="cellphone-subcategory" class="subcategory">
@@ -185,7 +189,7 @@
         {
             <li class="nav-item ">
                 <a class="nav-link" href="#">
-                    <img alt="" role="presentation" src="@Html.DisplayFor(x => item.StoreCategoryImg)">
+                    <img alt="" role="presentation" src="@Html.DisplayFor(x => item.StoreCategories)">
                     <div class="d-flex justify-content-center">
                         <span>@Html.DisplayFor(x => item.StoreCategoryName)</span>
                     </div>
@@ -502,7 +506,6 @@
                     </div>
                 </div>
 
-                @*@foreach (var item in Model)*@
                 @foreach (var item in Model)
 
                 {

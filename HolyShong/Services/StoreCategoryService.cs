@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using HolyShong.Repositories;
 using HolyShong.ViewModels;
-using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Services
 {
@@ -20,20 +19,23 @@ namespace HolyShong.Services
         /// 從資料庫取出我要的資料，並且轉成ViewModel(Id、商品名、圖片)給Controller的Action調用
         /// </summary>
         /// <returns>ProductIndexViewModel</returns>
-        public List<HomeViewModel> GetAllStoreCategories()
+
+        //主分類提取
+        public List<StoreCategory> GetAllStoreCategories()
         {
-            
-            var result = new List<HomeViewModel>();
+
+            var result = new List<StoreCategory>();
             var storecategories = _storecategoryRespository.GetAll<StoreCategory>();
-           
             foreach (var item in storecategories)
             {
-                var storecategory = new HomeViewModel();
-                storecategory.StoreCategoryName = item.Name;
-                storecategory.StoreCategoryImg = item.Img;
+                var storecategory = new StoreCategory();
+                storecategory.StoreCategoryId = item.StoreCategoryId;
+                storecategory.StoreCategoryImg = item.StoreCategoryImg;
+                storecategory.StoreCategoryName = item.StoreCategoryName;
                 result.Add(storecategory);
             }
             return result;
         }
+
     }
 }

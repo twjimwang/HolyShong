@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HolyShong.Models.HolyShongModel;
 using HolyShong.Services;
+using HolyShong.ViewModels;
 
 namespace HolyShong.Controllers
 {
@@ -12,15 +13,20 @@ namespace HolyShong.Controllers
     {
         //初始
         private readonly StoreCategoryService _storecategoryService;
+        private readonly StoreService _storeService;
+
         public HomeController()
         {
             _storecategoryService = new StoreCategoryService();
+            _storeService = new StoreService();
         }
 
 
         public ActionResult Index()
         {
-            var result = _storecategoryService.GetAllStoreCategories();
+            var result = new HomeViewModel();
+            result.StoreCategories =_storecategoryService.GetAllStoreCategories();
+            result.StoreCardBlocks =_storeService.G;
             return View(result);
         }
 
