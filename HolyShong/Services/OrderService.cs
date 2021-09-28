@@ -25,7 +25,7 @@ namespace HolyShong.Services
             decimal total = 0;  //計算訂單總金額
             OrderDeliverViewModel orderResult = new OrderDeliverViewModel()
             {
-                OderLists = new List<OrderList>()
+                OrderLists = new List<OrderList>()
             };
 
             var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
@@ -58,7 +58,7 @@ namespace HolyShong.Services
             orderResult.CustomerNotes = order.Notes;
             orderResult.RestaurantName = store.Name;
             orderResult.RestaurantAddress = store.Address;
-            orderResult.OderLists = productlist;
+            orderResult.OrderLists = productlist;
             orderResult.Total = total;
             return orderResult;
         }
@@ -77,9 +77,6 @@ namespace HolyShong.Services
             }
 
             var orders = _repo.GetAll<Order>().Where(o => o.MemberId == member.MemberId);
-            //var see = orders.Select(o => o.StoreId);
-            //var allStores = _repo.GetAll<Store>().ToList();
-            //var ttt = allStores.Where()
             var stores = _repo.GetAll<Store>().Where(s => orders.Select(o => o.StoreId).Contains(s.StoreId));
             var orderDetails = _repo.GetAll<OrderDetail>().Where(od => orders.Select(o => o.OrderId).Contains(od.OrderId));
             var orderOptionDetails = _repo.GetAll<OrderDetailOption>().Where(odo => orderDetails.Select(od=>od.OrderDetailId).Contains(odo.OrderDetailId));
@@ -88,8 +85,9 @@ namespace HolyShong.Services
             var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => orderOptionDetails.Select(odo=>odo.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
 
 
-            foreach(var o in orders)
+            foreach (var o in orders)
             {
+                var productNumber = 0;
                 //ProductName 需要orderDetail Product productOptionDetail
                 var orderDetail = orderDetails.Where(od => od.OrderId == o.OrderId);
                 var orderOptionDetail = orderOptionDetails.Where(ood => orderDetail.Select(od => od.OrderDetailId).Contains(ood.OrderDetailId));
@@ -102,8 +100,12 @@ namespace HolyShong.Services
                         ProductName = p.Name,
                         ProductPrice = orderDetail.FirstOrDefault(od => od.ProductId == p.ProductId).UnitPrice,
                         ProductQuantity = orderDetail.FirstOrDefault(od => od.ProductId == p.ProductId).Quantity,
-                        OrderOptions = productOptionDetailString
+                        OrderOptions = productOptionDetailString,
                     }).ToList();
+                foreach(var p in product)
+                {
+                    productNumber += p.ProductQuantity;
+                }
 
                 var amount = orderDetail.Sum(od => od.Quantity * od.UnitPrice);
                 decimal addPrice = orderOptionDetail.Sum(ood => ood.AddPrice).HasValue? orderOptionDetail.Sum(ood => ood.AddPrice).Value : 0;
@@ -115,6 +117,7 @@ namespace HolyShong.Services
                     RestaurantName = stores.FirstOrDefault(s => s.StoreId == o.StoreId).Name,
                     RestaurantImg = stores.FirstOrDefault(s => s.StoreId == o.StoreId).Img,
                     ProductLists = product,
+                    ProductCount = productNumber,
                     OrderStatus = o.OrderStatus ? 1 : 0,
                     Total = amount + addPrice
                 };
@@ -123,6 +126,38 @@ namespace HolyShong.Services
             return result;
         }
 
+        /// <summary>
+        /// 外送員外送訂單呈現
+        /// </summary>
+        /// <returns></returns>
+        public DeliverViewModel GetOrderForDeliver(int orderId)
+        {
+            DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
+            var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
+            if(order == null)
+            {
+                return new DeliverViewModel();
+            }
+            var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == order.MemberId);
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
+            var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
+            var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od=>od.ProductId).Contains(p.ProductId));
+
+            result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5,'0');
+            result.CustomerName = member.LastName + member.FirstName;
+            result.CustomerAddress = order.DeliveryAddress;
+            result.CustormerNotes = order.Notes;
+            result.RestaurantName = store.Name;
+            result.RestaurantAddress = store.Address;
+            result.OrderProducts = orderDetails.Select(od => new OrderProducts
+            {
+                ProductName = products.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
+                ProductQuantity = od.Quantity
+            }).ToList();
+
+            //var orders
+            return result;
+        }
     }
 }
 

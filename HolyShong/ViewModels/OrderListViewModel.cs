@@ -24,6 +24,7 @@ namespace HolyShong.ViewModels
         /// 訂單明細
         /// </summary>
         public List<OrderProduct> ProductLists { get; set; }
+        public int ProductCount { get; set; }
         public decimal Total { get; set; }
     }
 

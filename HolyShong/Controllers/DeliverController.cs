@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,20 @@ namespace HolyShong.Controllers
 {
     public class DeliverController : Controller
     {
-        // GET: Deliver
-        public ActionResult Index()
+        private readonly OrderService _orderService;
+        public DeliverController()
         {
-            return View();
+            _orderService = new OrderService();
+        }
+        // GET: Deliver
+        public ActionResult Index(int? id)
+        {
+            if(!id.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result = _orderService.GetOrderForDeliver(id.Value);
+            return View(result);
         }
     }
 }

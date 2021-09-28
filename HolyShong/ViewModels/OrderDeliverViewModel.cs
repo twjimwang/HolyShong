@@ -16,7 +16,7 @@ namespace HolyShong.ViewModels
         public string CustomerNotes { get; set; }
         public string RestaurantName { get; set; }
         public string RestaurantAddress { get; set; }
-        public List<OrderList> OderLists { get; set; }
+        public List<OrderList> OrderLists { get; set; }
         public decimal Total { get; set; }
     }
 

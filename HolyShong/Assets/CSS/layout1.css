@@ -4,7 +4,7 @@
 
 .container {
     max-width: 1920px;
-    padding: 0 30px;
+    padding: 0 25px;
 }
 
 .top {
@@ -143,8 +143,8 @@
 }
 
 footer {
-    padding: 60px 0;
-    margin-top: 60px;
+    padding: 80px 0;
+    margin-top: 80px;
     background-color: #000;
 }
 

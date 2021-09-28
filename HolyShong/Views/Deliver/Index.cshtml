@@ -1,4 +1,5 @@
-﻿@{ 
+﻿@model DeliverViewModel
+@{ 
     Layout = "~/Views/Shared/_LayoutDeliver.cshtml";
 }
 
@@ -15,11 +16,10 @@
                 </div>
                 <div class="body">
                     <div class="item detail">
-                        <h3>餐廳名稱</h3>
-                        <div class="mb-1">備註：到店取餐</div>
+                        <h3>@Model.RestaurantName</h3>
                         <div class="d-flex">
                             <i class="fas fa-map-marker-alt mr-3"></i>
-                            <p>餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址餐廳地址</p>
+                            <p>@Model.RestaurantAddress</p>
                         </div>
                         <div class="message">
                             <i class="fas fa-comment-alt"></i>
@@ -30,21 +30,16 @@
                         <label class="orderBox">
                             <input type="checkbox">
                             <div class="orderDetail">
-                                <div class="orderID my-2">訂單編號 客戶名稱</div>
+                                <div class="orderID my-2">訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</div>
                                 <div>
                                     <div class="m-0">訂單摘要</div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
+                                    @foreach (var item in Model.OrderProducts)
+                                    {
+                                        <div class="d-flex my-2">
+                                            <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                            <div>@item.ProductName</div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <span class="checkMark"></span>
@@ -66,11 +61,11 @@
                 </div>
                 <div class="body">
                     <div class="item detail">
-                        <h3>訂單編號 客戶名稱</h3>
-                        <div class="mb-3">備註：無接觸，放在門口</div>
+                        <h3>訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</h3>
+                        <div class="mb-3">備註：@Model.CustormerNotes</div>
                         <div class="d-flex">
                             <i class="fas fa-map-marker-alt mr-3"></i>
-                            <p>外送地址外送地址外送地址外送地址外送地址外送地址外送地址外送地址外送地址</p>
+                            <p>@Model.CustomerAddress</p>
                         </div>
                         <div class="message">
                             <i class="fas fa-comment-alt"></i>
@@ -81,21 +76,16 @@
                         <label class="orderBox">
                             <input type="checkbox">
                             <div class="orderDetail">
-                                <div class="orderID my-2">餐廳名稱</div>
+                                <div class="orderID my-2">@Model.RestaurantName</div>
                                 <div>
                                     <div class="m-0">訂單摘要</div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
-                                    <div class="d-flex my-2">
-                                        <div class="border px-2 mr-3">9</div>
-                                        <div>杏仁凍五桐茶 Signature Tea with Almond Jelly</div>
-                                    </div>
+                                    @foreach (var item in Model.OrderProducts)
+                                    {
+                                        <div class="d-flex my-2">
+                                            <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                            <div>@item.ProductName</div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <span class="checkMark"></span>
