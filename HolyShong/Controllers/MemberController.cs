@@ -29,8 +29,30 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult Profile()
+        /// <summary>
+        /// 會員個人資料頁面
+        /// 讀取資料
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Profile(int? id)
         {
+            if (!id.HasValue)
+            {
+
+            }
+            return View();
+        }
+        /// <summary>
+        /// 會員個人資料頁面
+        /// 修改資料
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Profile(MemberProfileViewModel memberProfileViewModel)
+        {
+
             return View();
         }
 
