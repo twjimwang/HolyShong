@@ -1,5 +1,5 @@
-﻿<main>
-
+﻿@model List<HomeViewModel>
+<main>
     <!-- 副分類按鈕(合併進JC) -->
     <div id="cellphone-subcategory" class="subcategory">
         <div class="d-flex justify-content-end">
@@ -181,21 +181,17 @@
             </a>
         </li>
 
-        @*@foreach (var item in Model)*@
-        @for (int i = 0; i < 14; i++)
+        @foreach (var item in Model)
         {
             <li class="nav-item ">
                 <a class="nav-link" href="#">
-                    @*<img alt="" role="presentation" src="@Html.DisplayFor(x => item.Img)">*@
-                    <img alt="" role="presentation" src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/deals.png">
+                    <img alt="" role="presentation" src="@Html.DisplayFor(x => item.StoreCategoryImg)">
                     <div class="d-flex justify-content-center">
-                        @*<span>@Html.DisplayFor(x => item.Name)</span>*@
-                        <span>優惠</span>
+                        <span>@Html.DisplayFor(x => item.StoreCategoryName)</span>
                     </div>
                 </a>
             </li>
         }
-
     </ul>
 
     <!-- 活動店家(幻燈片) -->
@@ -503,19 +499,17 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
                 @*@foreach (var item in Model)*@
-                @for (int j = 0; j < 14; j++)
+                @foreach (var item in Model)
 
                 {
                     <!-- 分類標題 -->
                     <div class="d-flex align-items-center justify-content-between">
                         @*<h2>@Html.DisplayFor(x => item.Name)</h2><a href="">查看全部</a>*@
-                        <h2>優惠</h2><a href="">查看全部</a>
+                        <h2>@Html.DisplayFor(x => item.StoreCategoryName)</h2><a href="">查看全部</a>
                     </div>
                     <!-- 店家(幻燈片) -->
                     <div class="uk-panel">
@@ -784,7 +778,7 @@
         main {
             padding: 0px 40px;
             max-width: 1920px;
-            margin:auto;
+            margin: auto;
         }
 
         /* 主分類 */
@@ -898,7 +892,7 @@
             font-size: 16px;
             margin: 0 0 0 16px;
             text-align: left;
-            width:100%;
+            width: 100%;
         }
 
         .subcategory .uk-slidenav {
