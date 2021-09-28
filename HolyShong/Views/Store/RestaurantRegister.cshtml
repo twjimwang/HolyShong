@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "RestaurantRegister";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 
@@ -38,7 +39,7 @@
 
                     <p>按一下「送出」即表示您同意<a href="#">HolySong一般條款與細則</a> ，並確認您已閱讀<a href="#">隱私政策</a>。</p>
                     <button type="button" class="btn btn-success btn-block" id="submitBtn">送出</button>
-                </div>                
+                </div>
 
             </div>
         </div>
@@ -52,7 +53,8 @@
 </body>
 @section topCSS{
     <style>
-        
+
+        /*註冊*/
         /* 整版大小 */
         .storeRegisterContainer {
             max-width: 1900px;
@@ -104,12 +106,15 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
+
+        /*註冊RWD*/
         /* 背景圖設定 */
         @@media screen and (min-width:768px) {
             .backgroundIMG {
                 background-image: url(../../Assets/Images/register.jpg);
                 background-size: cover;
-                height: 70vh;
+                height: calc(85vh - 133.975px);
             }
 
             .register {
@@ -132,5 +137,6 @@
                 color: white;
             }
         }
+
     </style>
 }
