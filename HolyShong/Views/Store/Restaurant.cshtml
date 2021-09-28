@@ -20,7 +20,7 @@
         <div class="text">
             <h1>@Model.StoreName</h1>
             <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-            •<span class="starScore">@Model.Score1</span><span class="comment">(21)</span>
+            •<span class="starScore">@Model.Score1.ToString().Substring(0,3)</span><span class="comment">(21)</span>
         </div>
         <div class="timeHeartBtn">
             <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
@@ -240,15 +240,15 @@
                 @foreach (var ProductCategory in Model.productCategories)
                 {
                     <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
-                               
-                    }
+
+                }
                 @*<a href="#titleOne">您專屬的推薦商品</a>
-                  <a href="#titleTwo">人氣精選</a>
-                  <a href="#titleThree">主食</a>
-                  <a href="#titleFour">單點</a>
-                  <a href="#titleTwo">人氣精選</a>
-                  <a href="#titleThree">主食</a>
-                  <a href="#titleFour">單點</a>*@
+                    <a href="#titleTwo">人氣精選</a>
+                    <a href="#titleThree">主食</a>
+                    <a href="#titleFour">單點</a>
+                    <a href="#titleTwo">人氣精選</a>
+                    <a href="#titleThree">主食</a>
+                    <a href="#titleFour">單點</a>*@
             </div>
         </div>
     </div>
@@ -630,11 +630,12 @@
             position: relative;
         }
 
-        .openTime span {
-            font-size: 16px;
-        }
-        h3 .setOpenTime{
-            font-size:30px;
+            .openTime span {
+                font-size: 16px;
+            }
+
+        h3 .setOpenTime {
+            font-size: 30px;
         }
         /* 下拉選單modal */
         .formSelect {
@@ -725,10 +726,10 @@
             align-items: center;
         }
 
-        .joinEats span {
-            color: #545454;
-            font-size: 14px;
-        }
+            .joinEats span {
+                color: #545454;
+                font-size: 14px;
+            }
 
         .ticket img {
             width: 21px;
@@ -747,16 +748,18 @@
             padding-left: 20px;
         }
 
-        .bill p {
-            font-size: 14px;
-            color: rgb(117, 117, 117);
-        }
+            .bill p {
+                font-size: 14px;
+                color: rgb(117, 117, 117);
+            }
+
         .startTime {
             display: flex;
             justify-content: space-between;
         }
-        .textCenter{
-            margin:auto;
+
+        .textCenter {
+            margin: auto;
         }
         /* storeModal */
         .storeModalContent {
@@ -1006,27 +1009,29 @@
                 position: sticky;
                 top: 39px;
                 z-index: 4;
+                .itemGroupPic
 
-            .itemGroupPic {
-                width: 22%;
+        {
+            width: 22%;
+        }
+
+        :target {
+            content: '';
+            display: block;
+            padding-top: 122px;
+            margin-top: -122px;
+        }
+
+        .itemGroupPic {
+            width: 40%;
+        }
+
+            .itemGroupPic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
-            :target {
-                content: '';
-                display: block;
-                padding-top: 122px;
-                margin-top: -122px;
-            }
-
-            .itemGroupPic {
-                width: 40%;
-            }
-
-                .itemGroupPic img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
         }
         /*平板橫*/
         @@media screen and (min-width: 768px) and (max-width:1024px) {
@@ -1045,8 +1050,8 @@
             }
         }
     </style>
+    }
 }
-
 @section endJS
 {
     <script>
@@ -1084,5 +1089,3 @@
         });
     </script>
 }
-
-

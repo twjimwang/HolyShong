@@ -1,4 +1,4 @@
-﻿using HolyShong.Models;
+﻿using HolyShong.Models.HolyShongModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,44 +5,45 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Models;
+using HolyShong.Models.HolyShongModel;
 using HolyShong.ViewModels;
 using Newtonsoft.Json;
 namespace HolyShong.Controllers
 {
     public class StoreController : Controller
     {
-        public StoreContext _ctx;
+        public HolyShongContext _ctx;
         public StoreController()
         {
-            _ctx = new StoreContext();
+            _ctx = new HolyShongContext();
         }
         // GET: Store
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Restaurant(int storeId = 0)
+        public ActionResult Restaurant(int id = 0)
         {
             RestaurantVM result = new RestaurantVM();
-            var store =_ctx.Stores.FirstOrDefault((x) => x.StoreId == storeId);
+            var store = _ctx.Store.FirstOrDefault((x) => x.StoreId == id);
             if (store == null)
             {
-                RedirectToAction("NoSearch", "Home");
+                return RedirectToAction("NoSearch", "Home");
             }
-            var productCategories = _ctx.ProductCategories.Where((x) => x.StoreId == store.StoreId);
+            var productCategories = _ctx.ProductCategory.Where((x) => x.StoreId == store.StoreId);
 
-            var products = _ctx.Products.Where(x => productCategories.Select(y => y.ProductCategoryID).Contains(x.ProductCategoryId)).ToList();
+            var products = _ctx.Product.Where(x => productCategories.Select(y => y.ProductCategoryId).Contains(x.ProductCategoryId));
 
             result.StoreId = store.StoreId;
             result.StoreName = store.Name;
-            result.StorePicture = store.Picture;
+            result.StorePicture = store.Img;
             result.StoreAddress = store.Address;
-            result.Products = products;
+            result.Products = products.ToList();
             result.productCategories = productCategories.ToList();
-            result.Score1 = _ctx.Scores.Where(x => x.ScoreId == store.StoreId).Average(x=>x.Score1);
+            result.Score1 = _ctx.Score.Where(x => x.ScoreId == store.StoreId).Average(x => x.Score1);
             result.StoreCategoryName = _ctx.StoreCategory.First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
 
-            
+
             return View(result);
 
         }

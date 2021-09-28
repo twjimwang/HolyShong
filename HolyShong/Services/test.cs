@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HolyShong.Repositories;
-using HolyShong.Models;
 using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Services
