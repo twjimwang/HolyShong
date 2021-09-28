@@ -221,6 +221,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\MemberProfileService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MemberProfileViewModel.cs" />
