@@ -68,7 +68,7 @@ namespace HolyShong.Services
         /// </summary>
         public List<OrderListViewModel> GetOrderByMemberId(int memberId)
         {
-            decimal total = 0;
+            List<OrderListViewModel> result = new List<OrderListViewModel>();
 
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
             if(member == null)
@@ -76,43 +76,51 @@ namespace HolyShong.Services
                 return new List<OrderListViewModel>();
             }
 
-            var order = _repo.GetAll<Order>().Where(o => o.MemberId == member.MemberId);
-            var deliver = _repo.GetAll<Deliver>().Where(d => order.Select(o=>o.OrderId).Contains(d.DeliverId));
-            var store = _repo.GetAll<Store>().Where(s => order.Select(o => o.StoreId).Contains(s.StoreId));
-            var orderDetail = _repo.GetAll<OrderDetail>().Where(od => order.Select(o => o.OrderId).Contains(od.OrderId));
-            var product = _repo.GetAll<Product>().Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId));
-            var productOption = _repo.GetAll<ProductOption>().Where(po => orderDetail.Select(od => od.ProductOptionId).Contains(po.ProductOptionId));
-            var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => orderDetail.Select(od=>od.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
+            var orders = _repo.GetAll<Order>().Where(o => o.MemberId == member.MemberId);
+            //var see = orders.Select(o => o.StoreId);
+            //var allStores = _repo.GetAll<Store>().ToList();
+            //var ttt = allStores.Where()
+            var stores = _repo.GetAll<Store>().Where(s => orders.Select(o => o.StoreId).Contains(s.StoreId));
+            var orderDetails = _repo.GetAll<OrderDetail>().Where(od => orders.Select(o => o.OrderId).Contains(od.OrderId));
+            var orderOptionDetails = _repo.GetAll<OrderDetailOption>().Where(odo => orderDetails.Select(od=>od.OrderDetailId).Contains(odo.OrderDetailId));
+            var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
+            var productOptions = _repo.GetAll<ProductOption>().Where(po => orderOptionDetails.Select(odo => odo.ProductOptionId).Contains(po.ProductOptionId));
+            var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => orderOptionDetails.Select(odo=>odo.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
 
-            //產品細節
-            var tempOption = orderDetail.Select(od => new OrderOptionDetail
-            {
-                ProdectOptionName = productOptionDetail.Select(pod => pod.Name).ToString()
-            }).ToList();
 
-            //產品
-            var tempProduct = orderDetail.Select(od => new OrderProduct
+            foreach(var o in orders)
             {
-                ProductName = product.First(p => p.ProductId == od.ProductId).Name,
-                ProductPrice = od.UnitPrice,
-                ProductQuantity = od.Quantity,
-                OrderOptions = tempOption
-            }).ToList();
+                //ProductName 需要orderDetail Product productOptionDetail
+                var orderDetail = orderDetails.Where(od => od.OrderId == o.OrderId);
+                var orderOptionDetail = orderOptionDetails.Where(ood => orderDetail.Select(od => od.OrderDetailId).Contains(ood.OrderDetailId));
+                var productOptionDetail = productOptionDetails.Where(pod => orderOptionDetail.Select(ood => ood.ProductOptionDetailId).Contains(pod.ProductOptionDetailId)).
+                    Select(pod => pod.Name);
+                var productOptionDetailString = String.Join("．", productOptionDetail);
+                var product = products.Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId)).
+                    Select(p => new OrderProduct
+                    {
+                        ProductName = p.Name,
+                        ProductPrice = orderDetail.FirstOrDefault(od => od.ProductId == p.ProductId).UnitPrice,
+                        ProductQuantity = orderDetail.FirstOrDefault(od => od.ProductId == p.ProductId).Quantity,
+                        OrderOptions = productOptionDetailString
+                    }).ToList();
 
-            foreach(var p in tempProduct)
-            {
-                total += p.ProductPrice * p.ProductQuantity;
+                var amount = orderDetail.Sum(od => od.Quantity * od.UnitPrice);
+                decimal addPrice = orderOptionDetail.Sum(ood => ood.AddPrice).HasValue? orderOptionDetail.Sum(ood => ood.AddPrice).Value : 0;
+                var tempOrder = new OrderListViewModel
+                {
+                    OrderId = o.OrderId,
+                    DeliverDate = o.RequiredDate == null ? o.CreateDate : o.RequiredDate,
+                    RestaurantId = stores.FirstOrDefault(s => s.StoreId == o.StoreId).StoreId,
+                    RestaurantName = stores.FirstOrDefault(s => s.StoreId == o.StoreId).Name,
+                    RestaurantImg = stores.FirstOrDefault(s => s.StoreId == o.StoreId).Img,
+                    ProductLists = product,
+                    OrderStatus = o.OrderStatus ? 1 : 0,
+                    Total = amount + addPrice
+                };
+                result.Add(tempOrder);
             }
-
-            var temp = order.Select(o => new OrderListViewModel
-            {
-                DeliverDate = o.RequiredDate == null ? o.CreateDate : o.RequiredDate,
-                RestaurantName = store.First(s => s.StoreId == o.OrderId).Name,
-                OrderLists = tempProduct,
-
-            }).ToList();
-
-            return temp;
+            return result;
         }
 
     }

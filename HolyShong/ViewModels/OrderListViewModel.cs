@@ -7,6 +7,8 @@ namespace HolyShong.ViewModels
 {
     public class OrderListViewModel
     {
+        public int OrderId { get; set; }
+        public int RestaurantId { get; set; }
         /// <summary>
         /// 訂單運送日期
         /// </summary>
@@ -14,12 +16,14 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 訂單狀況(0未完成 1完成)
         /// </summary>
-        public int OrderState { get; set; } 
-        /// <summary>
-        /// 消費者訂單備註
-        /// </summary>
+        public int OrderStatus { get; set; } 
+
         public string RestaurantName { get; set; }
-        public List<OrderProduct> OrderLists { get; set; }
+        public string RestaurantImg { get; set; }
+        /// <summary>
+        /// 訂單明細
+        /// </summary>
+        public List<OrderProduct> ProductLists { get; set; }
         public decimal Total { get; set; }
     }
 
@@ -28,14 +32,7 @@ namespace HolyShong.ViewModels
         public string ProductName { get; set; }
         public int ProductQuantity { get; set; }
         public decimal ProductPrice { get; set; }
-        public List<OrderOptionDetail> OrderOptions { get; set; }
+        public string OrderOptions { get; set; }
 
     }
-
-    public class OrderOptionDetail
-    {
-        public string ProdectOptionName { get; set; }
-
-    }
-
 }
