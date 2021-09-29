@@ -16,7 +16,7 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        public CartViewModel GetCartViewModel(int cartId)
+        public CartViewModel GetCartViewModel(int Id)
         {
             var result = new CartViewModel()
             {
@@ -26,13 +26,13 @@ namespace HolyShong.Services
                 }   
             };
             // 代入id
-            var CartResult = _repo.GetAll<Cart>().FirstOrDefault(x=>x.CartId == cartId);
-            if (CartResult == null)
+            var itemResult = _repo.GetAll<Item>().FirstOrDefault(x=>x.ItemId == Id);
+            if (itemResult == null)
             {
                 return result;
             }
 
-            var StoreResult = _repo.GetAll<Store>().FirstOrDefault();
+            var product = _repo.GetAll<Product>().FirstOrDefault();
            
 
             return result;
