@@ -9,11 +9,11 @@ namespace HolyShong.ViewModels
     {
         public int CartId { get; set; }
         public string StoreName { get; set; }
-        public List<Item> Items { get; set; }
+        public List<CartItem> CartItems { get; set; }
         public int TotalPrice { get; set; }
     }
 
-    public class Item
+    public class CartItem
     {
         public int ItemId { get; set; }
         public string ProductName { get; set; }
@@ -25,7 +25,6 @@ namespace HolyShong.ViewModels
     public class ProductOptionCard
     {
         public int ProductOptionId { get; set; }
-
         /// <summary>
         /// 甜度選擇
         /// </summary>

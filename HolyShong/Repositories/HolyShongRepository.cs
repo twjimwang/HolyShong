@@ -40,6 +40,7 @@ namespace HolyShong.Repositories
 
         public IQueryable<T> GetAll<T>() where T : class
         {
+           
             return _context.Set<T>();
         }
     }

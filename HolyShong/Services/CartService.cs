@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HolyShong.ViewModels;
 using HolyShong.Repositories;
+using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Services
 {
@@ -15,18 +16,32 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        public CartViewModel GetCartViewModel()
+        public CartViewModel GetCartViewModel(int cartId)
         {
             var result = new CartViewModel()
             {
-                Items = new List<Item>()
+                CartItems = new List<CartItem>()
                 {
-                    new Item (){ProductOptionCards = new List<ProductOptionCard>() }
+                    new CartItem (){ProductOptionCards = new List<ProductOptionCard>()}
                 }   
             };
+            // 代入id
+            var CartResult = _repo.GetAll<Cart>().FirstOrDefault(x=>x.CartId == cartId);
+            if (CartResult == null)
+            {
+                return result;
+            }
+
+            var StoreResult = _repo.GetAll<Store>().FirstOrDefault();
+           
+
             return result;
         }
-
+      
+      
+           
+           
+       
 
     }
      
