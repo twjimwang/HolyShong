@@ -19,32 +19,22 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        public MemberRegistrViewModel GetAllMember()
+        public Member UserLogin(MemberLoginViewModel loginVM)
         {
-            var result = new MemberRegistrViewModel()
+            //使用HtmlEncode將帳密做HTML編碼, 去除有害的字元
+            string name = HttpUtility.HtmlEncode(loginVM.Email);
+            string password = HttpUtility.HtmlEncode(loginVM.Password);
+            //string password = HashService.MD5Hash(HttpUtility.HtmlEncode(loginVM.Password));
+
+            Member user = _repo.GetAll<Member>()
+              .Where(x => x.Email.ToUpper() == name.ToUpper() && x.Password == password)
+              .SingleOrDefault();
+            if (user == null)
             {
-                ProductCards = new List<ProductCard>(),
-                Title = "歡迎光臨"
-            };
-            var products = _repo.GetAll().ToList();
-            foreach (var prod in products)
-            {
-                var category = _repo.GetAll()
-                    .FirstOrDefault(x => x.CategoryId == prod.CategoryId);
-                var temp = new ProductCard
-                {
-                    ProductId = prod.ProductId,
-                    Name = prod.Name,
-                    ImgUrl = prod.Img,
-                    CategoryName = category == null ? "預設類別" : category.Name
-                };
-                result.ProductCards.Add(temp);
+                return null;
             }
-
-            result.Title = "NONO";
-
-            return result;
+            return user;
         }
-
+        
     }
 }

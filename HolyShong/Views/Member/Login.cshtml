@@ -4,22 +4,37 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="container loginArean">
-    <div class="login pt-5">
-        <div>
-            <h4>歡迎回來</h4>
-            <label for="account">Email/手機</label>
-            <input type="text" placeholder="您的電子郵件或手機號碼" class="w-100" id="account">
-            <label for="password">密碼</label>
-            <input type="text" placeholder="您的密碼" class="w-100" id="password">
-            <button class="btn w-100" id="nextbtn">下一步</button>
-        </div>
-        <div class="my-4">
-            <div>還沒用過 HolyShong 嗎？<a href="#">建立帳戶</a></div>
-            <div><a href="~/Member/forgotpassword">忘記密碼？</a></div>
-        </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container loginArean">
+        <div class="login pt-5">
+            <div>
+                <h4>歡迎回來</h4>
+                <div class="form-group">
+                    <label for="account">Email/手機</label>
+                    @*<input type="text" placeholder="您的電子郵件或手機號碼" class="w-100" id="account">*@
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    @*<input type="text" placeholder="您的密碼" class="w-100" id="password">*@
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+                    <button class="btn w-100" id="nextbtn">下一步</button>
+                </div>
+                <div class="my-4">
+                    <div>還沒用過 HolyShong 嗎？<a href="#">建立帳戶</a></div>
+                    <div><a href="~/Member/forgotpassword">忘記密碼？</a></div>
+                </div>
+            </div>
     </div>
-</div>
+
+}
+
+
 
 @section topCSS
 {
@@ -27,9 +42,11 @@
         * {
             font-size: 16px;
         }
+
         .loginArean {
             flex-grow: 1;
         }
+
         .login {
             margin: auto;
         }
@@ -65,11 +82,17 @@
             .login a:hover {
                 text-decoration: underline;
             }
-    @@media screen and (min-width: 992px) {
-       .login{
-            margin: auto;
-            width: 550px;
+
+        @@media screen and (min-width: 992px) {
+            .login {
+                margin: auto;
+                width: 550px;
+            }
         }
-    }
     </style>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }
