@@ -1,0 +1,106 @@
+﻿
+
+@model MemberProfileViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="personalGroup container">
+        <div class="personalInfo">
+            <h2>會員資料修改</h2>
+            <div class="name row">
+                <label class="col-4 " for="lastName">會員姓氏</label>
+                <input class="col-8" type="text" id="lastName" value="@Model.LastName">
+            </div>
+            <div class="name row">
+                <label class="col-4" for="firstName">會員名字</label>
+                <input class="col-8" type="text" id="firstName" value="@Model.FirstName">
+            </div>
+            <div class="phone row">
+                <label class="col-4" for="tel">聯絡電話</label>
+                <input class="col-8" type="text" id="tel" value="@Model.Cellphone">
+            </div>
+            <div class="member row">
+                <div class="memberTxt col-4">會員狀態</div>
+                @if (Model.IsPrimary)
+                {
+                    <div class="col-8">送送會員 <br>到期時間：@Model.EndTime</div>
+                }
+                else
+                {
+                    <div class="col-8">
+                        一般會員 <button type="button" class="btn btn-primary btn-sm align-items-center" id="GetPrimary">升級為送送會員</button>
+                    </div>
+                }
+            </div>
+            <div class="email row">
+                <div class="emailTxt col-4">電子郵件</div>
+                <div class="emailInfo col-8">@Model.Email</div>
+            </div>
+
+            <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
+        </div>
+    </div>
+}
+@section topCSS
+{
+    <style>
+        * {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1920px;
+        }
+
+        .personalGroup {
+            display: flex;
+        }
+
+        .personalInfo {
+            margin: 23px auto;
+        }
+
+            .personalInfo h2 {
+                font-size: 20px;
+            }
+
+            .personalInfo .row .col-4 {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+        .layout {
+            height: 60px;
+            background: red;
+        }
+        /* name */
+        .name {
+            margin-top: 16px;
+        }
+
+        .emailInfo, .app h4 {
+            font-weight: bold;
+        }
+        /* phone */
+        .phone {
+            margin: 16px 0;
+        }
+
+        /* email */
+        .email {
+            margin: 16px 0;
+        }
+
+        /* saveBtn */
+        .saveBtn {
+            margin-bottom: 16px;
+        }
+    </style>
+}
+
+@section endJS{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

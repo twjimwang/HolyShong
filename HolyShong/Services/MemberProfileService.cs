@@ -10,54 +10,54 @@ namespace HolyShong.Services
 {
     public class MemberProfileService
     {
-        private readonly HolyShongRepository _repo ;
+        private readonly HolyShongRepository _repo;
         public MemberProfileService()
         {
             _repo = new HolyShongRepository();
         }
-        /// <summary>
-        /// 取得特定ID的會員
-        /// </summary>
-        /// <returns></returns>
-        public Member GetMember()
+
+        //取得特定會員Id的Member資料表
+        public Member GetMember(int id)
         {
-            
-            return _repo.GetAll<Member>().FirstOrDefault();
+            return _repo.GetAll<Member>().FirstOrDefault(x => x.MemberId == id);
         }
 
+        //取得特定會員Id的Rank資料表
         public Rank GetRankByMemberId(int id)
         {
-            return _repo.GetAll<Rank>().FirstOrDefault(r=>r.MemberId==id);
+            return _repo.GetAll<Rank>().FirstOrDefault(x => x.MemberId == id);
         }
 
+        //建立ViewModel
+        public MemberProfileViewModel GetMemberProfileViewModel(int id)
+        {
+            //待處理=>
+            var member = GetMember(id);
+            bool primary = false;            
+            Rank rank = GetRankByMemberId(id);
+            if (rank != null && rank.IsPrimary)
+            {
+                primary = true;                
+            }
+            
+            var result = new MemberProfileViewModel()
+            {
+                MemberId = member.MemberId,
+                Cellphone = member.Cellphone,
+                Email = member.Email,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                IsPrimary = primary
+            };
 
+            if (rank!=null && rank.EndTime != null && rank.EndTime.HasValue)
+            {
+                //會是資料庫的日期減一天(因為資料庫的結束時間是該日的0:00)
+                result.PrimaryEndTime = ((DateTime)rank.EndTime).AddDays(-1).ToShortDateString();
+            }            
+            return result;
+        }
 
-        //public List<MemberProfileViewModel> GetMemberProfileData(int? id)
-        //{
-
-        //    List<Member> members = _repo.GetMembers().ToList();
-        //    List<Address> addresses = _repo.GetAddresses().ToList();
-        //    List<Rank> ranks = _repo.GetRanks().ToList();
-
-        //    var memberProfileVM =
-        //        from m in members
-        //        join a in addresses
-        //        on m.MemberId equals a.MemberId
-        //        join r in ranks
-        //        on m.MemberId equals r.MemberId
-        //        where m.MemberId == id
-        //        select new MemberProfileViewModel
-        //        {
-        //            MemberId = m.MemberId,
-        //            FullName = m.LastName + m.FirstName,
-        //            Cellphone = m.Cellphone,
-        //            Zipcode = a.ZipCode,
-        //            Address = a.Address1,
-        //            IsPrimary = r.IsPrimary,
-        //            Email = m.Email
-        //        };
-        //    return (List<MemberProfileViewModel>)memberProfileVM.ToList();
-        //}
 
         //public List<MemberProfileViewModel> GetAllMemberProfile()
         //{
@@ -85,23 +85,23 @@ namespace HolyShong.Services
         //        result.Add(temp);
 
         //    }
-            //return result;
+        //    return result;
 
 
 
 
 
-            //return members.Select(m => new MemberProfileViewModel
-            //{
-            //    MemberId = m.MemberId,
-            //    FullName = $"{m.LastName},{m.FirstName}",
-            //    Cellphone = m.Cellphone,
-            //    Zipcode = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.ZipCode,
-            //    Address = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.Address1,
-            //    IsPrimary = ranks.First(r => r.MemberId == m.MemberId).IsPrimary,
-            //    LevelName = ranks.First(r => r.MemberId == m.MemberId).IsPrimary?"尊貴會員":"一般會員",
-            //    Email = m.Email
-            //}).ToList();
+        //return members.Select(m => new MemberProfileViewModel
+        //{
+        //    MemberId = m.MemberId,
+        //    FullName = $"{m.LastName},{m.FirstName}",
+        //    Cellphone = m.Cellphone,
+        //    Zipcode = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.ZipCode,
+        //    Address = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.Address1,
+        //    IsPrimary = ranks.First(r => r.MemberId == m.MemberId).IsPrimary,
+        //    LevelName = ranks.First(r => r.MemberId == m.MemberId).IsPrimary?"尊貴會員":"一般會員",
+        //    Email = m.Email
+        //}).ToList();
         //}
     }
 }
