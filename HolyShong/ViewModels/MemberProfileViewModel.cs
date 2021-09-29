@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,7 +12,6 @@ namespace HolyShong.ViewModels
     /// 使用資料表：
     /// Member
     /// Rank
-    /// Address
     /// </summary>
     public class MemberProfileViewModel
     {
@@ -24,34 +24,23 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 會員姓氏
         /// </summary>
+        [Required]
+        [StringLength(50,ErrorMessage ="不得大於50字元")]
         public string LastName { get; set; }
 
         /// <summary>
         /// 會員名字
         /// </summary>
+        [Required]
+        [StringLength(50, ErrorMessage = "不得大於50字元")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// 會員手機
         /// </summary>
+        [Required]
+        [StringLength(10,MinimumLength =10,ErrorMessage ="請輸入10位數")]
         public string Cellphone { get; set; }
-
-        /// <summary>
-        /// 會員郵遞區號
-        /// </summary>
-        public int Zipcode { get; set; }
-
-        /// <summary>
-        /// 行政區
-        /// e.g.台北市大安區
-        /// </summary>
-        public string ZipcodeDistrict { get; set; }
-
-        /// <summary>
-        /// 會員地址
-        /// 對應Address表
-        /// </summary>
-        public string Address { get; set; }
 
         /// <summary>
         /// 送送會員
@@ -60,19 +49,20 @@ namespace HolyShong.ViewModels
         public bool IsPrimary { get; set; }
 
         /// <summary>
+        /// 送送會員到期時間
+        /// 對應Rank表
+        /// </summary>
+        public string PrimaryEndTime { get; set; }
+
+        /// <summary>
         /// 會員信箱
         /// </summary>
         public string Email { get; set; }
 
-        public Dictionary<int, string> CreateZipcodeDistrictList()
-        {
-            Dictionary<int, string> keyValuePairs = new Dictionary<int, string>()
-            {
-
-            };
-            return keyValuePairs;
-        }
-
+        /// <summary>
+        /// 會員資料更新時間
+        /// </summary>
+        public DateTime UpdateTime { get; set; }
     }
 
 }
