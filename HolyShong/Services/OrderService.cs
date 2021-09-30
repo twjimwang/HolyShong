@@ -136,7 +136,7 @@ namespace HolyShong.Services
             var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
             if(order == null)
             {
-                return new DeliverViewModel();
+                return result;
             }
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == order.MemberId);
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);

@@ -10,11 +10,9 @@ namespace HolyShong.Controllers
     public class OrderController : Controller
     {
         private readonly OrderService _orderService;
-        private readonly test _testService;
         public OrderController()
         {
             _orderService = new OrderService();
-            _testService = new test();
         }
         // GET: Order
         /// <summary>
@@ -28,12 +26,6 @@ namespace HolyShong.Controllers
                 return RedirectToAction("Checkout","Member");
             }
             var result = _orderService.GetOrder(id.Value);
-            return View(result);
-        }
-
-        public ActionResult Test()
-        {
-            var result = _testService.GetProducts();
             return View(result);
         }
     }
