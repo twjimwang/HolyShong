@@ -57,7 +57,7 @@ namespace HolyShong.Controllers
                 return RedirectToAction("NoSearch", "Home");
             }
             var result=_restaurantService.GetRestaurant(id);
-            if(result.StoreName == null)
+            if (result.StoreName == null)
             {
                 return RedirectToAction("NoSearch", "Home");
             }

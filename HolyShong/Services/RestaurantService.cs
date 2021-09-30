@@ -37,7 +37,7 @@ namespace HolyShong.Services
             result.StoreAddress = store.Address;
             result.Products = products.ToList();
             result.productCategories = productCategories.ToList();
-            result.Score1 = _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.Score1);   
+            result.Score1 = _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => (decimal?)x.Score1) == null ? 0 : _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.Score1);   
             
             result.StoreCategoryName = _repo.GetAll<StoreCategory>().First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
             return result;

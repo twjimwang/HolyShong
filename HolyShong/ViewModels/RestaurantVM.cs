@@ -26,7 +26,7 @@ namespace HolyShong.ViewModels
         public List<Product> Products { get; set; }//需要很多商品,所以用成集合
 
     
-        public decimal Score1 { get; set; }
+        public decimal? Score1 { get; set; }
         //StoreCategory                     
 
        
