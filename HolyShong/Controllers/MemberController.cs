@@ -36,7 +36,7 @@ namespace HolyShong.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.xtest = _cartService.GetCartViewModels().First();
+           // ViewBag.xtest = _cartService.GetCartViewModels().First();
             return View();
         }
 
