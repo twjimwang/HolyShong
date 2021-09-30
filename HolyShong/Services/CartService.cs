@@ -26,16 +26,23 @@ namespace HolyShong.Services
                 }   
             };
             // 代入id
-            var itemResult = _repo.GetAll<Item>().FirstOrDefault(x=>x.ItemId == Id);
+            var itemResult = _repo.GetAll<Item>().FirstOrDefault(x=>x.ProductId == Id);
             if (itemResult == null)
             {
                 return result;
             }
 
-            var product = _repo.GetAll<Product>().FirstOrDefault();
-           
+            var product = _repo.GetAll<Product>().Where(x=>x.ProductId == Id).ToList();
+            var CartViewModel = product.Select(p => new CartViewModel
+            {
+                StoreName = p.Name,
+              
 
+            }).ToList();
+            
+           
             return result;
+            
         }
       
       
