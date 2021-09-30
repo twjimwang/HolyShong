@@ -1,8 +1,8 @@
-﻿@model List<HomeViewModel>
+﻿@model HomeViewModel
 
-@*@{ 
-    var cards = Model.StoreCards;
-}*@
+@{
+    int storecategoryId = 1;
+}
 <main>
     <!-- 副分類按鈕(合併進JC) -->
     <div id="cellphone-subcategory" class="subcategory">
@@ -185,17 +185,24 @@
             </a>
         </li>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.StoreCategories)
         {
             <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <img alt="" role="presentation" src="@Html.DisplayFor(x => item.StoreCategories)">
+                <a class="nav-link" href="~/Home/Search/@storecategoryId">
+                    <img alt="" role="presentation" src="@item.StoreCategoryImg">
                     <div class="d-flex justify-content-center">
-                        <span>@Html.DisplayFor(x => item.StoreCategoryName)</span>
+                        <span>@item.StoreCategoryName</span>
                     </div>
                 </a>
             </li>
+            storecategoryId++;
         }
+
+
+
+
+
+
     </ul>
 
     <!-- 活動店家(幻燈片) -->
@@ -506,13 +513,11 @@
                     </div>
                 </div>
 
-                @foreach (var item in Model)
-
+                <!-- 分類標題 -->
+                @foreach (var item in Model.StoreCardBlocks)
                 {
-                    <!-- 分類標題 -->
                     <div class="d-flex align-items-center justify-content-between">
-                        @*<h2>@Html.DisplayFor(x => item.Name)</h2><a href="">查看全部</a>*@
-                        <h2>@Html.DisplayFor(x => item.StoreCategoryName)</h2><a href="">查看全部</a>
+                        <h2>@item.StoreCategoryName</h2><a href="">查看全部</a>
                     </div>
                     <!-- 店家(幻燈片) -->
                     <div class="uk-panel">
@@ -521,21 +526,21 @@
                             <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true">
 
                                 <ul class="uk-slider-items uk-grid ">
-                                    @for (int i = 0; i < 5; i++)
+                                    @foreach (var card in item.StoreCards)
                                     {
                                         <li class=" uk-width-1-3@l uk-width-1-1">
                                             <div class="uk-panel">
                                                 <!-- 商店卡(LEO) -->
                                                 <div class="cardCol">
                                                     <div class="foodCard" style="cursor:pointer;">
-                                                        <a href="#" style="text-decoration:none;">
+                                                        <a href="~/Store/Restaurant/@card.StoreId" style="text-decoration:none;">
                                                             <div class="headline">
-                                                                <img class="pic" src="https://picsum.photos/300/100/?random=1">
+                                                                <img class="pic" src="@card.StoreImg">
                                                                 <div class="Tag">買1送1</div>
                                                             </div>
                                                             <div class="foodText">
                                                                 <div class="shopNameandPoint">
-                                                                    <div id="spName" class="shopName">Burger King漢堡王 松山店</div>
+                                                                    <div id="spName" class="shopName">@card.StoreName</div>
                                                                     <div id="pp" class="point">4.7</div>
                                                                 </div>
                                                                 <div class="TWD">
@@ -571,8 +576,8 @@
                             </div>
                         </div>
                     </div>
-                }
 
+                }
                 <!-- 顯示更多餐聽 -->
                 <div class="d-flex justify-content-center" style="margin: 40px;">
                     <button type="button" class="btn btn-dark" style="width: 150px;height: 60px;font-size: 18px;">

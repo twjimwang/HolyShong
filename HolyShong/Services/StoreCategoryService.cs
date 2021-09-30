@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HolyShong.Repositories;
 using HolyShong.ViewModels;
+using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Services
 {
@@ -21,21 +22,19 @@ namespace HolyShong.Services
         /// <returns>ProductIndexViewModel</returns>
 
         //主分類提取
-        public List<StoreCategory> GetAllStoreCategories()
+        public List<ViewModels.StoreCategory> GetAllStoreCategories()
         {
-
-            var result = new List<StoreCategory>();
-            var storecategories = _storecategoryRespository.GetAll<StoreCategory>();
+            var result = new List<ViewModels.StoreCategory>();
+            var storecategories = _storecategoryRespository.GetAll<Models.HolyShongModel.StoreCategory>();
             foreach (var item in storecategories)
             {
-                var storecategory = new StoreCategory();
-                storecategory.StoreCategoryId = item.StoreCategoryId;
-                storecategory.StoreCategoryImg = item.StoreCategoryImg;
-                storecategory.StoreCategoryName = item.StoreCategoryName;
-                result.Add(storecategory);
+                var temp = new ViewModels.StoreCategory();
+                temp.StoreCategoryId = item.StoreCategoryId;
+                temp.StoreCategoryImg = item.Img;
+                temp.StoreCategoryName = item.Name;
+                result.Add(temp);
             }
             return result;
         }
-
     }
 }

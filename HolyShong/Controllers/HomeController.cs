@@ -24,9 +24,14 @@ namespace HolyShong.Controllers
 
         public ActionResult Index()
         {
-            var result = new HomeViewModel();
-            result.StoreCategories =_storecategoryService.GetAllStoreCategories();
-            result.StoreCardBlocks =_storeService.G;
+
+            var result = new HomeViewModel()
+            {
+                StoreCategories = new List<ViewModels.StoreCategory>()
+            };
+            
+            result = _storeService.GetAllStores();
+            result.StoreCategories = _storecategoryService.GetAllStoreCategories();
             return View(result);
         }
 
