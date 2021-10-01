@@ -24,7 +24,7 @@
                 <div class="memberTxt col-4">會員狀態</div>
                 @if (Model.IsPrimary)
                 {
-                    <div class="col-8">送送會員 <br>到期時間：@Model.EndTime</div>
+                    <div class="col-8">送送會員 <br>到期時間：@Model.PrimaryEndTime</div>
                 }
                 else
                 {
@@ -39,6 +39,7 @@
             </div>
 
             <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
+            @Html.ValidationSummary()
         </div>
     </div>
 }

@@ -64,6 +64,7 @@ namespace HolyShong.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UserProfile(MemberProfileViewModel memberProfileViewModel)
         {
 
