@@ -14,10 +14,13 @@ namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
-        private readonly MemberProfileService _profileService;
+        private readonly HolyShongRepository _repo;
+        private readonly MemberLoginService _memberLoginService;
+
         public MemberController()
         {
-            _profileService = new MemberProfileService();
+            _repo = new HolyShongRepository();
+            _memberLoginService = new MemberLoginService();
         }
         // GET: Member
         public ActionResult Index()
