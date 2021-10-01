@@ -44,23 +44,24 @@ namespace HolyShong.Controllers
         /// 讀取資料
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public ActionResult UserProfile(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {       
-            var model = _profileService.GetMemberProfileViewModel((int)id);
-                if(model == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            return View(model);
-            }
-        }
+        //[HttpGet]
+        //public ActionResult UserProfile(int? id)
+        //{
+        //    if (!id.HasValue)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {       
+        //    var model = _userProfileService.GetMemberProfileViewModel((int)id);
+        //        if(model == null)
+        //        {
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //    return View(model);
+        //    }
+        //}
+
         /// <summary>
         /// 會員個人資料頁面
         /// 修改資料
