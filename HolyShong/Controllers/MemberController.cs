@@ -1,10 +1,14 @@
-﻿using HolyShong.ViewModels;
+﻿using HolyShong.Models;
+using HolyShong.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HolyShong.Repositories;
 using HolyShong.Services;
+using HolyShong.Models.HolyShongModel;
+using System.Web.Security;
 
 namespace HolyShong.Controllers
 {
