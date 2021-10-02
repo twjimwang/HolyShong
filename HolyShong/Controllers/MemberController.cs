@@ -16,11 +16,13 @@ namespace HolyShong.Controllers
     {
         private readonly HolyShongRepository _repo;
         private readonly MemberLoginService _memberLoginService;
+        private readonly MemberProfileService _memberProfileService;
 
         public MemberController()
         {
             _repo = new HolyShongRepository();
             _memberLoginService = new MemberLoginService();
+            _memberProfileService = new MemberProfileService();
         }
         // GET: Member
         public ActionResult Index()
@@ -44,23 +46,23 @@ namespace HolyShong.Controllers
         /// 讀取資料
         /// </summary>
         /// <returns></returns>
-        //[HttpGet]
-        //public ActionResult UserProfile(int? id)
-        //{
-        //    if (!id.HasValue)
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    else
-        //    {       
-        //    var model = _userProfileService.GetMemberProfileViewModel((int)id);
-        //        if(model == null)
-        //        {
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //    return View(model);
-        //    }
-        //}
+        [HttpGet]
+        public ActionResult UserProfile(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var model = _memberProfileService.GetMemberProfileViewModel((int)id);
+                if (model == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(model);
+            }
+        }
 
         /// <summary>
         /// 會員個人資料頁面
@@ -72,7 +74,13 @@ namespace HolyShong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserProfile(MemberProfileViewModel memberProfileViewModel)
         {
-
+            //string 
+            if (ModelState.IsValid)
+            {
+                bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
+                if (result) return Content("修改成功");
+                else return Content("修改失敗，請重新嘗試");
+            }
             return View();
         }
 

@@ -5,20 +5,27 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(x=>x.MemberId)
     <div class="personalGroup container">
         <div class="personalInfo">
             <h2>會員資料修改</h2>
             <div class="name row">
                 <label class="col-4 " for="lastName">會員姓氏</label>
-                <input class="col-8" type="text" id="lastName" value="@Model.LastName">
+                @Html.EditorFor(x => x.LastName,new { htmlAttributes = new { @class= "col-8 form-control" } })
+                @Html.ValidationMessageFor(x=>x.LastName, "", new { @class = "text-danger" })
+                @*<input class="col-8" type="text" id="lastName" value="@Model.LastName">*@
             </div>
             <div class="name row">
                 <label class="col-4" for="firstName">會員名字</label>
-                <input class="col-8" type="text" id="firstName" value="@Model.FirstName">
+                @Html.EditorFor(x=>x.FirstName,new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.FirstName, "", new {@class="text-danger" })
+                @*<input class="col-8" type="text" id="firstName" value="@Model.FirstName">*@
             </div>
             <div class="phone row">
                 <label class="col-4" for="tel">聯絡電話</label>
-                <input class="col-8" type="text" id="tel" value="@Model.Cellphone">
+                @Html.EditorFor(x => x.Cellphone, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.Cellphone, "", new { @class = "text-danger" })
+                @*<input class="col-8" type="text" id="tel" value="@Model.Cellphone">*@
             </div>
             <div class="member row">
                 <div class="memberTxt col-4">會員狀態</div>
@@ -38,7 +45,7 @@
                 <div class="emailInfo col-8">@Model.Email</div>
             </div>
 
-            <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
+            <button type="submit" class="saveBtn btn btn-primary">儲存變更</button>
             @Html.ValidationSummary()
         </div>
     </div>
