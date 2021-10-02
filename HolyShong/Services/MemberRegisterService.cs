@@ -17,7 +17,7 @@ namespace HolyShong.Services
         public MemberRegisterService() 
         {
             _repo = new HolyShongRepository();
-            _dbc = new HolyShongContext();
+           _dbc = new HolyShongContext();
         }
 
         public bool CreateAccount(MemberRegisterViewModel registerVM) 
@@ -39,6 +39,8 @@ namespace HolyShong.Services
             };
 
             bool status = false;
+
+
             using (var tran = _dbc.Database.BeginTransaction())
             {
                 try
