@@ -24,15 +24,15 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 會員姓氏
         /// </summary>
-        [Required]
-        [StringLength(50,ErrorMessage ="不得大於50字元")]
+        [Required(ErrorMessage ="姓氏必塡")]
+        [StringLength(50,MinimumLength =1,ErrorMessage = "不得為空白,至少1字元")]
         public string LastName { get; set; }
 
         /// <summary>
         /// 會員名字
         /// </summary>
         [Required]
-        [StringLength(50, ErrorMessage = "不得大於50字元")]
+        [StringLength(50,MinimumLength =1, ErrorMessage = "不得為空白,至少1字元")]
         public string FirstName { get; set; }
 
         /// <summary>

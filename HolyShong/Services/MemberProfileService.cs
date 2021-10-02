@@ -1,4 +1,5 @@
-﻿using HolyShong.Models.HolyShongModel;
+﻿using System.Data.Entity;
+using HolyShong.Models.HolyShongModel;
 using HolyShong.Repositories;
 using HolyShong.ViewModels;
 using System;
@@ -9,10 +10,10 @@ using System.Web;
 namespace HolyShong.Services
 {
     public class MemberProfileService
-    {
+    {        
         private readonly HolyShongRepository _repo;
         public MemberProfileService()
-        {
+        {            
             _repo = new HolyShongRepository();
         }
 
@@ -33,13 +34,13 @@ namespace HolyShong.Services
         {
             //待處理=>
             var member = GetMember(id);
-            bool primary = false;            
+            bool primary = false;
             Rank rank = GetRankByMemberId(id);
             if (rank != null && rank.IsPrimary)
             {
-                primary = true;                
+                primary = true;
             }
-            
+
             var result = new MemberProfileViewModel()
             {
                 MemberId = member.MemberId,
@@ -50,12 +51,37 @@ namespace HolyShong.Services
                 IsPrimary = primary
             };
 
-            if (rank!=null && rank.EndTime != null && rank.EndTime.HasValue)
+            if (rank != null && rank.EndTime != null && rank.EndTime.HasValue)
             {
                 //會是資料庫的日期減一天(因為資料庫的結束時間是該日的0:00)
                 result.PrimaryEndTime = ((DateTime)rank.EndTime).AddDays(-1).ToShortDateString();
-            }            
+            }
             return result;
+        }
+
+        public bool EditMemberProfile(MemberProfileViewModel memberProfileViewModel)
+        {
+            var member = GetMember(memberProfileViewModel.MemberId);
+            member.LastName = memberProfileViewModel.LastName;
+            member.FirstName = memberProfileViewModel.FirstName;
+            member.Cellphone = memberProfileViewModel.Cellphone;
+            var rank = GetRankByMemberId(memberProfileViewModel.MemberId);
+            rank.IsPrimary = memberProfileViewModel.IsPrimary;
+            DbContext context = new HolyShongContext();
+            using (var transaction = context.Database.BeginTransaction())
+                try
+                {
+                    _repo.Update<Member>(member);
+                    _repo.Update<Rank>(rank);
+                    _repo.SaveChange();
+                    transaction.Commit();
+                    return (true);
+                }
+                catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    return (false);
+                }
         }
 
 
