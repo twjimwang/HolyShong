@@ -6,7 +6,11 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class MemberRegistrViewModel
+    public class MemberRegistrViewModel 
+    {
+        public List<MemberInfo> MemberInfos { get; set; }
+    }
+    public class MemberInfo
     {
         /// <summary>
         /// 會員姓氏
@@ -45,6 +49,7 @@ namespace HolyShong.ViewModels
         /// </summary>
         [Required(ErrorMessage = "必須輸入密碼")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "需輸入6~20位密碼")]
+        [DataType(DataType.Password)]
         [Display(Name = "密碼")]
         public string Password { get; set; }
 

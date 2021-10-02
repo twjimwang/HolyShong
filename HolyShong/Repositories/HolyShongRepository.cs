@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using HolyShong.Models.HolyShongModel;
+using HolyShong.Services;
+using HolyShong.ViewModels;
 
 namespace HolyShong.Repositories
 {
@@ -42,5 +44,7 @@ namespace HolyShong.Repositories
         {
             return _context.Set<T>();
         }
+
+        
     }
 }
