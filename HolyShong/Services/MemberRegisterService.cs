@@ -13,11 +13,11 @@ namespace HolyShong.Services
     public class MemberRegisterService
     {
         private readonly HolyShongRepository _repo;
-        private readonly DbContext _dbc;
+        //private readonly DbContext _dbc;
         public MemberRegisterService() 
         {
             _repo = new HolyShongRepository();
-           _dbc = new HolyShongContext();
+        //   _dbc = new HolyShongContext();
         }
 
         public bool CreateAccount(MemberRegisterViewModel registerVM) 
@@ -40,8 +40,8 @@ namespace HolyShong.Services
 
             bool status = false;
 
-
-            using (var tran = _dbc.Database.BeginTransaction())
+            DbContext context = new HolyShongContext();
+            using (var tran = context.Database.BeginTransaction())
             {
                 try
                 {
