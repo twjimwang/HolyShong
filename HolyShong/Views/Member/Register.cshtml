@@ -15,8 +15,8 @@
                     <div>
                         <h4 class="title">開始註冊</h4>
                         <div class="colInfo">
-                            <div class="phText">請輸入您的手機號碼(必填)</div>
-                            <div class="inputPhonenumber">
+                            <div class="form-group">
+                                <label for="phoneNum">請輸入您的手機號碼(必填)</label>
                                 @*<input type="text" class="form-control phNum" id="phoneNum">*@
                                 @Html.EditorFor(model => model.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
@@ -62,12 +62,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-lg btn-secondary" id="nextStep">下一步</button>
+                                <button type="submit" class="btn btn-lg btn-secondary form-control" id="nextStep">下一步</button>
                             </div>
-                        </div>
-                        <div class="signText">
-                            Already use Holy Shong?
-                            <a href="#" class="greenLink">Sign in</a>
+
+                            <div class="signText">
+                                Already use Holy Shong?
+                                <a href="#" class="greenLink">Sign in</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -96,20 +97,6 @@
             align-content: center;
             justify-content: center;
             align-items: stretch;
-        }
-
-        .phText {
-            max-width: 552px;
-            min-width: 289px;
-            margin-bottom: 8px;
-        }
-
-        .inputPhonenumber {
-            margin-bottom: 12px;
-            display: flex;
-            max-width: 552px;
-            min-width: 289px;
-            justify-content: center;
         }
 
         .inputName {
@@ -161,11 +148,6 @@
             right: 0px;
         }
 
-        .fa-stack-1x {
-            top: -4px;
-        }
-
-
         @@media screen and (max-width:664px) {
             .bottom {
                 margin: auto;
@@ -191,12 +173,12 @@
             inputElements[i].addEventListener("change", function (event) {
                 if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "") {
                     document.getElementById("nextStep").disabled = false;
-                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning")
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning form-control")
 
                 }
                 else {
                     document.getElementById("nextStep").disabled = true;
-                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-secondary")
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-secondary form-control")
                 }
             });
         }
