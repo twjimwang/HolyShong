@@ -22,6 +22,7 @@ namespace HolyShong.Controllers
         {
             _memberLoginService = new MemberLoginService();
             _memberRegisterService = new MemberRegisterService();
+            _memberProfileService = new MemberProfileService();
         }
         // GET: Member
         public ActionResult Index()
@@ -54,7 +55,7 @@ namespace HolyShong.Controllers
             }
             else
             {
-                var model = _userProfileService.GetMemberProfileViewModel((int)id);
+                var model = _memberProfileService.GetMemberProfileViewModel((int)id);
                 if (model == null)
                 {
                     return RedirectToAction("Index", "Home");
@@ -70,9 +71,16 @@ namespace HolyShong.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UserProfile(MemberProfileViewModel memberProfileViewModel)
         {
-
+            //string 
+            if (ModelState.IsValid)
+            {
+                bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
+                if (result) return Content("修改成功");
+                else return Content("修改失敗，請重新嘗試");
+            }
             return View();
         }
 
