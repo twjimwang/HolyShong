@@ -1,61 +1,79 @@
-﻿@model HolyShong.ViewModels.MemberRegistrViewModel
-@{ 
+﻿@model HolyShong.ViewModels.MemberRegisterViewModel
+@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Register";
 }
 
-<main>
-    <div class="core">
-        <div class="combined">
-            <!-- 區段 下-->
-            <div class="bottom">
-                <div>
-                    <h4 class="title">開始註冊</h4>
-                    <div class="colInfo">
-                        <div class="phText">請輸入您的手機號碼(必填)</div>
-                        <div class="inputPhonenumber">
-                            <input type="text" class="form-control phNum" id="phoneNum">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputFirstname">名字(必填)</label>
-                                <input type="text" class="form-control" id="inputFirstname">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="core">
+            <div class="combined">
+                <!-- 區段 下-->
+                <div class="bottom">
+                    <div>
+                        <h4 class="title">開始註冊</h4>
+                        <div class="colInfo">
+                            <div class="phText">請輸入您的手機號碼(必填)</div>
+                            <div class="inputPhonenumber">
+                                @*<input type="text" class="form-control phNum" id="phoneNum">*@
+                                @Html.EditorFor(model => model.Cellphone, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputLastname">姓氏(必填)</label>
-                                <input type="text" class="form-control" id="inputLastname">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputFirstname">名字(必填)</label>
+                                    @*<input type="text" class="form-control" id="inputFirstname">*@
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputLastname">姓氏(必填)</label>
+                                    @*<input type="text" class="form-control" id="inputLastname">*@
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail">信箱(必填)</label>
-                            <input type="text" class="form-control" id="inputEmail">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword">密碼(必填)</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="密碼">
-                            <div class="fa-stack fa-1x eye" id="tArea">
-                                <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
-                                <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                            <div class="form-group">
+                                <label for="inputEmail">信箱(必填)</label>
+                                @*<input type="text" class="form-control" id="inputEmail">*@
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ConfirmPassword">密碼(必填)</label>
-                            <input type="password" class="form-control" id="ConfirmPassword" placeholder="密碼">
-                            <div class="fa-stack fa-1x eye" id="tArea">
-                                <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
-                                <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                            <div class="form-group">
+                                <label for="inputPassword">密碼(必填)</label>
+                                @*<input type="password" class="form-control" id="inputPassword" placeholder="密碼">*@
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                <div class="fa-stack fa-1x eye" id="tArea">
+                                    <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
+                                    <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <label for="ConfirmPassword">確認密碼(必填)</label>
+                                @*<input type="password" class="form-control" id="ConfirmPassword" placeholder="密碼">*@
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                <div class="fa-stack fa-1x eye" id="tArea">
+                                    <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
+                                    <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-lg btn-secondary" id="nextStep" disabled>下一步</button>
                         </div>
-                        <button type="button" class="btn btn-lg btn-secondary" id="nextStep" disabled>下一步</button>
-                    </div>
-                    <div class="signText">
-                        Already use Holy Shong?
-                        <a href="#" class="greenLink">Sign in</a>
+                        <div class="signText">
+                            Already use Holy Shong?
+                            <a href="#" class="greenLink">Sign in</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+}
+
 
 @section topCSS
     {
@@ -197,4 +215,9 @@
             }
         })
     </script>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }

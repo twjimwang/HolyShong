@@ -16,11 +16,13 @@ namespace HolyShong.Controllers
     {
         private readonly HolyShongRepository _repo;
         private readonly MemberLoginService _memberLoginService;
+        private readonly MemberRegisterService _memberRegisterService;
 
         public MemberController()
         {
             _repo = new HolyShongRepository();
             _memberLoginService = new MemberLoginService();
+            _memberRegisterService = new MemberRegisterService();
         }
         // GET: Member
         public ActionResult Index()
@@ -112,9 +114,24 @@ namespace HolyShong.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(MemberRegistrViewModel registerViewModel)
+        public ActionResult Register(MemberRegisterViewModel registerVM)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(registerVM);
+            }
+
+            bool status = _memberRegisterService.CreateAccount(registerVM);
+
+            if (status)
+            {
+                return Content("新增帳號成功");
+            }
+            else
+            {
+                return Content("新增帳號失敗");
+            }
+            
         }
 
         /// <summary>

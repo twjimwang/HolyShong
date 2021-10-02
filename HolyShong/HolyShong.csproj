@@ -224,11 +224,12 @@
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
     <Compile Include="Services\MemberProfileService.cs" />
+    <Compile Include="Services\MemberRegisterService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
     <Compile Include="ViewModels\MemberProfileViewModel.cs" />
-    <Compile Include="ViewModels\MemberRegistrViewModel.cs" />
+    <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />

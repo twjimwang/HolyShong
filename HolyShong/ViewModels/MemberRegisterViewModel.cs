@@ -6,11 +6,11 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class MemberRegistrViewModel 
-    {
-        public List<MemberInfo> MemberInfos { get; set; }
-    }
-    public class MemberInfo
+    //public class MemberRegisterViewModel 
+    //{
+    //    public List<MemberInfo> MemberInfos { get; set; }
+    //}
+    public class MemberRegisterViewModel
     {
         /// <summary>
         /// 會員姓氏
