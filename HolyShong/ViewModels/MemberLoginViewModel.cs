@@ -19,7 +19,7 @@ namespace HolyShong.ViewModels
         /// 會員密碼
         /// </summary>
         [Required(ErrorMessage = "必須輸入密碼")]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "需輸入6~20位密碼")]
+        [StringLength(1280, MinimumLength = 6, ErrorMessage = "需輸入6~20位密碼")]
         [DataType(DataType.Password)]
         [Display(Name = "密碼")]
         public string Password { get; set; }
