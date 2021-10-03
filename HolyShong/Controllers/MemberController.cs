@@ -163,8 +163,8 @@ namespace HolyShong.Controllers
 
             //二.通過Model驗證後, 使用HtmlEncode將帳密做HTML編碼, 去除有害的字元
             string name = HttpUtility.HtmlEncode(loginVM.Email);
-            string password = HttpUtility.HtmlEncode(loginVM.Password);
-            //string password = HashService.MD5Hash(HttpUtility.HtmlEncode(loginVM.Password));
+            //string password = HttpUtility.HtmlEncode(loginVM.Password);
+            string password = HashService.MD5Hash(HttpUtility.HtmlEncode(loginVM.Password));
 
             //三.EF比對資料庫帳密
             //以Name及Password查詢比對Account資料表記錄
