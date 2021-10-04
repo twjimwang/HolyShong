@@ -78,10 +78,16 @@ namespace HolyShong.Controllers
             if (ModelState.IsValid)
             {
                 bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
-                if (result) return Content("修改成功");
-                else return Content("修改失敗，請重新嘗試");
+                if (result == true)
+                {
+                    ViewBag.commitResult = "修改成功";
+                }
+                else {
+                    ViewBag.commitResult = "修改失敗";
+                }
+
             }
-            return View();
+            return View(memberProfileViewModel);
         }
 
         public ActionResult ForgotPassword()

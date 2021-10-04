@@ -10,10 +10,10 @@ using System.Web;
 namespace HolyShong.Services
 {
     public class MemberProfileService
-    {        
+    {
         private readonly HolyShongRepository _repo;
         public MemberProfileService()
-        {            
+        {
             _repo = new HolyShongRepository();
         }
 
@@ -61,23 +61,52 @@ namespace HolyShong.Services
 
         public bool EditMemberProfile(MemberProfileViewModel memberProfileViewModel)
         {
+            DbContext context = new HolyShongContext();
             var member = GetMember(memberProfileViewModel.MemberId);
             member.LastName = memberProfileViewModel.LastName;
             member.FirstName = memberProfileViewModel.FirstName;
             member.Cellphone = memberProfileViewModel.Cellphone;
+            member.UpdateTime = DateTime.UtcNow.AddHours(8);
+            //member.Email = memberProfileViewModel.Email;           
             var rank = GetRankByMemberId(memberProfileViewModel.MemberId);
-            rank.IsPrimary = memberProfileViewModel.IsPrimary;
-            DbContext context = new HolyShongContext();
+            //if (rank != null)
+            //{
+            //    rank.IsPrimary = memberProfileViewModel.IsPrimary;
+            //}
+            //else
+            //{
+            //    var newRank = new Rank()
+            //    {
+            //        RankId = 100,
+            //        IsPrimary = false,
+            //        MemberId = memberProfileViewModel.MemberId,
+            //    };
+
+            //    using (var transaction = context.Database.BeginTransaction())
+            //        try
+            //        {
+            //            _repo.Create<Rank>(rank);
+            //            _repo.SaveChange();
+            //            transaction.Commit();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            transaction.Rollback();
+            //        }
+            //}
             using (var transaction = context.Database.BeginTransaction())
                 try
                 {
                     _repo.Update<Member>(member);
+                    if(rank != null)
+                    {
                     _repo.Update<Rank>(rank);
+                    }
                     _repo.SaveChange();
                     transaction.Commit();
                     return (true);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     return (false);

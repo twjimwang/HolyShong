@@ -6,19 +6,20 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x=>x.MemberId)
+    @Html.HiddenFor(x=>x.Email)
     <div class="personalGroup container">
         <div class="personalInfo">
             <h2>會員資料修改</h2>
             <div class="name row">
                 <label class="col-4 " for="lastName">會員姓氏</label>
-                @Html.EditorFor(x => x.LastName,new { htmlAttributes = new { @class= "col-8 form-control" } })
-                @Html.ValidationMessageFor(x=>x.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
                 @*<input class="col-8" type="text" id="lastName" value="@Model.LastName">*@
             </div>
             <div class="name row">
                 <label class="col-4" for="firstName">會員名字</label>
-                @Html.EditorFor(x=>x.FirstName,new { htmlAttributes = new { @class = "col-8 form-control" } })
-                @Html.ValidationMessageFor(x => x.FirstName, "", new {@class="text-danger" })
+                @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
                 @*<input class="col-8" type="text" id="firstName" value="@Model.FirstName">*@
             </div>
             <div class="phone row">
@@ -45,8 +46,25 @@
                 <div class="emailInfo col-8">@Model.Email</div>
             </div>
 
-            <button type="submit" class="saveBtn btn btn-primary">儲存變更</button>
+            <button type="submit" class="saveBtn btn btn-primary" data-toggle="modal" data-target="#submitResultModal">儲存變更</button>
+            <div class="modal fade" id="submitResultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">修改結果</h5>
+                        </div>
+                        <div class="modal-body align-items-center">
+                            @ViewBag.commitResult
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">確認</button>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @Html.ValidationSummary()
+
         </div>
     </div>
 }
