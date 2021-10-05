@@ -72,8 +72,8 @@
                         </div>
                     </div>
                     <div class="item">
-                        <div class="mb-1">訂單資訊</div>
-                        <label class="deliverBox">
+                        <div class="mb-1">訂單資訊(配送後勾選，即可完成訂單)</div>
+                        <label class="orderBox">
                             <input type="checkbox">
                             <div class="orderDetail">
                                 <div class="orderID my-2">@Model.RestaurantName</div>
@@ -330,7 +330,7 @@
                 background-color: #fff;
             }
 
-            .head {
+            .info-txt .head {
                 display: none;
             }
         }
@@ -385,7 +385,7 @@
                     arrows[index].classList.remove('rotateArrow');
                 }
                 else {
-                    info[index].style.top = '10%';
+                    info[index].style.top = '5%';
                     arrows[index].classList.add('rotateArrow');
                 }
             });
@@ -419,8 +419,8 @@
         var map;
         var markerNow, markerRestaurant, markerCustomer;
         function initMap() {
-            let restaurantAddress = "台灣台北市大安區忠孝東路三段96號11樓之一";
-            let customerAddress = "台北車站"
+            let restaurantAddress = "@Html.Raw(Model.RestaurantAddress)";
+            let customerAddress = "@Html.Raw(Model.CustomerAddress)"
             var geocoder;
             //啟用地址搜尋
             geocoder = new google.maps.Geocoder();
