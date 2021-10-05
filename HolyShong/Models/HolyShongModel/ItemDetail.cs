@@ -18,8 +18,6 @@ namespace HolyShong.Models.HolyShongModel
 
         public int? ProductOptionDetailId { get; set; }
 
-        public decimal? AddPrice { get; set; }
-
         public virtual Item Item { get; set; }
 
         public virtual ProductOptionDetail ProductOptionDetail { get; set; }
