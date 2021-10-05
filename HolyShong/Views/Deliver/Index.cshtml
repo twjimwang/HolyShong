@@ -1,5 +1,5 @@
 ﻿@model DeliverViewModel
-@{ 
+@{
     Layout = "~/Views/Shared/_LayoutDeliver.cshtml";
 }
 
@@ -73,7 +73,7 @@
                     </div>
                     <div class="item">
                         <div class="mb-1">訂單資訊</div>
-                        <label class="orderBox">
+                        <label class="deliverBox">
                             <input type="checkbox">
                             <div class="orderDetail">
                                 <div class="orderID my-2">@Model.RestaurantName</div>
@@ -109,6 +109,19 @@
             overflow: hidden;
         }
 
+        .bgInfo {
+            position: absolute;
+            width: 350px;
+            height: 150px;
+            top: 30%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-color: #fff;
+            line-height: 150px;
+            text-align: center;
+        }
+
         .map {
             width: 100%;
         }
@@ -128,9 +141,9 @@
             position: relative;
         }
 
-        .detail p {
-            display: inline-block;
-        }
+            .detail p {
+                display: inline-block;
+            }
 
         .message {
             position: absolute;
@@ -144,25 +157,25 @@
             box-shadow: 2px 2px #888;
         }
 
-        .message i {
-            font-size: 20px;
-            padding: 10px;
-            cursor: pointer;
-        }
+            .message i {
+                font-size: 20px;
+                padding: 10px;
+                cursor: pointer;
+            }
 
         .info-body {
             width: 100%;
         }
 
-        .info-body .head {
-            text-align: end;
-            border-bottom: 1px solid #ccc;
-            padding: 0 20px;
-        }
+            .info-body .head {
+                text-align: end;
+                border-bottom: 1px solid #ccc;
+                padding: 0 20px;
+            }
 
-        .info-body .head i {
-            font-size: 20px;
-        }
+                .info-body .head i {
+                    font-size: 20px;
+                }
 
         .rotateArrow {
             transform: rotateX(180deg);
@@ -172,21 +185,24 @@
             margin: 20px 0;
             border-bottom: 1px solid #ccc;
         }
-        .info-btn{
+
+        .info-btn {
             padding: 0 20px;
         }
-        .info-btn button {
-            font-size: 20px;
-            font-weight: bold;
-            width: 100%;
-            margin-bottom: 10px;
-        }
+
+            .info-btn button {
+                font-size: 20px;
+                font-weight: bold;
+                width: 100%;
+                margin-bottom: 10px;
+            }
 
         .detail h3 {
             margin: 10px 0;
         }
 
-        .orderBox {
+        .orderBox,
+        .deliverBox {
             display: block;
             position: relative;
             margin-bottom: 10px;
@@ -194,27 +210,30 @@
             cursor: pointer;
         }
 
-        .orderBox input {
-            display: none;
-        }
+            .orderBox input,
+            .deliverBox input {
+                display: none;
+            }
 
-        .orderBox .orderDetail .orderID {
-            font-size: 20px;
-            background-color: #ccc;
-            border-radius: 10px;
-            padding: 0 10px;
-        }
+            .orderBox .orderDetail .orderID,
+            .deliverBox .orderDetail .orderID {
+                font-size: 20px;
+                background-color: #ccc;
+                border-radius: 10px;
+                padding: 0 10px;
+            }
 
-        .orderBox .checkMark {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            margin: auto;
-            border: 1px solid #ccc;
-        }
+            .orderBox .checkMark,
+            .deliverBox .checkMark {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                margin: auto;
+                border: 1px solid #ccc;
+            }
 
         .checkMark::after {
             content: "";
@@ -227,16 +246,17 @@
             border-width: 0 4px 4px 0;
             transform: rotate(45deg);
             display: none;
-
         }
 
-        .orderBox input:checked~.checkMark {
+        .orderBox input:checked ~ .checkMark,
+        .deliverBox input:checked ~ .checkMark {
             background-color: #2196F3;
         }
 
-        .orderBox input:checked~.checkMark::after {
-            display: block;
-        }
+            .orderBox input:checked ~ .checkMark::after,
+            .deliverBox input:checked ~ .checkMark::after {
+                display: block;
+            }
 
         .map.row {
             margin: auto;
@@ -258,29 +278,31 @@
             background-color: rgb(255, 205, 0);
         }
 
-        #orderGet{
+        #orderGet {
             opacity: 1;
             visibility: visible;
             transition: opacity .5s top 1s;
         }
 
-        #orderDeliver{
-            visibility:hidden;
-            transition:visibility 1s .8s linear top 1s;
+        #orderDeliver {
+            visibility: hidden;
+            transition: visibility 1s .8s linear top 1s;
         }
 
         @@media screen and (max-width:767px) {
-            .info-txt .body{
+            .info-txt .body {
                 overflow-y: scroll;
-                height: 350px;
+                height: 380px;
                 padding: 0 20px;
             }
         }
+
         @@media screen and (min-width:768px) {
-            .info-txt .body{
+            .info-txt .body {
                 padding: 0 20px;
             }
         }
+
         @@media screen and (min-width:992px) {
             .map.row {
                 width: 100%;
@@ -308,7 +330,7 @@
                 background-color: #fff;
             }
 
-            .info-txt .head {
+            .head {
                 display: none;
             }
         }
@@ -316,11 +338,41 @@
 }
 
 @section endJS{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- GOOGLE MAP API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrccfSxlJhu9aNlFPl-JTsnRpvFoVUEs0&callback=initMap&libraries=&v=weekly"
             async></script>
 
     <script>
+        //外送員上下線判斷
+
+        $(function () {
+            $('.status input').change(function () {
+                let connectionSwitch = document.querySelector('.status input');
+                let bgConnection = document.querySelector('.bgConnection');
+                let bgInfo = document.querySelector('.bgInfo');
+                console.log(connectionSwitch.checked)
+                if (connectionSwitch.checked == false) {
+                    bgConnection.classList.add('bgConnection-style');
+                    bgInfo.classList.remove('d-none');
+                }
+                else {
+                    bgConnection.classList.remove('bgConnection-style');
+                    bgInfo.classList.add('d-none');
+                }
+            })
+        })
+
+        $.ajax({
+            type: "POST",
+            url: "/Deliver/DeliverConnectionStatus",
+            context: "text",
+            data: { isOnline: "A" },
+            success: function (response) {
+                console.log('A')
+            }
+
+        });
         // 手機版展開訂單明細
         let expands = document.querySelectorAll('.info-body .head i');
         let arrows = document.querySelectorAll('.info .head i');
@@ -333,7 +385,7 @@
                     arrows[index].classList.remove('rotateArrow');
                 }
                 else {
-                    info[index].style.top = '5%';
+                    info[index].style.top = '10%';
                     arrows[index].classList.add('rotateArrow');
                 }
             });
@@ -357,19 +409,150 @@
             // orderDeliver.style.opacity = 1;
         });
 
+        let deliverInput = document.querySelector('.deliverBox input');
+        let deliverComplete = document.querySelector('#deliverComplete');
+        deliverInput.addEventListener('click', function () {
+            deliverComplete.removeAttribute('disabled', '');
+            deliverInput.setAttribute('disabled', '');
+        });
+
         var map;
+        var markerNow, markerRestaurant, markerCustomer;
         function initMap() {
+            let restaurantAddress = "台灣台北市大安區忠孝東路三段96號11樓之一";
+            let customerAddress = "台北車站"
+            var geocoder;
+            //啟用地址搜尋
+            geocoder = new google.maps.Geocoder();
+
             //載入路線福武與路線顯示圖層
             var directionsService = new google.maps.DirectionsService();
             var directionsDisplay = new google.maps.DirectionsRenderer();
 
-            //初始化地圖
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 25.03416068163684, lng: 121.56454962636319 },
-                zoom: 12
+            //抓取外送員目前位置
+            navigator.geolocation.getCurrentPosition(position => {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+
+                //初始化地圖
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: lat, lng: lng },
+                    zoom: 18,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false,
+                });
+
+                //目前位置marker
+                markerNow = new google.maps.Marker({
+                    map: map,
+                    position: { lat: lat, lng: lng },
+                    icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%9C%AA%E5%91%BD%E5%90%8D-removebg-preview_dkdlt2.png"
+                });
+
+                //餐廳地址+marker
+                geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
+                    if (status == 'OK') {
+                        markerRestaurant = new google.maps.Marker({
+                            map: map,
+                            position: result[0].geometry.location,
+                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194643/%E6%93%B7%E5%8F%96-removebg-preview_1_xzrsbn.png"
+                        });
+                    }
+                    else {
+                        console.log(status);
+                    }
+                });
+
+                //引用路線圖資
+                directionsDisplay.setMap(map);
+                var request = {
+                    origin: { lat: lat, lng: lng },
+                    destination: restaurantAddress,
+                    travelMode: 'DRIVING'
+                };
+                //繪製路線
+                directionsService.route(request, function (result, status) {
+                    if (status == 'OK') {
+                        //回傳路線上細節
+                        directionsDisplay = new google.maps.DirectionsRenderer({
+                            map: map,
+                            directions: result,
+                            suppressMarkers: true
+                        });
+                    }
+                    else {
+                        console.log(status);
+                    }
+                });
+            });
+
+            //開始外送按下後，從餐廳導向消費者地址
+            deliverStart.addEventListener("click", function () {
+                markerNow.setMap(null);
+                markerRestaurant.setMap(null);
+                directionsDisplay.setDirections({ routes: [] });
+                geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
+                    if (status == 'OK') {
+                        map.setCenter(result[0].geometry.location);
+                        markerRestaurant = new google.maps.Marker({
+                            map: map,
+                            position: result[0].geometry.location,
+                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%9C%AA%E5%91%BD%E5%90%8D-removebg-preview_dkdlt2.png"
+                        });
+                    }
+                    else {
+                        console.log(status);
+                    }
+                });
+
+                geocoder.geocode({ 'address': customerAddress }, function (result, status) {
+                    if (status == 'OK') {
+                        markerCustomer = new google.maps.Marker({
+                            map: map,
+                            position: result[0].geometry.location,
+                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%93%B7%E5%8F%960-removebg-preview_1_zvsbfo.png"
+                        });
+                    }
+                    else {
+                        console.log(status);
+                    }
+                });
+
+                //引用路線圖資
+                directionsDisplay.setMap(map);
+                var request = {
+                    origin: restaurantAddress,
+                    destination: customerAddress,
+                    travelMode: 'DRIVING'
+                };
+
+                //繪製路線
+                directionsService.route(request, function (result, status) {
+                    if (status == 'OK') {
+                        //回傳路線上細節
+                        console.log(result.routes[0].legs[0].steps);
+                        directionsDisplay = new google.maps.DirectionsRenderer({
+                            map: map,
+                            directions: result,
+                            suppressMarkers: true
+                        });
+                    }
+                    else {
+                        console.log(status);
+                    }
+                });
+            });
+
+
+            deliverComplete.addEventListener('click', function () {
+                markerCustomer.setMap(null);
+                markerRestaurant.setMap(null);
+                directionsDisplay.setDirections({ routes: [] });
             })
-            //引用圖資
-            directionsDisplay.setMap(map);
         }
     </script>
 }

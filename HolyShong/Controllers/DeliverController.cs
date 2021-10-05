@@ -24,5 +24,10 @@ namespace HolyShong.Controllers
             var result = _orderService.GetOrderForDeliver(id.Value);
             return View(result);
         }
+
+        public bool DeliverConnectionStatus(DeliverConnectionViewModel )
+        {
+            return
+        }
     }
 }
