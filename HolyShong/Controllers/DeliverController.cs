@@ -25,9 +25,9 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public bool DeliverConnectionStatus(DeliverConnectionViewModel )
-        {
-            return
-        }
+        //public bool DeliverConnectionStatus(DeliverConnectionViewModel )
+        //{
+        //    return
+        //}
     }
 }
