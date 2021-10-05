@@ -35,9 +35,14 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public ActionResult Search()
+        public ActionResult Search(int? id)
         {
-            return View();
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index");
+            }
+            var result = _storeService.GetAllStoresByStoreCategoryId(id.Value); 
+            return View(result);
         }
 
         public ActionResult NoSearch()

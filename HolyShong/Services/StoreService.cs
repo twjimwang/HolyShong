@@ -60,42 +60,37 @@ namespace HolyShong.Services
             return result;
         }
 
-        //public HomeViewModel GetAllStoresByStoreCategoryId(int storecategoryId)
-        //{
-        //    var result = new HomeViewModel
-        //    {
-        //        StoreCards = new List<StoreCard>()
-        //    };
-        //    //1.找到特定的StoreCategory
-        //    var storecategory = _storecategoryRespository.GetAll<Models.HolyShongModel.StoreCategory>().FirstOrDefault(x => x.StoreCategoryId == storecategoryId);
-
-        //    if (storecategory == null)
-        //    {
-        //        //沒找到
-        //    }
-        //    //2.找到這個StoreVategory的所有Store
-        //    var stores = _storeRespository.GetAll<Store>().Where(x => x.StoreCategoryId == storecategoryId).ToList();
-        //    var cards = new List<StoreCard>();
-        //    foreach (var item in stores)
-        //    {
-        //        var temp = new StoreCard()
-        //        {
-        //            StoreId = item.StoreId,
-        //            StoreImg = item.Img,
-        //            StoreName = item.Name
-        //        };
-        //        cards.Add(temp);
-        //    }
-        //    result.StoreCategoryId = storecategory.StoreCategoryId;
-        //    result.StoreCategoryImg = storecategory.Img;
-        //    result.StoreCategoryName = storecategory.Name;
-        //    result.StoreCards = cards;
-        //    return result;
-        //}
-        public List<int> ddd()
+        public SearchViewModel GetAllStoresByStoreCategoryId(int storecategoryId)
         {
-            var aaa = new List<int> { 1, 2, 3 };
-            return aaa;
+            var result = new SearchViewModel
+            {
+                StoreCards = new List<StoreCard>()
+            };
+            //1.找到特定的StoreCategory
+            var storecategory = _storecategoryRespository.GetAll<Models.HolyShongModel.StoreCategory>().FirstOrDefault(x => x.StoreCategoryId == storecategoryId);
+
+            if (storecategory == null)
+            {
+                //沒找到
+            }
+            //2.找到這個StoreVategory的所有Store
+            var stores = _storeRespository.GetAll<Store>().Where(x => x.StoreCategoryId == storecategoryId).ToList();
+            var cards = new List<StoreCard>();
+            foreach (var item in stores)
+            {
+                var temp = new StoreCard()
+                {
+                    StoreId = item.StoreId,
+                    StoreImg = item.Img,
+                    StoreName = item.Name
+                };
+                cards.Add(temp);
+            }
+            result.StoreCategoryId = storecategory.StoreCategoryId;
+            result.StoreCategoryName = storecategory.Name;
+            result.StoreCards = cards;
+            return result;
         }
+
     }
 }

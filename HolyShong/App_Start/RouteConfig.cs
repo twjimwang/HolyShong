@@ -13,6 +13,23 @@ namespace HolyShong
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //首頁
+            //routes.MapRoute(
+            //    name: "Home",
+            //    url: "",
+            //    defaults: new { controller = "Home", action = "Index" }
+            //);
+
+            //主分類(StoreCategory導向頁面)(範例路由3)
+            routes.MapRoute(
+               name: "StoreCategory",
+               url: "StoreCategory/{StoreCategoryName}",
+               defaults: new { controller = "Home", action = "Search", StoreCategoryName="台灣美食" }
+            );
+
+
+
+            //預設
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
