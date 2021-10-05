@@ -72,7 +72,7 @@ namespace HolyShong.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UserProfile(MemberProfileViewModel memberProfileViewModel)
+        public ActionResult UserProfile(UserProfileViewModel memberProfileViewModel)
         {
             //string 
             if (ModelState.IsValid)

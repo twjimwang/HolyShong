@@ -13,7 +13,7 @@ namespace HolyShong.ViewModels
     /// Member
     /// Rank
     /// </summary>
-    public class MemberProfileViewModel
+    public class UserProfileViewModel
     {
 
         /// <summary>

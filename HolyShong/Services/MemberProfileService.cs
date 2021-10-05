@@ -30,7 +30,7 @@ namespace HolyShong.Services
         }
 
         //建立ViewModel
-        public MemberProfileViewModel GetMemberProfileViewModel(int id)
+        public UserProfileViewModel GetMemberProfileViewModel(int id)
         {
             //待處理=>
             var member = GetMember(id);
@@ -41,7 +41,7 @@ namespace HolyShong.Services
                 primary = true;
             }
 
-            var result = new MemberProfileViewModel()
+            var result = new UserProfileViewModel()
             {
                 MemberId = member.MemberId,
                 Cellphone = member.Cellphone,
@@ -59,7 +59,7 @@ namespace HolyShong.Services
             return result;
         }
 
-        public bool EditMemberProfile(MemberProfileViewModel memberProfileViewModel)
+        public bool EditMemberProfile(UserProfileViewModel memberProfileViewModel)
         {
             DbContext context = new HolyShongContext();
             var member = GetMember(memberProfileViewModel.MemberId);

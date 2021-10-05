@@ -228,7 +228,7 @@
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
-    <Compile Include="ViewModels\MemberProfileViewModel.cs" />
+    <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
