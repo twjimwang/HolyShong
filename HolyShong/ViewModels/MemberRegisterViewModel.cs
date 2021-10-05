@@ -12,6 +12,7 @@ namespace HolyShong.ViewModels
     //}
     public class MemberRegisterViewModel
     {
+        public int MemberId { get; set; }
         /// <summary>
         /// 會員姓氏
         /// </summary>
