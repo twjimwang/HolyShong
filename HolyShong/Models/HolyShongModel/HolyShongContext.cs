@@ -18,6 +18,7 @@ namespace HolyShong.Models.HolyShongModel
         public virtual DbSet<Deliver> Deliver { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<DiscountMember> DiscountMember { get; set; }
+        public virtual DbSet<DiscountStroe> DiscountStroe { get; set; }
         public virtual DbSet<Favorite> Favorite { get; set; }
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<ItemDetail> ItemDetail { get; set; }
@@ -34,7 +35,6 @@ namespace HolyShong.Models.HolyShongModel
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<StoreCategory> StoreCategory { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<DiscountStroe> DiscountStroe { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -61,10 +61,6 @@ namespace HolyShong.Models.HolyShongModel
                 .HasMany(e => e.ItemDetail)
                 .WithRequired(e => e.Item)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ItemDetail>()
-                .Property(e => e.AddPrice)
-                .HasPrecision(18, 1);
 
             modelBuilder.Entity<Member>()
                 .Property(e => e.Cellphone)
@@ -172,8 +168,14 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.Cart)
-                .WithOptional(e => e.Store)
-                .HasForeignKey(e => e.StroreId);
+                .WithRequired(e => e.Store)
+                .HasForeignKey(e => e.StroreId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Store>()
+                .HasMany(e => e.DiscountStroe)
+                .WithRequired(e => e.Store)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.Favorite)
@@ -187,11 +189,6 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.Score)
-                .WithRequired(e => e.Store)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Store>()
-                .HasMany(e => e.DiscountStroe)
                 .WithRequired(e => e.Store)
                 .WillCascadeOnDelete(false);
 

@@ -9,10 +9,8 @@ namespace HolyShong.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly test _service;
         public OrderController()
         {
-            _service = new test();
         }
         // GET: Order
         public ActionResult Index()
@@ -24,10 +22,5 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        public ActionResult Test()
-        {
-            var result = _service.GetProducts();
-            return View(result);
-        }
     }
 }
