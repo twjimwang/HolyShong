@@ -295,7 +295,7 @@
     <Content Include="Views\Member\Eatpass.cshtml" />
     <Content Include="Views\Member\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
-    <Content Include="Views\Member\Profile.cshtml" />
+    <Content Include="Views\Member\UserProfile.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Order\OrderDeliver.cshtml" />
