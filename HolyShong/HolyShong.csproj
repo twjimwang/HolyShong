@@ -224,7 +224,7 @@
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\HolyCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
@@ -313,6 +313,7 @@
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Order\Test.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,6 +13,7 @@ namespace HolyShong.Controllers
     public class MemberController : Controller
     {
         public CartService _cartService;
+
         public MemberController()
         {
             _cartService = new CartService();
@@ -30,13 +31,20 @@ namespace HolyShong.Controllers
             return View();
         }
 
+        public ActionResult Cart()
+        {
+            var model = _cartService.GetCartByMemberId(1);
+            ViewBag.Count = new SelectList(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+            return View();
+        }
 
         public ActionResult Checkout(int? Id)
-        {   if(Id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-           // ViewBag.xtest = _cartService.GetCartViewModels().First();
+        {   //if(Id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            // ViewBag.xtest = _cartService.GetCartViewModels().First();
+            ViewBag.Count = new SelectList(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
             return View();
         }
 
