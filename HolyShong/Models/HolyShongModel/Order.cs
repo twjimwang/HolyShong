@@ -38,11 +38,11 @@ namespace HolyShong.Models.HolyShongModel
 
         public bool IsPlasticbag { get; set; }
 
-        public bool PaymentStatus { get; set; }
+        public int PaymentStatus { get; set; }
 
-        public bool DeliverStatus { get; set; }
+        public int DeliverStatus { get; set; }
 
-        public bool OrderStatus { get; set; }
+        public int OrderStatus { get; set; }
 
         public DateTime CreateDate { get; set; }
 

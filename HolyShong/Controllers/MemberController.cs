@@ -35,7 +35,7 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult Profile()
+        public ActionResult UserProfile()
         {
             return View();
         }
