@@ -297,7 +297,7 @@
     <Content Include="Views\Member\Eatpass.cshtml" />
     <Content Include="Views\Member\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_LayoutDeliver.cshtml" />
-    <Content Include="Views\Member\Profile.cshtml" />
+    <Content Include="Views\Member\UserProfile.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Order\OrderDeliver.cshtml" />
@@ -311,7 +311,6 @@
     <Content Include="Views\Deliver\Index.cshtml" />
     <Content Include="Views\Home\NoSearch.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
-    <Content Include="Views\Order\Test.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
