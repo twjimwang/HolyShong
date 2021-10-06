@@ -31,10 +31,6 @@ namespace HolyShong.Controllers
         {
 
             var result = _orderService.GetDeliverConnection(deliverConnectionVM.isOnline);
-            //if(deliverConnectionVM.isOnline == result)
-            //{
-            //    return View("Index");
-            //}
 
             return result;
         }

@@ -171,7 +171,6 @@ namespace HolyShong.Services
             {
                 connectionStatus = !connectionStatus;
                 return connectionStatus;
-                //跳出運送中無法下線警告，該如何把按鈕條回上線
             }
 
             //其餘儲存狀態修改
@@ -180,10 +179,9 @@ namespace HolyShong.Services
 
             deliverInfo.isOnline = connectionStatus;
 
-            //update
+            //update+savechange
             _repo.Update(deliverInfo);
             _repo.SaveChange();
-            //savechange
 
             return connectionStatus;
         }

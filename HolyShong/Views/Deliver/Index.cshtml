@@ -346,7 +346,9 @@
     <script>
 
         //上下線判斷，是否離開畫面就判斷下線，開啟畫面default下線?
+        window.onload(){
 
+        }
 
         //外送員上下線判斷
         $(function () {
@@ -354,18 +356,7 @@
                 let connectionSwitch = document.querySelector('.status input');
                 let bgConnection = document.querySelector('.bgConnection');
                 let bgInfo = document.querySelector('.bgInfo');
-                console.log(connectionSwitch.checked)
                 let connectionChecked = connectionSwitch.checked;
-
-                if (connectionSwitch.checked == false) {
-                    bgConnection.classList.add('bgConnection-style');
-                    bgInfo.classList.remove('d-none');
-                }
-                else {
-                    bgConnection.classList.remove('bgConnection-style');
-                    bgInfo.classList.add('d-none');
-                }
-
 
                 $.ajax({
                     type: "POST",
@@ -373,11 +364,28 @@
                     context: "text",
                     data: { isOnline: connectionSwitch.checked },
                     success: function (response) {
+                        //若結果不一致(不可下線)
                         if (connectionChecked != response) {
-                            $('.status input').bootstrapToggle(response, true)
                             console.log(response)
+                            console.log(typeof response)
+                            let result ='';
+                            if (response == "True") { result = 'on' }
+                            else if (response == "False") { result = 'false' }
+                            else { console.log('沒有吃到值') }
+                            $('.status input').bootstrapToggle(result, true)
+                            console.log(result)
                             alert('外送中無法離線');
                         }
+                        //上下線css設定
+                        if (connectionSwitch.checked == false) {
+                            bgConnection.classList.add('bgConnection-style');
+                            bgInfo.classList.remove('d-none');
+                        }
+                        else {
+                            bgConnection.classList.remove('bgConnection-style');
+                            bgInfo.classList.add('d-none');
+                        }
+
                         console.log('成功修改')
                     }
 
