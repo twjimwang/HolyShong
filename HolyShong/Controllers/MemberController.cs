@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HolyShong.Models;
+using Newtonsoft.Json;
+using HolyShong.Services;
+using System.Net;
 
 namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
+        public CartService _cartService;
+        public MemberController()
+        {
+            _cartService = new CartService();
+        }
+   
+
         // GET: Member
         public ActionResult Index()
         {
@@ -19,8 +30,13 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        public ActionResult Checkout()
-        {
+
+        public ActionResult Checkout(int? Id)
+        {   if(Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           // ViewBag.xtest = _cartService.GetCartViewModels().First();
             return View();
         }
 
