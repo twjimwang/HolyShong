@@ -24,7 +24,7 @@ namespace HolyShong.Models.HolyShongModel
 
         public bool IsBag { get; set; }
 
-        public int? StroreId { get; set; }
+        public int StroreId { get; set; }
 
         public int? DiscountMemberId { get; set; }
 
