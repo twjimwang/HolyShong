@@ -16,16 +16,17 @@ namespace HolyShong.Controllers
             _orderService = new OrderService();
         }
         // GET: Deliver
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
-            if(!id.HasValue)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var result = _orderService.GetOrderForDeliver(id.Value);
+            var result = _orderService.GetOrderForDeliver();
             return View(result);
         }
 
+        /// <summary>
+        /// 外送員上下線
+        /// </summary>
+        /// <param name="deliverConnectionVM"></param>
+        /// <returns></returns>
         [HttpPost]
         public bool DeliverConnectionStatus(DeliverConnectionViewModel deliverConnectionVM)
         {
@@ -34,5 +35,8 @@ namespace HolyShong.Controllers
 
             return result;
         }
+
+
+
     }
 }

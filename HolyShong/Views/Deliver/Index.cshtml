@@ -7,97 +7,100 @@
     <div class="map row">
         <div id="map"></div>
     </div>
-    <!-- 外送員到餐廳 -->
-    <div class="info row" id="orderGet">
-        <div class="info-body">
-            <div class="info-txt">
-                <div class="head">
-                    <i class="fas fa-chevron-up p-2"></i>
-                </div>
-                <div class="body">
-                    <div class="item detail">
-                        <h3>@Model.RestaurantName</h3>
-                        <div class="d-flex">
-                            <i class="fas fa-map-marker-alt mr-3"></i>
-                            <p>@Model.RestaurantAddress</p>
-                        </div>
-                        <div class="message">
-                            <i class="fas fa-comment-alt"></i>
-                        </div>
+    @if (Model.CustomerAddress != null)
+    {
+        <!-- 外送員到餐廳 -->
+        <div class="info row" id="orderGet">
+            <div class="info-body">
+                <div class="info-txt">
+                    <div class="head">
+                        <i class="fas fa-chevron-up p-2"></i>
                     </div>
-                    <div class="item">
-                        <div class="mb-3">領取訂單(領取後勾選，即可開始配送)</div>
-                        <label class="orderBox">
-                            <input type="checkbox">
-                            <div class="orderDetail">
-                                <div class="orderID my-2">訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</div>
-                                <div>
-                                    <div class="m-0">訂單摘要</div>
-                                    @foreach (var item in Model.OrderProducts)
-                                    {
-                                        <div class="d-flex my-2">
-                                            <div class="border px-2 mr-3">@item.ProductQuantity</div>
-                                            <div>@item.ProductName</div>
-                                        </div>
-                                    }
-                                </div>
+                    <div class="body">
+                        <div class="item detail">
+                            <h3>@Model.RestaurantName</h3>
+                            <div class="d-flex">
+                                <i class="fas fa-map-marker-alt mr-3"></i>
+                                <p>@Model.RestaurantAddress</p>
                             </div>
-                            <span class="checkMark"></span>
-                        </label>
+                            <div class="message">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="mb-3">領取訂單(領取後勾選，即可開始配送)</div>
+                            <label class="orderBox">
+                                <input type="checkbox">
+                                <div class="orderDetail">
+                                    <div class="orderID my-2">訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</div>
+                                    <div>
+                                        <div class="m-0">訂單摘要</div>
+                                        @foreach (var item in Model.OrderProducts)
+                                        {
+                                            <div class="d-flex my-2">
+                                                <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                                <div>@item.ProductName</div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <span class="checkMark"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="info-btn">
-                <button id="deliverStart" class="btn py-3" disabled>開始外送</button>
+                <div class="info-btn">
+                    <button id="deliverStart" class="btn py-3" disabled>開始外送</button>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 餐廳到家 -->
-    <div class="info row" id="orderDeliver">
-        <div class="info-body">
-            <div class="info-txt">
-                <div class="head">
-                    <i class="fas fa-chevron-up p-2"></i>
-                </div>
-                <div class="body">
-                    <div class="item detail">
-                        <h3>訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</h3>
-                        <div class="mb-3">備註：@Model.CustormerNotes</div>
-                        <div class="d-flex">
-                            <i class="fas fa-map-marker-alt mr-3"></i>
-                            <p>@Model.CustomerAddress</p>
-                        </div>
-                        <div class="message">
-                            <i class="fas fa-comment-alt"></i>
-                        </div>
+        <!-- 餐廳到家 -->
+        <div class="info row" id="orderDeliver">
+            <div class="info-body">
+                <div class="info-txt">
+                    <div class="head">
+                        <i class="fas fa-chevron-up p-2"></i>
                     </div>
-                    <div class="item">
-                        <div class="mb-1">訂單資訊(配送後勾選，即可完成訂單)</div>
-                        <label class="deliverBox">
-                            <input type="checkbox">
-                            <div class="orderDetail">
-                                <div class="orderID my-2">@Model.RestaurantName</div>
-                                <div>
-                                    <div class="m-0">訂單摘要</div>
-                                    @foreach (var item in Model.OrderProducts)
-                                    {
-                                        <div class="d-flex my-2">
-                                            <div class="border px-2 mr-3">@item.ProductQuantity</div>
-                                            <div>@item.ProductName</div>
-                                        </div>
-                                    }
-                                </div>
+                    <div class="body">
+                        <div class="item detail">
+                            <h3>訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</h3>
+                            <div class="mb-3">備註：@Model.CustormerNotes</div>
+                            <div class="d-flex">
+                                <i class="fas fa-map-marker-alt mr-3"></i>
+                                <p>@Model.CustomerAddress</p>
                             </div>
-                            <span class="checkMark"></span>
-                        </label>
+                            <div class="message">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="mb-1">訂單資訊(配送後勾選，即可完成訂單)</div>
+                            <label class="deliverBox">
+                                <input type="checkbox">
+                                <div class="orderDetail">
+                                    <div class="orderID my-2">@Model.RestaurantName</div>
+                                    <div>
+                                        <div class="m-0">訂單摘要</div>
+                                        @foreach (var item in Model.OrderProducts)
+                                        {
+                                            <div class="d-flex my-2">
+                                                <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                                <div>@item.ProductName</div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <span class="checkMark"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="info-btn">
-                <button id="deliverComplete" class="btn py-3" disabled>完成訂單</button>
+                <div class="info-btn">
+                    <button id="deliverComplete" class="btn py-3" disabled>完成訂單</button>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 @section topCSS{
@@ -346,9 +349,6 @@
     <script>
 
         //上下線判斷，是否離開畫面就判斷下線，開啟畫面default下線?
-        window.onload(){
-
-        }
 
         //外送員上下線判斷
         $(function () {
@@ -357,36 +357,35 @@
                 let bgConnection = document.querySelector('.bgConnection');
                 let bgInfo = document.querySelector('.bgInfo');
                 let connectionChecked = connectionSwitch.checked;
-
                 $.ajax({
                     type: "POST",
                     url: "/Deliver/DeliverConnectionStatus",
                     context: "text",
-                    data: { isOnline: connectionSwitch.checked },
+                    data: { isOnline: !isOnline },
                     success: function (response) {
-                        //若結果不一致(不可下線)
-                        if (connectionChecked != response) {
-                            console.log(response)
-                            console.log(typeof response)
-                            let result ='';
-                            if (response == "True") { result = 'on' }
-                            else if (response == "False") { result = 'false' }
-                            else { console.log('沒有吃到值') }
-                            $('.status input').bootstrapToggle(result, true)
-                            console.log(result)
-                            alert('外送中無法離線');
-                        }
-                        //上下線css設定
-                        if (connectionSwitch.checked == false) {
-                            bgConnection.classList.add('bgConnection-style');
-                            bgInfo.classList.remove('d-none');
-                        }
-                        else {
-                            bgConnection.classList.remove('bgConnection-style');
-                            bgInfo.classList.add('d-none');
-                        }
+                        window.location.reload()
+                        //connectionChecked = connectionChecked == true ? "True" : "False";
+                        ////若結果不一致(不可下線)
+                        //let result = '';
+                        //if (connectionChecked != response) {
+                        //    if (response == "True") { result = 'on' }
+                        //    else { result = 'off' }
+                        //    $('.status input').bootstrapToggle(result, true)
+                        //    alert('外送中無法離線');
+                        //}
+                        ////上下線css設定
+                        //if (response == "True") {
+                        //    console.log(isOnline)
+                        //    isOnline = true;
+                        //    console.log(isOnline)
+                        //    console.log('A')
+                        //}
+                        //else {
+                        //    isOnline = false;
+                        //    console.log('B')
+                        //}
 
-                        console.log('成功修改')
+                        //console.log('成功修改')
                     }
 
                 });
@@ -427,7 +426,12 @@
 
             let orderDeliver = document.querySelector('#orderDeliver');
             orderDeliver.style.visibility = "visible";
-            // orderDeliver.style.opacity = 1;
+
+            //開始外送，傳遞orderstatus改成5，deliverstatus改成2
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/Deliver/",
+            //});
         });
 
         let deliverInput = document.querySelector('.deliverBox input');

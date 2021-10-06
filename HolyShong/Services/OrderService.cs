@@ -130,40 +130,44 @@ namespace HolyShong.Services
         /// 外送員外送訂單呈現
         /// </summary>
         /// <returns></returns>
-        public DeliverViewModel GetOrderForDeliver(int orderId)
-        {
-            DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
-            var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
-            if(order == null)
-            {
-                return result;
-            }
-            var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == order.MemberId);
-            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
-            var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
-            var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od=>od.ProductId).Contains(p.ProductId));
+        //public DeliverViewModel GetOrderForDeliver(int orderId)
+        //{
+        //    DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
+        //    var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
+        //    if(order == null)
+        //    {
+        //        return result;
+        //    }
+        //    var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == order.MemberId);
+        //    var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
+        //    var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
+        //    var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od=>od.ProductId).Contains(p.ProductId));
 
-            result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5,'0');
-            result.CustomerName = member.LastName + member.FirstName;
-            result.CustomerAddress = order.DeliveryAddress;
-            result.CustormerNotes = order.Notes;
-            result.RestaurantName = store.Name;
-            result.RestaurantAddress = store.Address;
-            result.OrderProducts = orderDetails.Select(od => new OrderProducts
-            {
-                ProductName = products.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
-                ProductQuantity = od.Quantity
-            }).ToList();
+        //    result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5,'0');
+        //    result.CustomerName = member.LastName + member.FirstName;
+        //    result.CustomerAddress = order.DeliveryAddress;
+        //    result.CustormerNotes = order.Notes;
+        //    result.RestaurantName = store.Name;
+        //    result.RestaurantAddress = store.Address;
+        //    result.OrderProducts = orderDetails.Select(od => new OrderProducts
+        //    {
+        //        ProductName = products.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
+        //        ProductQuantity = od.Quantity
+        //    }).ToList();
 
-            //var orders
-            return result;
-        }
+        //    //var orders
+        //    return result;
+        //}
 
-
+        /// <summary>
+        /// 外送員上下線切換
+        /// </summary>
+        /// <param name="connectionStatus"></param>
+        /// <returns></returns>
         public bool GetDeliverConnection(bool connectionStatus)
         {
             //透過會員狀態關連到deliverId
-            var deliverId = 2;
+            var deliverId = 1;
 
             //找出外送員有沒有在外送，有的話駁回切換下線
             var deliverStatus = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId).isDelivering;
@@ -185,6 +189,77 @@ namespace HolyShong.Services
 
             return connectionStatus;
         }
+
+
+        /// <summary>
+        /// 抓外送員判斷資料庫中上下線
+        /// </summary>
+        /// <returns></returns>
+        public Deliver GetDeliverInfo()
+        {
+            var id = 1;
+
+            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(x => x.DeliverId == id);
+
+            return deliver;
+        }
+
+        /// <summary>
+        /// 外送員切換上下線狀態
+        /// </summary>
+        /// <returns></returns>
+        public Deliver GetDeliverOrder()
+        {
+            var id = 1;
+
+            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(x => x.DeliverId == id);
+
+
+            return deliver;
+        }
+
+        /// <summary>
+        /// 外送員外送畫面
+        /// </summary>
+        /// <returns></returns>
+        public DeliverViewModel GetOrderForDeliver()
+        {
+            DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
+
+            //透過帳號登入抓到這個人的memberId & DeliverId
+            var memberId = 1;
+            var deliverId = 1;
+            var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
+            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d => d.MemberId == memberId);
+
+
+            //透過deliverId 去抓出他的外送訂單中，運送中的單(orderstatus = 4 && deliverStatus = 1)，取orderId
+            var order = _repo.GetAll<Order>().Where(o => o.DeliverId == deliverId).FirstOrDefault(o => o.OrderStatus == 4 && o.DeliverStatus == 1);
+            if (order == null)
+            {
+                return result;
+            }
+
+            //透過orderId取得訂單其他資訊
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
+            var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
+            var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
+
+            result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5, '0');
+            result.CustomerName = member.LastName + member.FirstName;
+            result.CustomerAddress = order.DeliveryAddress;
+            result.CustormerNotes = order.Notes;
+            result.RestaurantName = store.Name;
+            result.RestaurantAddress = store.Address;
+            result.OrderProducts = orderDetails.Select(od => new OrderProducts
+            {
+                ProductName = products.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
+                ProductQuantity = od.Quantity
+
+            }).ToList();
+            return result;
+        }
+
     }
 }
 

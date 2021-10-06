@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var deliver = new HolyShong.Services.OrderService().GetDeliverInfo();
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,7 +22,9 @@
     @RenderSection("topJS", required: false)
     @RenderSection("topCSS", required: false)
 
-
+    <script>
+        var isOnline = @Json.Encode(deliver.isOnline);
+    </script>
 </head>
 <body>
     <input type="checkbox" class="d-none" id="menu-check">
@@ -35,7 +41,7 @@
 
             <!-- 上線&登入 -->
             <div class="status d-flex">
-                <input type="checkbox" checked data-toggle="toggle" data-on="上線" data-off="下線" data-onstyle="success" data-offstyle="danger">
+                <input type="checkbox" @(deliver.isOnline ? "checked" : null) data-toggle="toggle" data-on="上線" data-off="下線" data-onstyle="success" data-offstyle="danger">
             </div>
 
             <div class="menu">
@@ -54,11 +60,14 @@
         </div>
         <div class="bg"></div>
     </header>
-    <div class="bgConnection">
-        <div class="bgInfo d-none">
-            目前離線中，請於右上角切換上線，開始接單
+    @if (!deliver.isOnline)
+    {
+        <div class="bgConnection bgConnection-style">
+            <div class="bgInfo">
+                目前離線中，請於右上角切換上線，開始接單
+            </div>
         </div>
-    </div>
+    }
 
 
     @RenderBody()
