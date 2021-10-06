@@ -80,10 +80,10 @@ namespace HolyShong.Controllers
                 bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
                 if (result == true)
                 {
-                    ViewBag.commitResult = "修改成功";
+                    return Content("修改成功") ;
                 }
                 else {
-                    ViewBag.commitResult = "修改失敗";
+                    return Content("修改成功");
                 }
 
             }
