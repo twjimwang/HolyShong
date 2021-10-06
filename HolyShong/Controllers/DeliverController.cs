@@ -1,4 +1,5 @@
 ﻿using HolyShong.Services;
+using HolyShong.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,17 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        //public bool DeliverConnectionStatus(DeliverConnectionViewModel )
-        //{
-        //    return
-        //}
+        [HttpPost]
+        public bool DeliverConnectionStatus(DeliverConnectionViewModel deliverConnectionVM)
+        {
+
+            var result = _orderService.GetDeliverConnection(deliverConnectionVM.isOnline);
+            //if(deliverConnectionVM.isOnline == result)
+            //{
+            //    return View("Index");
+            //}
+
+            return result;
+        }
     }
 }

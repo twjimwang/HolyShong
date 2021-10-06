@@ -338,20 +338,25 @@
 }
 
 @section endJS{
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- GOOGLE MAP API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrccfSxlJhu9aNlFPl-JTsnRpvFoVUEs0&callback=initMap&libraries=&v=weekly"
             async></script>
 
     <script>
-        //外送員上下線判斷
 
+        //上下線判斷，是否離開畫面就判斷下線，開啟畫面default下線?
+
+
+        //外送員上下線判斷
         $(function () {
             $('.status input').change(function () {
                 let connectionSwitch = document.querySelector('.status input');
                 let bgConnection = document.querySelector('.bgConnection');
                 let bgInfo = document.querySelector('.bgInfo');
                 console.log(connectionSwitch.checked)
+                let connectionChecked = connectionSwitch.checked;
+
                 if (connectionSwitch.checked == false) {
                     bgConnection.classList.add('bgConnection-style');
                     bgInfo.classList.remove('d-none');
@@ -360,19 +365,27 @@
                     bgConnection.classList.remove('bgConnection-style');
                     bgInfo.classList.add('d-none');
                 }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Deliver/DeliverConnectionStatus",
+                    context: "text",
+                    data: { isOnline: connectionSwitch.checked },
+                    success: function (response) {
+                        if (connectionChecked != response) {
+                            $('.status input').bootstrapToggle(response, true)
+                            console.log(response)
+                            alert('外送中無法離線');
+                        }
+                        console.log('成功修改')
+                    }
+
+                });
             })
         })
 
-        $.ajax({
-            type: "POST",
-            url: "/Deliver/DeliverConnectionStatus",
-            context: "text",
-            data: { isOnline: "A" },
-            success: function (response) {
-                console.log('A')
-            }
 
-        });
         // 手機版展開訂單明細
         let expands = document.querySelectorAll('.info-body .head i');
         let arrows = document.querySelectorAll('.info .head i');

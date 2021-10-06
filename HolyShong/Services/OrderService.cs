@@ -118,7 +118,7 @@ namespace HolyShong.Services
                     RestaurantImg = stores.FirstOrDefault(s => s.StoreId == o.StoreId).Img,
                     ProductLists = product,
                     ProductCount = productNumber,
-                    OrderStatus = o.OrderStatus ? 1 : 0,
+                    OrderStatus = o.OrderStatus,
                     Total = amount + addPrice
                 };
                 result.Add(tempOrder);
@@ -158,26 +158,36 @@ namespace HolyShong.Services
             //var orders
             return result;
         }
+
+
+        public bool GetDeliverConnection(bool connectionStatus)
+        {
+            //透過會員狀態關連到deliverId
+            var deliverId = 2;
+
+            //找出外送員有沒有在外送，有的話駁回切換下線
+            var deliverStatus = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId).isDelivering;
+            if(deliverStatus == true)
+            {
+                connectionStatus = !connectionStatus;
+                return connectionStatus;
+                //跳出運送中無法下線警告，該如何把按鈕條回上線
+            }
+
+            //其餘儲存狀態修改
+            //VM->DM
+            var deliverInfo = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId);
+
+            deliverInfo.isOnline = connectionStatus;
+
+            //update
+            _repo.Update(deliverInfo);
+            _repo.SaveChange();
+            //savechange
+
+            return connectionStatus;
+        }
     }
 }
 
 
-
-
-
-
-
-
-////取得表單
-//var orders = _repo.GetAll<Order>().Where(o => o.OrderId == orderId);
-//var delivers = _repo.GetAll<Deliver>().Where(d => orders.Select(o => o.DeliverId).Contains(d.DeliverId)).Distinct();
-//var members = _repo.GetAll<Member>().Where(m => delivers.Select(d => d.MemberId).Contains(m.MemberId));
-//var stores = _repo.GetAll<Store>().Where(s => orders.Select(o => o.StoreId).Contains(s.StoreId));
-//var orderDetails = _repo.GetAll<OrderDetail>().Where(od => orders.Select(o => o.OrderId).Contains(od.OrderId));
-//var orderProducts = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
-
-////傳入VM
-//orderResult = orders.Select(o => new OrderDeliverViewModel
-//{
-//    DeliverName = members.First(m => m.MemberId == d)
-//});
