@@ -39,7 +39,7 @@ namespace HolyShong.Controllers
         {
             if (!id.HasValue)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("NoSearch");
             }
             var result = _storeService.GetAllStoresByStoreCategoryId(id.Value); 
             return View(result);
