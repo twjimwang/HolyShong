@@ -313,6 +313,7 @@
     <Content Include="Views\Deliver\Index.cshtml" />
     <Content Include="Views\Home\NoSearch.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
+    <Content Include="Views\Home\StoreCategorySearch.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>

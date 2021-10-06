@@ -10,6 +10,7 @@ namespace HolyShong.Services
 {
     public class StoreService
     {
+        //初始
         private readonly HolyShongRepository _storecategoryRespository;
         private readonly HolyShongRepository _storeRespository;
         public StoreService()

@@ -35,7 +35,7 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public ActionResult Search(int? id)
+        public ActionResult StoreCategorySearch(int? id)
         {
             if (!id.HasValue)
             {
@@ -50,7 +50,28 @@ namespace HolyShong.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Search(string keyword)
+        {
+            var stores = _storeService.GetAllStores();
+
+            var result = new HomeViewModel()
+            {
+                StoreCategories = new List<ViewModels.StoreCategory>()
+            };
+
+            result = _storeService.GetAllStores();
+            result.StoreCategories = _storecategoryService.GetAllStoreCategories();
+            return View(result);
+            //轉換其它頁面
+            //return View("List", products);
+        }
 
 
 
@@ -71,6 +92,6 @@ namespace HolyShong.Controllers
             return View();
         }
 
-     
+   
     }
 }
