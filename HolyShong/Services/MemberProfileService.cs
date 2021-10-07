@@ -67,7 +67,7 @@ namespace HolyShong.Services
             member.FirstName = memberProfileViewModel.FirstName;
             member.Cellphone = memberProfileViewModel.Cellphone;
             member.UpdateTime = DateTime.UtcNow.AddHours(8);
-            //member.Email = memberProfileViewModel.Email;           
+            
             var rank = GetRankByMemberId(memberProfileViewModel.MemberId);
             //if (rank != null)
             //{
