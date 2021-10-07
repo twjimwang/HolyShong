@@ -93,13 +93,13 @@ namespace HolyShong.Services
             return result;
         }
 
-        public SearchViewModel GetAllStoresByKeyword()
+        public SearchViewModel GetAllStoresByKeyword(string keyword)
         {
             var result = new SearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
-            var stores = _storeRespository.GetAll<Store>().ToList();
+            var stores = _storeRespository.GetAll<Store>().Where(x=>x.KeyWord.Contains(keyword)).ToList();
             var cards = new List<StoreCard>();
             foreach (var item in stores)
             {
@@ -111,6 +111,7 @@ namespace HolyShong.Services
                 };
                 cards.Add(temp);
             }
+            result.StoreCards = cards;
             return result;
         }
 

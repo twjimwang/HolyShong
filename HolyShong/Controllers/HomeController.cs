@@ -57,9 +57,9 @@ namespace HolyShong.Controllers
         //}
 
         //[HttpPost]
-        public ActionResult Search()
+        public ActionResult Search(string keyword)
         {
-            var result = _storeService.GetAllStoresByKeyword();
+            var result = _storeService.GetAllStoresByKeyword(keyword);
             //轉換其它頁面
             return View(result);
         }

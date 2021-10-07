@@ -10,18 +10,40 @@
 
 @if (Model != null && Model.StoreCards.Count() > 0)
 {
-    <table class="table table-bordered table-hover table-striped">
-
-        <tbody>
-            @foreach (var item in Model.StoreCards)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(m => item.StoreId)</td>
-                    <td>@Html.DisplayFor(m => item.StoreImg)</td>
-                    <td>@Html.DisplayFor(m => item.StoreName)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    foreach (var item in Model.StoreCards)
+    {
+        <div class="cardCol">
+            <div class="foodCard " style="cursor:pointer;">
+                <a href="~/Store/Restaurant/@item.StoreId" style="text-decoration:none;">
+                    <div class="headline">
+                        <img class="pic" src="@item.StoreImg">
+                        <div class="Tag">買1送1</div>
+                    </div>
+                    <div class="foodText">
+                        <div class="shopNameandPoint">
+                            <div id="spName" class="shopName">@item.StoreName</div>
+                            <div id="pp" class="point">4.7</div>
+                        </div>
+                        <div class="TWD">
+                            <span id="ntd" class="">55TWD 費用</span>
+                            <div class="dotSpace"><span class="dot"> • </span></div>
+                            <span id="min" class="">25–35 分鐘</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="touchZone" style="cursor:pointer;">
+                <div class="favoriteHeart">
+                    <div class="switchP" id="sw" onclick="clickChangeC()">
+                        <!-- 空心 -->
+                        <i class="far fa-heart hEmpty"></i>
+                        <!-- 實心 -->
+                        <i class="fas fa-heart hSolid"></i>
+                        <i class="fas fa-heart hSolid4hover"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 }
 
