@@ -39,9 +39,24 @@ namespace HolyShong.Services
 
 
         //產生亂數
-        public int GetRandomNumber()
+        public int[] GetRandomNumber()
         {
-            return 0;
+            int[] randomArray = new int[5];
+            Random number = new Random();  //產生亂數初始值
+            for (int i = 0; i < 5; i++)
+            {
+                randomArray[i] = number.Next(1, 10);   //亂數產生，亂數產生的範圍是1~9
+
+                for (int j = 0; j < i; j++)
+                {
+                    while (randomArray[j] == randomArray[i])    //檢查是否與前面產生的數值發生重複，如果有就重新產生
+                    {
+                        j = 0;  //如有重複，將變數j設為0，再次檢查 (因為還是有重複的可能)
+                        randomArray[i] = number.Next(1, 16);   //重新產生，存回陣列，亂數產生的範圍是1~15
+                    }
+                }
+            }
+            return randomArray;
         }
     }
 }
