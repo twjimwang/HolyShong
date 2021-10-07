@@ -1,0 +1,64 @@
+﻿*{
+    color:white;
+}
+.container {
+    max-width: 1920px;
+}
+
+.storeInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    padding: 10px;
+}
+
+.storeInfoItem {
+    display: flex;
+    align-items: baseline;
+}
+
+    .storeInfoItem .arrow {
+        margin-right: 10px;
+    }
+
+.storeInfo .cross,
+.arrow,
+h2 {
+    font-size: 30px;
+}
+
+.arrow, .cross {
+    cursor: pointer;
+}
+
+.storeName,
+.storeTel,
+.storeAddress,
+.storeNote {
+    margin-top: 10px;
+}
+
+    .storeName input {
+        width: 100%;
+        background-color: rgb(245, 245, 245);
+        border: 2px solid rgb(245, 245, 245);
+    }
+
+.storeTel,
+input {
+    width: 100%;
+}
+
+    .storeName input,
+    .storeTel input,
+    .storeAddress input,
+    .storeNote input,
+    .updateBtn input {
+        padding: 10px;
+    }
+
+.updateBtn {
+    text-align: right;
+    margin: 15px 0;
+}

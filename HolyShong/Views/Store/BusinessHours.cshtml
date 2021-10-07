@@ -1,0 +1,162 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutStore.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="businessHoursItem col-12">
+            <div class="businessHours">
+                <h2>接單時間</h2>
+                <p>請選擇餐廳接單時間，以供消費者訂購外送訂單。</p>
+                <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
+            </div>
+        </div>
+    </div>
+    <div class="hourMonItem row">
+        <div class="col-6">
+            <div class="hoursMon">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">星期一</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="hoursMonTxt">
+                整日關閉接單
+            </div>
+        </div>
+    </div>
+    <div class="hourTuesItem row">
+        <div class="col-6">
+            <div class="hoursTues">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">星期二</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="hoursTuesTxt">
+                整日關閉接單
+            </div>
+        </div>
+    </div>
+    <div class="hourWedItem row">
+        <div class="hoursWedCol col-4">
+            <div class="hoursWed">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label class="form-check-label" for="inlineCheckbox3">星期三</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursWedTxt">
+                <label for="">開始時間</label>
+                <input type="time">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursWedTxt">
+                <label for="">結束時間</label>
+                <input type="time">
+            </div>
+        </div>
+    </div>
+    <div class="hourThurItem row">
+        <div class="hoursThurCol col-4">
+            <div class="hoursThur">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                    <label class="form-check-label" for="inlineCheckbox4">星期四</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursThurTxt">
+                <label for="">開始時間</label>
+                <input type="time">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursThurTxt">
+                <label for="">結束時間</label>
+                <input type="time">
+            </div>
+        </div>
+    </div>
+    <div class="hourFriItem row">
+        <div class="hoursFriCol col-4">
+            <div class="hoursFri">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+                    <label class="form-check-label" for="inlineCheckbox5">星期五</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursFriTxt">
+                <label for="">開始時間</label>
+                <input type="time">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursFriTxt">
+                <label for="">結束時間</label>
+                <input type="time">
+            </div>
+        </div>
+    </div>
+    <div class="hourSatItem row">
+        <div class="hoursSatCol col-4">
+            <div class="hoursSat">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+                    <label class="form-check-label" for="inlineCheckbox6">星期六</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursSatTxt">
+                <label for="">開始時間</label>
+                <input type="time">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursSatTxt">
+                <label for="">結束時間</label>
+                <input type="time">
+            </div>
+        </div>
+    </div>
+    <div class="hourSunItem row">
+        <div class="hoursSunCol col-4">
+            <div class="hoursSun">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
+                    <label class="form-check-label" for="inlineCheckbox7">星期日</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursSunTxt">
+                <label for="">開始時間</label>
+                <input type="time">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="hoursSunTxt">
+                <label for="">結束時間</label>
+                <input type="time">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section topCSS
+{
+    <link href="~/Assets/CSS/Controller/Store/businessHours.css" rel="stylesheet" />
+}

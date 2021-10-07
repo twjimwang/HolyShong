@@ -197,6 +197,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\Controller\Store\businessHours.css" />
+    <Content Include="Assets\CSS\Controller\Store\store.css" />
     <Content Include="Assets\CSS\deliver_layout.css" />
     <Content Include="Assets\CSS\layout1.css" />
     <Content Include="Assets\CSS\LayoutLogin.css" />
@@ -281,6 +283,9 @@
     <Content Include="Views\Deliver\Index.cshtml" />
     <Content Include="Views\Home\NoSearch.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
+    <Content Include="Views\Shared\_LayoutStore.cshtml" />
+    <Content Include="Views\Store\Store.cshtml" />
+    <Content Include="Views\Store\BusinessHours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

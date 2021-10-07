@@ -1,0 +1,45 @@
+﻿* {
+    color: white;
+}
+
+.container {
+    max-width: 1920px;
+}
+
+.businessHours {
+    border-bottom: 1px solid gray;
+    padding: 0 10px;
+}
+
+    .businessHours p {
+        color: burlywood
+    }
+
+.businessHoursItem {
+    padding: 0;
+}
+
+.saveBtn {
+    margin-bottom: 20px;
+}
+
+.hourMonItem, .hourTuesItem, .hourWedItem, .hourThurItem, .hourFriItem, .hourSatItem {
+    border-bottom: 1px solid gray;
+    padding: 30px 0;
+}
+
+.hoursWedTxt, .hoursThurTxt, .hoursFriTxt, .hoursSatTxt, .hoursSunTxt {
+    display: grid;
+}
+
+    .hoursWedTxt input, .hoursThurTxt input, .hoursFriTxt input, .hoursSatTxt input, .hoursSunTxt input {
+        overflow: auto;
+    }
+
+.hoursWedCol, .hoursThurCol, .hoursFriCol, .hoursSatCol, .hoursSunCol {
+    margin: auto;
+}
+
+.hourSunItem {
+    padding: 30px 0;
+}

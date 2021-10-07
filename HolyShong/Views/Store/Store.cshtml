@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutStore.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="storeInfo col-12">
+            <div class="storeInfoItem">
+                <i class="arrow fas fa-arrow-left"></i>
+                <h2>公司資訊</h2>
+            </div>
+            <i class="cross fas fa-times"></i>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="storeName">
+                <h4>商戶名稱</h4>
+                <input type="text" placeholder="scarw's test restaurant">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="storeTel">
+                <h4>電話號碼*</h4>
+                <input type="tel">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="storeAddress">
+                <h4>地址*</h4>
+                <input type="text">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="storeNote">
+                <h4>取餐注意事項</h4>
+                <input type="text">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="updateBtn">
+                <button type="button" class="btn btn-dark btn-lg">更新</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section topCSS
+{
+    <link href="~/Assets/CSS/Controller/Store/store.css" rel="stylesheet" />
+}

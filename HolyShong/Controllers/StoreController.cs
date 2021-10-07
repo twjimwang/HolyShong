@@ -21,5 +21,13 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+        public ActionResult Store()
+        {
+            return View();
+        }
+        public ActionResult BusinessHours()
+        {
+            return View();
+        }
     }
 }

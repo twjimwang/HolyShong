@@ -1,0 +1,731 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;500;900&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <style>
+        /* reset */
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 基底.container-fluid */
+
+        body {
+            background-color: black;
+        }
+
+        /* header */
+
+        /*設定header高度*/
+
+        .container-fluid {
+            padding: 5px;
+            height: 20vh;
+        }
+
+        /* header三區塊=>漢堡、現在訂單、歷史訂單 */
+
+        /* 大小 */
+
+        .top {
+            width: 100%;
+            position: relative;
+            justify-content: space-between;
+        }
+
+        .hb {
+            height: 80px;
+            width: 8%;
+        }
+
+        /* header 現在訂單 */
+
+        .order {
+            height: 80px;
+            width: 80%;
+        }
+
+        /* header 歷史訂單 */
+
+        #historyOrder {
+            height: 80px;
+            width: 8%;
+        }
+
+        /* header三區塊=>漢堡、現在訂單、歷史訂單 */
+
+        /* 內容 */
+
+        .hb {
+            background-color: rgba(58, 58, 58, 0.678);
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #newList {
+            display: flex;
+            background-color: rgba(58, 58, 58, 0.678);
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-right: 1px solid #000;
+        }
+
+        #cooking {
+            display: flex;
+            background-color: rgba(58, 58, 58, 0.678);
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-right: 1px solid #000;
+        }
+
+        #finishCook {
+            display: flex;
+            background-color: rgba(58, 58, 58, 0.678);
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        #historyOrder {
+            display: flex;
+            background-color: rgba(58, 58, 58, 0.678);
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+            .hb:hover, #newList:hover, #cooking:hover, #finishCook:hover, #historyOrder:hover {
+                background-color: rgba(122, 121, 121, 0.795);
+            }
+
+        /*漢堡內選單*/
+
+        /* 漢堡選單 */
+
+        .menu {
+            box-sizing: border-box;
+            margin: 0;
+            height: 100vh;
+            width: 300px;
+            position: absolute;
+            top: -5px;
+            left: -305px;
+            background-color: #fff;
+            /* padding: 20px; */
+            transition: .5s;
+            z-index: 10;
+        }
+
+        /* 選單內容 */
+
+        /*點案漢堡後出現選單*/
+
+        #menu-check:checked ~ header .menu {
+            left: 0px;
+        }
+
+        .menuLogo {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .function {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+            .function button {
+                display: block;
+                margin: 0;
+            }
+
+            .function .item {
+                padding-top: 20px;
+            }
+
+        .switch {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .shoperFunction {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        /*選單內功能鍵*/
+        /*menu區塊*/
+
+
+        /*選單內功能鍵延伸*/
+        /*主要功能modal高度放大*/
+        .fullModal {
+            height: 100vh;
+        }
+        /*餐點訊息狀況頁面*/
+        .mealDetail-header {
+            justify-content: space-between;
+        }
+
+        #mealDetail-search {
+            height: 30px;
+            width: 80%;
+        }
+
+        .mealDetail-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mealStatus button {
+            margin-left: 1px;
+            margin-right: 1px;
+        }
+
+        .mealItem-sellOut {
+            display: none;
+        }
+
+        .mealItem-sellOutForever {
+            display: none;
+        }
+        /*shoperFunction*/
+        .iconFunction {
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .iconFunction i {
+                padding: 5px;
+            }
+
+        .wrapFunction p {
+            margin-top: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .restartWrap {
+            display: none;
+        }
+
+        .pauseTimeInMenu {
+            display: flex;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: chocolate;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            display: none;
+        }
+
+            .pauseTimeInMenu i {
+                font-size: 20px;
+                margin: 10px;
+            }
+
+            .pauseTimeInMenu p {
+                margin-top: 0;
+                margin-bottom: 0;
+                line-height: 1;
+            }
+
+        #pauseReason-detail {
+            margin-top: 10px;
+            border: 0;
+            color: gray;
+            border-bottom: 1px solid gray;
+            /* display: block; */
+            width: 100%;
+        }
+
+        /* 主頁面(JS資料帶入區)mainPage */
+
+        /*主頁面架構*/
+
+      /*  #mainPage {
+            padding: 0;
+            width: 90%;
+            margin: auto;
+            height: 70vh;
+        }
+*/
+
+
+        /*待機模式主頁面*/
+
+        .StandbyMainPage {
+            display:none !important; 
+            display:flex;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .StandbyDetail {
+            color: white;
+            text-align: center;
+        }
+
+            .StandbyDetail i {
+                font-size: 20px;
+            }
+
+            .StandbyDetail p {
+                margin: 5px 0;
+            }
+
+        #closeTime {
+            color: gray;
+        }
+
+
+        /*新訂單主頁面*/
+
+
+        /*modal*/
+
+        .modal p {
+            font-size: 14px;
+        }
+
+        /* 暫存 */
+
+        .bg-style {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            top: 0;
+            z-index: 1;
+        }
+
+        /* 暫時隱藏待機頁面->製作其他主頁面 */
+        .mainPage .StandbyMainPage {
+            display: none;
+        }
+    </style>
+    @RenderSection("topJS", required: false)
+    @RenderSection("topCSS", required: false)
+
+
+</head>
+<body>
+    <input type="checkbox" class="d-none" id="menu-check">
+    <header class="container-fluid">
+        <div class="top d-flex">
+            <!-- <div class="headermenu d-flex"> -->
+            <label for="menu-check" class="hb my-auto d-flex">
+                <i class="fas fa-bars"></i>
+            </label>
+            <!-- </div> -->
+            <!-- 訂單 -->
+            <div class="order d-flex">
+                <div id="newList" class="col-4 ">
+                    <!-- 新訂單 -->
+                    <i class="far fa-bell"></i>
+                </div>
+                <div id="cooking" class="col-4">
+                    <!-- 餐點準備中 -->
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div id="finishCook" class="col-4">
+                    <!-- 可取餐 -->
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+            <!-- 歷史訂單 -->
+            <div id="historyOrder" class="status d-flex">
+                <i class="far fa-clock"></i>
+            </div>
+
+            <!-- 選單內容 -->
+            <div class="menu">
+                <div class="menuLogo py-4 border-bottom"><img src="https://picsum.photos/60/30/?random=1"></div>
+                <div class="function">
+                    <button class="btn border-0" data-toggle="modal" data-target="#mealDetailModal">餐點訊息狀況</button>
+                    <button class="btn border-0">營業時間</button>
+                    <button class="btn border-0">訂單支援</button>
+                    <button class="btn border-0">客服中心</button>
+                    <button class="btn border-0">課服訊息</button>
+                    <button class="btn border-0">操作指南</button>
+                    <button class="btn border-0">設定</button>
+                </div>
+                <div class="switch">
+                    <button class="btn btn-dark d-block w-100 mb-2">我想要訂餐</button>
+                    <button class="btn btn-dark d-block w-100 mb-2">外送夥伴</button>
+                    <button class="btn border-secondary w-100">登出</button>
+                </div>
+                <div class="shoperFunction d-flex">
+                    <div class="wrapFunction col-4">
+                        <button type="button" class="iconFunction rounded-circle d-flex" data-toggle="modal"
+                                data-target="#connectionModal">
+                            <i class="fas fa-phone-alt d-flex "></i>
+                        </button>
+                        <p class="">聯絡支援</p>
+                    </div>
+                    <div class="buszWrap wrapFunction col-4">
+                        <button type="button" class="iconFunction rounded-circle d-flex" data-toggle="modal"
+                                data-target="#busyModal">
+                            <i class="fas fa-store-slash"></i>
+                        </button>
+                        <p class="">開啟忙碌模式</p>
+                    </div>
+                    <div class="pauseWrap wrapFunction col-4">
+                        <button type="button" class="iconFunction rounded-circle d-flex" data-toggle="modal"
+                                data-target="#pauseModal">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <p class="">暫停接受訂單</p>
+                    </div>
+                    <div class="restartWrap wrapFunction col-4">
+                        <button type="button" class="iconFunction rounded-circle d-flex" data-toggle="modal"
+                                data-target="#restartModal">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <p class="">恢復接受新訂單</p>
+                    </div>
+                </div>
+                <!-- 已暫停提示 -->
+                <div class="pauseTimeInMenu">
+                    <div>
+                        <i class="fas fa-pause"></i>
+                    </div>
+                    <div>
+                        <p>已暫停 <br> <span class="lastPauseTime">1:20</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 選單外空白頁面 -->
+    <div class="bg"></div>
+    <!-- 主頁面 -->
+    <div id="mainPage">
+        <!-- 待機模式主頁面 -->
+        <div class="StandbyMainPage">
+            <div class="StandbyDetail">
+                <i class="fas fa-hamburger"></i>
+                <p>營業中</p>
+                <p id="closeTime">4:00PM 打烊</p>
+            </div>
+        </div>
+        <!-- 新訂單主頁面 -->
+        <div class="newListMainPage"></div>
+        <!-- 餐點準備中主頁面 -->
+        <div class="cookingMainPage"></div>
+        <!-- 餐點完成主頁面 -->
+        <div class="finishCookMainPage"></div>
+        <div class="historyOrderMainPage"></div>
+        <!-- 主頁面關閉按鈕 -->
+    </div>
+
+    <!-- 選單Modal區 -->
+    <!-- 餐點訊息Modal -->
+    <div class="modal fade" id="mealDetailModal" tabindex="-1" role="dialog" aria-labelledby="mealDetailTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+            <div class="modal-content fullModal">
+                <div class="modal-header mealDetail-header">
+                    <label for="mealDetail-search"></label>
+                    <input type="text" placeholder="以項目或食材搜尋" id="mealDetail-search">
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-eye"></i>
+                            <span class="numberOfSellOut">顯示售完(0)</span>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body mealDetail-body">
+                    <ul class="list-group">
+                        <li class="list-group-item mealDetail-item">
+                            <div>套餐A</div>
+                            <div class="d-flex mealStatus">
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-suply">
+                                    <i class="fas fa-eye"></i>
+                                    <span>供應中</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOut">
+                                    <i class="fas fa-eye"></i>
+                                    <span>本日已售完</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOutForever">
+                                    <i class="fas fa-eye"></i>
+                                    <span>永久已售完</span>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="list-group-item mealDetail-item">
+                            <div>套餐B</div>
+                            <div class="d-flex mealStatus">
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-suply">
+                                    <i class="fas fa-eye"></i>
+                                    <span>供應中</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOut">
+                                    <i class="fas fa-eye"></i>
+                                    <span>本日已售完</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOutForever">
+                                    <i class="fas fa-eye"></i>
+                                    <span>永久已售完</span>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="list-group-item mealDetail-item">
+                            <div>套餐C</div>
+                            <div class="d-flex mealStatus">
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-suply">
+                                    <i class="fas fa-eye"></i>
+                                    <span>供應中</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOut">
+                                    <i class="fas fa-eye"></i>
+                                    <span>本日已售完</span>
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm mealItem-sellOutForever">
+                                    <i class="fas fa-eye"></i>
+                                    <span>永久已售完</span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 聯絡支援Modal -->
+    <div class="modal fade" id="connectionModal" tabindex="-1" aria-labelledby="connectionModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title " id="connectionModalLabel">聯絡支援</h5>
+                </div>
+                <div class="modal-body">
+                    <P>我們在此竭誠服務</P>
+                    <P>請致電Uber Eats優食客服：886277414632</P>
+                    <P class="text-success">與我們對談</P>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 忙碌模式Modal -->
+    <div class="modal fade" id="busyModal" tabindex="-1" aria-labelledby="busyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title " id="busyModalLabel">請預估每份訂單需要多少備餐時間</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="busyModalLabel">
+                        <button type="button" id="busyModal-Normal" class="btn btn-secondary">
+                            正常<br>
+                            15到25分鐘
+                        </button>
+                        <button type="button" id="busyModal-busy" class="btn btn-secondary">
+                            忙碌<br>
+                            25到35分鐘
+                        </button>
+                        <button type="button" id="busyModal-toobusy" class="btn btn-secondary">
+                            非常忙碌<br>
+                            35到45分鐘
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 暫停接單Modal -->
+    <div class="modal fade" id="pauseModal" tabindex="-1" aria-labelledby="pauseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title " id="pauseModalLabel">暫停接受新訂單</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="pauseModelLabel">
+                        <button type="button" id="pauseModal-10min" class="btn btn-secondary align-self-center">
+                            10分鐘
+                        </button>
+                        <button type="button" id="pauseModal-15min" class="btn btn-secondary align-self-center">
+                            15分鐘
+                        </button>
+                        <button type="button" id="pauseModal-25min" class="btn btn-secondary align-self-center">
+                            25分鐘
+                        </button>
+                        <button type="button" id="pauseModal-othermin" class="btn btn-secondary align-self-center">
+                            其他時間
+                        </button>
+                        <button type="button" id="pauseModal-other" class="btn btn-secondary align-self-center">
+                            其他
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal"
+                            data-target="#pauseReasonModal">
+                        下一步
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 暫停原因Modal -->
+    <div class="modal fade" id="pauseReasonModal" tabindex="-1" aria-labelledby="pauseReasonModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title " id="pauseReasonModal">暫停接受新訂單</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="d-">請選取暫停原因</p>
+                    <div class="btn-group btn-group-lg" role="group" aria-label="pauseReasonModalLabel">
+                        <button type="button" id="pauseReason-closeEraly" class="btn btn-secondary align-self-center">
+                            提早打烊
+                        </button>
+                        <button type="button" id="pauseReason-restaurantProblem"
+                                class="btn btn-secondary align-self-center">
+                            餐廳問題
+                        </button>
+                        <button type="button" id="pauseReason-sellOut" class="btn btn-secondary align-self-center">
+                            餐點已售完
+                        </button>
+                        <button type="button" id="pauseReason-other" class="btn btn-secondary align-self-center">
+                            其他
+                        </button>
+                    </div>
+                    <label for="pauseReason-detail"></label>
+                    <input type="text" value="還需補充其他資訊嗎？" id="pauseReason-detail">
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 恢復接受訂單Modal -->
+    <!-- 待補：
+        1.主頁面出現暫停時間
+        2.選單(menu)出現暫停時間(pauseTimeInMenu)
+        3.按下回復按鈕後，重現忙碌模式wrap、暫停接單wrap
+    -->
+    <div class="modal fade" id="restartModal" tabindex="-1" aria-labelledby="restartLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title " id="restartLabel">繼續</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group btn-group-lg" role="group" aria-label="pauseModelLabel">
+                        <p>您想要回復接受訂單嗎？</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @RenderBody()
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+        let menuCheck = document.querySelector('#menu-check');
+        let bg = document.querySelector('.bg');
+        let body = document.querySelector('body');
+        console.log(body)
+
+        //按下漢堡後，加入menu背景
+        menuCheck.addEventListener('click', function () {
+            //若漢堡按下，加入背景
+            if (menuCheck.checked) {
+                bg.classList.add('bg-style');
+                body.setAttribute('style', 'overflow:hidden;');
+                bg.addEventListener('click', function () {
+                    menuCheck.click();
+                });
+            }
+            //漢堡關起，移除背景
+            else {
+                bg.classList.remove('bg-style');
+                body.removeAttribute('style', 'overflow:hidden;');
+            }
+        });
+    </script>
+    <script>
+
+            // 待補：
+            // 1.主頁面出現暫停時間
+            // 2.選單(menu)出現暫停時間(pauseTimeInMenu)
+            // 3.按下回復按鈕後，重現忙碌模式wrap、暫停接單wrap
+
+            //打烊時間 #closeTime
+
+            // 餐點訊息狀況頁面待補
+            // 1.餐點訊息狀況>餐點狀態>點選「供應中」彈出「已售完」、「永久售完按鈕」
+            // 2.點選「已售完」、「永久售完按鈕」後，連動調整header中的已售完餐點數量
+            // mealItem-suply
+            // mealItem-sellOut
+            // mealItem-sellOutForever
+            // numberOfSellOut
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
+
+</body>
+</html>
