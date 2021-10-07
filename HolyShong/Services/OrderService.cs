@@ -260,6 +260,37 @@ namespace HolyShong.Services
             return result;
         }
 
+        /// <summary>
+        /// 外送員訂單狀態與物流狀態改變
+        /// </summary>
+        public void ChangeDeliverOrderState(OrderStatusViewModel OrderStatusVM)
+        {
+            //VM中分析他的orderID
+            var orderId = Int32.Parse(OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x=>x).ToString());
+            //先抓到訂單
+            var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
+
+            //交易
+
+            //傳入訂單狀態判斷
+            if (OrderStatusVM.OrderStatus == 5)
+            {
+                //orderstate改變
+                order.OrderStatus = 5;
+                //deliverstatus改變
+                order.DeliverId = 2;
+            }
+            else if (OrderStatusVM.OrderStatus == 6)
+            {
+                order.OrderStatus = 6;
+                order.DeliverId = 3;
+            }
+
+            //update
+            _repo.Update(order);
+            _repo.SaveChange();
+
+        }
     }
 }
 

@@ -224,6 +224,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
+    <Compile Include="ViewModels\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\DeliverViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\OrderDeliverViewModel.cs" />

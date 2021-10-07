@@ -23,7 +23,7 @@ namespace HolyShong.Controllers
         }
 
         /// <summary>
-        /// 外送員上下線
+        /// 外送員切換上下線
         /// </summary>
         /// <param name="deliverConnectionVM"></param>
         /// <returns></returns>
@@ -31,9 +31,18 @@ namespace HolyShong.Controllers
         public bool DeliverConnectionStatus(DeliverConnectionViewModel deliverConnectionVM)
         {
 
-            var result = _orderService.GetDeliverConnection(deliverConnectionVM.isOnline);
+            var connectionResult = _orderService.GetDeliverConnection(deliverConnectionVM.isOnline);
 
-            return result;
+            return connectionResult;
+        }
+
+        /// <summary>
+        /// 外送員訂單與物流狀況修改
+        /// </summary>
+        [HttpPost]
+        public void OrderStateChange(OrderStatusViewModel OrderStatusVM)
+        {
+             _orderService.ChangeDeliverOrderState(OrderStatusVM);
         }
 
 

@@ -428,10 +428,14 @@
             orderDeliver.style.visibility = "visible";
 
             //開始外送，傳遞orderstatus改成5，deliverstatus改成2
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/Deliver/",
-            //});
+            @*$.ajax({
+                type: "POST",
+                url: "/Deliver/OrderStateChange",
+                data: { order:@(Model.OrderCode==null? "0":Model.OrderCode), orderStatus: 5 },
+                success: function (response) {
+
+                }
+            });*@
         });
 
         let deliverInput = document.querySelector('.deliverBox input');
