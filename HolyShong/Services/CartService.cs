@@ -33,49 +33,26 @@ namespace HolyShong.Services
             // 用memberId找到 特定的cart
             var cart = _repo.GetAll<Cart>().FirstOrDefault(c => c.MemberId == memberId);
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == cart.StroreId);
+           
             //找item裡面找到包含上面篩選出來的cart的cartId
             var items = _repo.GetAll<Item>().Where(i => i.CartId == cart.CartId);
             var itemDetails = _repo.GetAll<ItemDetail>().Where(id => items.Select(i => i.ItemId).Contains(id.ItemId));
+            var products = _repo.GetAll<Product>().Where(p => items.Select(i => i.ProductId).Contains(p.ProductId));
             result.CartId = cart.CartId;
             result.StoreName = store.Name;
-
+            result.Address = store.Address;
+            result.Count = 1;
+          
 
             //cartItem裡面的資料表
             //在item裡面找到product
-            var products = _repo.GetAll<Product>().Where(p=>items.Select(i=>i.ProductId).Contains(p.ProductId));
-
-
-
-
-
-            //foreach (var p in products)
-            //{
-            //    var temp = new CartItem()
-            //    {
-            //        ProductName = p.Name,
-            //        ItemId = items.FirstOrDefault(i => i.ProductId == p.ProductId).ItemId,
-            //        UnitPrice = p.UnitPrice
-            //    };
-            //    result.CartItems.Add(temp);
-            //}
-
+            
 
             // ProductOptionCard
             var productOptionCards = new List<ProductOptionCard>();
             var productOption = _repo.GetAll<ProductOption>().Where(pr => products.Select(p => p.ProductId).Contains(pr.ProductId));
             var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(pr => pr.ProductOptionId).Contains(pod.ProductOptionId));
-            //foreach(var id in itemDetails)
-            //{
-            //    var pTemp = new ProductOptionCard()
-            //    {
-            //        ProductOptionId = id.ProductOptionId,
-            //        ProductOptionName = productOption.FirstOrDefault(po=>po.ProductOptionId == id.ProductOptionId).Name,
-            //        ProductOptionDetail = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).Name,
-            //        addPrice = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).AddPrice,
-                           
-            //    };
-            //    productOptionCards.Add(pTemp);
-            //}
+            
 
             foreach (var i in items)
             {
@@ -102,14 +79,29 @@ namespace HolyShong.Services
                     ItemId = i.ItemId,
                     UnitPrice = prod.UnitPrice,
                     ProductName = prod.Name,
-                    ProductOptionCards = pTemp
+                    Description = prod.Description,
+                    ProductOptionCards = pTemp,
+                    TotalPrice = i.Quantity * prod.UnitPrice
+                
+                    
                 };
                 result.CartItems.Add(temp);
             }
 
-
             return result;
-            
-        }      
+            //foreach(var id in itemDetails)
+            //{
+            //    var pTemp = new ProductOptionCard()
+            //    {
+            //        ProductOptionId = id.ProductOptionId,
+            //        ProductOptionName = productOption.FirstOrDefault(po=>po.ProductOptionId == id.ProductOptionId).Name,
+            //        ProductOptionDetail = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).Name,
+            //        addPrice = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).AddPrice,
+
+            //    };
+            //    productOptionCards.Add(pTemp);
+            //}
+
+        }
     }     
 }

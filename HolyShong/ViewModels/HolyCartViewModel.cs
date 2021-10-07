@@ -8,6 +8,9 @@ namespace HolyShong.ViewModels
           
     public class HolyCartViewModel
     {
+
+
+        public int RecordId { get; set; }
         /// <summary>
         /// cart
         /// </summary>
@@ -17,10 +20,10 @@ namespace HolyShong.ViewModels
         /// </summary>
         public string StoreName { get; set; }
         public List<CartItem> CartItems { get; set; }
-        /// <summary>
-        /// item X product
-        /// </summary>
-        public decimal TotalPrice { get; set; }
+        public string Address { get; set; }
+        public int Count { get; set; }
+        public DateTime CreatedDate { get; set; }
+
     }
 
     public class CartItem
@@ -37,8 +40,13 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// product
         /// </summary>
+        public string Description { get; set; }
         public decimal UnitPrice { get; set; }
-       
+        /// <summary>
+        /// item X product
+        /// </summary>
+        public decimal TotalPrice { get; set; }
+
     }
     public class ProductOptionCard
     {   
