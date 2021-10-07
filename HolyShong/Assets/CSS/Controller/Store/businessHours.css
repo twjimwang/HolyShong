@@ -34,6 +34,7 @@
 
     .hoursWedTxt input, .hoursThurTxt input, .hoursFriTxt input, .hoursSatTxt input, .hoursSunTxt input {
         overflow: auto;
+        color:black;
     }
 
 .hoursWedCol, .hoursThurCol, .hoursFriCol, .hoursSatCol, .hoursSunCol {
