@@ -221,10 +221,13 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\ProfileServices.cs" />
     <Compile Include="Services\RestaurantService.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\HolyCartViewModel.cs" />
+    <Compile Include="ViewModels\MemberProfileViewModel.cs" />
     <Compile Include="ViewModels\RestaurantVM.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
   </ItemGroup>

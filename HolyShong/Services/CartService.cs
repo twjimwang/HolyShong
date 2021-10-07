@@ -41,7 +41,7 @@ namespace HolyShong.Services
             result.CartId = cart.CartId;
             result.StoreName = store.Name;
             result.Address = store.Address;
-            result.Count = 1;
+            
           
 
             //cartItem裡面的資料表

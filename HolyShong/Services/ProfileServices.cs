@@ -6,6 +6,7 @@ using HolyShong.Models;
 using HolyShong.DBModels;
 using HolyShong.ViewModels;
 using HolyShong.Repositories;
+using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Services
 {
