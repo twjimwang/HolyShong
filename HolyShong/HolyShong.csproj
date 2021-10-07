@@ -314,6 +314,7 @@
     <Content Include="Views\Home\NoSearch.cshtml" />
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -143,6 +143,8 @@ label.cart {
     max-height: calc(100vh - 100px);
     overflow-y: scroll;
     background-color: #fff;
+    position: relative;
+    z-index: 1000;
 }
 
 .cart-content .modal-body {
