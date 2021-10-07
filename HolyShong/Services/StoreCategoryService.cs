@@ -36,5 +36,12 @@ namespace HolyShong.Services
             }
             return result;
         }
+
+
+        //產生亂數
+        public int GetRandomNumber()
+        {
+            return 0;
+        }
     }
 }

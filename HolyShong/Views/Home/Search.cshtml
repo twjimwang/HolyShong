@@ -8,42 +8,507 @@
     <input type="submit" value="搜尋" class="btn btn-primary" />
 }
 
-@if (Model != null && Model.StoreCards.Count() > 0)
-{
-    foreach (var item in Model.StoreCards)
-    {
-        <div class="cardCol">
-            <div class="foodCard " style="cursor:pointer;">
-                <a href="~/Store/Restaurant/@item.StoreId" style="text-decoration:none;">
-                    <div class="headline">
-                        <img class="pic" src="@item.StoreImg">
-                        <div class="Tag">買1送1</div>
+<div class="container">
+<!-- 主要頁面 -->
+<div id="mainpage" class="d-flex mw-100">
+
+    <!-- 副分類 -->
+    <div id="subcategory" class="subcategory p-3 mb-2 text-dark align-items-start sticky-top mw-100">
+        <!-- 副分類標籤 -->
+        <div>
+            <h1 style="font-size: 28px; font-weight: 700;">["@Model.StoreCategoryId"]</h1>
+            <span style="font-size:16px">「"@Model.StoreCategoryId"」的 @Model.StoreCards.Count()+筆結果</span>
+        </div>
+        <!-- 副分類選項 -->
+        <ul uk-accordion="multiple: true">
+            <li class="uk-open">
+                <a class="uk-accordion-title" href="#">分類</a>
+                <!-- 分類選項 -->
+                <div class="uk-accordion-content">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
+                               checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            您專屬的推薦餐點(預設)
+                        </label>
                     </div>
-                    <div class="foodText">
-                        <div class="shopNameandPoint">
-                            <div id="spName" class="shopName">@item.StoreName</div>
-                            <div id="pp" class="point">4.7</div>
-                        </div>
-                        <div class="TWD">
-                            <span id="ntd" class="">55TWD 費用</span>
-                            <div class="dotSpace"><span class="dot"> • </span></div>
-                            <span id="min" class="">25–35 分鐘</span>
-                        </div>
+                    <!-- 間隔區塊 -->
+                    <div class="form-check-space"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            熱門餐點
+                        </label>
                     </div>
-                </a>
-            </div>
-            <div class="touchZone" style="cursor:pointer;">
-                <div class="favoriteHeart">
-                    <div class="switchP" id="sw" onclick="clickChangeC()">
-                        <!-- 空心 -->
-                        <i class="far fa-heart hEmpty"></i>
-                        <!-- 實心 -->
-                        <i class="fas fa-heart hSolid"></i>
-                        <i class="fas fa-heart hSolid4hover"></i>
+                    <!-- 間隔區塊 -->
+                    <div class="form-check-space"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                        <label class="form-check-label" for="exampleRadios3">
+                            評分
+                        </label>
+                    </div>
+                    <!-- 間隔區塊 -->
+                    <div class="form-check-space"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+                        <label class="form-check-label" for="exampleRadios4">
+                            配送時間
+                        </label>
+                    </div>
+
+                </div>
+            </li>
+
+
+            <!-- 價格區間 -->
+            <li class="uk-open">
+                <a class="uk-accordion-title" href="#">價格範圍</a>
+                <div class="uk-accordion-content">
+                    <div>
+                        <button type="button" class="btn rounded-pill">
+                            <div class="font-weight-bold">$</div>
+                        </button>
+
+                        <button type="button" class="btn  rounded-pill">
+                            <div class="font-weight-bold">$$</div>
+                        </button>
+
+                        <button type="button" class="btn  rounded-pill">
+                            <div class="font-weight-bold">$$$</div>
+                        </button>
+
+                        <button type="button" class="btn rounded-pill">
+                            <div class="font-weight-bold">$$$$</div>
+                        </button>
                     </div>
                 </div>
-            </div>
+            </li>
+
+            <!-- 外送費選擇條 -->
+            <li class="uk-open">
+                <a class="uk-accordion-title" href="#">外送費上限</a>
+                <div class="uk-accordion-content">
+                    <div>
+                        <input type="range" class="custom-range" min="0" max="3" id="customRange">
+                        <div class="d-flex justify-content-between">
+                            <div>NT$25</div>
+                            <div>NT$40</div>
+                            <div>NT$60</div>
+                            <div>NT$60+</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- 飲食限制選項按鈕
+            -->
+            <li class="uk-open">
+                <a class="uk-accordion-title" href="#">飲食限制</a>
+                <div id="restrict-container" class="uk-accordion-content">
+                    <div class="top-wrap d-flex">
+                        <button type="button" class="btn rounded-pill d-flex">
+                            <div class="font-weight-bold" style="font-size: 14px;">
+                                <i class="fas fa-leaf"></i>
+                                蔬食料理
+                            </div>
+                        </button>
+
+                        <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
+                            <div class="font-weight-bold">
+                                <i class="fas fa-heart"></i>
+                                純素食料理
+                            </div>
+                        </button>
+                    </div>
+                    <div class="bottom-wrap d-flex">
+                        <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
+                            <div class="font-weight-bold">
+                                <i class="fab fa-pagelines"></i>
+                                無麩質料理
+                            </div>
+                        </button>
+
+                        <button type="button" class="btn rounded-pill ">
+                            <div class="font-weight-bold " style="font-size: 14px;">
+                                <i class="fas fa-ban"></i>
+                                過敏者可食用
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <!-- 商品類別 -->
+    <!-- 店家欄(分類) -->
+    <!-- 搜尋頁面(套LEO) -->
+    <div class="unitContainer d-flex justify-content-center">
+        <div class="row row-cols-1  row-cols-lg-3 ">
+            <!-- 卡片區塊 -->
+            @if (Model != null && Model.StoreCards.Count() > 0)
+            {
+                foreach (var item in Model.StoreCards)
+                {
+                    <div class="cardCol">
+                        <div class="foodCard " style="cursor:pointer;">
+                            <a href="~/Store/Restaurant/@item.StoreId" style="text-decoration:none;">
+                                <div class="headline">
+                                    <img class="pic" src="@item.StoreImg">
+                                    <div class="Tag">買1送1</div>
+                                </div>
+                                <div class="foodText">
+                                    <div class="shopNameandPoint">
+                                        <div id="spName" class="shopName">@item.StoreName</div>
+                                        <div id="pp" class="point">4.7</div>
+                                    </div>
+                                    <div class="TWD">
+                                        <span id="ntd" class="">55TWD 費用</span>
+                                        <div class="dotSpace"><span class="dot"> • </span></div>
+                                        <span id="min" class="">25–35 分鐘</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="touchZone" style="cursor:pointer;">
+                            <div class="favoriteHeart">
+                                <div class="switchP" id="sw" onclick="clickChangeC()">
+                                    <!-- 空心 -->
+                                    <i class="far fa-heart hEmpty"></i>
+                                    <!-- 實心 -->
+                                    <i class="fas fa-heart hSolid"></i>
+                                    <i class="fas fa-heart hSolid4hover"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
-    }
+    </div>
+
+</div>
+</div>
+
+
+@section topCSS {
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/css/uikit.min.css" />
+
+    @*LEO 商店卡片 CSS*@
+    <style>
+        * {
+            max-width: 100%;
+        }
+
+        .pic {
+            width: 100%;
+        }
+
+        .unitContainer {
+            display: block;
+            max-width: 98%;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .p1 {
+            margin: 0 16px;
+            white-space: pre-wrap;
+        }
+
+        .Tag {
+            line-height: 16px;
+            display: inline-block;
+            background-color: #05a357;
+            border-radius: 0 24px 24px 0;
+            color: #ffff;
+            font-size: 14px;
+            padding: 4px 12px;
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+
+        .headline {
+            position: relative;
+        }
+
+        .cardCol {
+            margin-bottom: 30px;
+            display: flex;
+            position: relative;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .touchZone {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .foodCard {
+            width: 100%;
+        }
+
+        .favoriteHeart {
+            display: flex;
+            height: 28px;
+            width: 50px;
+            justify-content: flex-start;
+            align-items: center;
+            /*position: absolute;*/
+            right: 0;
+            top: 10px;
+        }
+
+        .switchP {
+            position: relative;
+            display: flex;
+            width: 20px;
+            height: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hSolid4hover {
+            z-index: 2;
+            position: absolute;
+            color: rgb(177, 177, 177);
+            display: none;
+        }
+
+        .hEmpty {
+            position: absolute;
+            color: rgb(253, 253, 253);
+        }
+
+        .switchP:hover .hEmpty {
+            display: none;
+        }
+
+        .switchP:hover .hSolid4hover {
+            z-index: 2;
+            display: block;
+        }
+
+        .hSolid {
+            z-index: 2;
+            position: absolute;
+            color: rgb(253, 253, 253);
+            display: none;
+        }
+
+        .shopNameandPoint {
+            display: flex;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 12px;
+            align-items: center;
+            flex-flow: wrap row;
+            justify-content: space-between;
+            color: black;
+        }
+
+        .point {
+            display: flex;
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #EEEEEE;
+            font-size: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shopName {
+            font-size: 20px;
+        }
+
+        .TWD {
+            display: flex;
+            color: black;
+        }
+
+        .dotSpace {
+            margin: 0 10px 0 10px;
+        }
+    </style>
+
+    @*首頁*@
+    <style>
+        /* 內容 */
+        .container {
+            max-width: 1920px;
+            margin: auto;
+        }
+
+        /* 商店類別 */
+        #storecategory {
+            padding: 2%;
+        }
+
+            #storecategory h2 {
+                font-size: 36px;
+                font-weight: 700;
+            }
+
+            #storecategory .uk-panel {
+                height: 100%;
+            }
+
+        /* 店家卡片(幻燈片) */
+        .storecard {
+            padding: 2%;
+        }
+
+            .storecard img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .storecard li {
+                padding-left: 32px;
+            }
+
+        /* 副分類 */
+        #subcategory {
+            width: 300px;
+            height: 700px;
+        }
+
+        .sticky-top {
+            z-index: 3;
+        }
+        /* 副分類選單(關) */
+        .subcategory .uk-accordion-title::before {
+            background-image: url(https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png);
+            width: 12px;
+        }
+
+        /* 副分類選單(開) */
+        .subcategory .uk-open > .uk-accordion-title::before {
+            transform: rotate(180deg);
+            background-image: url(https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png);
+            width: 12px;
+        }
+
+        .subcategory .form-check {
+            width: 220px;
+            height: 22px;
+        }
+
+        .subcategory .form-check-space {
+            height: 18px;
+        }
+
+        .subcategory .form-check-input {
+            width: 22px;
+            height: 22px;
+            margin: 0 0 0 -20px;
+        }
+
+        .subcategory .form-check-label {
+            height: 22px;
+            font-size: 16px;
+            margin: 0 0 0 16px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .subcategory .uk-slidenav {
+            padding: 0;
+        }
+
+        .subcategory .uk-accordion-content button {
+            background-color: #eee;
+        }
+
+            .subcategory .uk-accordion-content button:focus {
+                background-color: #000;
+                color: #fff;
+            }
+
+        .subcategory #restrict-container button {
+            margin: 5px;
+        }
+
+        @@media screen and (max-width:992px) {
+            main {
+                padding: 0px 12px;
+            }
+
+            #subcategory {
+                display: none;
+            }
+
+            #invitefriend p {
+                text-align: start;
+                font-size: 22px;
+            }
+
+            #btn-wrap {
+                display: flex;
+            }
+        }
+
+        @@media screen and (min-width:992px) {
+            .uk-grid {
+                margin-left: -5px;
+            }
+
+            #btn-wrap {
+                justify-content: center;
+            }
+
+            #cellphone-subcategory {
+                display: none;
+            }
+
+            .cardCol {
+                padding-left: 32px;
+            }
+
+            #shopcategory {
+                max-width: calc(100% - 300px);
+            }
+        }
+    </style>
 }
+
+@section endJS {
+    @*LEO 商店卡片*@
+    <Script>
+        function clickChangeC() {
+
+            let solid = event.path[1].childNodes[7];
+            let empty = event.path[1].childNodes[3];
+
+            if (solid.style.display == "block") {
+                solid.style.display = "none"
+                empty.style.display = "block"
+            }
+            else {
+                solid.style.display = "block"
+                empty.style.display = "none"
+            }
+        };
+
+
+    </Script>
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit-icons.min.js"></script>
+}
+
+
+
+
 
