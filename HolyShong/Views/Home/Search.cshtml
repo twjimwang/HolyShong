@@ -1,32 +1,24 @@
-﻿@model HomeViewModel
+﻿@model SearchViewModel
 
 @using (Html.BeginForm())
 {
-    <label for="Keyword">請輸入產品關鍵字:</label>
-    @Html.TextBox("Keyword")
+    <label for="keyword">請輸入產品關鍵字:</label>
+    @Html.TextBox("keyword")
 
     <input type="submit" value="搜尋" class="btn btn-primary" />
 }
 
-@if (Model != null && Model.StoreCardBlocks.Count() > 0)
+@if (Model != null && Model.StoreCards.Count() > 0)
 {
     <table class="table table-bordered table-hover table-striped">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.)</th>
-                <th>@Html.DisplayNameFor(m => m.ProductName)</th>
-                <th>@Html.DisplayNameFor(m => m.UnitPrice)</th>
-                <th>@Html.DisplayNameFor(m => m.UnitsInStock)</th>
-            </tr>
-        </thead>
+
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.StoreCards)
             {
                 <tr>
-                    <td>@Html.DisplayFor(m => item.ProductID)</td>
-                    <td>@Html.DisplayFor(m => item.ProductName)</td>
-                    <td>@Html.DisplayFor(m => item.UnitPrice)</td>
-                    <td>@Html.DisplayFor(m => item.UnitsInStock)</td>
+                    <td>@Html.DisplayFor(m => item.StoreId)</td>
+                    <td>@Html.DisplayFor(m => item.StoreImg)</td>
+                    <td>@Html.DisplayFor(m => item.StoreName)</td>
                 </tr>
             }
         </tbody>

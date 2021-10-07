@@ -61,9 +61,9 @@ namespace HolyShong.Services
             return result;
         }
 
-        public SearchViewModel GetAllStoresByStoreCategoryId(int storecategoryId)
+        public StoreCategorySearchViewModel GetAllStoresByStoreCategoryId(int storecategoryId)
         {
-            var result = new SearchViewModel
+            var result = new StoreCategorySearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
@@ -90,6 +90,27 @@ namespace HolyShong.Services
             result.StoreCategoryId = storecategory.StoreCategoryId;
             result.StoreCategoryName = storecategory.Name;
             result.StoreCards = cards;
+            return result;
+        }
+
+        public SearchViewModel GetAllStoresByKeyword()
+        {
+            var result = new SearchViewModel
+            {
+                StoreCards = new List<StoreCard>()
+            };
+            var stores = _storeRespository.GetAll<Store>().ToList();
+            var cards = new List<StoreCard>();
+            foreach (var item in stores)
+            {
+                var temp = new StoreCard()
+                {
+                    StoreId = item.StoreId,
+                    StoreImg = item.Img,
+                    StoreName = item.Name
+                };
+                cards.Add(temp);
+            }
             return result;
         }
 

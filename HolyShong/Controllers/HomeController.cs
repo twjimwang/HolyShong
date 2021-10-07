@@ -50,47 +50,20 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //public ActionResult Search()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
         public ActionResult Search()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Search(string keyword)
-        {
-            var stores = _storeService.GetAllStores();
-
-            var result = new HomeViewModel()
-            {
-                StoreCategories = new List<ViewModels.StoreCategory>()
-            };
-
-            result = _storeService.GetAllStores();
-            result.StoreCategories = _storecategoryService.GetAllStoreCategories();
-            return View(result);
+            var result = _storeService.GetAllStoresByKeyword();
             //轉換其它頁面
-            //return View("List", products);
+            return View(result);
         }
 
-
-
-
-
-        //內建預設View
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
    
     }
