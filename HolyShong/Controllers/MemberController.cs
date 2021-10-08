@@ -48,21 +48,13 @@ namespace HolyShong.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public ActionResult UserProfile(int? id)
+        public ActionResult UserProfile()
         {
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                var model = _memberProfileService.GetMemberProfileViewModel((int)id);
-                if (model == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+            
+
+                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
                 return View(model);
-            }
+            
         }
 
         /// <summary>
@@ -202,7 +194,7 @@ namespace HolyShong.Controllers
             issueDate: DateTime.UtcNow,//現在UTC時間
             expiration: DateTime.UtcNow.AddMinutes(30),//Cookie有效時間=現在時間往後+30分鐘
             isPersistent: loginVM.Remember,// 是否要記住我 true or false
-            userData: user.FirstName.ToString(), //可以放使用者角色名稱
+            userData: name, //可以放使用者角色名稱
             cookiePath: FormsAuthentication.FormsCookiePath);
 
             //2.加密Ticket
@@ -214,6 +206,25 @@ namespace HolyShong.Controllers
 
             //4.取得original URL.
             var url = FormsAuthentication.GetRedirectUrl(name, true);
+
+            #region cookie導入memberID，用來限制使用者讀取他人資料
+
+            ////設定cookie值為MemberId
+            //HttpCookie idCookie = new HttpCookie("memberIdcookie");
+            //idCookie.Value = name;
+            ////指定 Cookie 的有效日期，過了有效日期 Cookie 就不會再儲存；不指定這個參數，有效日期就是使用者退出瀏覽器時
+            ////指定有效時間30分鐘(同上)
+            //idCookie.Expires = DateTime.UtcNow.AddMinutes(30);
+            ////指定可以存取該 Cookie 的路徑；不指定這個參數，預設該 Cookie 的網頁所在的路徑
+            //idCookie.Path = "/";
+            ////指定可以存取該 Cookie 的網域；不指定這個參數，預設該 Cookie 的網頁所在的網域
+            //idCookie.Domain = "";
+            ////指定 Cookie 只可以傳送給 HTTPS 伺服器
+            //idCookie.Secure = false;
+            //Response.Cookies.Add(idCookie);
+
+            #endregion
+
 
             //5.導向original URL
             return Redirect(url);
