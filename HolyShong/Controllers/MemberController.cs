@@ -47,6 +47,7 @@ namespace HolyShong.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public ActionResult UserProfile(int? id)
         {
             if (!id.HasValue)
@@ -71,6 +72,7 @@ namespace HolyShong.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult UserProfile(UserProfileViewModel memberProfileViewModel)
         {
