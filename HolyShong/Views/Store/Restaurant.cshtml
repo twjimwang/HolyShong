@@ -1,4 +1,5 @@
-﻿ <!-- top -->
+﻿@model RestaurantVM
+<!-- top -->
 <div class="topTitle container-fluid">
     <div class="discount row">
         <div class="col-12">
@@ -11,15 +12,15 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carouselInner">
             <div class="carouselItem active">
-                <img class="d-block" src="https://picsum.photos/1500/1500/?random=1" alt="First slide">
+                <img class="d-block" src="@Model.StorePicture" alt="First slide">
             </div>
         </div>
     </div>
     <div class="bannerTxtBtn container">
         <div class="text">
-            <h1>康盒食堂</h1>
+            <h1>@Model.StoreName</h1>
             <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-            • 4.9 (21)
+            •<span class="starScore">@Model.Score1</span><span class="comment">(21)</span>
         </div>
         <div class="timeHeartBtn">
             <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="timeModalHeader modal-header">
                             <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在11:30
+                                在<span class="setOpenTime">@Model.SupplyTime</span>
                                 AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
                             </h3>
                         </div>
@@ -75,10 +76,10 @@
 <!--地址-->
 <div class="wrap container">
     <div class="address">
-        <p>$ • 健康飲食</p>
+        <p>$ • @Model.StoreCategoryName</p>
         <p>
-            Xiuqun Road Lane 457 2, Nanzi District, Kaohsiung City 811 • <a data-toggle="modal" data-target="#more"
-                                                                            href="#">顯示更多</a>
+            @Model.StoreAddress • <a data-toggle="modal" data-target="#more"
+                                     href="#">顯示更多</a>
         </p>
     </div>
 </div>
@@ -100,8 +101,8 @@
             </div>
             <div class="dataModalBody">
                 <div class="store-txt">
-                    <h2 class="p-3">康和食堂</h2>
-                    <span class="p-3">健康飲食 • $</span>
+                    <h2 class="p-3">@Model.StoreName</h2>
+                    <span class="p-3">@Model.StoreCategoryName • $</span>
                 </div>
                 <div class="line"></div>
                 <div class="map">
@@ -109,7 +110,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <div class="textCenter">
-                        Xiuqun Road Lane 457 2, Nanzi District, Kaohsiung City 811
+                        @Model.StoreAddress
                     </div>
                     <div class="copy p-3">
                         <i class="fas fa-clone"></i>
@@ -120,7 +121,7 @@
                     <div class="clock p-3">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="textCenter">營業時間</div>
+                    <div class="textCenter">營業時間:<span class="week">星期一</span> <span class="setOpenTime">@Model.SupplyTime</span></div>
                     <div class="plus p-3">
                         <i class="fas fa-plus"></i>
                     </div>
@@ -143,7 +144,7 @@
                     <div class="star p-3">
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="textCenter">4.9 (500+ 筆評分)</div>
+                    <div class="textCenter"><span class="starScore">@Model.Score1</span> <span class="comment">(21筆評分)</span></div>
                     <div class="space p-3"></div>
                 </div>
                 <div class="line"></div>
@@ -236,78 +237,114 @@
     <div class="navMove row">
         <div class="col-12">
             <div class="navbar">
-                <a href="#titleOne">您專屬的推薦商品</a>
-                <a href="#titleTwo">人氣精選</a>
-                <a href="#titleThree">主食</a>
-                <a href="#titleFour">單點</a>
-                <a href="#titleTwo">人氣精選</a>
-                <a href="#titleThree">主食</a>
-                <a href="#titleFour">單點</a>
+                @foreach (var ProductCategory in Model.productCategories)
+                {
+                    <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
+
+                }
+                @*<a href="#titleOne">您專屬的推薦商品</a>
+                    <a href="#titleTwo">人氣精選</a>
+                    <a href="#titleThree">主食</a>
+                    <a href="#titleFour">單點</a>
+                    <a href="#titleTwo">人氣精選</a>
+                    <a href="#titleThree">主食</a>
+                    <a href="#titleFour">單點</a>*@
             </div>
         </div>
     </div>
     <!-- 您專屬的推薦商品 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleOne">您專屬的推薦商品</div>
+            <div class="txt" id="title_1">您專屬的推薦商品</div>
         </div>
     </div>
     <div class="itemGroup row d-flex ">
-        <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
-            <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞便當<br>附一杯飲料。</p>$140.00
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
+        @foreach (var Product in Model.Products)
+        {
+            <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
+                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Product.Img" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Product.Name<br>@Product.Description</p>$@Product.UnitPrice
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
+        }
+
+        @*<div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
+                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Model.ProductImg" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            </div>*@
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>*@
+
+        @*<div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <div class="itemGroupPic">
+                        <img src="@Model.ProductImg" class="card-img-top"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-12 col-lg-12 col-xl-4">
+                <div class="card d-flex flex-row-reverse">
+                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">蔥蔥雞</p>
+                    </div>
+                </div>
+            </div>*@
     </div>
     <!-- 人氣精選 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleTwo">人氣精選</div>
+            <div class="txt" id="title_2">人氣精選</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -355,7 +392,7 @@
     <!-- 主食 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleThree">主食</div>
+            <div class="txt" id="title_3">主食</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -393,7 +430,7 @@
     <!-- 單點 -->
     <div class="title row">
         <div class="col-12">
-            <div class="txt" id="titleFour">單點</div>
+            <div class="txt" id="title_4">單點</div>
         </div>
     </div>
     <div class="itemGroup row d-flex">
@@ -470,516 +507,543 @@
     </div>
 </div>
 
-@section topCSS
-{
+@section topCSS{
     <style>
-        /* top */
-        .container {
-            max-width: 1920px;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .layout {
-            background-color: red;
-            height: 96px;
-        }
-
-        .topTitle {
-            background-color: rgb(238, 247, 237);
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            position: sticky;
-            top: 72px;
-        }
-
-        .discount {
-            width: 100%;
-            margin: auto;
-        }
-
-        .topTitle a {
-            color: green;
-            padding: 10px 0;
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        /* banner */
-        .banner {
-            width: 100%;
-            position: relative;
-        }
-
-        .carouselItem {
-            width: 100%;
-            height: 256px;
-        }
-
-            .carouselItem img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        .bannerTxtBtn {
-            position: relative;
-        }
-
-        .text {
-            position: absolute;
-            bottom: 0;
-            padding: 0 0 20px 27px;
-            color: white;
-        }
-
-            .text img {
-                width: 14px;
-                height: 14px;
-            }
-
-            .text h1 {
-                font-size: 36px;
-                font-weight: bold;
-            }
-
-        .timeHeartBtn {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            padding: 0 20px 20px 0;
-        }
-
-        .btn-oblong {
-            border-radius: 30px 30px 30px 30px;
-        }
-
-        /* heart */
-        .heart .heartSolid {
-            display: none;
-        }
-
-        .heart .heartSolid {
-            color: white;
-        }
-
-        .heart .heartEmpty {
-            color: white;
-        }
-
-        .heart {
-            cursor: pointer;
-        }
-
-        /* timeModal */
-        .timeModalContent {
-            border-radius: 0;
-        }
-
-        .btnTimeClose {
-            padding: 5px;
-            position: absolute;
-            top: 0px;
-        }
-
-        .modal-footer {
-            border-top: none;
-        }
-
-        .openTime {
-            font-size: 36px;
-            position: relative;
-        }
-
-            .openTime span {
-                font-size: 16px;
-            }
-
-        /* 下拉選單modal */
-        .formSelect {
-            width: 100%;
-            padding: 12px 32px 12px 16px;
-            margin-bottom: 12px;
-            background-color: #F6F6F6;
-            border: none;
-        }
-
-        .selectTime button {
-            width: 100%;
-        }
-
-        /* 地址 */
-        .address {
-            padding: 0 27px;
-        }
-
-            .address a {
-                color: black;
-                text-decoration: underline;
-            }
-
-            .address p {
-                margin-top: 1rem;
-                margin-bottom: 0;
-            }
-
-        /* dataModal */
-        .dataModalHeader img {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .dataModalHeader {
-            width: 200%;
-        }
-
-        .imgClose {
-            position: relative;
-            width: 100%;
-        }
-
-        .imgClosePic img {
-            display: block;
-            width: 50%;
-        }
-
-        .dataModalContent {
-            border: none;
-        }
-
-        .imgClose .fa-times-circle {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: #fff;
-        }
-
-        .line {
-            height: 2px;
-            border-bottom: 2px solid #e2e2e2;
-        }
-
-        .map {
-            display: flex;
-            justify-content: space-between;
-            margin: auto;
-            padding: 10px 0;
-            align-items: center;
-        }
-
-        .startTime {
-            display: flex;
-            justify-content: space-between;
-            margin: auto;
-            padding: 10px 0;
-            align-items: center;
-        }
-
-        .joinEats {
-            display: flex;
-            justify-content: space-between;
-            margin: auto;
-            padding: 10px 0;
-            align-items: center;
-        }
-
-            .joinEats span {
-                color: #545454;
-                font-size: 14px;
-            }
-
-        .ticket img {
-            width: 21px;
-            height: 21px;
-        }
-
-        .score {
-            display: flex;
-            justify-content: space-between;
-            margin: auto;
-            padding: 10px 0;
-            align-items: center;
-        }
-
-        .bill {
-            padding-left: 20px;
-        }
-
-            .bill p {
-                font-size: 14px;
-                color: rgb(117, 117, 117);
-            }
-
-        /* storeModal */
-        .storeModalContent {
-            border: none;
-        }
-
-        .storeModalBody {
-            padding: 0;
-        }
-
-        .imgAndClose {
-            position: relative;
-        }
-
-        .imgAndClosePic {
-            width: 100%;
-            height: 200px;
-        }
-
-            .imgAndClosePic img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        .imgAndClose .fa-times-circle {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: #fff;
-        }
-
-        .addGroup {
-            display: flex;
-            text-align: center;
-        }
-
-        .quantityAddWrap {
-            justify-content: center;
-        }
-
-        .selectedBgc {
-            background: rgb(246, 246, 246);
-        }
-
-        .addItemBgC {
-            padding: 10px 0;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(rgba(255, 255, 255, 0) 2.5%, rgba(255, 255, 255, 0.92) 55.35%);
-        }
-
-            .addItemBgC i {
-                padding: 0 15px;
-            }
-
-        .addToCart {
-            text-align: center;
-        }
-
-        .price {
-            text-align: right;
-        }
-
-        .cardWrap input {
-            border: none;
-            padding: 24px;
-        }
-
-            .cardWrap input:focus-visible {
-                outline: none;
-            }
-
-        .input {
-            width: 100%;
-        }
-
-        .cardWrap {
-            height: 500px;
-            position: relative;
-        }
-
-        .billTxt {
-            background: rgb(246, 246, 246);
-            padding-bottom: 105px;
-        }
-
-            .billTxt p {
-                padding: 10px;
-            }
-
-        .scroll {
-            overflow-y: scroll;
-            height: 500px;
-            display: block;
-        }
-
-        .addGroup {
-            display: flex;
-        }
-
-        .quantityAddWrap {
-            justify-content: space-between;
-            margin: auto;
-        }
-
-        .addToCartWrap button {
-            margin: 10px;
-        }
-
-        .checkboxDiv label {
-            width: 100%;
-        }
-
-            .checkboxDiv label input {
-                margin-right: 5px;
-            }
-
-        /* navbar */
-        .navMove {
-            position: sticky;
-            top: 112px;
-            z-index: 4;
-        }
-
-        .navbar a {
-            color: black;
-            padding: 0 10px;
-            text-decoration: none;
-        }
-
-        .navbar {
-            justify-content: start;
-            background-color: white;
-            border-bottom: 2px solid #E2E2E2;
-            z-index: 3;
-            width: 100%;
-            height: 78px;
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-            line-height: 50px;
-        }
-
-        /* 您專屬的推薦商品 */
-        :target {
-            content: '';
-            display: block;
-            padding-top: 190px;
-            margin-top: -190px;
-        }
-
-        .title {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        .card img {
-            width: 88px;
-            height: 120px;
-        }
-
-        .card-body {
-            width: 50%;
-        }
-
-        .card {
-            margin: 10px 0;
-        }
-
-            .card:hover {
-                border: 1px solid black;
-            }
-
-            .card .row,
-            .itemGroup {
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-        .itemGroup {
-            cursor: pointer;
-        }
-
-        .title .txt {
-            font-size: 23px;
-            font-weight: bold;
-        }
-        /* 桌機 */
-        @@media screen and (min-width: 992px) {
-            .card img {
-                width: 88px;
-                height: 120px;
-            }
-
-            .addGroup {
-                display: flex;
-                text-align: center;
-            }
-
-            .quantityAddWrap {
-                justify-content: center;
-                margin: auto 0;
-            }
-
-            .storeModalBody {
-                display: flex;
-                width: 100%;
-            }
-
-            .imgAndClose {
-                width: 50%;
-            }
-
-            .imgAndClosePic img {
-                height: 500px;
-            }
-
-            .cardWrap {
-                width: 50%;
-            }
-
-            .topTitle {
-                top: -1px;
-            }
-
-            .navMove {
-                position: sticky;
-                top: 39px;
-                z-index: 4;
-            }
-
-            :target {
-                content: '';
-                display: block;
-                padding-top: 122px;
-                margin-top: -122px;
-            }
-
-            .itemGroupPic {
-                width: 40%;
-            }
-
-                .itemGroupPic img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-        }
-        /*平板橫*/
-        @@media screen and (min-width: 768px) and (max-width:1024px) {
-            .itemGroupPic {
-                width: 22%;
-            }
-
-                .itemGroupPic img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
+                /* top */
+                .container {
+                    max-width: 1920px;
                 }
 
-            .itemGroup .card {
-                height: 128px;
-            }
-        }
+                html {
+                    scroll-behavior: smooth;
+                }
+
+                .layout {
+                    background-color: red;
+                    height: 96px;
+                }
+
+                .topTitle {
+                    background-color: rgb(238, 247, 237);
+                    width: 100%;
+                    text-align: center;
+                    z-index: 2;
+                    position: sticky;
+                    top: 0;
+                }
+
+                .discount {
+                    width: 100%;
+                    margin: auto;
+                }
+
+                .topTitle a {
+                    color: green;
+                    padding: 10px 0;
+                    display: inline-block;
+                    text-decoration: none;
+                }
+
+                /* banner */
+                .banner {
+                    width: 100%;
+                    position: relative;
+                }
+
+                .carouselItem {
+                    width: 100%;
+                    height: 256px;
+                }
+
+                    .carouselItem img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                .bannerTxtBtn {
+                    position: relative;
+                }
+
+                .text {
+                    position: absolute;
+                    bottom: 0;
+                    padding: 0 0 20px 27px;
+                    color: white;
+                }
+
+                    .text img {
+                        width: 14px;
+                        height: 14px;
+                    }
+
+                    .text h1 {
+                        font-size: 36px;
+                        font-weight: bold;
+                    }
+
+                .timeHeartBtn {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    padding: 0 20px 20px 0;
+                }
+
+                .btn-oblong {
+                    border-radius: 30px 30px 30px 30px;
+                }
+
+                /* heart */
+                .heart .heartSolid {
+                    display: none;
+                }
+
+                .heart .heartSolid {
+                    color: white;
+                }
+
+                .heart .heartEmpty {
+                    color: white;
+                }
+
+                .heart {
+                    cursor: pointer;
+                }
+
+                /* timeModal */
+                .timeModalContent {
+                    border-radius: 0;
+                }
+
+                .btnTimeClose {
+                    padding: 5px;
+                    position: absolute;
+                    top: 0px;
+                }
+
+                .modal-footer {
+                    border-top: none;
+                }
+
+                .openTime {
+                    font-size: 36px;
+                    position: relative;
+                }
+
+                    .openTime span {
+                        font-size: 16px;
+                    }
+
+                h3 .setOpenTime {
+                    font-size: 30px;
+                }
+                /* 下拉選單modal */
+                .formSelect {
+                    width: 100%;
+                    padding: 12px 32px 12px 16px;
+                    margin-bottom: 12px;
+                    background-color: #F6F6F6;
+                    border: none;
+                }
+
+                .selectTime button {
+                    width: 100%;
+                }
+
+                /* 地址 */
+                .address {
+                    padding: 0 27px;
+                }
+
+                    .address a {
+                        color: black;
+                        text-decoration: underline;
+                    }
+
+                    .address p {
+                        margin-top: 1rem;
+                        margin-bottom: 0;
+                    }
+
+                /* dataModal */
+                .dataModalHeader img {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .dataModalHeader {
+                    width: 200%;
+                }
+
+                .imgClose {
+                    position: relative;
+                    width: 100%;
+                }
+
+                .imgClosePic img {
+                    display: block;
+                    width: 50%;
+                }
+
+                .dataModalContent {
+                    border: none;
+                }
+
+                .imgClose .fa-times-circle {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    color: #fff;
+                }
+
+                .line {
+                    height: 2px;
+                    border-bottom: 2px solid #e2e2e2;
+                }
+
+                .map {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                    padding: 10px 0;
+                    align-items: center;
+                }
+
+                /*  .time {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                    padding: 10px 0;
+                    align-items: center;
+                }
+        */
+                .joinEats {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                    padding: 10px 0;
+                    align-items: center;
+                }
+
+                    .joinEats span {
+                        color: #545454;
+                        font-size: 14px;
+                    }
+
+                .ticket img {
+                    width: 21px;
+                    height: 21px;
+                }
+
+                .score {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                    padding: 10px 0;
+                    align-items: center;
+                }
+
+                .bill {
+                    padding-left: 20px;
+                }
+
+                    .bill p {
+                        font-size: 14px;
+                        color: rgb(117, 117, 117);
+                    }
+
+                .startTime {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .textCenter {
+                    margin: auto;
+                }
+                /* storeModal */
+                .storeModalContent {
+                    border: none;
+                }
+
+                .storeModalBody {
+                    padding: 0;
+                }
+
+                .imgAndClose {
+                    position: relative;
+                }
+
+                .imgAndClosePic {
+                    width: 100%;
+                    height: 200px;
+                }
+
+                    .imgAndClosePic img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                .imgAndClose .fa-times-circle {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    color: #fff;
+                }
+
+                .addGroup {
+                    display: flex;
+                    text-align: center;
+                }
+
+                .quantityAddWrap {
+                    justify-content: center;
+                }
+
+                .selectedBgc {
+                    background: rgb(246, 246, 246);
+                }
+
+                .addItemBgC {
+                    padding: 10px 0;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: linear-gradient(rgba(255, 255, 255, 0) 2.5%, rgba(255, 255, 255, 0.92) 55.35%);
+                }
+
+                    .addItemBgC i {
+                        padding: 0 15px;
+                    }
+
+                .addToCart {
+                    text-align: center;
+                }
+
+                .price {
+                    text-align: right;
+                }
+
+                .cardWrap input {
+                    border: none;
+                    padding: 24px;
+                }
+
+                    .cardWrap input:focus-visible {
+                        outline: none;
+                    }
+
+                .input {
+                    width: 100%;
+                }
+
+                .cardWrap {
+                    height: 500px;
+                    position: relative;
+                }
+
+                .billTxt {
+                    background: rgb(246, 246, 246);
+                    padding-bottom: 105px;
+                }
+
+                    .billTxt p {
+                        padding: 10px;
+                    }
+
+                .scroll {
+                    overflow-y: scroll;
+                    height: 500px;
+                    display: block;
+                }
+
+                .addGroup {
+                    display: flex;
+                }
+
+                .quantityAddWrap {
+                    justify-content: space-between;
+                    margin: auto;
+                }
+
+                .addToCartWrap button {
+                    margin: 10px;
+                }
+
+                .checkboxDiv label {
+                    width: 100%;
+                }
+
+                    .checkboxDiv label input {
+                        margin-right: 5px;
+                    }
+
+                /* navbar */
+                .navMove {
+                    position: sticky;
+                    top: 41px;
+                    z-index: 4;
+                }
+
+                .navbar a {
+                    color: black;
+                    padding: 0 10px;
+                    text-decoration: none;
+                }
+
+                .navbar {
+                    justify-content: start;
+                    background-color: white;
+                    border-bottom: 2px solid #E2E2E2;
+                    z-index: 3;
+                    width: 100%;
+                    height: 78px;
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                    line-height: 50px;
+                }
+
+                /* 您專屬的推薦商品 */
+                :target {
+                    content: '';
+                    display: block;
+                    padding-top: 122px;
+                    margin-top: -122px;
+                }
+
+                .title {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+
+
+                .card-body {
+                    width: 50%;
+                }
+
+                .card {
+                    margin: 10px 0;
+                }
+
+                    .card:hover {
+                        border: 1px solid black;
+                    }
+
+                    .card .row,
+                    .itemGroup {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                .itemGroup {
+                    cursor: pointer;
+                }
+
+                .itemGroupPic {
+                    width: 45%;
+                }
+
+                .title .txt {
+                    font-size: 23px;
+                    font-weight: bold;
+                }
+                /* 桌機 */
+                @@media screen and (min-width: 992px) {
+                    .card img {
+                        width: 88px;
+                        height: 120px;
+                    }
+
+                    .addGroup {
+                        display: flex;
+                        text-align: center;
+                    }
+
+                    .quantityAddWrap {
+                        justify-content: center;
+                        margin: auto 0;
+                    }
+
+                    .storeModalBody {
+                        display: flex;
+                        width: 100%;
+                    }
+
+                    .imgAndClose {
+                        width: 50%;
+                    }
+
+                    .imgAndClosePic img {
+                        height: 500px;
+                    }
+
+                    .cardWrap {
+                        width: 50%;
+                    }
+
+                    .itemGroupPic {
+                        width: 40%;
+                    }
+
+                        .itemGroupPic img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                }
+
+                /* ipad橫直*/
+                @@media screen and (min-width: 768px) and (max-width:1024px) {
+                    .itemGroup .card {
+                        height: 128px;
+                    }
+
+                    .navMove {
+                        position: sticky;
+                        top: 39px;
+                        z-index: 4;
+                    }
+
+                    .itemGroupPic {
+                        width: 22%;
+                    }
+
+                    :target {
+                        content: '';
+                        display: block;
+                        padding-top: 122px;
+                        margin-top: -122px;
+                    }
+
+                    .itemGroupPic {
+                        width: 40%;
+                    }
+
+                        .itemGroupPic img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                }
+                /*平板橫*/
+                @@media screen and (min-width: 768px) and (max-width:1024px) {
+                    .itemGroupPic {
+                        width: 22%;
+                    }
+
+                        .itemGroupPic img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                    .itemGroup .card {
+                        height: 128px;
+                    }
+                }
     </style>
 }
 
@@ -1020,5 +1084,3 @@
         });
     </script>
 }
-
-
