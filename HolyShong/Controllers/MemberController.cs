@@ -47,21 +47,14 @@ namespace HolyShong.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult UserProfile(int? id)
+        [Authorize]
+        public ActionResult UserProfile()
         {
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                var model = _memberProfileService.GetMemberProfileViewModel((int)id);
-                if (model == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+
+                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
+                
                 return View(model);
-            }
+            
         }
 
         /// <summary>
