@@ -5,6 +5,7 @@ using System.Web;
 using HolyShong.Repositories;
 using HolyShong.ViewModels;
 using HolyShong.Models.HolyShongModel;
+using System.Data.Entity;
 
 namespace HolyShong.Services
 {
@@ -16,6 +17,12 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
+
+
+        //public OperationResult Create(OrderViewModel orderVM)
+        //{
+
+        //}
         /// <summary>
         /// 單筆外送訂單呈現
         /// </summary>
@@ -265,26 +272,38 @@ namespace HolyShong.Services
         /// </summary>
         public void ChangeDeliverOrderState(OrderStatusViewModel OrderStatusVM)
         {
+            DbContext context = new HolyShongContext();
             //VM中分析他的orderID
             var orderId = Int32.Parse(OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x=>x).ToString());
             //先抓到訂單
             var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
 
             //交易
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    //傳入訂單狀態判斷
+                    if (OrderStatusVM.OrderStatus == 5)
+                    {
+                        //orderstate改變
+                        order.OrderStatus = 5;
+                        //deliverstatus改變
+                        order.DeliverId = 2;
+                    }
+                    else if (OrderStatusVM.OrderStatus == 6)
+                    {
+                        order.OrderStatus = 6;
+                        order.DeliverId = 3;
+                    }
+                    tran.Commit();
+                }
+                catch(Exception ex)
+                {
+                    tran.Rollback();
+                }
+            }
 
-            //傳入訂單狀態判斷
-            if (OrderStatusVM.OrderStatus == 5)
-            {
-                //orderstate改變
-                order.OrderStatus = 5;
-                //deliverstatus改變
-                order.DeliverId = 2;
-            }
-            else if (OrderStatusVM.OrderStatus == 6)
-            {
-                order.OrderStatus = 6;
-                order.DeliverId = 3;
-            }
 
             //update
             _repo.Update(order);

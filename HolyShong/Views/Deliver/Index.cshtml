@@ -428,14 +428,14 @@
             orderDeliver.style.visibility = "visible";
 
             //開始外送，傳遞orderstatus改成5，deliverstatus改成2
-            @*$.ajax({
+            $.ajax({
                 type: "POST",
                 url: "/Deliver/OrderStateChange",
-                data: { order:@(Model.OrderCode==null? "0":Model.OrderCode), orderStatus: 5 },
+                data: { order: "@(Model.OrderCode==null? "0":Model.OrderCode)", orderStatus: 5 },
                 success: function (response) {
-
+                    console.log('成功開始外送')
                 }
-            });*@
+            });
         });
 
         let deliverInput = document.querySelector('.deliverBox input');
@@ -444,6 +444,7 @@
             deliverComplete.removeAttribute('disabled', '');
             deliverInput.setAttribute('disabled', '');
         });
+
 
         var map;
         var markerNow, markerRestaurant, markerCustomer;
@@ -581,6 +582,15 @@
                 markerCustomer.setMap(null);
                 markerRestaurant.setMap(null);
                 directionsDisplay.setDirections({ routes: [] });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Deliver/OrderStateChange",
+                    data: { order:"@(Model.OrderCode==null? "0":Model.OrderCode)", orderStatus: 6 },
+                    success: function (response) {
+                        console.log('成功完成訂單')
+                    }
+                });
             })
         }
     </script>
