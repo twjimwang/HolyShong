@@ -9,6 +9,9 @@ namespace HolyShong.ViewModels
     {
         public List<StoreCategory> StoreCategories { get; set; }
         public List<StoreCardBlock> StoreCardBlocks { get; set; }
+
+
+        public int[] NumberArray { get; set; }
     }
     //主分類區
     public class StoreCategory

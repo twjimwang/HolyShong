@@ -22,16 +22,18 @@ namespace HolyShong.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
 
             var result = new HomeViewModel()
             {
-                StoreCategories = new List<ViewModels.StoreCategory>()
+                StoreCategories = new List<ViewModels.StoreCategory>(),
+                NumberArray = new int[5]
             };
-            
+
             result = _storeService.GetAllStores();
             result.StoreCategories = _storecategoryService.GetAllStoreCategories();
+            result.NumberArray = _storecategoryService.GetRandomNumber();
             return View(result);
         }
 
@@ -41,7 +43,7 @@ namespace HolyShong.Controllers
             {
                 return RedirectToAction("NoSearch");
             }
-            var result = _storeService.GetAllStoresByStoreCategoryId(id.Value); 
+            var result = _storeService.GetAllStoresByStoreCategoryId(id.Value);
             return View(result);
         }
 
@@ -65,6 +67,6 @@ namespace HolyShong.Controllers
         }
 
 
-   
+
     }
 }
