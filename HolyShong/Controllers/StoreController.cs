@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,12 @@ namespace HolyShong.Controllers
 {
     public class StoreController : Controller
     {
+        private readonly RestaurantService _restaurantService;
+        public StoreController()
+        {
+            _restaurantService = new RestaurantService();
+
+        }
         // GET: Store
         public ActionResult Index()
         {
