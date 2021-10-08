@@ -25,6 +25,7 @@ namespace HolyShong.Services
             var result = new HomeViewModel
             {
                 StoreCardBlocks = new List<StoreCardBlock>()
+
             };
 
 

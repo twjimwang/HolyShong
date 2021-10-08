@@ -2,6 +2,8 @@
 
 @{
     int storecategoryId = 1;
+
+    int[] numberArray = Model.NumberArray;
 }
 <main>
     <!-- 副分類按鈕(合併進JC) -->
@@ -505,11 +507,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 分類標題 -->
                 @foreach (var item in Model.StoreCardBlocks)
                 {
-                    if (item.StoreCards.Count() != 0)//沒店家就不顯示此類別
+                    if (numberArray.Contains(item.StoreCategoryId))//沒店家就不顯示此類別
                     {
                         <div class="d-flex align-items-center justify-content-between">
                             <h2>@item.StoreCategoryName</h2><a href="~/Home/StoreCategorySearch/@item.StoreCategoryId">查看全部</a>

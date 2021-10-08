@@ -22,9 +22,8 @@ namespace HolyShong.Controllers
         }
 
 
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
-
             var result = new HomeViewModel()
             {
                 StoreCategories = new List<ViewModels.StoreCategory>(),
