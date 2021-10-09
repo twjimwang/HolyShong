@@ -50,11 +50,7 @@ namespace HolyShong.Models.HolyShongModel
 
         public int? MemberDiscountId { get; set; }
 
-        public TimeSpan? PaymentStatusUpdateTime { get; set; }
-
-        public TimeSpan? DeliverStatusUpdateTime { get; set; }
-
-        public TimeSpan? OrderStatusUpdateTime { get; set; }
+        public DateTime? OrderStatusUpdateTime { get; set; }
 
         public virtual Deliver Deliver { get; set; }
 

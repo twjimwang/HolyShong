@@ -45,7 +45,7 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<Discount>()
                 .Property(e => e.Amount)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 3);
 
             modelBuilder.Entity<Discount>()
                 .HasMany(e => e.DiscountMember)
@@ -119,10 +119,6 @@ namespace HolyShong.Models.HolyShongModel
                 .WithRequired(e => e.OrderDetail)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<OrderDetailOption>()
-                .Property(e => e.AddPrice)
-                .HasPrecision(18, 1);
-
             modelBuilder.Entity<Product>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 1);
@@ -150,16 +146,6 @@ namespace HolyShong.Models.HolyShongModel
             modelBuilder.Entity<ProductOptionDetail>()
                 .Property(e => e.AddPrice)
                 .HasPrecision(18, 1);
-
-            modelBuilder.Entity<ProductOptionDetail>()
-                .HasMany(e => e.ItemDetail)
-                .WithOptional(e => e.ProductOptionDetail)
-                .HasForeignKey(e => e.ProductOptionDetailId);
-
-            modelBuilder.Entity<ProductOptionDetail>()
-                .HasMany(e => e.ItemDetail1)
-                .WithOptional(e => e.ProductOptionDetail1)
-                .HasForeignKey(e => e.ProductOptionId);
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.Businesshours)

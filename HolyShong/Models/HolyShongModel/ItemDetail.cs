@@ -14,14 +14,10 @@ namespace HolyShong.Models.HolyShongModel
 
         public int ItemId { get; set; }
 
-        public int? ProductOptionId { get; set; }
-
         public int? ProductOptionDetailId { get; set; }
 
         public virtual Item Item { get; set; }
 
         public virtual ProductOptionDetail ProductOptionDetail { get; set; }
-
-        public virtual ProductOptionDetail ProductOptionDetail1 { get; set; }
     }
 }

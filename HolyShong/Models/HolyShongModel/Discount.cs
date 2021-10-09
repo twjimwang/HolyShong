@@ -35,7 +35,11 @@ namespace HolyShong.Models.HolyShongModel
 
         public DateTime EndTime { get; set; }
 
-        public int UseLimit { get; set; }
+        public int? UseLimit { get; set; }
+
+        public string Title { get; set; }
+
+        public string Contents { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscountMember> DiscountMember { get; set; }
