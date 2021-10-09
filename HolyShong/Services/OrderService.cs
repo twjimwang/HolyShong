@@ -17,12 +17,73 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
+        public OperationResult Create(HolyCartViewModel cartVM)
+        {
+            //初始化OperationResult
+            OperationResult result = new OperationResult();
+
+            //抓到memberID
+            var memberId = 1;
+
+            DbContext context = new HolyShongContext();
+            using (var tran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    //加入order
+                    Order order = new Order()
+                    {
+                        MemberId = memberId,
+                        StoreId = _repo.GetAll<Store>().FirstOrDefault(s => s.Name == cartVM.StoreName).StoreId,
+                        DeliveryFee = 30, //待確認
+                        Notes = "等資料庫新建cart欄位", //待確認
+                        DeliveryAddress = cartVM.Address,
+                        IsTablewares = false, //待確認
+                        IsPlasticbag = false, //待確認
+                        PaymentStatus = 1,
+                        DeliverStatus = 0,
+                        OrderStatus = 1,
+                        CreateDate = DateTime.UtcNow,
+                        RequiredDate = DateTime.UtcNow
+                        //OrderSatutsUpdateTime待確認
+                    };
+                    _repo.Create(order);
+                    //先存才能拿到orderId
+                    //_repo.SaveChange();
 
 
-        //public OperationResult Create(OrderViewModel orderVM)
-        //{
+                    //加入orderDetail
+                    var products = _repo.GetAll<Product>().Where(p => cartVM.CartItems.Select(c => c.ProductName).Contains(p.Name));
+                    foreach (var item in cartVM.CartItems)
+                    {
+                        var product = products.FirstOrDefault(p => p.Name == item.ProductName);
+                        OrderDetail orderDetail = new OrderDetail()
+                        {
+                            OrderId = order.OrderId,
+                            ProductId = product.ProductId,
+                            UnitPrice = product.UnitPrice,
+                            Quantity = 2,  //待確認
+                            //Description
+                        };
+                    }
 
-        //}
+                    //加入orderDetailOption
+
+
+                    result.IsSuccessful = true;
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    tran.Rollback();
+                }
+            }
+            return result;
+            //刪除購物車?
+        }
+
         /// <summary>
         /// 單筆外送訂單呈現
         /// </summary>
@@ -36,7 +97,7 @@ namespace HolyShong.Services
             };
 
             var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
-            if(order == null)
+            if (order == null)
             {
                 return orderResult;
             }
@@ -45,16 +106,16 @@ namespace HolyShong.Services
             var member = _repo.GetAll<Member>().First(m => m.MemberId == deliver.MemberId);
             var store = _repo.GetAll<Store>().First(s => s.StoreId == order.StoreId);
             var orderDetail = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
-            var product = _repo.GetAll<Product>().Where(p => orderDetail.Select(od=>od.ProductId).Contains(p.ProductId));
+            var product = _repo.GetAll<Product>().Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId));
 
             var productlist = orderDetail.Select(od => new OrderList
             {
-                ProductName = product.FirstOrDefault(p=>p.ProductId == od.ProductId).Name,
+                ProductName = product.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
                 ProductPrice = od.UnitPrice,
                 ProductQuantity = od.Quantity
             }).ToList();
 
-            foreach(var p in productlist)
+            foreach (var p in productlist)
             {
                 total += p.ProductPrice * p.ProductQuantity;
             }
@@ -78,7 +139,7 @@ namespace HolyShong.Services
             List<OrderListViewModel> result = new List<OrderListViewModel>();
 
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
-            if(member == null)
+            if (member == null)
             {
                 return new List<OrderListViewModel>();
             }
@@ -86,10 +147,10 @@ namespace HolyShong.Services
             var orders = _repo.GetAll<Order>().Where(o => o.MemberId == member.MemberId);
             var stores = _repo.GetAll<Store>().Where(s => orders.Select(o => o.StoreId).Contains(s.StoreId));
             var orderDetails = _repo.GetAll<OrderDetail>().Where(od => orders.Select(o => o.OrderId).Contains(od.OrderId));
-            var orderOptionDetails = _repo.GetAll<OrderDetailOption>().Where(odo => orderDetails.Select(od=>od.OrderDetailId).Contains(odo.OrderDetailId));
+            var orderOptionDetails = _repo.GetAll<OrderDetailOption>().Where(odo => orderDetails.Select(od => od.OrderDetailId).Contains(odo.OrderDetailId));
             var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
             var productOptions = _repo.GetAll<ProductOption>().Where(po => orderOptionDetails.Select(odo => odo.ProductOptionId).Contains(po.ProductOptionId));
-            var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => orderOptionDetails.Select(odo=>odo.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
+            var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => orderOptionDetails.Select(odo => odo.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
 
 
             foreach (var o in orders)
@@ -109,13 +170,13 @@ namespace HolyShong.Services
                         ProductQuantity = orderDetail.FirstOrDefault(od => od.ProductId == p.ProductId).Quantity,
                         OrderOptions = productOptionDetailString,
                     }).ToList();
-                foreach(var p in product)
+                foreach (var p in product)
                 {
                     productNumber += p.ProductQuantity;
                 }
 
                 var amount = orderDetail.Sum(od => od.Quantity * od.UnitPrice);
-                decimal addPrice = orderOptionDetail.Sum(ood => ood.AddPrice).HasValue? orderOptionDetail.Sum(ood => ood.AddPrice).Value : 0;
+                decimal addPrice = orderOptionDetail.Sum(ood => ood.AddPrice).HasValue ? orderOptionDetail.Sum(ood => ood.AddPrice).Value : 0;
                 var tempOrder = new OrderListViewModel
                 {
                     OrderId = o.OrderId,
@@ -134,51 +195,18 @@ namespace HolyShong.Services
         }
 
         /// <summary>
-        /// 外送員外送訂單呈現
-        /// </summary>
-        /// <returns></returns>
-        //public DeliverViewModel GetOrderForDeliver(int orderId)
-        //{
-        //    DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
-        //    var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
-        //    if(order == null)
-        //    {
-        //        return result;
-        //    }
-        //    var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == order.MemberId);
-        //    var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
-        //    var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
-        //    var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od=>od.ProductId).Contains(p.ProductId));
-
-        //    result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5,'0');
-        //    result.CustomerName = member.LastName + member.FirstName;
-        //    result.CustomerAddress = order.DeliveryAddress;
-        //    result.CustormerNotes = order.Notes;
-        //    result.RestaurantName = store.Name;
-        //    result.RestaurantAddress = store.Address;
-        //    result.OrderProducts = orderDetails.Select(od => new OrderProducts
-        //    {
-        //        ProductName = products.FirstOrDefault(p => p.ProductId == od.ProductId).Name,
-        //        ProductQuantity = od.Quantity
-        //    }).ToList();
-
-        //    //var orders
-        //    return result;
-        //}
-
-        /// <summary>
         /// 外送員上下線切換
         /// </summary>
         /// <param name="connectionStatus"></param>
         /// <returns></returns>
-        public bool GetDeliverConnection(bool connectionStatus)
+        public bool SwitchDeliverConnection(bool connectionStatus)
         {
             //透過會員狀態關連到deliverId
             var deliverId = 1;
 
             //找出外送員有沒有在外送，有的話駁回切換下線
             var deliverStatus = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId).isDelivering;
-            if(deliverStatus == true)
+            if (deliverStatus == true)
             {
                 connectionStatus = !connectionStatus;
                 return connectionStatus;
@@ -197,7 +225,6 @@ namespace HolyShong.Services
             return connectionStatus;
         }
 
-
         /// <summary>
         /// 抓外送員判斷資料庫中上下線
         /// </summary>
@@ -207,20 +234,6 @@ namespace HolyShong.Services
             var id = 1;
 
             var deliver = _repo.GetAll<Deliver>().FirstOrDefault(x => x.DeliverId == id);
-
-            return deliver;
-        }
-
-        /// <summary>
-        /// 外送員切換上下線狀態
-        /// </summary>
-        /// <returns></returns>
-        public Deliver GetDeliverOrder()
-        {
-            var id = 1;
-
-            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(x => x.DeliverId == id);
-
 
             return deliver;
         }
@@ -241,18 +254,19 @@ namespace HolyShong.Services
 
 
             //透過deliverId 去抓出他的外送訂單中，運送中的單(orderstatus = 4 && deliverStatus = 1)，取orderId
-            var order = _repo.GetAll<Order>().Where(o => o.DeliverId == deliverId).FirstOrDefault(o => o.OrderStatus == 4 && o.DeliverStatus == 1);
+            var order = _repo.GetAll<Order>().Where(o => o.DeliverId == deliverId).FirstOrDefault(o => o.OrderStatus == 4 || o.OrderStatus == 5);
             if (order == null)
             {
                 return result;
             }
 
             //透過orderId取得訂單其他資訊
-            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.OrderId);
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == order.StoreId);
             var orderDetails = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
             var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
 
             result.OrderCode = "EAT" + order.OrderId.ToString().PadLeft(5, '0');
+            result.OrderStatus = order.OrderStatus;
             result.CustomerName = member.LastName + member.FirstName;
             result.CustomerAddress = order.DeliveryAddress;
             result.CustormerNotes = order.Notes;
@@ -270,11 +284,12 @@ namespace HolyShong.Services
         /// <summary>
         /// 外送員訂單狀態與物流狀態改變
         /// </summary>
-        public void ChangeDeliverOrderState(OrderStatusViewModel OrderStatusVM)
+        public OperationResult ChangeOrderState(OrderStatusViewModel OrderStatusVM)
         {
+            OperationResult result = new OperationResult();
             DbContext context = new HolyShongContext();
             //VM中分析他的orderID
-            var orderId = Int32.Parse(OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x=>x).ToString());
+            var orderId = Int32.Parse(string.Join("",OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x => x)));
             //先抓到訂單
             var order = _repo.GetAll<Order>().FirstOrDefault(o => o.OrderId == orderId);
 
@@ -284,30 +299,62 @@ namespace HolyShong.Services
                 try
                 {
                     //傳入訂單狀態判斷
-                    if (OrderStatusVM.OrderStatus == 5)
+                    //餐廳完成訂單，安排外送員
+                    if (OrderStatusVM.OrderStatus == 3)
+                    {
+                        var freeDeliver = _repo.GetAll<Deliver>().Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
+                        order.DeliverId = freeDeliver.DeliverId;
+                        //外送員改成送貨中
+                        freeDeliver.isDelivering = true;
+                        order.OrderStatus = 4;
+
+                        //update
+                        _repo.Update(freeDeliver);
+                        //_repo.SaveChange();
+                    }
+                    //開始外送
+                    else if(OrderStatusVM.OrderStatus == 5)
                     {
                         //orderstate改變
                         order.OrderStatus = 5;
                         //deliverstatus改變
-                        order.DeliverId = 2;
+                        order.DeliverStatus = 2;
                     }
-                    else if (OrderStatusVM.OrderStatus == 6)
+                    //完成外送
+                    else if(OrderStatusVM.OrderStatus == 6)
                     {
                         order.OrderStatus = 6;
-                        order.DeliverId = 3;
+                        order.DeliverStatus = 3;
+
+                        var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d=>d.DeliverId == order.DeliverId);
+                        deliver.isDelivering = false;
+                        //外送員改成非外送中
+                        _repo.Update(deliver);
+                        _repo.SaveChange();
                     }
+                    result.IsSuccessful = true;
                     tran.Commit();
                 }
                 catch(Exception ex)
                 {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
                     tran.Rollback();
                 }
             }
-
-
             //update
             _repo.Update(order);
             _repo.SaveChange();
+            return result;
+
+        }
+
+
+        /// <summary>
+        /// 從購物車取得Order
+        /// </summary>
+        public void PutShoppingCartToOrder()
+        {
 
         }
     }

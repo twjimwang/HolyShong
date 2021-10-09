@@ -7,100 +7,100 @@
     <div class="map row">
         <div id="map"></div>
     </div>
-    @if (Model.CustomerAddress != null)
-    {
-        <!-- 外送員到餐廳 -->
-        <div class="info row" id="orderGet">
-            <div class="info-body">
-                <div class="info-txt">
-                    <div class="head">
-                        <i class="fas fa-chevron-up p-2"></i>
-                    </div>
-                    <div class="body">
-                        <div class="item detail">
-                            <h3>@Model.RestaurantName</h3>
-                            <div class="d-flex">
-                                <i class="fas fa-map-marker-alt mr-3"></i>
-                                <p>@Model.RestaurantAddress</p>
-                            </div>
-                            <div class="message">
-                                <i class="fas fa-comment-alt"></i>
-                            </div>
+        @if (Model.OrderStatus == 4 || Model.OrderStatus == 5)
+        {
+            <!-- 外送員到餐廳 -->
+            <div class="info row" id="orderGet">
+                <div class="info-body">
+                    <div class="info-txt">
+                        <div class="head">
+                            <i class="fas fa-chevron-up p-2"></i>
                         </div>
-                        <div class="item">
-                            <div class="mb-3">領取訂單(領取後勾選，即可開始配送)</div>
-                            <label class="orderBox">
-                                <input type="checkbox">
-                                <div class="orderDetail">
-                                    <div class="orderID my-2">訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</div>
-                                    <div>
-                                        <div class="m-0">訂單摘要</div>
-                                        @foreach (var item in Model.OrderProducts)
-                                        {
-                                            <div class="d-flex my-2">
-                                                <div class="border px-2 mr-3">@item.ProductQuantity</div>
-                                                <div>@item.ProductName</div>
-                                            </div>
-                                        }
-                                    </div>
+                        <div class="body">
+                            <div class="item detail">
+                                <h3>@Model.RestaurantName</h3>
+                                <div class="d-flex">
+                                    <i class="fas fa-map-marker-alt mr-3"></i>
+                                    <p>@Model.RestaurantAddress</p>
                                 </div>
-                                <span class="checkMark"></span>
-                            </label>
+                                <div class="message">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="mb-3">領取訂單(領取後勾選，即可開始配送)</div>
+                                <label class="orderBox">
+                                    <input type="checkbox">
+                                    <div class="orderDetail">
+                                        <div class="orderID my-2">訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</div>
+                                        <div>
+                                            <div class="m-0">訂單摘要</div>
+                                            @foreach (var item in Model.OrderProducts)
+                                            {
+                                                <div class="d-flex my-2">
+                                                    <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                                    <div>@item.ProductName</div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <span class="checkMark"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="info-btn">
-                    <button id="deliverStart" class="btn py-3" disabled>開始外送</button>
+                    <div class="info-btn">
+                        <button id="deliverStart" class="btn py-3" disabled>開始外送</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 餐廳到家 -->
-        <div class="info row" id="orderDeliver">
-            <div class="info-body">
-                <div class="info-txt">
-                    <div class="head">
-                        <i class="fas fa-chevron-up p-2"></i>
-                    </div>
-                    <div class="body">
-                        <div class="item detail">
-                            <h3>訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</h3>
-                            <div class="mb-3">備註：@Model.CustormerNotes</div>
-                            <div class="d-flex">
-                                <i class="fas fa-map-marker-alt mr-3"></i>
-                                <p>@Model.CustomerAddress</p>
-                            </div>
-                            <div class="message">
-                                <i class="fas fa-comment-alt"></i>
-                            </div>
+            <!-- 餐廳到家 -->
+            <div class="info row" id="orderDeliver">
+                <div class="info-body">
+                    <div class="info-txt">
+                        <div class="head">
+                            <i class="fas fa-chevron-up p-2"></i>
                         </div>
-                        <div class="item">
-                            <div class="mb-1">訂單資訊(配送後勾選，即可完成訂單)</div>
-                            <label class="deliverBox">
-                                <input type="checkbox">
-                                <div class="orderDetail">
-                                    <div class="orderID my-2">@Model.RestaurantName</div>
-                                    <div>
-                                        <div class="m-0">訂單摘要</div>
-                                        @foreach (var item in Model.OrderProducts)
-                                        {
-                                            <div class="d-flex my-2">
-                                                <div class="border px-2 mr-3">@item.ProductQuantity</div>
-                                                <div>@item.ProductName</div>
-                                            </div>
-                                        }
-                                    </div>
+                        <div class="body">
+                            <div class="item detail">
+                                <h3>訂單編號：@Model.OrderCode <br> 顧客姓名：@Model.CustomerName</h3>
+                                <div class="mb-3">備註：@Model.CustormerNotes</div>
+                                <div class="d-flex">
+                                    <i class="fas fa-map-marker-alt mr-3"></i>
+                                    <p>@Model.CustomerAddress</p>
                                 </div>
-                                <span class="checkMark"></span>
-                            </label>
+                                <div class="message">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="mb-1">訂單資訊(配送後勾選，即可完成訂單)</div>
+                                <label class="deliverBox">
+                                    <input type="checkbox">
+                                    <div class="orderDetail">
+                                        <div class="orderID my-2">@Model.RestaurantName</div>
+                                        <div>
+                                            <div class="m-0">訂單摘要</div>
+                                            @foreach (var item in Model.OrderProducts)
+                                            {
+                                                <div class="d-flex my-2">
+                                                    <div class="border px-2 mr-3">@item.ProductQuantity</div>
+                                                    <div>@item.ProductName</div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <span class="checkMark"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="info-btn">
-                    <button id="deliverComplete" class="btn py-3" disabled>完成訂單</button>
+                    <div class="info-btn">
+                        <button id="deliverComplete" class="btn py-3" disabled>完成訂單</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+         }
 </div>
 
 @section topCSS{
@@ -282,14 +282,13 @@
         }
 
         #orderGet {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity .5s top 1s;
+            z-index: 10;
+            transition: z-index .5s top 1s;
         }
 
         #orderDeliver {
-            visibility: hidden;
-            transition: visibility 1s .8s linear top 1s;
+            z-index: -1;
+            transition: z-index 1s .8s linear top 1s;
         }
 
         @@media screen and (max-width:767px) {
@@ -364,15 +363,15 @@
                     data: { isOnline: !isOnline },
                     success: function (response) {
                         window.location.reload()
-                        //connectionChecked = connectionChecked == true ? "True" : "False";
+                        connectionChecked = connectionChecked == true ? "True" : "False";
                         ////若結果不一致(不可下線)
                         //let result = '';
-                        //if (connectionChecked != response) {
-                        //    if (response == "True") { result = 'on' }
-                        //    else { result = 'off' }
+                        if (connectionChecked != response) {
+                            if (response == "True") { result = 'on' }
+                            else { result = 'off' }
                         //    $('.status input').bootstrapToggle(result, true)
-                        //    alert('外送中無法離線');
-                        //}
+                            alert('外送中無法離線');
+                        }
                         ////上下線css設定
                         //if (response == "True") {
                         //    console.log(isOnline)
@@ -411,39 +410,57 @@
             });
         });
 
-        //設定領取訂單 開啟開始外送按鈕
-        let orderInput = document.querySelector('.orderBox input');
-        let deliverStart = document.querySelector('#deliverStart');
-        orderInput.addEventListener('click', function () {
+        if(@Model.OrderStatus == 4 || @Model.OrderStatus == 5)
+        {
+            //設定領取訂單 開啟開始外送按鈕
+            let orderInput = document.querySelector('.orderBox input');
+            let deliverStart = document.querySelector('#deliverStart');
+            orderInput.addEventListener('click', function() {
             deliverStart.removeAttribute('disabled', '');
             orderInput.setAttribute('disabled', '');
-        });
-
-        //按下開始外送按鈕，訂單轉換成送往消費者
-        deliverStart.addEventListener('click', function () {
-            let orderGet = document.querySelector('#orderGet');
-            orderGet.style.opacity = 0;
-
-            let orderDeliver = document.querySelector('#orderDeliver');
-            orderDeliver.style.visibility = "visible";
-
-            //開始外送，傳遞orderstatus改成5，deliverstatus改成2
-            $.ajax({
-                type: "POST",
-                url: "/Deliver/OrderStateChange",
-                data: { order: "@(Model.OrderCode==null? "0":Model.OrderCode)", orderStatus: 5 },
-                success: function (response) {
-                    console.log('成功開始外送')
-                }
             });
-        });
 
-        let deliverInput = document.querySelector('.deliverBox input');
-        let deliverComplete = document.querySelector('#deliverComplete');
-        deliverInput.addEventListener('click', function () {
-            deliverComplete.removeAttribute('disabled', '');
-            deliverInput.setAttribute('disabled', '');
-        });
+            if (@Model.OrderStatus == 5)
+            {
+                orderInput.click();
+                console.log("orderinput")
+            }
+            //按下開始外送按鈕，訂單轉換成送往消費者
+            deliverStart.addEventListener('click', function() {
+                let orderGet = document.querySelector('#orderGet');
+                orderGet.style.zIndex = "-1";
+
+                let orderDeliver = document.querySelector('#orderDeliver');
+                orderDeliver.style.zIndex = "10";
+
+                //開始外送，傳遞orderstatus改成5，deliverstatus改成2
+                $.ajax({
+                    type: "POST",
+                    url: "/Deliver/OrderStateChange",
+                    data: { OrderCode: "@(Model.OrderCode==null? "0":Model.OrderCode)", OrderStatus: 5 },
+                    success: function(response) {
+                            console.log('成功開始外送')
+                    }
+                });
+            });
+            if (@Model.OrderStatus == 5)
+            {
+                deliverStart.click();
+                console.log("deliverstart")
+            }
+
+
+            if (@Model.OrderStatus == 5) {
+                let orderDeliver = document.querySelector('#orderDeliver');
+                orderDeliver.style.zIndex = "10";
+            }
+            let deliverInput = document.querySelector('.deliverBox input');
+            let deliverComplete = document.querySelector('#deliverComplete');
+            deliverInput.addEventListener('click', function () {
+                deliverComplete.removeAttribute('disabled', '');
+                deliverInput.setAttribute('disabled', '');
+            });
+        }
 
 
         var map;
@@ -483,115 +500,129 @@
                     icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%9C%AA%E5%91%BD%E5%90%8D-removebg-preview_dkdlt2.png"
                 });
 
-                //餐廳地址+marker
-                geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
-                    if (status == 'OK') {
-                        markerRestaurant = new google.maps.Marker({
-                            map: map,
-                            position: result[0].geometry.location,
-                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194643/%E6%93%B7%E5%8F%96-removebg-preview_1_xzrsbn.png"
-                        });
-                    }
-                    else {
-                        console.log(status);
-                    }
-                });
+                if (@Model.OrderStatus == 4 ||@Model.OrderStatus == 5)
+                {
+                    //餐廳地址+marker
+                    geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
+                        if (status == 'OK') {
+                            markerRestaurant = new google.maps.Marker({
+                                map: map,
+                                position: result[0].geometry.location,
+                                icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194643/%E6%93%B7%E5%8F%96-removebg-preview_1_xzrsbn.png"
+                            });
+                        }
+                        else {
+                            console.log(status);
+                        }
+                    });
 
-                //引用路線圖資
-                directionsDisplay.setMap(map);
-                var request = {
-                    origin: { lat: lat, lng: lng },
-                    destination: restaurantAddress,
-                    travelMode: 'DRIVING'
-                };
-                //繪製路線
-                directionsService.route(request, function (result, status) {
-                    if (status == 'OK') {
-                        //回傳路線上細節
-                        directionsDisplay = new google.maps.DirectionsRenderer({
-                            map: map,
-                            directions: result,
-                            suppressMarkers: true
-                        });
-                    }
-                    else {
-                        console.log(status);
-                    }
-                });
+                    //引用路線圖資
+                    directionsDisplay.setMap(map);
+                    var request = {
+                        origin: { lat: lat, lng: lng },
+                        destination: restaurantAddress,
+                        travelMode: 'DRIVING'
+                    };
+                    //繪製路線
+                    directionsService.route(request, function (result, status) {
+                        if (status == 'OK') {
+                            //回傳路線上細節
+                            directionsDisplay = new google.maps.DirectionsRenderer({
+                                map: map,
+                                directions: result,
+                                suppressMarkers: true
+                            });
+                        }
+                        else {
+                            console.log(status);
+                        }
+                    });
+                }
             });
 
-            //開始外送按下後，從餐廳導向消費者地址
-            deliverStart.addEventListener("click", function () {
-                markerNow.setMap(null);
-                markerRestaurant.setMap(null);
-                directionsDisplay.setDirections({ routes: [] });
-                geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
-                    if (status == 'OK') {
-                        map.setCenter(result[0].geometry.location);
-                        markerRestaurant = new google.maps.Marker({
-                            map: map,
-                            position: result[0].geometry.location,
-                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%9C%AA%E5%91%BD%E5%90%8D-removebg-preview_dkdlt2.png"
-                        });
-                    }
-                    else {
-                        console.log(status);
-                    }
+            if (@Model.OrderStatus == 4 || @Model.OrderStatus == 5)
+            {
+
+                //開始外送按下後，從餐廳導向消費者地址
+                deliverStart.addEventListener("click", function () {
+
+                    //markerNow.setMap(null);
+                    //markerRestaurant.setMap(null);
+                    directionsDisplay.setDirections({ routes: [] });
+                    geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
+                        if (status == 'OK') {
+                            map.setCenter(result[0].geometry.location);
+                            markerRestaurant = new google.maps.Marker({
+                                map: map,
+                                position: result[0].geometry.location,
+                                icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%9C%AA%E5%91%BD%E5%90%8D-removebg-preview_dkdlt2.png"
+                            });
+                        }
+                        else {
+                            console.log(status);
+                        }
+                    });
+
+                    geocoder.geocode({ 'address': customerAddress }, function (result, status) {
+                        if (status == 'OK') {
+                            markerCustomer = new google.maps.Marker({
+                                map: map,
+                                position: result[0].geometry.location,
+                                icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%93%B7%E5%8F%960-removebg-preview_1_zvsbfo.png"
+                            });
+                        }
+                        else {
+                            console.log(status);
+                        }
+                    });
+
+                    //引用路線圖資
+                    directionsDisplay.setMap(map);
+                    var request = {
+                        origin: restaurantAddress,
+                        destination: customerAddress,
+                        travelMode: 'DRIVING'
+                    };
+
+                    //繪製路線
+                    directionsService.route(request, function (result, status) {
+                        if (status == 'OK') {
+                            //回傳路線上細節
+                            console.log(result.routes[0].legs[0].steps);
+                            directionsDisplay = new google.maps.DirectionsRenderer({
+                                map: map,
+                                directions: result,
+                                suppressMarkers: true
+                            });
+                        }
+                        else {
+                            console.log(status);
+                        }
+                    });
                 });
 
-                geocoder.geocode({ 'address': customerAddress }, function (result, status) {
-                    if (status == 'OK') {
-                        markerCustomer = new google.maps.Marker({
-                            map: map,
-                            position: result[0].geometry.location,
-                            icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%93%B7%E5%8F%960-removebg-preview_1_zvsbfo.png"
-                        });
-                    }
-                    else {
-                        console.log(status);
-                    }
-                });
+                if (@Model.OrderStatus == 5)
+                {
+                    deliverStart.click();
+                    console.log("deliverstart")
+                }
 
-                //引用路線圖資
-                directionsDisplay.setMap(map);
-                var request = {
-                    origin: restaurantAddress,
-                    destination: customerAddress,
-                    travelMode: 'DRIVING'
-                };
+                deliverComplete.addEventListener('click', function () {
+                    markerCustomer.setMap(null);
+                    markerRestaurant.setMap(null);
+                    directionsDisplay.setDirections({ routes: [] });
 
-                //繪製路線
-                directionsService.route(request, function (result, status) {
-                    if (status == 'OK') {
-                        //回傳路線上細節
-                        console.log(result.routes[0].legs[0].steps);
-                        directionsDisplay = new google.maps.DirectionsRenderer({
-                            map: map,
-                            directions: result,
-                            suppressMarkers: true
-                        });
-                    }
-                    else {
-                        console.log(status);
-                    }
-                });
-            });
-
-
-            deliverComplete.addEventListener('click', function () {
-                markerCustomer.setMap(null);
-                markerRestaurant.setMap(null);
-                directionsDisplay.setDirections({ routes: [] });
-
-                $.ajax({
-                    type: "POST",
-                    url: "/Deliver/OrderStateChange",
-                    data: { order:"@(Model.OrderCode==null? "0":Model.OrderCode)", orderStatus: 6 },
-                    success: function (response) {
-                        console.log('成功完成訂單')
-                    }
-                });
-            })
+                    $.ajax({
+                        type: "POST",
+                        url: "/Deliver/OrderStateChange",
+                        data: { OrderCode: "@(Model.OrderCode==null? "0":Model.OrderCode)", OrderStatus: 6 },
+                        success: function (response) {
+                            console.log('成功完成訂單')
+                            window.location.reload();
+                        }
+                    });
+                })
+            }
         }
     </script>
 }

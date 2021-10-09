@@ -31,7 +31,7 @@ namespace HolyShong.Controllers
         public bool DeliverConnectionStatus(DeliverConnectionViewModel deliverConnectionVM)
         {
 
-            var connectionResult = _orderService.GetDeliverConnection(deliverConnectionVM.isOnline);
+            var connectionResult = _orderService.SwitchDeliverConnection(deliverConnectionVM.isOnline);
 
             return connectionResult;
         }
@@ -42,7 +42,7 @@ namespace HolyShong.Controllers
         [HttpPost]
         public void OrderStateChange(OrderStatusViewModel OrderStatusVM)
         {
-             _orderService.ChangeDeliverOrderState(OrderStatusVM);
+             _orderService.ChangeOrderState(OrderStatusVM);
         }
 
 
