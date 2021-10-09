@@ -49,9 +49,12 @@ namespace HolyShong.Controllers
         [HttpGet]
         [Authorize]
         public ActionResult UserProfile()
-        {            
-            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
-            return View(model);
+        {
+
+                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
+                
+                return View(model);
+            
         }
 
         /// <summary>
@@ -188,7 +191,7 @@ namespace HolyShong.Controllers
             //1.建立FormsAuthenticationTicket
             var ticket = new FormsAuthenticationTicket(
             version: 1,
-            name: user.MemberId.ToString(), //可以放使用者Id
+            name: user.FirstName.ToString(), //可以放使用者Id
             issueDate: DateTime.UtcNow,//現在UTC時間
             expiration: DateTime.UtcNow.AddMinutes(30),//Cookie有效時間=現在時間往後+30分鐘
             isPersistent: loginVM.Remember,// 是否要記住我 true or false
@@ -226,6 +229,13 @@ namespace HolyShong.Controllers
 
             //5.導向original URL
             return Redirect(url);
+        }
+
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

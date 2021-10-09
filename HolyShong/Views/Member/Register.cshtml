@@ -167,12 +167,13 @@
         const lnameElement = document.getElementById("inputLastname");
         const emailElement = document.getElementById("inputEmail");
         const passElement = document.getElementById("inputPassword");
+        const passElement2 = document.getElementById("ConfirmPassword");
 
-        const inputElements = [phoneElement, fnameElement, lnameElement, emailElement, passElement]
+        const inputElements = [phoneElement, fnameElement, lnameElement, emailElement, passElement, passElement2 ]
 
         for (let i = 0; i < inputElements.length; i++) {
             inputElements[i].addEventListener("change", function (event) {
-                if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "") {
+                if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "" && passElement2.value != "") {
                     document.getElementById("nextStep").disabled = false;
                     document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning form-control")
 
