@@ -70,10 +70,10 @@
                 <div class="cartList">
                     <div class="list">
                         <!-- <div class="noneList">
-                          <i class="fas fa-shopping-cart mb-3"></i>
-                          <br>
-                          <span>選購餐廳或商店中的商品，即可開啟新的購物車</span>
-                        </div> -->
+              <i class="fas fa-shopping-cart mb-3"></i>
+              <br>
+              <span>選購餐廳或商店中的商品，即可開啟新的購物車</span>
+            </div> -->
                         <!-- 購物車 -->
                         <div class="cart-content">
                             <div class="modal-header">
@@ -264,7 +264,15 @@
                         </div>
                     </div>
                 </div>
-                <button class="noLogin login btn py-2" onclick="location.href='@Url.Action("Login", "Member")'">登入</button>
+                @*@if (User.Identity.IsAuthenticated)
+                {
+                     
+                }
+                else 
+                {*@
+                    <button class="noLogin login btn py-2" onclick="location.href='@Url.Action("Login", "Member")'">登入</button>
+                @*}*@
+                    
             </div>
 
             <div class="menu">
@@ -292,11 +300,18 @@
                     </div>
                 </div>
                 <div class="switch">
-                    <button class="loginShow btn btn btn-dark  w-100 mb-2">我想要訂餐</button>
-                    <button class="loginShow btn btn btn-dark  w-100 mb-2">餐廳登入</button>
-                    <button class="loginShow btn btn btn-dark  w-100 mb-2">外送夥伴</button>
-                    <button class="loginShow btn border-secondary w-100 mb-2">登出</button>
+                    @*@if (User.Identity.IsAuthenticated)
+                    {*@
+                        <button class="loginShow btn btn btn-dark  w-100 mb-2">我想要訂餐</button>
+                        <button class="loginShow btn btn btn-dark  w-100 mb-2">餐廳登入</button>
+                        <button class="loginShow btn btn btn-dark  w-100 mb-2">外送夥伴</button>
+                        <button class="loginShow btn border-secondary w-100 mb-2">登出</button>
+                    @*}
+                    else
+                    {*@
                     <button class="noLogin btn btn-dark w-100 mb-2">請先登入</button>
+                    @*}*@
+
                 </div>
             </div>
         </div>
@@ -644,6 +659,8 @@
 
     @RenderSection("endCSS", required: false)
 
+
+
     @if (User.Identity.IsAuthenticated)
     {
         <script>
@@ -651,26 +668,24 @@
             let loginShow = document.querySelectorAll(".loginShow");
 
             noLogin.forEach((item, index) => {
-                classList.add("d-none")
-                classList.remove("d-block")
+                item.classList.add("d-none")
             })
             loginShow.forEach((item, index) => {
-                classList.add("d-block")
-                classList.remove("d-none")
-            })
-            
+                item.classList.remove("d-none")
+            })           
         </script>
     }
     else
     {
         <script>
+            let noLogin = document.querySelectorAll('.noLogin');
+            let loginShow = document.querySelectorAll(".loginShow");
+
             noLogin.forEach((item, index) => {
-                classList.add("d-block")
-                classList.remove("d-none")
+                item.classList.remove("d-none")
             })
             loginShow.forEach((item, index) => {
-                classList.add("d-none")
-                classList.add("d-block")
+                item.classList.add("d-none")
             })
         </script>
     }
