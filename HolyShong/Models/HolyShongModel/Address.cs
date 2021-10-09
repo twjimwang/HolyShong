@@ -22,9 +22,8 @@ namespace HolyShong.Models.HolyShongModel
 
         public int ZipCode { get; set; }
 
-        [Column("Address")]
         [Required]
-        public string Address1 { get; set; }
+        public string AddressDetail { get; set; }
 
         public virtual Member Member { get; set; }
     }

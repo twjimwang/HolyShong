@@ -16,8 +16,7 @@ namespace HolyShong.Models.HolyShongModel
 
         public int OrderId { get; set; }
 
-        [Column("Score")]
-        public decimal Score1 { get; set; }
+        public decimal ScorePoint { get; set; }
 
         public virtual Store Store { get; set; }
     }

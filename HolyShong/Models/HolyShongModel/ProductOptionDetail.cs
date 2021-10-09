@@ -13,7 +13,6 @@ namespace HolyShong.Models.HolyShongModel
         public ProductOptionDetail()
         {
             ItemDetail = new HashSet<ItemDetail>();
-            ItemDetail1 = new HashSet<ItemDetail>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -29,9 +28,6 @@ namespace HolyShong.Models.HolyShongModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemDetail> ItemDetail { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ItemDetail> ItemDetail1 { get; set; }
 
         public virtual ProductOption ProductOption { get; set; }
     }

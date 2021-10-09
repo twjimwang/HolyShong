@@ -24,6 +24,8 @@ namespace HolyShong.Models.HolyShongModel
 
         public int Quantity { get; set; }
 
+        public string Special { get; set; }
+
         public virtual Cart Cart { get; set; }
 
         public virtual Product Product { get; set; }
