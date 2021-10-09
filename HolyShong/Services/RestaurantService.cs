@@ -18,10 +18,19 @@ namespace HolyShong.Services
 
         public RestaurantVM GetRestaurant(int? id)
         {
-            RestaurantVM result = new RestaurantVM()
+            //RestaurantVM result = new RestaurantVM()
+            //{
+            //    productCategories = new List<ProductCategory>(),
+            //    Products = new List<Product>()
+            //};
+            ProductAreaList result = new ProductAreaList()
             {
-                productCategories = new List<ProductCategory>(),
+                ProductArea = new List<ProductArea>(),
                 Products = new List<Product>()
+            };
+            ProductArea result = new ProductArea()
+            {
+                Products = new List<ProductCard>()              
             };
 
             var store = _repo.GetAll<Store>().FirstOrDefault((x) => x.StoreId == id);
