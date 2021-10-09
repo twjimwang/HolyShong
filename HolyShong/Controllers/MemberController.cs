@@ -50,9 +50,9 @@ namespace HolyShong.Controllers
         [Authorize]
         public ActionResult UserProfile()
         {
-            
 
-                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
+                
                 return View(model);
             
         }
