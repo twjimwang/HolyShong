@@ -85,7 +85,7 @@ namespace HolyShong.Services
         }
 
         /// <summary>
-        /// 單筆外送訂單呈現
+        /// 歷史訂單透過orderId連接
         /// </summary>
         /// <returns></returns>
         public OrderDeliverViewModel GetOrder(int orderId)
@@ -102,6 +102,7 @@ namespace HolyShong.Services
                 return orderResult;
             }
 
+            //若還沒有外送員
             var deliver = _repo.GetAll<Deliver>().First(d => d.DeliverId == order.DeliverId);
             var member = _repo.GetAll<Member>().First(m => m.MemberId == deliver.MemberId);
             var store = _repo.GetAll<Store>().First(s => s.StoreId == order.StoreId);
@@ -120,6 +121,7 @@ namespace HolyShong.Services
                 total += p.ProductPrice * p.ProductQuantity;
             }
 
+            orderResult.OrderStatus = order.OrderStatus;
             orderResult.DeliverName = member.LastName + member.FirstName;
             orderResult.DeliverImg = deliver.HeadshotImg;
             orderResult.CustomerAddress = order.DeliveryAddress;
@@ -128,6 +130,7 @@ namespace HolyShong.Services
             orderResult.RestaurantAddress = store.Address;
             orderResult.OrderLists = productlist;
             orderResult.Total = total;
+
             return orderResult;
         }
 
@@ -149,9 +152,8 @@ namespace HolyShong.Services
             var orderDetails = _repo.GetAll<OrderDetail>().Where(od => orders.Select(o => o.OrderId).Contains(od.OrderId));
             var orderOptionDetails = _repo.GetAll<OrderDetailOption>().Where(odo => orderDetails.Select(od => od.OrderDetailId).Contains(odo.OrderDetailId));
             var products = _repo.GetAll<Product>().Where(p => orderDetails.Select(od => od.ProductId).Contains(p.ProductId));
-            var productOptions = _repo.GetAll<ProductOption>().Where(po => orderOptionDetails.Select(odo => odo.ProductOptionId).Contains(po.ProductOptionId));
             var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => orderOptionDetails.Select(odo => odo.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
-
+            var productOptions = _repo.GetAll<ProductOption>().Where(po => productOptionDetails.Select(pod => pod.ProductOptionId).Contains(po.ProductOptionId));
 
             foreach (var o in orders)
             {
@@ -159,9 +161,9 @@ namespace HolyShong.Services
                 //ProductName 需要orderDetail Product productOptionDetail
                 var orderDetail = orderDetails.Where(od => od.OrderId == o.OrderId);
                 var orderOptionDetail = orderOptionDetails.Where(ood => orderDetail.Select(od => od.OrderDetailId).Contains(ood.OrderDetailId));
-                var productOptionDetail = productOptionDetails.Where(pod => orderOptionDetail.Select(ood => ood.ProductOptionDetailId).Contains(pod.ProductOptionDetailId)).
-                    Select(pod => pod.Name);
-                var productOptionDetailString = String.Join("．", productOptionDetail);
+                var productOptionDetail = productOptionDetails.Where(pod => orderOptionDetail.Select(ood => ood.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
+                var productOptionDetailName = productOptionDetail.Select(pod => pod.Name);
+                var productOptionDetailString = String.Join("．", productOptionDetailName);
                 var product = products.Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId)).
                     Select(p => new OrderProduct
                     {
@@ -176,7 +178,7 @@ namespace HolyShong.Services
                 }
 
                 var amount = orderDetail.Sum(od => od.Quantity * od.UnitPrice);
-                decimal addPrice = orderOptionDetail.Sum(ood => ood.AddPrice).HasValue ? orderOptionDetail.Sum(ood => ood.AddPrice).Value : 0;
+                decimal addPrice = productOptionDetail.Sum(pod => pod.AddPrice).HasValue ? productOptionDetail.Sum(pod => pod.AddPrice).Value : 0;
                 var tempOrder = new OrderListViewModel
                 {
                     OrderId = o.OrderId,

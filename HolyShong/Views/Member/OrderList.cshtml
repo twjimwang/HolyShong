@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<OrderListViewModel>
 
-<div class="container">
+<div class="container orderGroup">
 
     <div class="row">
         <div class="col-12 mb-4">
@@ -78,6 +78,9 @@
 @section topCSS{
     <script src="https://kit.fontawesome.com/4f9a2aa392.js" crossorigin="anonymous"></script>
     <style>
+        .orderGroup{
+            margin-top:112px;
+        }
         .bgBlue {
             background-color: rgb(49,75,88);
         }
@@ -202,10 +205,6 @@
                 font-size: 10px;
             }
 
-        .sample {
-            display: none;
-        }
-
         .showIcon {
             display: flex;
         }
@@ -247,6 +246,9 @@
 
         /* 桌機 */
         @@media screen and (min-width: 992px) {
+            .orderGroup {
+                margin-top: 0;
+            }
             .historyItem {
                 display: flex;
                 border-bottom: 1px solid rgb(238, 238, 238);
@@ -373,17 +375,14 @@
     <script>
         let showIcon = document.querySelector('.iconDiv')
         let showContent = document.querySelector('.showContent')
-        let sample = document.querySelector('.sample')
         showIcon.addEventListener('click', function () {
             if (showContent.style.display == 'flex') {
                 showContent.style.display = 'none'
                 showIcon.style.display = 'none'
-                sample.style.display = 'flex'
             }
             else {
                 showContent.style.display = 'flex'
                 showIcon.style.display = 'flex'
-                sample.style.display = 'none'
             }
         })
         let showRestaurant = document.querySelector('.showRestaurant')
