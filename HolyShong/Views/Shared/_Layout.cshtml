@@ -276,7 +276,7 @@
             </div>
 
             <div class="menu">
-                <div class="loginShow name py-2 border-bottom">@Model.FirstName</div>
+                <div class="loginShow name py-2 border-bottom">@User.Identity.Name</div>
                 <div class="function loginShow">
                     <a href="@Url.Action("UserProfile", "Member")"><div class="account item"><i class="fas fa-user"></i>帳戶資訊</div></a>
                     <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
@@ -305,11 +305,11 @@
                         <button class="loginShow btn btn btn-dark  w-100 mb-2">我想要訂餐</button>
                         <button class="loginShow btn btn btn-dark  w-100 mb-2">餐廳登入</button>
                         <button class="loginShow btn btn btn-dark  w-100 mb-2">外送夥伴</button>
-                        <button class="loginShow btn border-secondary w-100 mb-2">登出</button>
+                        <button class="loginShow btn border-secondary w-100 mb-2" onclick="location.href='@Url.Action("SignOut", "Member")'">登出</button>
                     @*}
                     else
                     {*@
-                    <button class="noLogin btn btn-dark w-100 mb-2">請先登入</button>
+                    <button class="noLogin btn btn-dark w-100 mb-2" onclick="location.href='@Url.Action("Login", "Member")'">請先登入</button>
                     @*}*@
 
                 </div>
