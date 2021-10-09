@@ -30,7 +30,7 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        
+
 
         public ActionResult Checkout()
         {
@@ -49,12 +49,9 @@ namespace HolyShong.Controllers
         [HttpGet]
         [Authorize]
         public ActionResult UserProfile()
-        {
-            
-
-                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
-                return View(model);
-            
+        {            
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+            return View(model);
         }
 
         /// <summary>
@@ -74,9 +71,10 @@ namespace HolyShong.Controllers
                 bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
                 if (result == true)
                 {
-                    return Content("修改成功") ;
+                    return Content("修改成功");
                 }
-                else {
+                else
+                {
                     return Content("修改成功");
                 }
 
@@ -138,7 +136,7 @@ namespace HolyShong.Controllers
             {
                 return Content("新增帳號失敗");
             }
-            
+
         }
 
         /// <summary>
