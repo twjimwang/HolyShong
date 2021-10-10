@@ -41,9 +41,11 @@ namespace HolyShong.Services
             //result.SupplyTime = businessHours;
             //result.Products = products.ToList();
             //result.productCategories = productCategories.ToList();
-            result.Score1 = _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => (decimal?)x.Score1) == null ? 0 : _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.Score1);
+            result.Score = _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => (decimal?)x.ScorePoint) == null ? 0 : _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.ScorePoint);
 
             result.StoreCategoryName = _repo.GetAll<StoreCategory>().First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
+            //顯示更多
+            
             return result;
         }
 

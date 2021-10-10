@@ -11,13 +11,16 @@ namespace HolyShong.ViewModels
         public int StoreId { get; set; }
         public string StorePicture { get; set; }
         public string StoreName { get; set; }
-        public decimal? Score1 { get; set; }
+        public decimal? Score { get; set; }
 
         public string StoreCategoryName { get; set; }
 
         public string StoreAddress { get; set; }
 
         public string SupplyTime { get; set; }
+        public int WeekDay { get; set; }
+        public DateTime OpenTime { get; set; }
+        public DateTime CloseTime { get; set; }
 
         public List<ProductAreaList> ProductAreaList { get; set; }   
     }
