@@ -38,14 +38,14 @@ namespace HolyShong.Services
                         DeliveryFee = 30, //待確認
                         Notes = "等資料庫新建cart欄位", //待確認
                         DeliveryAddress = cartVM.Address,
-                        IsTablewares = false, //待確認
-                        IsPlasticbag = false, //待確認
+                        IsTablewares = cartVM.IsTablewares,
+                        IsPlasticbag = cartVM.IsPlasticbag,
                         PaymentStatus = 1,
                         DeliverStatus = 0,
                         OrderStatus = 1,
                         CreateDate = DateTime.UtcNow,
-                        RequiredDate = DateTime.UtcNow
-                        //OrderSatutsUpdateTime待確認
+                        RequiredDate = DateTime.UtcNow,
+                        OrderStatusUpdateTime = DateTime.UtcNow
                     };
                     _repo.Create(order);
                     //先存才能拿到orderId
@@ -57,19 +57,29 @@ namespace HolyShong.Services
                     foreach (var item in cartVM.CartItems)
                     {
                         var product = products.FirstOrDefault(p => p.Name == item.ProductName);
+
                         OrderDetail orderDetail = new OrderDetail()
                         {
                             OrderId = order.OrderId,
                             ProductId = product.ProductId,
                             UnitPrice = product.UnitPrice,
-                            Quantity = 2,  //待確認
-                            //Description
+                            Quantity = item.Quantity,  //待確認
+                            Special = item.Special
                         };
+                        _repo.Create(orderDetail);
+                        //先存才能拿到orderId
+
+                        foreach (var detail in item.ProductOptionCards)
+                        {
+                            OrderDetailOption orderDetailOption = new OrderDetailOption()
+                            {
+                                OrderDetailId = orderDetail.OrderDetailId,
+                                ProductOptionDetailId = _repo.GetAll<ProductOptionDetail>().FirstOrDefault(pod => pod.Name == detail.ProductOptionName).ProductOptionDetailId,
+                            };
+                            _repo.Create(orderDetail);
+                        }
                     }
-
-                    //加入orderDetailOption
-
-
+                    _repo.SaveChange();
                     result.IsSuccessful = true;
                     tran.Commit();
                 }
@@ -82,6 +92,7 @@ namespace HolyShong.Services
             }
             return result;
             //刪除購物車?
+            //刪除購物車cookie?
         }
 
         /// <summary>
@@ -103,8 +114,14 @@ namespace HolyShong.Services
             }
 
             //若還沒有外送員
-            var deliver = _repo.GetAll<Deliver>().First(d => d.DeliverId == order.DeliverId);
-            var member = _repo.GetAll<Member>().First(m => m.MemberId == deliver.MemberId);
+            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == order.DeliverId);
+            if (deliver != null)
+            {
+                var member = _repo.GetAll<Member>().First(m => m.MemberId == deliver.MemberId);
+                orderResult.DeliverName = member.LastName + member.FirstName;
+                orderResult.DeliverImg = deliver.HeadshotImg;
+            }
+           
             var store = _repo.GetAll<Store>().First(s => s.StoreId == order.StoreId);
             var orderDetail = _repo.GetAll<OrderDetail>().Where(od => od.OrderId == order.OrderId);
             var product = _repo.GetAll<Product>().Where(p => orderDetail.Select(od => od.ProductId).Contains(p.ProductId));
@@ -122,8 +139,6 @@ namespace HolyShong.Services
             }
 
             orderResult.OrderStatus = order.OrderStatus;
-            orderResult.DeliverName = member.LastName + member.FirstName;
-            orderResult.DeliverImg = deliver.HeadshotImg;
             orderResult.CustomerAddress = order.DeliveryAddress;
             orderResult.CustomerNotes = order.Notes;
             orderResult.RestaurantName = store.Name;
@@ -195,6 +210,17 @@ namespace HolyShong.Services
             }
             return result;
         }
+
+        /// <summary>
+        /// 從購物車取得Order
+        /// </summary>
+        public void PutShoppingCartToOrder()
+        {
+
+        }
+
+        //外送員
+
 
         /// <summary>
         /// 外送員上下線切換
@@ -302,7 +328,7 @@ namespace HolyShong.Services
                 {
                     //傳入訂單狀態判斷
                     //餐廳完成訂單，安排外送員
-                    if (OrderStatusVM.OrderStatus == 3)
+                    if (OrderStatusVM.OrderStatus == 4)
                     {
                         var freeDeliver = _repo.GetAll<Deliver>().Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
                         order.DeliverId = freeDeliver.DeliverId;
@@ -351,14 +377,6 @@ namespace HolyShong.Services
 
         }
 
-
-        /// <summary>
-        /// 從購物車取得Order
-        /// </summary>
-        public void PutShoppingCartToOrder()
-        {
-
-        }
     }
 }
 

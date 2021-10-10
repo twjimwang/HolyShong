@@ -21,6 +21,8 @@ namespace HolyShong.ViewModels
         public int Count { get; set; }
         public DateTime CreatedDate { get; set; }
 
+        public bool IsTablewares { get; set; }
+        public bool IsPlasticbag { get; set; }
     }
 
     public class CartItem
@@ -43,6 +45,9 @@ namespace HolyShong.ViewModels
         /// item X product
         /// </summary>
         public decimal TotalPrice { get; set; }
+
+        public string Special { get; set; }
+        public int Quantity { get; set; }
 
     }
     public class ProductOptionCard
