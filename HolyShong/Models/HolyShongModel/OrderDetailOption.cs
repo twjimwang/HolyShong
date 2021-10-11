@@ -12,11 +12,7 @@ namespace HolyShong.Models.HolyShongModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderDetailOptionId { get; set; }
 
-        public int? ProductOptionId { get; set; }
-
         public int? ProductOptionDetailId { get; set; }
-
-        public decimal? AddPrice { get; set; }
 
         public int OrderDetailId { get; set; }
 

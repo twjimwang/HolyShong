@@ -22,7 +22,7 @@ namespace HolyShong.Models.HolyShongModel
 
         public bool IsTablewares { get; set; }
 
-        public bool IsBag { get; set; }
+        public bool IsPlasticbag { get; set; }
 
         public int StroreId { get; set; }
 
