@@ -207,6 +207,7 @@
     <Compile Include="Models\HolyShongModel\Member.cs" />
     <Compile Include="Models\HolyShongModel\Order.cs" />
     <Compile Include="Models\HolyShongModel\OrderDetail.cs" />
+    <Compile Include="Models\HolyShongModel\OrderDetailOption.cs" />
     <Compile Include="Models\HolyShongModel\Product.cs" />
     <Compile Include="Models\HolyShongModel\ProductCategory.cs" />
     <Compile Include="Models\HolyShongModel\ProductOption.cs" />

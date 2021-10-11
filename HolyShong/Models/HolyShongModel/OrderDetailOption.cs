@@ -6,13 +6,11 @@ namespace HolyShong.Models.HolyShongModel
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ItemDetail")]
-    public partial class ItemDetail
+    [Table("OrderDetailOption")]
+    public partial class OrderDetailOption
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ItemDetailId { get; set; }
-
-        public int ItemId { get; set; }
+        public int OrderDetailOptionId { get; set; }
 
         public int? ProductOptionId { get; set; }
 
@@ -20,10 +18,8 @@ namespace HolyShong.Models.HolyShongModel
 
         public decimal? AddPrice { get; set; }
 
-        public virtual Item Item { get; set; }
+        public int OrderDetailId { get; set; }
 
-        public virtual ProductOptionDetail ProductOptionDetail { get; set; }
-
-        public virtual ProductOptionDetail ProductOptionDetail1 { get; set; }
+        public virtual OrderDetail OrderDetail { get; set; }
     }
 }
