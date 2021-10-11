@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace HolyShong.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DiscountService _discountService;
+        public HomeController()
+        {
+            _discountService = new DiscountService();
+        }
         public ActionResult Index()
         {
             return View();
@@ -38,9 +44,9 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        //public ActionResult AcquireDiscount()
-        //{
-        //    return 
-        //}
+        public void AcquireDiscount(string discountName)
+        {
+            _discountService.AcquireDiscount(discountName);
+        }
     }
 }
