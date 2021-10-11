@@ -220,8 +220,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\DiscountService.cs" />
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\DiscountViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
@@ -310,10 +312,10 @@
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Order\Test.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_DiscountPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

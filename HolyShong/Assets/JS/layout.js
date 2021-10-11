@@ -2,6 +2,23 @@ let menuCheck = document.querySelector('#menu-check');
 let bg = document.querySelector('.bg');
 let body = document.querySelector('body');
 
+//購物車結帳頁面使用
+//優惠model 選取優惠
+let inputDiscounts = document.querySelectorAll('.discount-item input');
+let spanDiscounts = document.querySelectorAll('.discount-item label span');
+inputDiscounts.forEach((input, index) => {
+    input.addEventListener('change', function () {
+        spanDiscounts.forEach((span, num) => {
+            if (index == num) {
+                span.innerText = "已選取";
+            }
+            else {
+                span.innerText = "可選取";
+            }
+        })
+    })
+});
+
 //加入menu背景
 menuCheck.addEventListener('click', function () {
     //若漢堡按下，加入背景
@@ -19,6 +36,7 @@ menuCheck.addEventListener('click', function () {
         body.removeAttribute('style', 'overflow:hidden;');
     }
 });
+
 
 // 序號modal 關閉新增優惠modal
 let discountAdd = document.querySelector('#discountAdd');
