@@ -316,6 +316,9 @@ namespace HolyShong.Services
         {
             OperationResult result = new OperationResult();
             DbContext context = new HolyShongContext();
+            //抓memberId
+            var memberId = 2;
+
             //VM中分析他的orderID
             var orderId = Int32.Parse(string.Join("",OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x => x)));
             //先抓到訂單
@@ -330,7 +333,8 @@ namespace HolyShong.Services
                     //餐廳完成訂單，安排外送員
                     if (OrderStatusVM.OrderStatus == 4)
                     {
-                        var freeDeliver = _repo.GetAll<Deliver>().Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
+                        var notSelf = _repo.GetAll<Deliver>().Where(d => d.MemberId != memberId);
+                        var freeDeliver = notSelf.Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
                         order.DeliverId = freeDeliver.DeliverId;
                         //外送員改成送貨中
                         freeDeliver.isDelivering = true;
