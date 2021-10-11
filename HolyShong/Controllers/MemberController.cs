@@ -16,7 +16,6 @@ namespace HolyShong.Controllers
         public CartService _cartService;
         public HolyCartViewModel _HolyCartViewModel; 
 
-
         public MemberController()
         {
             _cartService = new CartService();
@@ -45,7 +44,7 @@ namespace HolyShong.Controllers
         }
 
         [HttpPost]
-        public int AddToHolyYCart(HolyCartViewModel holyCartViewModelVM )
+        public int AddToHolyCart(HolyCartViewModel holyCartViewModelVM)
         {
             List<HolyCartViewModel> holyCartViewModels = new List<HolyCartViewModel>();
             if (Session["HolyCartViewModel"] == null)
@@ -67,13 +66,13 @@ namespace HolyShong.Controllers
                 holyCartViewModels = (List<HolyCartViewModel>)Session["HolyCartViewModel"];
                 HolyCartViewModel holyCartViewModel = new HolyCartViewModel
                 {
-                    RecordId = holyCartViewModels.Count()+1,
+                    RecordId = holyCartViewModels.Count() + 1,
                     CartId = holyCartViewModelVM.CartId,
                     StoreName = holyCartViewModelVM.StoreName,
                     CartItems = holyCartViewModelVM.CartItems,
                     Address = holyCartViewModelVM.Address,
                     Count = holyCartViewModelVM.Count,
-                  
+
 
                 };
                 holyCartViewModels.Add(holyCartViewModel);
@@ -82,6 +81,7 @@ namespace HolyShong.Controllers
 
             return holyCartViewModels.Count;
         }
+
 
         public ActionResult Checkout(int? Id)
         {   //if(Id == null)

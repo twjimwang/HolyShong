@@ -6,6 +6,8 @@ using HolyShong.ViewModels;
 using HolyShong.Repositories;
 using HolyShong.Models.HolyShongModel;
 
+using System.Web.Services;
+
 
 namespace HolyShong.Services
 {
@@ -30,6 +32,7 @@ namespace HolyShong.Services
             {
                 return result;
             }
+
             // 用memberId找到 特定的cart
             var cart = _repo.GetAll<Cart>().FirstOrDefault(c => c.MemberId == memberId);
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == cart.StroreId);
@@ -42,18 +45,13 @@ namespace HolyShong.Services
             result.StoreName = store.Name;
             result.Address = store.Address;
             
-          
-
             //cartItem裡面的資料表
             //在item裡面找到product
-            
-
             // ProductOptionCard
             var productOptionCards = new List<ProductOptionCard>();
             var productOption = _repo.GetAll<ProductOption>().Where(pr => products.Select(p => p.ProductId).Contains(pr.ProductId));
             var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(pr => pr.ProductOptionId).Contains(pod.ProductOptionId));
             
-
             foreach (var i in items)
             {
                 //把屬於ITEM的 ITEMDETAIL抓出來
@@ -82,13 +80,13 @@ namespace HolyShong.Services
                     Description = prod.Description,
                     ProductOptionCards = pTemp,
                     TotalPrice = i.Quantity * prod.UnitPrice
-                
-                    
+                              
                 };
                 result.CartItems.Add(temp);
             }
 
             return result;
+
             //foreach(var id in itemDetails)
             //{
             //    var pTemp = new ProductOptionCard()
@@ -97,11 +95,16 @@ namespace HolyShong.Services
             //        ProductOptionName = productOption.FirstOrDefault(po=>po.ProductOptionId == id.ProductOptionId).Name,
             //        ProductOptionDetail = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).Name,
             //        addPrice = productOptionDetail.FirstOrDefault(pod=>pod.ProductOptionDetailId == id.ProductOptionDetailId).AddPrice,
-
             //    };
             //    productOptionCards.Add(pTemp);
             //}
 
+            
+
         }
+           
+        
+
     }     
+
 }

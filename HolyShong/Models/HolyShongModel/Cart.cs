@@ -34,5 +34,10 @@ namespace HolyShong.Models.HolyShongModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Item { get; set; }
+
+        //public static explicit operator Cart(object v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

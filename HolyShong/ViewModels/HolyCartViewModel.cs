@@ -20,9 +20,14 @@ namespace HolyShong.ViewModels
         /// </summary>
         public string StoreName { get; set; }
         public List<CartItem> CartItems { get; set; }
+        /// <summary>
+        /// 消費者地址
+        /// </summary>
         public string Address { get; set; }
         public int Count { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool IsplasticBag { get; set; }
+        public bool IsTableWares { get; set; }
 
     }
 
@@ -46,6 +51,7 @@ namespace HolyShong.ViewModels
         /// item X product
         /// </summary>
         public decimal TotalPrice { get; set; }
+        public string deliverTime { get; set; }
 
     }
     public class ProductOptionCard
