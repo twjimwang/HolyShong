@@ -9,8 +9,12 @@
 
 .top {
     width: 100%;
+    padding:0 20px;
     margin: 0 auto;
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 100;
     height: 72px;
     border-bottom: 1px solid #EEEEEE;
@@ -101,8 +105,9 @@
 }
 
 .lookup {
+    display:none;
     position: absolute;
-    top: 72px;
+    top: 71px;
     left: 0;
     right: 0;
     padding: 0 20px 5px;
@@ -591,6 +596,8 @@ footer {
 
 @media screen and (min-width: 992px) {
     .top {
+        position:unset;
+        padding:0;
         height: 95px;
         justify-content: space-between;
     }
