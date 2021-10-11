@@ -44,7 +44,7 @@
                         </div>
                         <div class="timeModalHeader modal-header">
                             <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在<span class="setOpenTime">@Model.SupplyTime</span>
+                                在<span class="setOpenTime">???</span>
                                 AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
                             </h3>
                         </div>
@@ -121,7 +121,16 @@
                     <div class="clock p-3">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="textCenter">營業時間:<span class="week">星期一</span> <span class="setOpenTime">12:00-20:00</span></div>
+
+                    <div class="textCenter">
+                        營業時間:
+                        @foreach (var businessHour in Model.BusinesshoursList)
+                        {
+                            <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
+                        }
+
+                    </div>
+
                     <div class="plus p-3">
                         <i class="fas fa-plus"></i>
                     </div>
@@ -237,12 +246,12 @@
     <div class="navMove row">
         <div class="col-12">
             <div class="navbar">
-                @*@foreach (var ProductCategory in Model.productCategories)
+                @*@foreach (var ProductCategory in Model.)
                 {
                     <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
 
-                }*@
-                @*<a href="#titleOne">您專屬的推薦商品</a>
+                }
+                    <a href="#titleOne">您專屬的推薦商品</a>
                     <a href="#titleTwo">人氣精選</a>
                     <a href="#titleThree">主食</a>
                     <a href="#titleFour">單點</a>
@@ -258,13 +267,13 @@
             <div class="txt" id="title_1">您專屬的推薦商品</div>
         </div>
     </div>
-    <div class="itemGroup row d-flex ">
-        @*@foreach (var Product in Model.Products)
+    @*<div class="itemGroup row d-flex ">
+        @foreach (var Product in Model.ProductAreaList)
         {
             <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
                 <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
                     <div class="itemGroupPic">
-                        <img src="@Product.Img" class="card-img-top"
+                        <img src="@Product.ProductArea" class="card-img-top"
                              alt="...">
                     </div>
                     <div class="card-body">
