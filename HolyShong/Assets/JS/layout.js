@@ -53,6 +53,20 @@ ONdiscount.forEach(button => {
     })
 });
 
+
+//新增優惠卷
+function AcquireDiscount() {
+    let addDiscount = document.querySelector('.ONdiscount-body input');
+    $.ajax({
+        type: 'POST',
+        url: '/Discount/AcquireDiscount',
+        data: addDiscount.innerText,
+        success: function (request) {
+            console.log("成功傳遞")
+        }
+    });
+}
+
 //時間地點Modal on Modal
 let changeDest = document.querySelector("#deliverModal .modal-body div:first-of-type button");
 changeDest.addEventListener('click', function () {

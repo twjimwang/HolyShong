@@ -36,8 +36,8 @@ namespace HolyShong.Services
         /// <returns></returns>
         public string AcquireDiscount(string discountName)
         {
-            //找到此優惠卷ID
-            var discountId = _repo.GetAll<Discount>().FirstOrDefault(d => d.DisplayName == discountName).DiscountId;
+            //找到此優惠卷ID，且仍在效期
+            var discountId = _repo.GetAll<Discount>().FirstOrDefault(d => d.DisplayName == discountName && d.EndTime<= DateTime.Now).DiscountId;
             if(discountId == 0)
             {
                 return "折扣碼錯誤，找不到優惠卷";
@@ -61,8 +61,9 @@ namespace HolyShong.Services
             };
 
             //Discount 要減一
-
-
+            var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == discountId);
+            discount.UseLimit -= 1;
+            _repo.Update(discount);
             _repo.Create(discountMember);
             _repo.SaveChange();
 
@@ -70,7 +71,10 @@ namespace HolyShong.Services
 
         }
 
-
+        /// <summary>
+        /// 會員的所有有效優惠卷
+        /// </summary>
+        /// <returns></returns>
         public List<DiscountViewModel> GetDiscountByMemberId()
         {
             List<DiscountViewModel> discountVM = new List<DiscountViewModel>();
@@ -82,8 +86,9 @@ namespace HolyShong.Services
                 return discountVM;
             }
 
-            discountVM = _repo.GetAll<Discount>().Where(d => memberDiscounts.Select(md => md.DiscountId).Contains(d.DiscountId)).Select(d=> new DiscountViewModel() {
-                DiscountMemberId = memberDiscounts.First(md=>md.DiscountId == d.DiscountId).DiscountMemberId,
+            //找出還有效的discount
+            discountVM = _repo.GetAll<Discount>().Where(d => memberDiscounts.Select(md => md.DiscountId).Contains(d.DiscountId)).Where(md=> md.EndTime >= DateTime.Now).Select(d=> new DiscountViewModel() {
+                DiscountMemberId = memberDiscounts.FirstOrDefault(md=>md.DiscountId == d.DiscountId).DiscountMemberId,
                 DiscountName = d.DisplayName,
                 EndTime =d.EndTime
             }).ToList();
