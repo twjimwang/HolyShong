@@ -191,7 +191,7 @@ namespace HolyShong.Controllers
             //1.建立FormsAuthenticationTicket
             var ticket = new FormsAuthenticationTicket(
             version: 1,
-            name: user.FirstName.ToString(), //可以放使用者Id
+            name: user.MemberId.ToString(), //可以放使用者Id
             issueDate: DateTime.UtcNow,//現在UTC時間
             expiration: DateTime.UtcNow.AddMinutes(30),//Cookie有效時間=現在時間往後+30分鐘
             isPersistent: loginVM.Remember,// 是否要記住我 true or false
@@ -234,6 +234,9 @@ namespace HolyShong.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
+
+            //Response.Cookies.Remove(cookie);
+            //Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
 
             return RedirectToAction("Index", "Home");
         }
