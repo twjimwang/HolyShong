@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class RestaurantVM
+    public class RestaurantViewModel
     {
         public int StoreId { get; set; }
         public string StorePicture { get; set; }
