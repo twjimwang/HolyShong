@@ -356,7 +356,6 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\StoreCategoryService.cs" />
     <Compile Include="Services\StoreService.cs" />
-    <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
