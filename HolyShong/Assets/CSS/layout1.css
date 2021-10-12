@@ -365,8 +365,8 @@ label.cart {
 }
 
 footer {
-    padding: 60px 0;
-    margin-top: 60px;
+    padding: 80px 0;
+    margin-top: 80px;
     background-color: #000;
 }
 
@@ -438,12 +438,26 @@ footer {
     .discount-item:last-child {
         border-bottom: none;
     }
+    .discount-item label{
+        margin-bottom:0;
+        margin: auto 0;
+    }
+    .discount-item span {
+        background-color: #EEEEEE;
+        border-radius: 10px;
+        padding: 8px 15px;
+        margin-right:10px;
+    }
+    .discount-item label input:checked ~ span {
+        background-color: rgb(49,75,88);
+        color:#fff;
+    }
 
-.discount-body {
-    margin-top: 10px;
-    height: 300px;
-    overflow-y: scroll;
-}
+    .discount-body {
+        margin-top: 10px;
+        height: 300px;
+        overflow-y: scroll;
+    }
 
 #discountModal .modal-body button {
     background-color: #EEEEEE;

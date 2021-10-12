@@ -1,12 +1,12 @@
 ﻿using HolyShong.Models;
 using HolyShong.ViewModels;
+using HolyShong.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Repositories;
-using HolyShong.Services;
 using HolyShong.Models.HolyShongModel;
 using System.Web.Security;
 
@@ -17,13 +17,17 @@ namespace HolyShong.Controllers
         private readonly MemberLoginService _memberLoginService;
         private readonly MemberRegisterService _memberRegisterService;
         private readonly MemberProfileService _memberProfileService;
+        private readonly OrderService _orderService;
 
         public MemberController()
         {
             _memberLoginService = new MemberLoginService();
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
+            _orderService = new OrderService();
         }
+
+
         // GET: Member
         public ActionResult Index()
         {
@@ -98,7 +102,13 @@ namespace HolyShong.Controllers
         }
         public ActionResult OrderList()
         {
-            return View();
+            var memberId = Int32.Parse(User.Identity.Name);
+            if(memberId ==0)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            var result = _orderService.GetOrderByMemberId(memberId);
+            return View(result);
         }
 
         public ActionResult RestaurantRegister()

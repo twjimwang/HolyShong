@@ -2,6 +2,23 @@ let menuCheck = document.querySelector('#menu-check');
 let bg = document.querySelector('.bg');
 let body = document.querySelector('body');
 
+//購物車結帳頁面使用
+//優惠model 選取優惠
+let inputDiscounts = document.querySelectorAll('.discount-item input');
+let spanDiscounts = document.querySelectorAll('.discount-item label span');
+inputDiscounts.forEach((input, index) => {
+    input.addEventListener('change', function () {
+        spanDiscounts.forEach((span, num) => {
+            if (index == num) {
+                span.innerText = "已選取";
+            }
+            else {
+                span.innerText = "可選取";
+            }
+        })
+    })
+});
+
 //加入menu背景
 menuCheck.addEventListener('click', function () {
     //若漢堡按下，加入背景
@@ -20,6 +37,7 @@ menuCheck.addEventListener('click', function () {
     }
 });
 
+
 // 序號modal 關閉新增優惠modal
 let discountAdd = document.querySelector('#discountAdd');
 let discountModal = document.querySelector('#discountModal');
@@ -34,6 +52,20 @@ ONdiscount.forEach(button => {
         discountModal.classList.remove('d-none');
     })
 });
+
+
+//新增優惠卷
+function AcquireDiscount() {
+    let addDiscount = document.querySelector('.ONdiscount-body input');
+    $.ajax({
+        type: 'POST',
+        url: '/Discount/AcquireDiscount',
+        data: addDiscount.innerText,
+        success: function (request) {
+            console.log("成功傳遞")
+        }
+    });
+}
 
 //時間地點Modal on Modal
 let changeDest = document.querySelector("#deliverModal .modal-body div:first-of-type button");

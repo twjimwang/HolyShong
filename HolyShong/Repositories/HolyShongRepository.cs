@@ -1,22 +1,14 @@
-﻿using HolyShong.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using HolyShong.Models.HolyShongModel;
 using HolyShong.Services;
 using HolyShong.ViewModels;
+using System.Linq;
 
 namespace HolyShong.Repositories
 {
     public class HolyShongRepository
     {
-        private readonly DbContext _context;
-        public void SaveChange()
-        {
-            _context.SaveChanges();
-        }
+        private readonly HolyShongContext _context;
 
         public HolyShongRepository()
         {
@@ -45,6 +37,9 @@ namespace HolyShong.Repositories
             return _context.Set<T>();
         }
 
-        
+        public void SaveChange()
+        {
+            _context.SaveChanges();
+        }
     }
 }
