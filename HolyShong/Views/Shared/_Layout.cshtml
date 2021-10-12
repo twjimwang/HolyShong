@@ -272,8 +272,8 @@
             <div class="menu">
                 <div class="loginShow name py-2 border-bottom">@User.Identity.Name</div>
                 <div class="function loginShow">
-                    <a href="@Url.Action("UserProfile", "Member")"><div class="account item"><i class="fas fa-user"></i>帳戶資訊</div></a>
-                    <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
+                    <div class="account item" onclick="location.href='@Url.Action("UserProfile", "Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
+                    <div class="order item" onclick="location.href='@Url.Action("OrderList", "Member")'"><i class="fas fa-receipt"></i>訂單</div>
                     <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠

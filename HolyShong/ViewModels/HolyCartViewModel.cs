@@ -7,6 +7,7 @@ namespace HolyShong.ViewModels
 {
     public class HolyCartViewModel
     {
+        public int MemberId { get; set; }
         public int RecordId { get; set; }
         /// <summary>
         /// cart

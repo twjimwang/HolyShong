@@ -102,13 +102,14 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        public ActionResult OrderList(int? id)
+        public ActionResult OrderList()
         {
-            if(!id.HasValue)
+            var memberId = Int32.Parse(User.Identity.Name);
+            if(memberId ==0)
             {
                 return RedirectToAction("Index","Home");
             }
-            var result = _orderService.GetOrderByMemberId(id.Value);
+            var result = _orderService.GetOrderByMemberId(memberId);
             return View(result);
         }
 

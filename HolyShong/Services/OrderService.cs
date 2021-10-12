@@ -7,6 +7,7 @@ using HolyShong.ViewModels;
 using HolyShong.Models.HolyShongModel;
 using System.Data.Entity;
 
+
 namespace HolyShong.Services
 {
     public class OrderService
@@ -23,7 +24,7 @@ namespace HolyShong.Services
             OperationResult result = new OperationResult();
 
             //抓到memberID
-            var memberId = 1;
+            var memberId = cartVM.MemberId;
 
             DbContext context = new HolyShongContext();
             using (var tran = context.Database.BeginTransaction())
@@ -227,41 +228,39 @@ namespace HolyShong.Services
         /// </summary>
         /// <param name="connectionStatus"></param>
         /// <returns></returns>
-        public bool SwitchDeliverConnection(bool connectionStatus)
+        public bool SwitchDeliverConnection(DeliverConnectionViewModel deliverConnectionVM)
         {
             //透過會員狀態關連到deliverId
-            var deliverId = 1;
+            var deliverId = _repo.GetAll<Deliver>().FirstOrDefault(d=>d.MemberId == deliverConnectionVM.memberId).DeliverId;
 
             //找出外送員有沒有在外送，有的話駁回切換下線
             var deliverStatus = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId).isDelivering;
             if (deliverStatus == true)
             {
-                connectionStatus = !connectionStatus;
-                return connectionStatus;
+                deliverConnectionVM.isOnline = !deliverConnectionVM.isOnline;
+                return deliverConnectionVM.isOnline;
             }
 
             //其餘儲存狀態修改
             //VM->DM
             var deliverInfo = _repo.GetAll<Deliver>().FirstOrDefault(d => d.DeliverId == deliverId);
 
-            deliverInfo.isOnline = connectionStatus;
+            deliverInfo.isOnline = deliverConnectionVM.isOnline;
 
             //update+savechange
             _repo.Update(deliverInfo);
             _repo.SaveChange();
 
-            return connectionStatus;
+            return deliverConnectionVM.isOnline;
         }
 
         /// <summary>
         /// 抓外送員判斷資料庫中上下線
         /// </summary>
         /// <returns></returns>
-        public Deliver GetDeliverInfo()
+        public Deliver GetDeliverInfo(int memberId)
         {
-            var id = 1;
-
-            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(x => x.DeliverId == id);
+            var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d => d.MemberId == memberId);
 
             return deliver;
         }
@@ -270,19 +269,17 @@ namespace HolyShong.Services
         /// 外送員外送畫面
         /// </summary>
         /// <returns></returns>
-        public DeliverViewModel GetOrderForDeliver()
+        public DeliverViewModel GetOrderForDeliver(int memberId)
         {
             DeliverViewModel result = new DeliverViewModel() { OrderProducts = new List<OrderProducts>() };
 
             //透過帳號登入抓到這個人的memberId & DeliverId
-            var memberId = 1;
-            var deliverId = 1;
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
             var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d => d.MemberId == memberId);
 
 
             //透過deliverId 去抓出他的外送訂單中，運送中的單(orderstatus = 4 && deliverStatus = 1)，取orderId
-            var order = _repo.GetAll<Order>().Where(o => o.DeliverId == deliverId).FirstOrDefault(o => o.OrderStatus == 4 || o.OrderStatus == 5);
+            var order = _repo.GetAll<Order>().Where(o => o.DeliverId ==deliver.DeliverId).FirstOrDefault(o => o.OrderStatus == 4 || o.OrderStatus == 5);
             if (order == null)
             {
                 return result;
@@ -317,7 +314,7 @@ namespace HolyShong.Services
             OperationResult result = new OperationResult();
             DbContext context = new HolyShongContext();
             //抓memberId
-            var memberId = 2;
+            var memberId = OrderStatusVM.MemberId;
 
             //VM中分析他的orderID
             var orderId = Int32.Parse(string.Join("",OrderStatusVM.OrderCode.Skip(3).Take(5).Select(x => x)));

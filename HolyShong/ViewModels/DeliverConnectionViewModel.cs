@@ -7,6 +7,7 @@ namespace HolyShong.ViewModels
 {
     public class DeliverConnectionViewModel
     {
+        public int memberId { get; set; }
         public bool isOnline { get; set; }
     }
 }

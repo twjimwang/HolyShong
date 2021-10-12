@@ -16,9 +16,15 @@ namespace HolyShong.Controllers
             _orderService = new OrderService();
         }
         // GET: Deliver
+        [Authorize]
         public ActionResult Index()
         {
-            var result = _orderService.GetOrderForDeliver();
+            var memberId = Int32.Parse(User.Identity.Name);
+            if(memberId == 0)
+            {
+                return RedirectToAction("DeliverRegister", "Member");
+            }
+            var result = _orderService.GetOrderForDeliver(memberId);
             return View(result);
         }
 
@@ -30,8 +36,9 @@ namespace HolyShong.Controllers
         [HttpPost]
         public bool DeliverConnectionStatus(DeliverConnectionViewModel deliverConnectionVM)
         {
-
-            var connectionResult = _orderService.SwitchDeliverConnection(deliverConnectionVM.isOnline);
+            var memberId = Int32.Parse(User.Identity.Name);
+            deliverConnectionVM.memberId = memberId;
+            var connectionResult = _orderService.SwitchDeliverConnection(deliverConnectionVM);
 
             return connectionResult;
         }
@@ -42,7 +49,8 @@ namespace HolyShong.Controllers
         [HttpPost]
         public void OrderStateChange(OrderStatusViewModel OrderStatusVM)
         {
-             _orderService.ChangeOrderState(OrderStatusVM);
+            OrderStatusVM.MemberId = Int32.Parse(User.Identity.Name);
+            _orderService.ChangeOrderState(OrderStatusVM);
         }
 
 
