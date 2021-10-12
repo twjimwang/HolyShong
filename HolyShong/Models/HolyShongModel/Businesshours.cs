@@ -22,7 +22,7 @@ namespace HolyShong.Models.HolyShongModel
         public DateTime CreateTime { get; set; }
 
         public DateTime? UpdateTime { get; set; }
-
+        
         public virtual Store Store { get; set; }
     }
 }

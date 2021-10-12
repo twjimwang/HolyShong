@@ -17,8 +17,9 @@ namespace HolyShong.ViewModels
 
         public string StoreAddress { get; set; }
 
-        public List<Businesshours> BusinesshoursList { get; set; }
+        public List<Businesshour> BusinesshourList { get; set; }
         public ProductAreaList ProductAreaList { get; set; }
+        public string todayOpening { get; set; }
     }    
 
 
@@ -58,10 +59,12 @@ namespace HolyShong.ViewModels
         public List<string> ProductOptionDetails { get; set; }
     }
 
-    //public class SupplyTime
-    //{
-    //    public int WeekDay { get; set; }
-    //    public TimeSpan OpenTime { get; set; }
-    //    public TimeSpan CloseTime { get; set; } 
-    //}
+    public class Businesshour
+    {
+        public string WeekDay { get; set; }
+        public string OpenTime { get; set; } 
+
+        public string CloseTime { get; set; }
+       
+    }
 }

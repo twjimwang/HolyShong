@@ -44,7 +44,7 @@
                         </div>
                         <div class="timeModalHeader modal-header">
                             <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在<span class="setOpenTime">???</span>
+                                在<span class="setOpenTime">@Model.todayOpening</span>
                                 AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
                             </h3>
                         </div>
@@ -124,7 +124,7 @@
 
                     <div class="textCenter">
                         營業時間:
-                        @foreach (var businessHour in Model.BusinesshoursList)
+                        @foreach (var businessHour in Model.BusinesshourList)
                         {
                             <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
                         }
@@ -246,9 +246,9 @@
     <div class="navMove row">
         <div class="col-12">
             <div class="navbar">
-                @*@foreach (var ProductCategory in Model.)
+                @*@foreach (var ProductCategory in Model.ProductAreaList)
                 {
-                    <a href="#title_@ProductCategory.Sort">@ProductCategory.Name</a>
+                <a href="#title_@ProductCategory.Sort">@</a>
 
                 }
                     <a href="#titleOne">您專屬的推薦商品</a>
@@ -514,7 +514,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @section topCSS{
     <style>
