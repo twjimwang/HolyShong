@@ -16,6 +16,17 @@ namespace HolyShong.ViewModels
         public string StoreCategoryName { get; set; }
 
         public string StoreAddress { get; set; }
+        public List<ProductCard> ProductCards { get; set; }
+        public List<ProductArea> ProductAreas { get; set; }
+
+
+
+
+
+
+
+
+
 
         public List<Businesshour> BusinesshourList { get; set; }
         public ProductAreaList ProductAreaList { get; set; }
@@ -28,7 +39,7 @@ namespace HolyShong.ViewModels
     /// </summary>
     public class ProductAreaList
     {
-        public List<ProductArea> ProductArea { get; set; }
+        public List<ProductArea> ProductAreas { get; set; }
     }
     /// <summary>
     /// 專區
@@ -36,7 +47,7 @@ namespace HolyShong.ViewModels
     public class ProductArea
     {
         public string ProductCategoryName { get; set; }
-        public List<ProductCard> Products { get; set; }
+        public List<ProductCard> ProductCards { get; set; }
     }
     /// <summary>
     /// 商品卡片
