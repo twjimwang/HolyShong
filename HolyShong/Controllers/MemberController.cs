@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Repositories;
-using HolyShong.Services;
 using HolyShong.Models.HolyShongModel;
 using System.Web.Security;
 
@@ -18,18 +17,16 @@ namespace HolyShong.Controllers
         private readonly MemberLoginService _memberLoginService;
         private readonly MemberRegisterService _memberRegisterService;
         private readonly MemberProfileService _memberProfileService;
+        private readonly OrderService _orderService;
 
         public MemberController()
         {
             _memberLoginService = new MemberLoginService();
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
-        }
-        private readonly OrderService _orderService;
-        public MemberController()
-        {
             _orderService = new OrderService();
         }
+
 
         // GET: Member
         public ActionResult Index()

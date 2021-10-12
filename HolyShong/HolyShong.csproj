@@ -226,7 +226,6 @@
     <Compile Include="Services\MemberLoginService.cs" />
     <Compile Include="Services\MemberProfileService.cs" />
     <Compile Include="Services\MemberRegisterService.cs" />
-    <Compile Include="Services\test.cs" />
     <Compile Include="Services\DiscountService.cs" />
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\OperationResultHelper.cs" />
