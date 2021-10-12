@@ -51,7 +51,7 @@ namespace HolyShong.Services
                     if(discountName == "SHARE")
                     {
                         var shareMember = Int32.Parse(discountName.Split('-')[1]);
-
+                        var findShare = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == shareMember);
                     }
 
                 }

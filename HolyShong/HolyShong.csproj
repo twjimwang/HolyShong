@@ -222,7 +222,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
     <Compile Include="Services\DiscountService.cs" />
-    <Compile Include="Services\test.cs" />
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\OperationResultHelper.cs" />
     <Compile Include="Services\OrderService.cs" />
