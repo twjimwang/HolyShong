@@ -1,52 +1,83 @@
-﻿@{ 
+﻿@model HolyShong.ViewModels.MemberRegisterViewModel
+@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Register";
 }
 
-<main>
-    <div class="core">
-        <div class="combined">
-            <!-- 區段 下-->
-            <div class="bottom">
-                <div>
-                    <h4 class="title">開始註冊</h4>
-                    <div class="colInfo">
-                        <div class="phText">請輸入您的手機號碼(必填)</div>
-                        <div class="inputPhonenumber">
-                            <input type="text" class="form-control phNum" id="phoneNum">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputLastname4">名字(必填)</label>
-                                <input type="text" class="form-control" id="inputFirstname">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="core">
+            <div class="combined">
+                <!-- 區段 下-->
+                <div class="bottom">
+                    <div>
+                        <h4 class="title">開始註冊</h4>
+                        <div class="colInfo">
+                            <div class="form-group">
+                                <label for="phoneNum">請輸入您的手機號碼(必填)</label>
+                                @*<input type="text" class="form-control phNum" id="phoneNum">*@
+                                @Html.EditorFor(model => model.Cellphone, new { htmlAttributes = new { @class = "form-control",
+                               @id = "phoneNum" } })
+                                @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputFirstname4">姓氏(必填)</label>
-                                <input type="text" class="form-control" id="inputLastname">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputFirstname">名字(必填)</label>
+                                    @*<input type="text" class="form-control" id="inputFirstname">*@
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @id = "inputFirstname" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputLastname">姓氏(必填)</label>
+                                    @*<input type="text" class="form-control" id="inputLastname">*@
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "inputLastname" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">信箱(必填)</label>
+                                @*<input type="text" class="form-control" id="inputEmail">*@
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "inputEmail" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">密碼(必填)</label>
+                                @*<input type="password" class="form-control" id="inputPassword" placeholder="密碼">*@
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" , @id = "inputPassword" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                <div class="fa-stack fa-1x eye" id="tArea1">
+                                    <i class="fas fa-stack-1x eyeOpen1 fa-eye-slash" id="eye"></i>
+                                    <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose1"></i>                    -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ConfirmPassword">確認密碼(必填)</label>
+                                @*<input type="password" class="form-control" id="ConfirmPassword" placeholder="密碼">*@
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @id = "ConfirmPassword" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                <div class="fa-stack fa-1x eye" id="tArea2">
+                                    <i class="fas fa-stack-1x eyeOpen2 fa-eye-slash" id="eye2"></i>
+                                    <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-lg btn-secondary form-control" id="nextStep" disabled>下一步</button>
+                            </div>
+
+                            <div class="signText">
+                                Already use Holy Shong?
+                                <a href="#" class="greenLink">Sign in</a>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputEmail4">信箱(必填)</label>
-                            <input type="text" class="form-control" id="inputEmail">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword4">密碼(必填)</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="密碼">
-                            <div class="fa-stack fa-1x eye" id="tArea">
-                                <i class="fas fa-stack-1x eyeOpen fa-eye-slash" id="eye"></i>
-                                <!-- <i class="fas fa-eye-slash fa-stack-1x eyeClose"></i>                    -->
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-lg btn-secondary" id="nextStep" disabled>下一步</button>
-                    </div>
-                    <div class="signText">
-                        Already use Holy Shong?
-                        <a href="#" class="greenLink">Sign in</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+}
+
 
 @section topCSS
     {
@@ -67,20 +98,6 @@
             align-content: center;
             justify-content: center;
             align-items: stretch;
-        }
-
-        .phText {
-            max-width: 552px;
-            min-width: 289px;
-            margin-bottom: 8px;
-        }
-
-        .inputPhonenumber {
-            margin-bottom: 12px;
-            display: flex;
-            max-width: 552px;
-            min-width: 289px;
-            justify-content: center;
         }
 
         .inputName {
@@ -132,11 +149,6 @@
             right: 0px;
         }
 
-        .fa-stack-1x {
-            top: -4px;
-        }
-
-
         @@media screen and (max-width:664px) {
             .bottom {
                 margin: auto;
@@ -155,37 +167,44 @@
         const lnameElement = document.getElementById("inputLastname");
         const emailElement = document.getElementById("inputEmail");
         const passElement = document.getElementById("inputPassword");
+        const passElement2 = document.getElementById("ConfirmPassword");
 
-        const inputElements = [phoneElement, fnameElement, lnameElement, emailElement, passElement]
+        const inputElements = [phoneElement, fnameElement, lnameElement, emailElement, passElement, passElement2 ]
 
         for (let i = 0; i < inputElements.length; i++) {
             inputElements[i].addEventListener("change", function (event) {
-                if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "") {
+                if (phoneElement.value != "" && fnameElement.value != "" && lnameElement.value != "" && emailElement.value != "" && passElement.value != "" && passElement2.value != "") {
                     document.getElementById("nextStep").disabled = false;
-                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning")
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-warning form-control")
 
                 }
                 else {
                     document.getElementById("nextStep").disabled = true;
-                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-secondary")
+                    document.getElementById("nextStep").setAttribute("class", "btn btn-lg btn-secondary form-control")
                 }
             });
         }
     </Script>
     <script>
-        //eye jQuery
+        //eye1 jQuery
         $('.eye').on('click', function () {
-            if ($('.eyeOpen').hasClass("fa-eye")) {
+            if ($('.eyeOpen1').hasClass("fa-eye")) {
                 //如果eyeOpen有fa-eye(show)這個屬性
-                $('.eyeOpen').removeClass("fa-eye")//就去掉
-                $('.eyeOpen').addClass("fa-eye-slash")//改加fa-eye-slash(hide)
+                $('.eyeOpen1').removeClass("fa-eye")//就去掉
+                $('.eyeOpen1').addClass("fa-eye-slash")//改加fa-eye-slash(hide)
                 $('#inputPassword').attr('type', 'password')
                 //把input type屬性text改password
             } else {
-                $('.eyeOpen').addClass("fa-eye")
-                $('.eyeOpen').removeClass("fa-eye-slash")
+                $('.eyeOpen1').addClass("fa-eye")
+                $('.eyeOpen1').removeClass("fa-eye-slash")
                 $('#inputPassword').attr('type', 'text')
             }
         })
+
     </script>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }

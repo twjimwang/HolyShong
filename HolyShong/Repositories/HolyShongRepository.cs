@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
 using HolyShong.Models.HolyShongModel;
+using HolyShong.Services;
+using HolyShong.ViewModels;
 using System.Linq;
 
 namespace HolyShong.Repositories
