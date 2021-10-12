@@ -1,4 +1,5 @@
 ﻿@model UserProfileViewModel
+    
 
 
 @using (Html.BeginForm())
@@ -36,7 +37,26 @@
                 else
                 {
                     <div class="col-8">
-                        一般會員 <button type="button" class="btn btn-primary btn-sm align-items-center" id="GetPrimary">升級為送送會員</button>
+                        一般會員 <button type="button" class="btn btn-primary btn-sm align-items-center" data-toggle="modal" data-target="#bePrimary" id="GetPrimary">升級為送送會員</button>
+                    </div>
+                    <div class="modal fade" id="bePrimary" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">升級送送會員</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    升級送送會員只要30元，一個月免外送費！
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">暫時不要</button>
+                                    <button type="button" class="btn btn-primary" id="submmitPrimary">立刻升級</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
             </div>
@@ -80,6 +100,7 @@
 
         .personalGroup {
             display: flex;
+            margin-top: 80px
         }
 
         .personalInfo {
@@ -109,18 +130,22 @@
         }
         /* phone */
         .phone {
-            margin: 16px 0;
+            margin-top: 16px;
+            margin-bottom: 16px;
         }
 
         /* email */
         .email {
-            margin: 16px 0;
+            margin-top: 16px;
+            margin-bottom: 16px;
         }
 
         /* saveBtn */
         .saveBtn {
             margin-bottom: 16px;
         }
+
+        
     </style>
 }
 
