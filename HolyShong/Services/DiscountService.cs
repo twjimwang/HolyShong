@@ -3,6 +3,7 @@ using HolyShong.Repositories;
 using HolyShong.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,7 @@ namespace HolyShong.Services
 {
     public class DiscountService
     {
-
+        DbContext context = new HolyShongContext();
         private readonly HolyShongRepository _repo;
         public DiscountService()
         {
@@ -37,14 +38,27 @@ namespace HolyShong.Services
         /// <returns></returns>
         public string AcquireDiscount(string discountName)
         {
+            var memberId = 1;
             //找到此優惠卷ID，且仍在效期
             var discountId = _repo.GetAll<Discount>().FirstOrDefault(d => d.DisplayName == discountName && d.EndTime<= DateTime.Now).DiscountId;
             if(discountId == 0)
             {
+                //輸入邀請好友
+                var order = _repo.GetAll<Order>().Where(o => o.MemberId == memberId);
+                if(order.Count() == 0)
+                {
+                    var displayName = discountName.Split('-')[0].ToUpper();
+                    if(discountName == "SHARE")
+                    {
+                        var shareMember = Int32.Parse(discountName.Split('-')[1]);
+
+                    }
+
+                }
+                
                 return "折扣碼錯誤，找不到優惠卷";
             }
             //判斷此會員有無領用過
-            var memberId = 1;
             var haveDiscount = _repo.GetAll<DiscountMember>().Where(dm=>dm.MemberId == memberId && dm.DiscountId == discountId);
 
             //有，傳回已領用過
@@ -53,22 +67,37 @@ namespace HolyShong.Services
                 return "優惠卷已使用";
             }
 
-            //沒有，加入資料庫(DiscountMember && Discount)
-            DiscountMember discountMember = new DiscountMember()
+            using (var tran = context.Database.BeginTransaction())
             {
-                DiscountId = discountId,
-                MemberId = memberId,
-                IsUsed = false
-            };
+                try
+                {
+                    //沒有，加入資料庫(DiscountMember && Discount)
+                    DiscountMember discountMember = new DiscountMember()
+                    {
+                        DiscountId = discountId,
+                        MemberId = memberId,
+                        IsUsed = false
+                    };
 
-            //Discount 要減一
-            var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == discountId);
-            discount.UseLimit -= 1;
-            _repo.Update(discount);
-            _repo.Create(discountMember);
-            _repo.SaveChange();
+                    //Discount 確認還有沒有額度，沒有要減一
+                    var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == discountId);
+                    if(discount.UseLimit != null && discount.UseLimit > 0)
+                    {
+                        discount.UseLimit -= 1;
+                        _repo.Update(discount);
+                    }
+                    _repo.Create(discountMember);
+                    _repo.SaveChange();
+                    tran.Commit();
 
-            return "完成新增";
+                    return "完成新增";
+                }
+                catch(Exception ex)
+                {
+                    tran.Rollback();
+                    return ex.ToString();
+                }
+            }
 
         }
 
