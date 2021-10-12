@@ -66,10 +66,11 @@ namespace HolyShong.Services
             result.todayOpening = todayOpening.ToString(@"hh\:mm");//去秒數
 
             //專區
+            List<ProductArea> ProductArea = new List<ProductArea>();
+            List<ProductCard> Products = new List<ProductCard>();
+            var productCategories = _repo.GetAll<ProductCategory>().Where((x) => x.StoreId == store.StoreId);
+            var products = _repo.GetAll<Product>().Where(x => productCategories.Select(y => y.ProductCategoryId).Contains(x.ProductCategoryId)).GroupBy(x => x.ProductCategoryId);
             
-
-
-
 
 
 
@@ -86,7 +87,7 @@ namespace HolyShong.Services
 
             //var products = _repo.GetAll<Product>().Where(x => productCategories.Select(y => y.ProductCategoryId).Contains(x.ProductCategoryId)).GroupBy(x => x.ProductCategoryId);
 
-        
+
 
 
             //foreach (var item in products)
@@ -118,6 +119,7 @@ namespace HolyShong.Services
 
             return result;
         }
+        
         public string convertToChinese(string week)
         {
             string chinese = week.ToString().Replace("1", "一").Replace("2", "二").Replace("3", "三")
