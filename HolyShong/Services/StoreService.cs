@@ -13,10 +13,14 @@ namespace HolyShong.Services
         //初始
         private readonly HolyShongRepository _storecategoryRespository;
         private readonly HolyShongRepository _storeRespository;
+        private readonly HolyShongRepository _productRespository;
+
         public StoreService()
         {
             _storecategoryRespository = new HolyShongRepository();
             _storeRespository = new HolyShongRepository();
+            _productRespository = new HolyShongRepository();
+
         }
         //店家卡片
 
@@ -25,7 +29,6 @@ namespace HolyShong.Services
             var result = new HomeViewModel
             {
                 StoreCardBlocks = new List<StoreCardBlock>()
-
             };
 
 
@@ -116,5 +119,77 @@ namespace HolyShong.Services
             return result;
         }
 
+        public SubCategorySearchViewModel GetAllStoresOrderByPrice()
+        {
+            var result = new SubCategorySearchViewModel
+            {
+                StoreCards = new List<StoreCard>()
+            };
+
+            //1.找出所有商店(不用做)
+            var stores = _storeRespository.GetAll<Store>().ToList();
+            //2.找出所有商店下面的所有產品
+            var products = _storeRespository.GetAll<Product>().ToList();
+            //3.依商店類別將店家分類後再全部取出
+            foreach (var item in products)
+            {
+                //這個類別的商店全部挑出來
+                var temp = products.Where(x =>x.);
+                //存成StoreCards
+                var cards = new List<StoreCard>();
+                foreach (var store in temp)
+                {
+                    var card = new StoreCard
+                    {
+                        StoreId = store.StoreId,
+                        StoreImg = store.Img,
+                        StoreName = store.Name
+                    };
+                    cards.Add(card);
+                }
+                var block = new StoreCardBlock
+                {
+                    StoreCategoryId = item.StoreCategoryId,
+                    StoreCategoryImg = item.Img,
+                    StoreCategoryName = item.Name,
+                    StoreCards = cards
+                };
+                result.stores.Add(block);
+            }
+            return result;
+
+
+            //var result = new SubCategorySearchViewModel
+            //{
+            //    StoreCards = new List<StoreCard>()
+            //};
+
+            ////找出每間商店所有產品的平均價格
+            //var products = _productRespository.GetAll<Product>();//
+            //decimal storeTotalPrice = 0;
+            //foreach(var item in products)
+            //{
+            //    storeTotalPrice += item.UnitPrice;
+            //}
+            //decimal  storePrice = storeTotalPrice;
+
+
+            //var stores = _storeRespository.GetAll<Store>();
+            //var cards = new List<StoreCard>();
+            //foreach (var item in stores)
+            //{
+            //    var temp = new StoreCard()
+            //    {
+            //        StoreId = item.StoreId,
+            //        StoreImg = item.Img,
+            //        StoreName = item.Name
+            //    };
+            //    cards.Add(temp);
+            //}
+            //result.StoreCards = cards;
+            //return result;
+        }
+
+  
     }
 }

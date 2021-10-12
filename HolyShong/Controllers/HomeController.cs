@@ -22,7 +22,7 @@ namespace HolyShong.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Index()//首頁
         {
             var result = new HomeViewModel()
             {
@@ -36,7 +36,7 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public ActionResult StoreCategorySearch(int? id)
+        public ActionResult StoreCategorySearch(int? id)//主分類搜尋
         {
             if (!id.HasValue)
             {
@@ -46,7 +46,7 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public ActionResult NoSearch()
+        public ActionResult NoSearch()//搜尋不到頁面
         {
             return View();
         }
@@ -58,14 +58,19 @@ namespace HolyShong.Controllers
         //}
 
         //[HttpPost]
-        public ActionResult Search(string keyword)
+        public ActionResult Search(string keyword)//搜尋頁面
         {
             var result = _storeService.GetAllStoresByKeyword(keyword);
             //轉換其它頁面
             return View(result);
         }
 
-
+        public ActionResult SubCategorySearchByPrice()//副分類搜尋頁面
+        {
+            //var result = _storeService.GetAllStoresByKeyword();
+            //轉換其它頁面
+            return View();
+        }
 
     }
 }
