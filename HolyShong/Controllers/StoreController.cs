@@ -10,10 +10,11 @@ namespace HolyShong.Controllers
     public class StoreController : Controller
     {
         private readonly RestaurantService _restaurantService;
+        private readonly ProductService _productService;
         public StoreController()
         {
             _restaurantService = new RestaurantService();
-
+            _productService = new ProductService();     
         }
         // GET: Store
         public ActionResult Index()
@@ -55,6 +56,23 @@ namespace HolyShong.Controllers
             return View(result);
 
         }
+        //測試
+        public ActionResult RestaurantTEST(int? storeid)
+        {
+            if (!storeid.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result =_productService.GetAllProductsByStoreId(storeid.Value);
+            //if (result.StoreName == null)
+            //{
+            //    return RedirectToAction("NoSearch", "Home");
+            //}
+            return View(result);
+
+        }
+
+
         public ActionResult Marketing()
         {
             return View();
