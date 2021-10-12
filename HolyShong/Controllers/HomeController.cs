@@ -51,6 +51,7 @@ namespace HolyShong.Controllers
             return View();
         }
 
+        //test
         //[HttpGet]
         //public ActionResult Search()
         //{
