@@ -22,8 +22,9 @@ namespace HolyShong.Services
         /// 結帳時使用優惠模組
         /// </summary>
         /// <returns></returns>
-        public decimal UseDiscount()
+        public decimal UseDiscount(string discountName)
         {
+
             //有領用此優惠模組，核對1. 有無使用過 2.條件是否吻合 並使用
 
             //無領用，先領用，在核對以上條件
