@@ -221,6 +221,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\BecomeVipService.cs" />
+    <Compile Include="Services\ECPayService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MemberIdService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
