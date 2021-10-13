@@ -1,8 +1,19 @@
-﻿@model HolyShong.ViewModels.HolyCartViewModel 
-    @using HolyShong.Services;
-@{ 
+﻿@model HolyShong.ViewModels.HolyCartViewModel
+@using HolyShong.Services;
+
+@{
+
     var cartServices = new CartService();
-    var holyCartViewmodel = cartServices.GetCartByMemberId(1);
+    var holyCartViewModel = cartServices.GetCartByMemberId(1);
+
+    int count = 0;
+    if (Session["HolyCartViewModel"] != null)
+    {
+        List<Cart> holyCartVM = (List<Cart>)Session["holyCartViewModel"];
+        count = ((List<Cart>)Session["holyCartViewModel"]).Count;
+
+    }
+
 
 }
 
@@ -10,7 +21,7 @@
 <div class="cart-content">
     <div class="modal-header">
         <button type="button">x</button>
-        <h5 class="modal-title m-auto">@holyCartViewmodel.StoreName</h5>
+        <h5 class="modal-title m-auto">@holyCartViewModel.StoreName</h5>
     </div>
     <div class="modal-body">
         <div class="groupOrderDiv modal-footer footer mb-1 border-0">
@@ -19,62 +30,88 @@
                 <i class="fas fa-user-plus mx-1"></i><span>團購訂單</span>
             </button>
         </div>
-     @foreach (var item in holyCartViewmodel.CartItems)
-     {
-         <div class="selectList d-flex ml-3">
-            <div class="d-flex">
-                <div class="selectDiv d-flex">
-                    <select name="" id="remove">
-                        @*@Html.DropDownList("Count", new SelectList(new[] {1,2,3,4,5}))*@
-                        <option value="">移除</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+        @foreach (var item in holyCartViewModel.CartItems)
+        {
+            <div class="selectList d-flex ml-3">
+                <div class="d-flex">
+                    <div class="selectDiv d-flex">
+                        <select name="" id="remove">
+                            @Html.DropDownList("Count")
+                            @*<option value="">移除</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>*@
+                        </select>
+                    </div>
+                    <div>
+                        <button class="orderContentDiv btn" data-toggle="modal"
+                                data-target="#storeModal">
+                            <span class="mt-1">@item.ProductName</span><br>
+                            @foreach (var detail in item.ProductOptionCards)
+                            {
+                                <span>
+                                    @detail.ProductOptionName
+                                    @detail.ProductOptionDetail <br>
+                                    @detail.addPrice
+                                </span>
+                                
+                            }
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button class="orderContentDiv btn" data-toggle="modal"
-                            data-target="#storeModal">
-                        <span class="mt-1">@item.ProductName</span><br>
-                        @foreach (var detail in item.ProductOptionCards)
-                        {
-                        <span>
-                            @detail.ProductOptionName 
-                            @detail.ProductOptionDetail <br>
-                            @detail.addPrice
-                        </span>
-                        }
-                    </button>
+                <div id="firstPrice">
+                    @item.TotalPrice
                 </div>
             </div>
-            <div id="firstPrice">
-                @item.TotalPrice
+
+
+            <div class="otherItems">
+                <label for="checkbox" class="w-100">
+                    <div>索取餐具、吸管等用品</div>
+                </label>
+                <input name="Terms" type="checkbox" id="checkbox" style="zoom:180%">
             </div>
-         </div>
-
-
-        <div class="otherItems">
-            <label for="checkbox" class="w-100">
-                <div>索取餐具、吸管等用品</div>
-            </label>
-            <input name="Terms" type="checkbox" id="checkbox" style="zoom:180%">
-        </div>
-        <div class="plasticBag mt-2">
-            <label for="checkbox2" class="w-100">
-                <div>索取袋子</div>
-            </label>
-            <input type="checkbox" id="checkbox2" style="zoom:180%">
-        </div>
-        <div class="previewOrderDiv">
-            <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
-                <span class="previewOrderSpan">前往結帳 • @item.TotalPrice</span>
-            </button>
-        </div>
-     }
+            <div class="plasticBag mt-2">
+                <label for="checkbox2" class="w-100">
+                    <div>索取袋子</div>
+                </label>
+                <input type="checkbox" id="checkbox2" style="zoom:180%">
+            </div>
+            <div class="previewOrderDiv">
+                <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
+                    <span class="previewOrderSpan">前往結帳 • @item.TotalPrice</span>
+                </button>
+            </div>
+        }
     </div>
-      
-    
 </div>
 
-                   
-                
+@section endJS
+{   
+    <script>
+
+        function cartValue() {
+
+            let cartId = $("#CartId").text();
+            let storeName = $("#StoreName").text();
+            let cartItems = $("#CartItems").text();
+            let count = $("#Count option:selected ").text();
+
+            $.ajax({
+                type: "POST",
+                url: "/Member/AddToHolyCar",
+                data: { CartId: cartId, StoreName: storeName, CartItems: cartItems, count: count },
+                dataType: "text",
+                success: function (response) {
+                    alert(response);
+                    $("holyCart").html(msg);
+                }
+            })
+
+
+        }
+
+    </script>
+}
+
+

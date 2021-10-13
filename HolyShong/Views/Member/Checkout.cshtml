@@ -2,7 +2,7 @@
 @using HolyShong.Services;
 @{
     var cartServices = new CartService();
-    var holyCartViewmodel = cartServices.GetCartByMemberId(1);
+    var holyCartViewModel = cartServices.GetCartByMemberId(1);
 
 }
 
@@ -10,7 +10,7 @@
 <div class="container-fluid container-sm ">
     <div class="row align-items-start">
         <div class="col-lg-6 col-sm-12 left">
-            <h1 class="my-3">@holyCartViewmodel.StoreName</h1>
+            <h1 class="my-3">@holyCartViewModel.StoreName</h1>
             <div class="mapDiv">
                 <div id=map class="mb-3">
                     map
@@ -23,7 +23,7 @@
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="mx-3 flex-grow-1">
-                    <span>@holyCartViewmodel.Address</span><br>
+                    <span>@holyCartViewModel.Address</span><br>
                     <span></span>
                 </div>
                 <div>
@@ -173,7 +173,7 @@
                 </div>
             </div>
 
-            @foreach (var item in holyCartViewmodel.CartItems)
+            @foreach (var item in holyCartViewModel.CartItems)
             {
                 <div class="d-flex orderContent mt-3">
                     <div class="d-flex">
@@ -230,7 +230,7 @@
                 <div class="save">
                     <p>您可透過 $0 外送費省下費用，此獎勵將於 Sep 22到期</p>
                 </div>
-                @foreach (var item in holyCartViewmodel.CartItems)
+                @foreach (var item in holyCartViewModel.CartItems)
                 {
                     <div>
                         <ul class="border-bottom">
@@ -282,7 +282,7 @@
                         <img src="https://picsum.photos/600/600/?random=1">
                     </div>
                 </div>
-                @foreach (var item in holyCartViewmodel.CartItems)
+                @foreach (var item in holyCartViewModel.CartItems)
                 {
                     <div class="cardWrap d-flex flex-column">
                         <div class="scroll">

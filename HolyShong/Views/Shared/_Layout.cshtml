@@ -4,6 +4,13 @@
     var cartServices = new CartService();
     var holyCartViewmodel = cartServices.GetCartByMemberId(1);
 
+    int count = 0; 
+    if(Session["HolyCartViewModel"] != null)
+    { 
+        List<Cart> holyCartViewModel = (List<Cart>)Session["holyCartViewModel"];
+        count = ((List<Cart>)Session["holyCartViewModel"]).Count;
+
+    }
 }
 
 <!DOCTYPE html>
@@ -67,7 +74,7 @@
                     <span class="d-none d-lg-block">購物車 ●</span><span>@holyCartViewmodel.Count</span>
                 </label>
                 <div class="cartList">
-                    <div class="list">
+                    <div id="holyCart" class="list">
                         <!-- <div class="noneList">
                   <i class="fas fa-shopping-cart mb-3"></i>
                   <br>
