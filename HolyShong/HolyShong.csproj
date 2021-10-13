@@ -356,6 +356,9 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\StoreCategoryService.cs" />
     <Compile Include="Services\StoreService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\RestaurantService.cs" />
+    <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
@@ -463,6 +466,7 @@
     <Content Include="Views\Home\SubCategorySearchByPrice.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Store\RestaurantTEST.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
