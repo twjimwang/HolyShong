@@ -10,77 +10,110 @@ namespace HolyShong.Services
 {
     public class ProductService
     {
-        //初始
-        private readonly HolyShongRepository _storecategoryRespository;
-        private readonly HolyShongRepository _storeRespository;
-        private readonly HolyShongRepository _productcategoryRespository;
-        private readonly HolyShongRepository _productRespository;
+       private readonly HolyShongRepository _repo;
+       public ProductService()
+       {
+            _repo = new HolyShongRepository();
+       }
 
-        public ProductService()
+        public RestaurantViewModel1 GetStore(int storeId)
         {
-            _storecategoryRespository = new HolyShongRepository();
-            _storeRespository = new HolyShongRepository();
-            _productcategoryRespository = new HolyShongRepository();
-            _productRespository = new HolyShongRepository();
-        }
-        //店家卡片
+            #region
+            //var result = new RestaurantViewModel1()
+            //{
+            //    StoreProductCategories = new List<StoreProductCategory>()
+            //    {
+            //        new StoreProductCategory()
+            //        {
+            //            StoreProducts = new List<StoreProduct>()
+            //            {
+            //                new StoreProduct()
+            //                {
+            //                    StoreProductOptions = new List<StoreProductOption>()
+            //                    {
+            //                        new StoreProductOption()
+            //                        {
+            //                            ProductOptionDetails = new List<StoreProductOptionDetail>()
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //};
+            #endregion
+            var result = new RestaurantViewModel1();
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == storeId);
+            var storeCategory = _repo.GetAll<StoreCategory>().FirstOrDefault(sc => sc.StoreCategoryId == store.StoreCategoryId);
 
-        public RestaurantViewModel GetAllProductsByStoreId(int? storeid)
-        {
-            var result = new RestaurantViewModel
+
+            result.StoreName = store.Name;
+            result.StoreImg = store.Img;          
+            result.StoreAddress = store.Address;
+            result.StoreCategoryName = storeCategory.Name;
+            result.StoreProductCategories = new List<StoreProductCategory>();
+            result.SupplyTimes = new List<SupplyTime>();
+
+            //var supplyTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId).GroupBy(bh => bh.WeekDay).Select(bh=>bh.Key);
+            //var sTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId);
+            //foreach(var st in supplyTimes)
+            //{
+            //    new SupplyTime()
+            //    {
+            //        WeekDay=st,
+            //        OpenTime = sTimes.Where(s=>s.WeekDay==st)
+            //    }
+            //}
+
+            var productCategories = _repo.GetAll<ProductCategory>().Where(pc => pc.StoreId == store.StoreId);
+            var products = _repo.GetAll<Product>().Where(p => productCategories.Select(pc => pc.ProductCategoryId).Contains(p.ProductCategoryId));
+            var productOption = _repo.GetAll<ProductOption>().Where(po => products.Select(p => p.ProductId).Contains(po.ProductId));
+            var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId));
+            //錨點區塊
+            foreach(var pc in productCategories)
             {
-                ProductAreas = new List<ProductArea>()
-            };
-
-
-            //1.找出所有產品類別(不用做)
-            var productcategories = _productcategoryRespository.GetAll<ProductCategory>().Where(x => x.StoreId == storeid).ToList();
-            //2.找出所有類別下面的所有產品
-            var products = _productRespository.GetAll<Product>().ToList();
-            //3.依產品類別將產品分類後再全部取出
-            foreach (var item in productcategories)
-            {
-                //這個產品類別(ProductsCategory)的產品(Product)全部挑出來
-                var temp = products.Where(x => x.ProductCategoryId == item.ProductCategoryId);
-                //存成ProductCards
-                var cards = new List<ProductCard>();
-
-
-                foreach (var product in temp)
+                var pcTemp = new StoreProductCategory()
                 {
-                    var card = new ProductCard
-                    {
-                        ProductName = product.Name,
-                        Img = product.Img,
-                        UnitPrice = product.UnitPrice,
-                        Description = product.Description
-                        //StoreId = store.StoreId,
-                        //StoreImg = store.Img,
-                        //StoreName = store.Name
-                    };
-                    cards.Add(card);
-                }
-                var area = new ProductArea
-                {
-                    ProductCategoryName = item.Name,
-                    ProductCards = cards
+                    StoreProductCategoryName = pc.Name,
+                    StoreProducts = new List<StoreProduct>()
 
-                    //StoreCategoryId = item.StoreCategoryId,
-                    //StoreCategoryImg = item.Img,
-                    //StoreCategoryName = item.Name,
-                    //StoreCards = cards
                 };
-                result.ProductAreas.Add(area);
+                foreach (var p in products)
+                {
+                    var pTemp = new StoreProduct()
+                    {
+                        ProductId = p.ProductId,
+                        ProductName = p.Name,
+                        ProductDescription = p.Description,
+                        UnitPrice = p.UnitPrice,
+                        ProductImg = p.Img,
+                        StoreProductOptions = new List<StoreProductOption>()
+                    };
+                    foreach (var po in productOption)
+                    {
+                        var poTemp = new StoreProductOption()
+                        {
+                            ProductOptionName = po.Name,
+                            ProductOptionDetails = new List<StoreProductOptionDetail>()
+                        };
+
+                        foreach(var pod in productOptionDetail)
+                        {
+                            var podTemp = new StoreProductOptionDetail()
+                            {
+                                StoreProductOptioinDetailName = pod.Name
+                            };
+                            poTemp.ProductOptionDetails.Add(podTemp);
+                        }
+                        pTemp.StoreProductOptions.Add(poTemp);
+                    }
+                   pcTemp.StoreProducts.Add(pTemp);
+                }
+                result.StoreProductCategories.Add(pcTemp);
             }
+
+
             return result;
         }
-
-
-
-
-
-
-
-
     }
 }

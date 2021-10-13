@@ -48,7 +48,8 @@ namespace HolyShong.Controllers
             {
                 return RedirectToAction("NoSearch", "Home");
             }
-            var result = _restaurantService.GetRestaurant(id);
+            //var result = _restaurantService.GetRestaurant(id);
+            var result = _productService.GetStore(id.Value);
             if (result.StoreName == null)
             {
                 return RedirectToAction("NoSearch", "Home");
@@ -57,20 +58,20 @@ namespace HolyShong.Controllers
 
         }
         //測試
-        public ActionResult RestaurantTEST(int? storeid)
-        {
-            if (!storeid.HasValue)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var result =_productService.GetAllProductsByStoreId(storeid.Value);
-            //if (result.StoreName == null)
-            //{
-            //    return RedirectToAction("NoSearch", "Home");
-            //}
-            return View(result);
+        //public ActionResult RestaurantTEST(int? storeid)
+        //{
+        //    if (!storeid.HasValue)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    var result =_productService.GetAllProductsByStoreId(storeid.Value);
+        //    //if (result.StoreName == null)
+        //    //{
+        //    //    return RedirectToAction("NoSearch", "Home");
+        //    //}
+        //    return View(result);
 
-        }
+        //}
 
 
         public ActionResult Marketing()

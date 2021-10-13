@@ -226,6 +226,7 @@
     <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RestaurantViewModel.cs" />
+    <Compile Include="ViewModels\RestaurantViewModel1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />

@@ -1,4 +1,5 @@
-﻿@model RestaurantViewModel
+﻿@model RestaurantViewModel1
+
 <!-- top -->
 <div class="topTitle container-fluid">
     <div class="discount row">
@@ -12,7 +13,7 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carouselInner">
             <div class="carouselItem active">
-                <img class="d-block" src="@Model.StorePicture" alt="First slide">
+                <img class="d-block" src="@Model.StoreImg" alt="First slide">
             </div>
         </div>
     </div>
@@ -20,7 +21,7 @@
         <div class="text">
             <h1>@Model.StoreName</h1>
             <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-            •<span class="starScore">@Model.Score</span><span class="comment">(21)</span>
+            •<span class="starScore">score</span><span class="comment">(21)</span>
         </div>
         <div class="timeHeartBtn">
             <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
@@ -44,7 +45,7 @@
                         </div>
                         <div class="timeModalHeader modal-header">
                             <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在<span class="setOpenTime">@Model.todayOpening</span>
+                                在<span class="setOpenTime">open</span>
                                 AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
                             </h3>
                         </div>
@@ -95,7 +96,7 @@
                         </span>
                     </div>
                     <div class="imgClosePic">
-                        <img src="https://picsum.photos/458/192/?random=1">
+                        <img src="@Model.StoreImg">
                     </div>
                 </div>
             </div>
@@ -124,10 +125,10 @@
 
                     <div class="textCenter">
                         營業時間:
-                        @foreach (var businessHour in Model.BusinesshourList)
+                        @*@foreach (var businessHour in Model.BusinesshourList)
                         {
-                            <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
-                        }
+                        <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
+                        }*@
 
                     </div>
 
@@ -153,7 +154,7 @@
                     <div class="star p-3">
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="textCenter"><span class="starScore">@Model.Score</span> <span class="comment">(21筆評分)</span></div>
+                    <div class="textCenter"><span class="starScore">score</span> <span class="comment">(21筆評分)</span></div>
                     <div class="space p-3"></div>
                 </div>
                 <div class="line"></div>
@@ -165,81 +166,7 @@
     </div>
 </div>
 
-<!-- storeModal -->
-<div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="storeModalContent modal-content">
-            <!-- <div class="storeModal modal-header"> -->
-            <div class="storeModalBody modal-body">
-                <div class="imgAndClose">
-                    <div type="button" data-dismiss="modal">
-                        <span aria-hidden="true">
-                            <i class="far fa-times-circle fa-3x"></i>
-                        </span>
-                    </div>
-                    <div class="imgAndClosePic">
-                        <img src="https://picsum.photos/600/600/?random=1">
-                    </div>
-                </div>
 
-                <div class="cardWrap d-flex flex-column">
-                    <div class="scroll">
-                        <div class="topWrap">
-                            <div class="food p-4">
-                                <h2>蕃茄迷你鍋</h2>
-                                <p>附白飯一碗。恕無客製化醬料，敬請見諒。</p>
-                            </div>
-                            <div class="selectedBgc p-4">
-                                <div class="selected d-flex justify-content-between align-items-center">
-                                    <div class="selectWrap">
-                                        <div class="selectedTitle">辣選擇</div>
-                                        <div class="selectedTxt">
-                                            <span>最多可選擇 1 個項目</span>
-                                        </div>
-                                    </div>
-                                    <div class="circleIconDiv">
-                                        <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkboxDiv d-flex align-items-center p-4">
-                                <label>
-                                    <input id="checkbox" type="checkbox">加辣
-                                </label>
-                            </div>
-                        </div>
-                        <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
-                        <div class="billTxt">
-                            <p>
-                                [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
-                                (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
-                            </p>
-                        </div>
-                        <div class="addItemBgC">
-                            <div class="addGroup wrap justify-content-around">
-                                <div class="quantityAddWrap d-flex">
-                                    <i class="fas fa-minus-circle fa-2x"></i>
-                                    <div class="quantity" style="font-size: 20px;">1</div>
-                                    <i class="fas fa-plus-circle fa-2x"></i>
-                                </div>
-                                <div class="addToCartWrap">
-                                    <button type="button" class="btn btn-lg btn-dark active">
-                                        <span class="addToCart">
-                                            新增 1 項商品至訂單
-                                        </span>
-                                        <span class="price">
-                                            $195.00
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- navbar -->
 <div class="container position-relative">
@@ -247,479 +174,344 @@
         <div class="col-12">
             <div class="navbar">
                 @*@foreach (var ProductCategory in Model.ProductAreaList)
-                {
-                <a href="#title_@ProductCategory.Sort">@</a>
+                    {
+                    <a href="#title_@ProductCategory.Sort">@</a>
 
-                }
-                    <a href="#titleOne">您專屬的推薦商品</a>
-                    <a href="#titleTwo">人氣精選</a>
-                    <a href="#titleThree">主食</a>
-                    <a href="#titleFour">單點</a>
-                    <a href="#titleTwo">人氣精選</a>
-                    <a href="#titleThree">主食</a>
-                    <a href="#titleFour">單點</a>*@
+                    }
+                        <a href="#titleOne">您專屬的推薦商品</a>
+                        <a href="#titleTwo">人氣精選</a>
+                        <a href="#titleThree">主食</a>
+                        <a href="#titleFour">單點</a>
+                        <a href="#titleTwo">人氣精選</a>
+                        <a href="#titleThree">主食</a>
+                        <a href="#titleFour">單點</a>*@
             </div>
         </div>
     </div>
-    <!-- 您專屬的推薦商品 -->
-    <div class="title row">
-        <div class="col-12">
-            <div class="txt" id="title_1">您專屬的推薦商品</div>
-        </div>
-    </div>
-    @*<div class="itemGroup row d-flex ">
-        @foreach (var Product in Model.ProductAreaList)
-        {
-            <div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
-                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
-                    <div class="itemGroupPic">
-                        <img src="@Product.ProductArea" class="card-img-top"
-                             alt="...">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@Product.Name<br>@Product.Description</p>$@Product.UnitPrice
-                    </div>
-                </div>
-            </div>
-        }*@
 
-        @*<div class="col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#storeModal">
-                <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
-                    <div class="itemGroupPic">
-                        <img src="@Model.ProductImg" class="card-img-top"
-                             alt="...">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
-                    </div>
-                </div>
-            </div>*@
-        @*<tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            </tr>*@
+    @foreach (var storeProductCategory in Model.StoreProductCategories)
+    {
+        <!-- 丼飯 -->
+        <div class="title row">
+            <div class="col-12">
+                <div class="txt" id="title_2">@storeProductCategory.StoreProductCategoryName</div>
+            </div>
+        </div>
 
-        @*<div class="col-12 col-lg-12 col-xl-4">
-                <div class="card d-flex flex-row-reverse">
-                    <div class="itemGroupPic">
-                        <img src="@Model.ProductImg" class="card-img-top"
-                             alt="...">
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@Model.ProductName<br>@Model.Description</p>@Model.UnitPrice
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-12 col-xl-4">
-                <div class="card d-flex flex-row-reverse">
-                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">蔥蔥雞</p>
+        <div class="itemGroup row d-flex">
+            @foreach (var storeProduct in storeProductCategory.StoreProducts)
+            {
+                <div class="cardProduct col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#aa_@storeProduct.ProductId">
+                    <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                        @if(storeProduct.ProductImg != null)
+                        {
+                            <div class="itemGroupPic">
+                                <img src="@storeProduct.ProductImg" class="card-img-top" alt="...">
+                            </div>
+                        }
+                        <div class="card-body">
+                            <p class="card-text">@storeProduct.ProductName<br><span class="description">@storeProduct.ProductDescription</span></p>$@storeProduct.UnitPrice
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-12 col-xl-4">
-                <div class="card d-flex flex-row-reverse">
-                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">蔥蔥雞</p>
+
+
+                    <!-- storeModal -->
+                    <div class="modal fade" id="aa_@storeProduct.ProductId" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="storeModalContent modal-content">
+                                <!-- <div class="storeModal modal-header"> -->
+                                <div class="storeModalBody modal-body">
+                                    @if (storeProduct.ProductImg != null)
+                                    {
+                                        <div class="imgAndClose">
+                                            <div class="imgAndClosePic">
+                                                <img src="@storeProduct.ProductImg">
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="cardWrap d-flex flex-column">
+                                        <div class="scroll">
+                                            <div type="button" data-dismiss="modal">
+                                                <span class="crosses" aria-hidden="true">
+                                                    <i class="far fa-times-circle fa-3x"></i>
+                                                </span>
+                                            </div>
+                                            <div class="topWrap">
+                                                <div class="food p-4">
+                                                    <h2>@storeProduct.ProductName</h2>
+                                                    <p>@storeProduct.ProductDescription</p>
+                                                </div>
+
+
+                                                @foreach (var storeProductOption in storeProduct.StoreProductOptions)
+                                                {
+                                                    <div class="selectedBgc p-4">
+                                                        <div class="selected d-flex justify-content-between align-items-center">
+                                                            <div class="selectWrap">
+                                                                <div class="selectedTitle">@storeProductOption.ProductOptionName</div>
+                                                                <div class="selectedTxt">
+                                                                    <span>最多可選擇 1 個項目</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="circleIconDiv">
+                                                                <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    foreach (var detail in storeProductOption.ProductOptionDetails)
+                                                    {
+                                                        <div class="checkboxDiv d-flex align-items-center p-4">
+                                                            <label>
+                                                                <input id="checkbox" type="radio">@detail.StoreProductOptioinDetailName
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
+                                            <div class="billTxt">
+                                                <p>
+                                                    [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
+                                                    (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
+                                                </p>
+                                            </div>
+                                            <div class="addItemBgC">
+                                                <div class="addGroup wrap justify-content-around">
+                                                    <div class="quantityAddWrap d-flex">
+                                                        <i class="fas fa-minus-circle fa-2x"></i>
+                                                        <div class="quantity" style="font-size: 20px;">1</div>
+                                                        <i class="fas fa-plus-circle fa-2x"></i>
+                                                    </div>
+                                                    <div class="addToCartWrap">
+                                                        <button type="button" class="btn btn-lg btn-dark active">
+                                                            <span class="addToCart">
+                                                                新增 1 項商品至訂單
+                                                            </span>
+                                                            <span class="price">
+                                                                $195.00
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-12 col-xl-4">
-                <div class="card d-flex flex-row-reverse">
-                    <img src="https://picsum.photos/100/100/?random=1" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">蔥蔥雞</p>
-                    </div>
-                </div>
-            </div>*@
+             }
+        </div>
+    }
     </div>
-    <!-- 人氣精選 -->
-    <div class="title row">
-        <div class="col-12">
-            <div class="txt" id="title_2">人氣精選</div>
-        </div>
-    </div>
-    <div class="itemGroup row d-flex">
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞便當<br>附一杯飲料。</p>$140.00
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 主食 -->
-    <div class="title row">
-        <div class="col-12">
-            <div class="txt" id="title_3">主食</div>
-        </div>
-    </div>
-    <div class="itemGroup row d-flex">
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞便當<br>附一杯飲料。</p>$140.00
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 單點 -->
-    <div class="title row">
-        <div class="col-12">
-            <div class="txt" id="title_4">單點</div>
-        </div>
-    </div>
-    <div class="itemGroup row d-flex">
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞便當<br>附一杯飲料。</p>$140.00
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">蔥蔥雞</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4">
-            <div class="card d-flex flex-row-reverse">
-                <div class="itemGroupPic">
-                    <img src="https://picsum.photos/300/300/?random=1" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <p class="card-text">菌菇拌雞胸肉便當<br>附 1 杯飲料。小辣</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
 @section topCSS{
     <style>
-                /* top */
-                .container {
-                    max-width: 1920px;
-                }
+        /* top */
+        .container {
+            max-width: 1920px;
+        }
 
-                html {
-                    scroll-behavior: smooth;
-                }
+        html {
+            scroll-behavior: smooth;
+        }
 
-                .layout {
-                    background-color: red;
-                    height: 96px;
-                }
+        .layout {
+            background-color: red;
+            height: 96px;
+        }
 
-                .topTitle {
-                    background-color: rgb(238, 247, 237);
-                    width: 100%;
-                    text-align: center;
-                    z-index: 2;
-                    position: sticky;
-                    top: 0;
-                }
+        .topTitle {
+            background-color: rgb(238, 247, 237);
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            position: sticky;
+            top: 0;
+        }
 
-                .discount {
-                    width: 100%;
-                    margin: auto;
-                }
+        .discount {
+            width: 100%;
+            margin: auto;
+        }
 
-                .topTitle a {
-                    color: green;
-                    padding: 10px 0;
-                    display: inline-block;
-                    text-decoration: none;
-                }
+        .topTitle a {
+            color: green;
+            padding: 10px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
 
-                /* banner */
-                .banner {
-                    width: 100%;
-                    position: relative;
-                }
+        /* banner */
+        .banner {
+            width: 100%;
+            position: relative;
+        }
 
-                .carouselItem {
-                    width: 100%;
-                    height: 256px;
-                }
+        .carouselItem {
+            width: 100%;
+            height: 256px;
+        }
 
-                    .carouselItem img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+            .carouselItem img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-                .bannerTxtBtn {
-                    position: relative;
-                }
+        .bannerTxtBtn {
+            position: relative;
+        }
 
-                .text {
-                    position: absolute;
-                    bottom: 0;
-                    padding: 0 0 20px 27px;
-                    color: white;
-                }
+        .text {
+            position: absolute;
+            bottom: 0;
+            padding: 0 0 20px 27px;
+            color: white;
+        }
 
-                    .text img {
-                        width: 14px;
-                        height: 14px;
-                    }
+            .text img {
+                width: 14px;
+                height: 14px;
+            }
 
-                    .text h1 {
-                        font-size: 36px;
-                        font-weight: bold;
-                    }
+            .text h1 {
+                font-size: 36px;
+                font-weight: bold;
+            }
 
-                .timeHeartBtn {
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                    padding: 0 20px 20px 0;
-                }
+        .timeHeartBtn {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 20px 20px 0;
+        }
 
-                .btn-oblong {
-                    border-radius: 30px 30px 30px 30px;
-                }
+        .btn-oblong {
+            border-radius: 30px 30px 30px 30px;
+        }
 
-                /* heart */
-                .heart .heartSolid {
-                    display: none;
-                }
+        /* heart */
+        .heart .heartSolid {
+            display: none;
+        }
 
-                .heart .heartSolid {
-                    color: white;
-                }
+        .heart .heartSolid {
+            color: white;
+        }
 
-                .heart .heartEmpty {
-                    color: white;
-                }
+        .heart .heartEmpty {
+            color: white;
+        }
 
-                .heart {
-                    cursor: pointer;
-                }
+        .heart {
+            cursor: pointer;
+        }
 
-                /* timeModal */
-                .timeModalContent {
-                    border-radius: 0;
-                }
+        /* timeModal */
+        .timeModalContent {
+            border-radius: 0;
+        }
 
-                .btnTimeClose {
-                    padding: 5px;
-                    position: absolute;
-                    top: 0px;
-                }
+        .btnTimeClose {
+            padding: 5px;
+            position: absolute;
+            top: 0px;
+        }
 
-                .modal-footer {
-                    border-top: none;
-                }
+        .modal-footer {
+            border-top: none;
+        }
 
-                .openTime {
-                    font-size: 36px;
-                    position: relative;
-                }
+        .openTime {
+            font-size: 36px;
+            position: relative;
+        }
 
-                    .openTime span {
-                        font-size: 16px;
-                    }
+            .openTime span {
+                font-size: 16px;
+            }
 
-                h3 .setOpenTime {
-                    font-size: 30px;
-                }
-                /* 下拉選單modal */
-                .formSelect {
-                    width: 100%;
-                    padding: 12px 32px 12px 16px;
-                    margin-bottom: 12px;
-                    background-color: #F6F6F6;
-                    border: none;
-                }
+        h3 .setOpenTime {
+            font-size: 30px;
+        }
+        /* 下拉選單modal */
+        .formSelect {
+            width: 100%;
+            padding: 12px 32px 12px 16px;
+            margin-bottom: 12px;
+            background-color: #F6F6F6;
+            border: none;
+        }
 
-                .selectTime button {
-                    width: 100%;
-                }
+        .selectTime button {
+            width: 100%;
+        }
 
-                /* 地址 */
-                .address {
-                    padding: 0 27px;
-                }
+        /* 地址 */
+        .address {
+            padding: 0 27px;
+        }
 
-                    .address a {
-                        color: black;
-                        text-decoration: underline;
-                    }
+            .address a {
+                color: black;
+                text-decoration: underline;
+            }
 
-                    .address p {
-                        margin-top: 1rem;
-                        margin-bottom: 0;
-                    }
+            .address p {
+                margin-top: 1rem;
+                margin-bottom: 0;
+            }
 
-                /* dataModal */
-                .dataModalHeader img {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                }
+        /* dataModal */
+        .dataModalHeader img {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
 
-                .dataModalHeader {
-                    width: 200%;
-                }
+        .dataModalHeader {
+            width: 200%;
+        }
 
-                .imgClose {
-                    position: relative;
-                    width: 100%;
-                }
+        .imgClose {
+            position: relative;
+            width: 100%;
+        }
 
-                .imgClosePic img {
-                    display: block;
-                    width: 50%;
-                }
+        .imgClosePic img {
+            display: block;
+            width: 50%;
+        }
 
-                .dataModalContent {
-                    border: none;
-                }
+        .dataModalContent {
+            border: none;
+        }
 
-                .imgClose .fa-times-circle {
-                    position: absolute;
-                    top: 10px;
-                    left: 10px;
-                    color: #fff;
-                }
+        .imgClose .fa-times-circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+        }
 
-                .line {
-                    height: 2px;
-                    border-bottom: 2px solid #e2e2e2;
-                }
+        .line {
+            height: 2px;
+            border-bottom: 2px solid #e2e2e2;
+        }
 
-                .map {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: auto;
-                    padding: 10px 0;
-                    align-items: center;
-                }
+        .map {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
 
-                /*  .time {
+        /*  .time {
                     display: flex;
                     justify-content: space-between;
                     margin: auto;
@@ -727,332 +519,357 @@
                     align-items: center;
                 }
         */
-                .joinEats {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: auto;
-                    padding: 10px 0;
-                    align-items: center;
-                }
+        .joinEats {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
 
-                    .joinEats span {
-                        color: #545454;
-                        font-size: 14px;
-                    }
+            .joinEats span {
+                color: #545454;
+                font-size: 14px;
+            }
 
-                .ticket img {
-                    width: 21px;
-                    height: 21px;
-                }
+        .ticket img {
+            width: 21px;
+            height: 21px;
+        }
 
-                .score {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: auto;
-                    padding: 10px 0;
-                    align-items: center;
-                }
+        .score {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            padding: 10px 0;
+            align-items: center;
+        }
 
-                .bill {
-                    padding-left: 20px;
-                }
+        .bill {
+            padding-left: 20px;
+        }
 
-                    .bill p {
-                        font-size: 14px;
-                        color: rgb(117, 117, 117);
-                    }
+            .bill p {
+                font-size: 14px;
+                color: rgb(117, 117, 117);
+            }
 
-                .startTime {
-                    display: flex;
-                    justify-content: space-between;
-                }
+        .startTime {
+            display: flex;
+            justify-content: space-between;
+        }
 
-                .textCenter {
-                    margin: auto;
-                }
-                /* storeModal */
-                .storeModalContent {
-                    border: none;
-                }
+        .textCenter {
+            margin: auto;
+        }
+        /* storeModal */
+        .storeModalContent {
+            border: none;
+        }
 
-                .storeModalBody {
-                    padding: 0;
-                }
+        .storeModalBody {
+            padding: 0;
+        }
 
-                .imgAndClose {
-                    position: relative;
-                }
+        .imgAndClose {
+            position: relative;
+        }
 
-                .imgAndClosePic {
+        .imgAndClosePic {
+            width: 100%;
+            height: 200px;
+        }
+
+            .imgAndClosePic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .imgAndClose .fa-times-circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+        }
+
+        .addGroup {
+            display: flex;
+            text-align: center;
+        }
+
+        .quantityAddWrap {
+            justify-content: center;
+        }
+
+        .selectedBgc {
+            background: rgb(246, 246, 246);
+        }
+
+        .addItemBgC {
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0) 2.5%, rgba(255, 255, 255, 0.92) 55.35%);
+        }
+
+            .addItemBgC i {
+                padding: 0 15px;
+            }
+
+        .addToCart {
+            text-align: center;
+        }
+
+        .price {
+            text-align: right;
+        }
+
+        .cardWrap input {
+            border: none;
+            padding: 24px;
+        }
+
+            .cardWrap input:focus-visible {
+                outline: none;
+            }
+
+        .input {
+            width: 100%;
+        }
+
+        .cardWrap {
+            height: 500px;
+            position: relative;
+        }
+
+        .billTxt {
+            background: rgb(246, 246, 246);
+            padding-bottom: 105px;
+        }
+
+            .billTxt p {
+                padding: 10px;
+            }
+
+        .scroll {
+            overflow-y: scroll;
+            height: 500px;
+            display: block;
+        }
+
+        .addGroup {
+            display: flex;
+        }
+
+        .quantityAddWrap {
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .addToCartWrap button {
+            margin: 10px;
+        }
+
+        .checkboxDiv label {
+            width: 100%;
+        }
+
+        .checkboxDiv label input {
+            margin-right: 5px;
+        }
+        .crosses {
+            position: absolute;
+            top: 10px;
+            right: 28px;
+        }
+          
+
+        /* navbar */
+        .navMove {
+            position: sticky;
+            top: 41px;
+            z-index: 4;
+        }
+
+        .navbar a {
+            color: black;
+            padding: 0 10px;
+            text-decoration: none;
+        }
+
+        .navbar {
+            justify-content: start;
+            background-color: white;
+            border-bottom: 2px solid #E2E2E2;
+            z-index: 3;
+            width: 100%;
+            height: 78px;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            line-height: 50px;
+        }
+
+        /* 您專屬的推薦商品 */
+        :target {
+            content: '';
+            display: block;
+            padding-top: 122px;
+            margin-top: -122px;
+        }
+
+        .title {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+
+        .card-body {
+            width: 50%;
+            margin:auto;
+            padding-left:17px;
+            padding:0px;
+        }
+
+        .card {
+            min-height:100px;
+            margin: 10px 0;
+        }
+
+            .card:hover {
+                border: 1px solid black;
+            }
+
+            .card .row,
+            .itemGroup {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+        .itemGroup {
+            cursor: pointer;
+        }
+
+        .itemGroupPic {
+            height: 100px;
+            width: 45%;
+        }
+            .itemGroupPic img {
+                height: 100%;
+                object-fit: cover;
+            }
+        .title .txt {
+            font-size: 23px;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 14px;
+            color:rgb(117, 117, 117);
+        }
+        /* 桌機 */
+        @@media screen and (min-width: 992px) {
+            .card img {
+                width: 88px;
+                height: 120px;
+            }
+
+            .addGroup {
+                display: flex;
+                text-align: center;
+            }
+
+            .quantityAddWrap {
+                justify-content: center;
+                margin: auto 0;
+            }
+
+            .storeModalBody {
+                display: flex;
+                width: 100%;
+            }
+
+            .imgAndClose {
+                width: 50%;
+            }
+
+            .imgAndClosePic img {
+                height: 500px;
+            }
+
+            .cardWrap {
+                width: 50%;
+            }
+
+            .itemGroupPic {
+                height:148px;
+                width: 40%;
+            }
+
+                .itemGroupPic img {
                     width: 100%;
-                    height: 200px;
+                    height: 100%;
+                    object-fit: cover;
                 }
+            .card {
+                min-height: 148px;
+            }
+            .card-body{
+                padding:1.25rem;
+            }
+        }
 
-                    .imgAndClosePic img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+        /* ipad橫直*/
+        @@media screen and (min-width: 768px) and (max-width:1024px) {
+            .itemGroup .card {
+                height: 128px;
+            }
 
-                .imgAndClose .fa-times-circle {
-                    position: absolute;
-                    top: 10px;
-                    left: 10px;
-                    color: #fff;
-                }
+            .navMove {
+                position: sticky;
+                top: 39px;
+                z-index: 4;
+            }
 
-                .addGroup {
-                    display: flex;
-                    text-align: center;
-                }
+            .itemGroupPic {
+                width: 22%;
+            }
 
-                .quantityAddWrap {
-                    justify-content: center;
-                }
+            :target {
+                content: '';
+                display: block;
+                padding-top: 122px;
+                margin-top: -122px;
+            }
 
-                .selectedBgc {
-                    background: rgb(246, 246, 246);
-                }
+            .itemGroupPic {
+                width: 40%;
+            }
 
-                .addItemBgC {
-                    padding: 10px 0;
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    background: linear-gradient(rgba(255, 255, 255, 0) 2.5%, rgba(255, 255, 255, 0.92) 55.35%);
-                }
-
-                    .addItemBgC i {
-                        padding: 0 15px;
-                    }
-
-                .addToCart {
-                    text-align: center;
-                }
-
-                .price {
-                    text-align: right;
-                }
-
-                .cardWrap input {
-                    border: none;
-                    padding: 24px;
-                }
-
-                    .cardWrap input:focus-visible {
-                        outline: none;
-                    }
-
-                .input {
+                .itemGroupPic img {
                     width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                 }
+        }
+        /*平板橫*/
+        @@media screen and (min-width: 768px) and (max-width:1024px) {
+            .itemGroupPic {
+                width: 22%;
+            }
 
-                .cardWrap {
-                    height: 500px;
-                    position: relative;
-                }
-
-                .billTxt {
-                    background: rgb(246, 246, 246);
-                    padding-bottom: 105px;
-                }
-
-                    .billTxt p {
-                        padding: 10px;
-                    }
-
-                .scroll {
-                    overflow-y: scroll;
-                    height: 500px;
-                    display: block;
-                }
-
-                .addGroup {
-                    display: flex;
-                }
-
-                .quantityAddWrap {
-                    justify-content: space-between;
-                    margin: auto;
-                }
-
-                .addToCartWrap button {
-                    margin: 10px;
-                }
-
-                .checkboxDiv label {
+                .itemGroupPic img {
                     width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                 }
 
-                    .checkboxDiv label input {
-                        margin-right: 5px;
-                    }
-
-                /* navbar */
-                .navMove {
-                    position: sticky;
-                    top: 41px;
-                    z-index: 4;
-                }
-
-                .navbar a {
-                    color: black;
-                    padding: 0 10px;
-                    text-decoration: none;
-                }
-
-                .navbar {
-                    justify-content: start;
-                    background-color: white;
-                    border-bottom: 2px solid #E2E2E2;
-                    z-index: 3;
-                    width: 100%;
-                    height: 78px;
-                    display: block;
-                    overflow-x: auto;
-                    white-space: nowrap;
-                    line-height: 50px;
-                }
-
-                /* 您專屬的推薦商品 */
-                :target {
-                    content: '';
-                    display: block;
-                    padding-top: 122px;
-                    margin-top: -122px;
-                }
-
-                .title {
-                    margin-left: 0;
-                    margin-right: 0;
-                }
-
-
-                .card-body {
-                    width: 50%;
-                }
-
-                .card {
-                    margin: 10px 0;
-                }
-
-                    .card:hover {
-                        border: 1px solid black;
-                    }
-
-                    .card .row,
-                    .itemGroup {
-                        margin-left: 0;
-                        margin-right: 0;
-                    }
-
-                .itemGroup {
-                    cursor: pointer;
-                }
-
-                .itemGroupPic {
-                    width: 45%;
-                }
-
-                .title .txt {
-                    font-size: 23px;
-                    font-weight: bold;
-                }
-                /* 桌機 */
-                @@media screen and (min-width: 992px) {
-                    .card img {
-                        width: 88px;
-                        height: 120px;
-                    }
-
-                    .addGroup {
-                        display: flex;
-                        text-align: center;
-                    }
-
-                    .quantityAddWrap {
-                        justify-content: center;
-                        margin: auto 0;
-                    }
-
-                    .storeModalBody {
-                        display: flex;
-                        width: 100%;
-                    }
-
-                    .imgAndClose {
-                        width: 50%;
-                    }
-
-                    .imgAndClosePic img {
-                        height: 500px;
-                    }
-
-                    .cardWrap {
-                        width: 50%;
-                    }
-
-                    .itemGroupPic {
-                        width: 40%;
-                    }
-
-                        .itemGroupPic img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                }
-
-                /* ipad橫直*/
-                @@media screen and (min-width: 768px) and (max-width:1024px) {
-                    .itemGroup .card {
-                        height: 128px;
-                    }
-
-                    .navMove {
-                        position: sticky;
-                        top: 39px;
-                        z-index: 4;
-                    }
-
-                    .itemGroupPic {
-                        width: 22%;
-                    }
-
-                    :target {
-                        content: '';
-                        display: block;
-                        padding-top: 122px;
-                        margin-top: -122px;
-                    }
-
-                    .itemGroupPic {
-                        width: 40%;
-                    }
-
-                        .itemGroupPic img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                }
-                /*平板橫*/
-                @@media screen and (min-width: 768px) and (max-width:1024px) {
-                    .itemGroupPic {
-                        width: 22%;
-                    }
-
-                        .itemGroupPic img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-
-                    .itemGroup .card {
-                        height: 128px;
-                    }
-                }
+            .itemGroup .card {
+                height: 128px;
+            }
+        }
     </style>
 }
 

@@ -10,17 +10,31 @@ namespace HolyShong.Services
 {
     public class RestaurantService
     {
-        private readonly HolyShongRepository _repo;
+        //初始
+        private readonly HolyShongRepository _storecategoryRespository;
+        private readonly HolyShongRepository _storeRespository;
+        private readonly HolyShongRepository _productcategoryRespository;
+        private readonly HolyShongRepository _productRespository;
+        private readonly HolyShongRepository _ScoreRespository;
+        private readonly HolyShongRepository _BusinesshoursRespository;
+
         public RestaurantService()
         {
-            _repo = new HolyShongRepository();
+            _storecategoryRespository = new HolyShongRepository();
+            _storeRespository = new HolyShongRepository();
+            _productcategoryRespository = new HolyShongRepository();
+            _productRespository = new HolyShongRepository();
+            _ScoreRespository = new HolyShongRepository();
+            _BusinesshoursRespository = new HolyShongRepository();
         }
-
         public RestaurantViewModel GetRestaurant(int? id)
         {
-            RestaurantViewModel result = new RestaurantViewModel();
+            var result = new RestaurantViewModel
+            {
+                ProductAreas = new List<ProductArea>()
+            };
             //店家
-            var store = _repo.GetAll<Store>().FirstOrDefault((x) => x.StoreId == id);
+            var store = _storeRespository.GetAll<Store>().FirstOrDefault((x) => x.StoreId == id);
             if (store == null)
             {
                 return result;
@@ -32,15 +46,15 @@ namespace HolyShong.Services
             result.StoreAddress = store.Address;
 
             //商店分類
-            result.StoreCategoryName = _repo.GetAll<StoreCategory>().First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
+            result.StoreCategoryName = _storecategoryRespository.GetAll<StoreCategory>().First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
 
             //評分
-            result.Score = _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => (decimal?)x.ScorePoint) == null ? 0 : _repo.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.ScorePoint);
+            result.Score = _ScoreRespository.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => (decimal?)x.ScorePoint) == null ? 0 : _ScoreRespository.GetAll<Score>().Where(x => x.ScoreId == store.StoreId).Average(x => x.ScorePoint);
 
 
             //開店時間&營業時間
             List<Businesshour> BusinesshourList = new List<Businesshour>();
-            var businessHours = _repo.GetAll<Businesshours>().Where(x => x.StoreId == store.StoreId);
+            var businessHours = _BusinesshoursRespository.GetAll<Businesshours>().Where(x => x.StoreId == store.StoreId);
 
             DateTime dt = DateTime.Now;
             int week = dt.DayOfWeek.GetHashCode();
@@ -66,13 +80,37 @@ namespace HolyShong.Services
             result.todayOpening = todayOpening.ToString(@"hh\:mm");//去秒數
 
             //專區
-            List<ProductArea> ProductArea = new List<ProductArea>();
-            List<ProductCard> Products = new List<ProductCard>();
-            var productCategories = _repo.GetAll<ProductCategory>().Where((x) => x.StoreId == store.StoreId);
-            var products = _repo.GetAll<Product>().Where(x => productCategories.Select(y => y.ProductCategoryId).Contains(x.ProductCategoryId)).GroupBy(x => x.ProductCategoryId);
-            
+            //1.找出所有產品類別(不用做)
+            var productcategories = _productcategoryRespository.GetAll<ProductCategory>().Where(x => x.StoreId == id).ToList();
+            //2.找出所有類別下面的所有產品
+            var products = _productRespository.GetAll<Product>().ToList();
+            //3.依產品類別將產品分類後再全部取出
+            foreach (var item in productcategories)
+            {
+                //這個產品類別(ProductsCategory)的產品(Product)全部挑出來
+                var temp = products.Where(x => x.ProductCategoryId == item.ProductCategoryId);
+                //存成ProductCards
+                var cards = new List<ProductCard>();
+                foreach (var product in temp)
+                {
+                    var card = new ProductCard
+                    {
+                        ProductName = product.Name,
+                        Img = product.Img,
+                        UnitPrice = product.UnitPrice,
+                        Description = product.Description                        
+                    };
+                    cards.Add(card);
+                }
+                var area = new ProductArea
+                {
+                    ProductCategoryName = item.Name,
+                    ProductCards = cards
+                };
+                result.ProductAreas.Add(area);
+            }
 
-
+    
 
 
 
