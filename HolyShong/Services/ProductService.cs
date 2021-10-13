@@ -68,9 +68,9 @@ namespace HolyShong.Services
             var productCategories = _repo.GetAll<ProductCategory>().Where(pc => pc.StoreId == store.StoreId);
             var products = _repo.GetAll<Product>().Where(p => productCategories.Select(pc => pc.ProductCategoryId).Contains(p.ProductCategoryId));
             var productOption = _repo.GetAll<ProductOption>().Where(po => products.Select(p => p.ProductId).Contains(po.ProductId));
-            var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId));
+            var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId)).ToList();
             //錨點區塊
-            foreach(var pc in productCategories)
+            foreach(var pc in productCategories.ToList())
             {
                 var pcTemp = new StoreProductCategory()
                 {
@@ -78,7 +78,7 @@ namespace HolyShong.Services
                     StoreProducts = new List<StoreProduct>()
 
                 };
-                foreach (var p in products)
+                foreach (var p in products.ToList())
                 {
                     var pTemp = new StoreProduct()
                     {
@@ -89,7 +89,7 @@ namespace HolyShong.Services
                         ProductImg = p.Img,
                         StoreProductOptions = new List<StoreProductOption>()
                     };
-                    foreach (var po in productOption)
+                    foreach (var po in productOption.ToList())
                     {
                         var poTemp = new StoreProductOption()
                         {
@@ -97,7 +97,7 @@ namespace HolyShong.Services
                             ProductOptionDetails = new List<StoreProductOptionDetail>()
                         };
 
-                        foreach(var pod in productOptionDetail)
+                        foreach(var pod in productOptionDetail.ToList())
                         {
                             var podTemp = new StoreProductOptionDetail()
                             {

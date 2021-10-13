@@ -22,13 +22,13 @@ namespace HolyShong.Services
         /// <returns>ProductIndexViewModel</returns>
 
         //主分類提取
-        public List<ViewModels.StoreCategory> GetAllStoreCategories()
+        public List<HomeStoreCategory> GetAllStoreCategories()
         {
-            var result = new List<ViewModels.StoreCategory>();
+            var result = new List<HomeStoreCategory>();
             var storecategories = _storecategoryRespository.GetAll<Models.HolyShongModel.StoreCategory>();
             foreach (var item in storecategories)
             {
-                var temp = new ViewModels.StoreCategory();
+                var temp = new HomeStoreCategory();
                 temp.StoreCategoryId = item.StoreCategoryId;
                 temp.StoreCategoryImg = item.Img;
                 temp.StoreCategoryName = item.Name;

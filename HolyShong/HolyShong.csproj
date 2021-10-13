@@ -358,7 +358,6 @@
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\RestaurantService.cs" />
-    <Compile Include="Services\test.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
@@ -369,6 +368,8 @@
     <Compile Include="ViewModels\OrderDeliverViewModel.cs" />
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
+    <Compile Include="ViewModels\RestaurantViewModel.cs" />
+    <Compile Include="ViewModels\RestaurantViewModel1.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

@@ -9,11 +9,9 @@ namespace HolyShong.Controllers
 {
     public class StoreController : Controller
     {
-        private readonly RestaurantService _restaurantService;
         private readonly ProductService _productService;
         public StoreController()
         {
-            _restaurantService = new RestaurantService();
             _productService = new ProductService();     
         }
         // GET: Store
