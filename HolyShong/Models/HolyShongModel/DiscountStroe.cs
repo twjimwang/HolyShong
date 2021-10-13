@@ -17,7 +17,7 @@ namespace HolyShong.Models.HolyShongModel
 
         public int StoreId { get; set; }
 
-        public bool IsUsed { get; set; }
+        public int UsedNumber { get; set; }
 
         public virtual Discount Discount { get; set; }
 

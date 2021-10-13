@@ -120,7 +120,7 @@ namespace HolyShong.Services
             discountVM = _repo.GetAll<Discount>().Where(d => memberDiscounts.Select(md => md.DiscountId).Contains(d.DiscountId)).Where(md=> md.EndTime >= DateTime.Now).Select(d=> new DiscountViewModel() {
                 DiscountMemberId = memberDiscounts.FirstOrDefault(md=>md.DiscountId == d.DiscountId).DiscountMemberId,
                 DiscountName = d.DisplayName,
-                EndTime =d.EndTime
+                EndTime =d.EndTime.Value
             }).ToList();
 
             return discountVM;
