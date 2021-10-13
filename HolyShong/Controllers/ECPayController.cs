@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace HolyShong.Services
+namespace HolyShong.Controllers
 {
-    public class BecomeVipService
+    public class ECPayController : Controller
     {
-        AllInOne oPayment = new AllInOne();
-        public string BecomeVip()
+        // GET: ECPay
+        public ActionResult Index()
         {
-
-
+            AllInOne oPayment = new AllInOne();
             /* 服務參數 */
             oPayment.ServiceMethod = HttpMethod.HttpPOST;//介接服務時，呼叫 API 的方法
             oPayment.ServiceURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5";//要呼叫介接服務的網址
@@ -55,8 +55,15 @@ namespace HolyShong.Services
 
             var html = string.Empty;
             oPayment.CheckOutString(ref html);
-           
-            return html;
+            
+            ViewBag.Html = html;
+            return View();
+        }
+
+        public ActionResult returnback()
+        {
+
+            return View();
         }
     }
 }
