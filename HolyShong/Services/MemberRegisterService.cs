@@ -30,7 +30,7 @@ namespace HolyShong.Services
             //View Model -> Data Model, 並以HtmlEncode做安全性編碼
             Member account = new Member
             {
-                MemberId = 103,
+                MemberId = 105,
                 FirstName = HttpUtility.HtmlEncode(registerVM.FirstName),
                 LastName = HttpUtility.HtmlEncode(registerVM.LastName),
                 //Password = HttpUtility.HtmlEncode(registerVM.Password),
@@ -38,8 +38,10 @@ namespace HolyShong.Services
                 CreateTime = DateTime.UtcNow.AddHours(8),
                 Email = HttpUtility.HtmlEncode(registerVM.Email),
                 Cellphone = HttpUtility.HtmlEncode(registerVM.Cellphone),
-                IsEnable = true,
-                IsDelete = false
+                IsEnable = false,
+                IsDelete = false,
+                ActivetionCode = Guid.NewGuid(),
+                EffectiveTime = DateTime.UtcNow.AddHours(11)
             };
 
             bool status = false;
