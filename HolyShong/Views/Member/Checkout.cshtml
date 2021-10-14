@@ -2,8 +2,14 @@
 @using HolyShong.Services;
 @{
     var cartServices = new CartService();
-    var holyCartViewModel = cartServices.GetCartByMemberId(1);
+    var holyCartViewModel = cartServices.GetCartByMemberId(4);
 
+    //totoalprice是所有item金額的總和
+    decimal totalprice = 0;
+    foreach (var tempitem in holyCartViewModel.CartItems)
+    {
+        totalprice += tempitem.TotalPrice;
+    }
 }
 
 
@@ -178,12 +184,19 @@
                 <div class="d-flex orderContent mt-3">
                     <div class="d-flex">
                         <div class="select d-flex">
-                            <select name="" id="remove" class="my-3">
+                            @*<select name="" id="remove" class="my-3">
                                 <option value="">移除</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
-                            </select>
+                            </select>*@
+                            <div class="d-flex">
+                                <div id="minus"><i class="fas fa-minus"></i></div>
+                                <!-- <input type="text" name="" id="quantity" value="1"> -->
+                                <div id="quantity">@item.Quantity</div>
+                                <div id="plus"><i class="fas fa-plus"></i></div>
+
+                            </div>
                         </div>
                         <div>
                             <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
@@ -204,7 +217,7 @@
                             @item.UnitPrice
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div class="otherItems my-3">
                     <label class="w-100" for="oItem"><div>索取餐具、吸管等用品</div></label>
                     <input class="" id="oItem" type="checkbox" style="zoom:180%">
@@ -213,7 +226,7 @@
                     <label class="w-100" for="plastic"><div>索取袋子</div></label>
                     <input class="" id="plastic" type="checkbox" style="zoom:180%">
                 </div>
-            }
+            
         </div>
 
         <div class="col-lg-6 col-sm-12 right">
@@ -230,13 +243,12 @@
                 <div class="save">
                     <p>您可透過 $0 外送費省下費用，此獎勵將於 Sep 22到期</p>
                 </div>
-                @foreach (var item in holyCartViewModel.CartItems)
-                {
+                
                     <div>
                         <ul class="border-bottom">
                             <li class="d-flex ">
                                 <div>小計</div>
-                                <span>@item.TotalPrice</span>
+                                <span>@totalprice</span>
                             </li>
                             <li class="d-flex">
                                 <div>折扣</div>
@@ -254,11 +266,11 @@
 
                         <div class="total d-flex" id="totalPrice">
                             <div>總計</div>
-                            <div>@item.TotalPrice</div>
+                            <div>@totalprice</div>
                         </div>
                         
                     </div>
-                    }
+                    
                 </div>
         </div>
     </div>
@@ -461,7 +473,7 @@
             justify-content: space-between;
         }
 
-        .select {
+       /* .select {
             height: 38px;
             width: 90px;
             padding: 10px;
@@ -469,9 +481,9 @@
             background: rgb(238, 238, 238);
             justify-content: center;
             align-items: center;
-        }
+        }*/
 
-        select {
+       /* select {
             height: 36px;
             width: 80px;
             border-radius: 20px;
@@ -479,7 +491,7 @@
             line-height: 36px;
             padding: 0px 5px 0px 0px;
             background: rgb(238, 238, 238);
-        }
+        }*/
 
         .otherItems {
             background-color: rgb(246, 246, 246);
@@ -774,6 +786,16 @@
             justify-content: space-between;
             margin: auto;
         }
+        #quantity {
+            height: 36px;
+            width: 60px;
+            border-radius: 20px;
+            border: 0px;
+            line-height: 36px;
+            /* padding:0px 5px 0px 0px; */
+            background: rgb(238, 238, 238);
+            text-align: center;
+        }
 
         .addToCartWrap button {
             margin: 10px;
@@ -835,6 +857,29 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script>
+        function cartValue() {
+
+            let cartId = $("#CartId").text();
+            let storeName = $("#StoreName").text();
+            let cartItems = $("#CartItems").text();
+            let count = $("#Count option:selected ").text();
+
+            $.ajax({
+                type: "POST",
+                url: "/Member/AddToHolyCar",
+                data: { CartId: cartId, StoreName: storeName, CartItems: cartItems, count: count },
+                dataType: "text",
+                success: function (response) {
+                    alert(response);
+                    $("holyCart").html(msg);
+                }
+            })
+
+
+        }
+
+
+
         //下拉選單
         $('.circleIcon').on('click', function () {
 
@@ -853,6 +898,27 @@
                 $('.circleIcon').addClass('fa-chevron-circle-down');
             }
         });
+
+        let plus = document.querySelector('#plus')
+        let minus = document.querySelector('#minus')
+        let removeItem = document.querySelector('#removeItem')
+        let quantityValue = document.querySelector('#quantity').innerHTML
+        let quantity = document.querySelector('#quantity')
+
+
+        plus.addEventListener('click', function () {
+            quantity.innerHTML = quantityValue++
+
+
+        })
+
+        minus.addEventListener('click', function () {
+            quantity.innerHTML = quantityValue--
+        })
+
+
+
+
     </script>
 
 }

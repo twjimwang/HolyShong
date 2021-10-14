@@ -51,13 +51,13 @@ namespace HolyShong.Controllers
 
 
         // 找到 MemberId
-        public ActionResult FindCartMemberId(int memberId)
+        public ActionResult FindCartMemberId()
         {
            
-            if (memberId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (memberId == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             var holyCartViewModel = _cartService.GetCartByMemberId(1);
             
             if(holyCartViewModel == null)
@@ -73,21 +73,9 @@ namespace HolyShong.Controllers
                 CartItems = holyCartViewModel.CartItems,
                 Address = holyCartViewModel.Address,
 
+           };
 
 
-
-
-            };
-
-
-            // 下拉選單
-            // var cartList = new List<SelectListItem>();
-
-
-            ViewBag.Count = new SelectList(new[] { 1, 2, 3, 4, 5 });
-
-
-            //ViewBag.Count = cartList;
             return View(holyCartVM);
         }
 

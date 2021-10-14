@@ -317,10 +317,10 @@
     <Content Include="Views\Store\Restaurant.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Cart\FindCartMemberId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

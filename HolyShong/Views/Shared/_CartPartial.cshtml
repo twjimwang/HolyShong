@@ -198,7 +198,7 @@
             let cartId = $("#CartId").text();
             let storeName = $("#StoreName").text();
             let cartItems = $("#CartItems").text();
-            let count = $("#Count option:selected ").text();
+            let count = $("#Count").text();
 
             $.ajax({
                 type: "POST",
@@ -207,7 +207,7 @@
                 dataType: "text",
                 success: function (response) {
                     alert(response);
-                    $("holyCart").html(msg);
+                    $("#holyCart").text();
                 }
             })
 
