@@ -16,8 +16,9 @@ namespace HolyShong.Services
                 _repo = new HolyShongRepository();
             }
 
-            public RestaurantViewModel1 GetStore(int storeId)
-            {
+            
+           public RestaurantViewModel1 GetStore(int storeId)
+           {
                 #region
                 //var result = new RestaurantViewModel1()
                 //{
