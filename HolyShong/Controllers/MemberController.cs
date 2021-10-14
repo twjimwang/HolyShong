@@ -14,15 +14,13 @@ namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
-        private readonly MemberLoginService _memberLoginService;
-        private readonly MemberRegisterService _memberRegisterService;
+        private readonly MemberService _memberService;
         private readonly MemberProfileService _memberProfileService;
         private readonly OrderService _orderService;
 
         public MemberController()
         {
-            _memberLoginService = new MemberLoginService();
-            _memberRegisterService = new MemberRegisterService();
+            _memberService = new MemberService();
             _memberProfileService = new MemberProfileService();
             _orderService = new OrderService();
         }
@@ -139,7 +137,7 @@ namespace HolyShong.Controllers
                 return View(registerVM);
             }
 
-            bool status = _memberRegisterService.CreateAccount(registerVM);
+            bool status = _memberService.CreateAccount(registerVM);
 
             if (status)
             {
@@ -180,7 +178,7 @@ namespace HolyShong.Controllers
             //三.EF比對資料庫帳密
             //以Name及Password查詢比對Account資料表記錄
 
-            Member user = _memberLoginService.UserLogin(loginVM);
+            Member user = _memberService.UserLogin(loginVM);
             //Account user = _ctx.Accounts.Where(x => x.Name.ToUpper() == name.ToUpper() && x.Password == password).FirstOrDefault();
 
             //Account user2 = _ctx.Accounts.SingleOrDefault(x => x.Name.ToUpper() == name.ToUpper() && x.Password == password);
