@@ -1,5 +1,13 @@
 ﻿@{ 
-    var deliver = new HolyShong.Services.OrderService().GetDeliverInfo();
+    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+    string userid = "";
+    if (cookie != null)
+    {
+        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+        userid = ticket.UserData;
+    }
+    var deliver = new HolyShong.Services.OrderService().GetDeliverInfo(userid);
 }
 
 <!DOCTYPE html>

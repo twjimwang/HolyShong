@@ -36,7 +36,7 @@
             <div class="head d-flex">
                 <label for="menu-check" class="hb"><i class="fas fa-bars align-middle"></i></label>
                 <div class="logo m-auto">
-                    <a class="d-block" href="#"><img src="~/Assets/Images/logo.jpg"></a>
+                    <a class="d-block" href="~/home/index"><img src="~/Assets/Images/logo.jpg"></a>
                 </div>
             </div>
             <div class="lookup">
@@ -274,18 +274,18 @@
                 <div class="function loginShow">
                     <div class="account item" onclick="location.href='@Url.Action("UserProfile", "Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
                     <div class="order item" onclick="location.href='@Url.Action("OrderList", "Member")'"><i class="fas fa-receipt"></i>訂單</div>
-                    <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
+                    <div class="favorite item"><i class="fas fa-heart" onclick="location.href='@Url.Action("Favorite", "Member")'"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠
                     </div>
-                    <div class="eatPass item text-success d-flex">
+                    <div class="eatPass item text-success d-flex" onclick="location.href='@Url.Action("Eatpass", "Member")'">
                         <div><i class="fas fa-ticket-alt"></i></div>
                         <div>
                             <div>優饗方案</div>
                             <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
                         </div>
                     </div>
-                    <div class="invite item d-flex">
+                    <div class="invite item d-flex" onclick="location.href='@Url.Action("Invite", "Member")'">
                         <div><i class="fas fa-gift"></i></div>
                         <div>
                             <div>邀請好友</div>
@@ -296,9 +296,9 @@
                 <div class="switch">
                     @*@if (User.Identity.IsAuthenticated)
                     {*@
-                        <button class="loginShow btn btn btn-dark  w-100 mb-2">我想要訂餐</button>
+                        <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Home")'">我想要訂餐</button>
                         <button class="loginShow btn btn btn-dark  w-100 mb-2">餐廳登入</button>
-                        <button class="loginShow btn btn btn-dark  w-100 mb-2">外送夥伴</button>
+                        <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Deliver")'">外送夥伴</button>
                         <button class="loginShow btn border-secondary w-100 mb-2" onclick="location.href='@Url.Action("SignOut", "Member")'">登出</button>
                     @*}
                     else
