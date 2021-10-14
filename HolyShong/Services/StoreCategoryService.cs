@@ -25,7 +25,7 @@ namespace HolyShong.Services
         public List<HomeStoreCategory> GetAllStoreCategories()
         {
             var result = new List<HomeStoreCategory>();
-            var storecategories = _storecategoryRespository.GetAll<Models.HolyShongModel.StoreCategory>();
+            var storecategories = _repo.GetAll<Models.HolyShongModel.StoreCategory>();
             foreach (var item in storecategories)
             {
                 var temp = new HomeStoreCategory();
