@@ -12,7 +12,7 @@
             <div>
                 <h4>歡迎回來</h4>
                 <div class="form-group">
-                    <label for="account">Email/手機</label>
+                    <label for="account">Email</label>
                     @*<input type="text" placeholder="您的電子郵件或手機號碼" class="w-100" id="account">*@
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })

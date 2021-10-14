@@ -258,8 +258,9 @@ namespace HolyShong.Services
         /// 抓外送員判斷資料庫中上下線
         /// </summary>
         /// <returns></returns>
-        public Deliver GetDeliverInfo(int memberId)
+        public Deliver GetDeliverInfo(string memberEmail)
         {
+            var memberId = _repo.GetAll<Member>().FirstOrDefault(m=>m.Email == memberEmail).MemberId;
             var deliver = _repo.GetAll<Deliver>().FirstOrDefault(d => d.MemberId == memberId);
 
             return deliver;

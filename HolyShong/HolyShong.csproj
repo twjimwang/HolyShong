@@ -366,6 +366,8 @@
     <Compile Include="ViewModels\OrderDeliverViewModel.cs" />
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
+    <Compile Include="ViewModels\RestaurantViewModel.cs" />
+    <Compile Include="ViewModels\RestaurantViewModel1.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -438,7 +440,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout-mainpage.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Member\Checkout.cshtml" />

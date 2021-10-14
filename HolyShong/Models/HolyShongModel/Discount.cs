@@ -31,9 +31,9 @@ namespace HolyShong.Models.HolyShongModel
 
         public decimal Amount { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         public int? UseLimit { get; set; }
 

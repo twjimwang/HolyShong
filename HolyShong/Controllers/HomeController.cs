@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Models.HolyShongModel;
-using HolyShong.Services;
 using HolyShong.ViewModels;
 
 namespace HolyShong.Controllers
@@ -35,7 +34,7 @@ namespace HolyShong.Controllers
         {
             var result = new HomeViewModel()
             {
-                StoreCategories = new List<ViewModels.StoreCategory>(),
+                StoreCategories = new List<HomeStoreCategory>(),
                 NumberArray = new int[5]
             };
 

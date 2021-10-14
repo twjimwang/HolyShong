@@ -57,16 +57,16 @@
                         </div>
                     </div>
                 </div>
-                @if (order.OrderStatus == 0)
+                @if (order.OrderStatus == 6)
                 {
-                    <div class="checkRes bgYellow">
-                        @Html.ActionLink("查看訂單", "Index", "Order", new { id = order.OrderId}, new { style="color:#000;"});
+                    <div class="checkRes bgBlue">
+                        @Html.ActionLink("檢視餐廳", "Restaurant", "Store", new { id = order.RestaurantId }, new { style = "color:#fff;" });
                     </div>
                 }
                 else
-                {
-                    <div class="checkRes bgBlue">
-                        @Html.ActionLink("檢視餐廳", "Restaurant", "Store", new { id = order.RestaurantId }, new { style = "color:#fff;" } );
+                {   
+                    <div class="checkRes bgYellow">
+                        @Html.ActionLink("查看訂單", "Index", "Order", new { id = order.OrderId }, new { style = "color:#000;" });
                     </div>
                 }
 

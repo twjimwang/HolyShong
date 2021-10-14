@@ -55,6 +55,10 @@ namespace HolyShong.Models.HolyShongModel
 
         public bool? IsStore { get; set; }
 
+        public Guid? ActivetionCode { get; set; }
+
+        public DateTime? EffectiveTime { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Address { get; set; }
 
