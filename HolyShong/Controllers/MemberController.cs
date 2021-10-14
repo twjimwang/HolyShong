@@ -61,29 +61,19 @@ namespace HolyShong.Controllers
             
         }
 
-        /// <summary>
-        /// 會員個人資料頁面
-        /// 修改資料
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult UserProfile(UserProfileViewModel memberProfileViewModel)
+        public ActionResult Checkout()
         {
-            //string 
-            if (ModelState.IsValid)
-            {
-                bool result = _memberProfileService.EditMemberProfile(memberProfileViewModel);
-                if (result == true)
-                {
-                    return Content("修改成功");
-                }
-                else
-                {
-                    return Content("修改成功");
-                }
+            //if(Id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            // ViewBag.xtest = _cartService.GetCartViewModels().First();
+
+            var model = _cartService.GetCartByMemberId(1);
+            // ViewBag.Count = new SelectList(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+            return View();
+        }
 
             }
             return View(memberProfileViewModel);
