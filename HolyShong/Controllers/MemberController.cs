@@ -143,7 +143,7 @@ namespace HolyShong.Controllers
 
             if (status)
             {
-                return Content("新增帳號成功,請收信進行驗證!");
+                return Content("新增帳號成功,請收信進行驗證完成註冊!");
             }
             else
             {
