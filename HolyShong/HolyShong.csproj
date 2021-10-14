@@ -463,6 +463,7 @@
     <Content Include="Views\Home\SubCategorySearchByPrice.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

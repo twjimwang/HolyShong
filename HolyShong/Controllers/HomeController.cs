@@ -24,7 +24,11 @@ namespace HolyShong.Controllers
         //初始
 
 
-        
+        public ActionResult Test()//測試頁面
+        {
+            var result = new SubCategorySearchViewModel();
+            return View(result);
+        }
 
 
         public ActionResult Index()//首頁
@@ -77,6 +81,8 @@ namespace HolyShong.Controllers
             //轉換其它頁面
             return View();
         }
+
+  
 
         public void AcquireDiscount(string discountName)
         {

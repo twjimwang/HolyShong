@@ -7,6 +7,9 @@ namespace HolyShong.ViewModels
 {
     public class SubCategorySearchViewModel
     {
+        
         public List<StoreCard> StoreCards { get; set; }
     }
+
+
 }

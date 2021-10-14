@@ -35,5 +35,7 @@ namespace HolyShong.ViewModels
         public int StoreId { get; set; }
         public string StoreImg { get; set; }
         public string StoreName { get; set; }
+
+        public string ProductCategoryName { get; set; }
     }
 }
