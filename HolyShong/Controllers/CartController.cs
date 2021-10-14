@@ -58,7 +58,7 @@ namespace HolyShong.Controllers
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
-            var holyCartViewModel = _cartService.GetCartByMemberId(1);
+            var holyCartViewModel = _cartService.GetCartByMemberId(4);
             
             if(holyCartViewModel == null)
             {

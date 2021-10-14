@@ -181,43 +181,46 @@
 
             @foreach (var item in holyCartViewModel.CartItems)
             {
-                <div class="d-flex orderContent mt-3">
+        <div class="d-flex orderContent mt-3">
+            <div class="d-flex">
+                <div class="select d-flex">
+                    @*<select name="" id="remove" class="my-3">
+                    <option value="">移除</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>*@
                     <div class="d-flex">
-                        <div class="select d-flex">
-                            @*<select name="" id="remove" class="my-3">
-                                <option value="">移除</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>*@
-                            <div class="d-flex">
-                                <div id="minus"><i class="fas fa-minus"></i></div>
-                                <!-- <input type="text" name="" id="quantity" value="1"> -->
-                                <div id="quantity">@item.Quantity</div>
-                                <div id="plus"><i class="fas fa-plus"></i></div>
+                        <div id="minus"><i class="fas fa-minus"></i></div>
+                        <!-- <input type="text" name="" id="quantity" value="1"> -->
+                        <div id="quantity">@item.Quantity</div>
+                        <div id="plus"><i class="fas fa-plus"></i></div>
 
-                            </div>
-                        </div>
-                        <div>
-                            <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
-                                <span>@item.ProductName</span><br>
-                                @foreach (var detail in item.ProductOptionCards)
-                                {
-                                    <span>
-                                        @detail.ProductOptionName 
-                                        @detail.ProductOptionDetail <br>
-                                        @detail.addPrice
-                                    </span>
-                                }
-                            </button>
-                        </div>
                     </div>
-                    <div>
-                        <div id="price">
-                            @item.UnitPrice
-                        </div>
-                    </div>
-                </div>}
+                </div>
+                <div>
+                    <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
+                        <span>@item.ProductName</span><br>
+                        @foreach (var detail in item.ProductOptionCards)
+                        {
+                            <span>
+                                @detail.ProductOptionName
+                                @detail.ProductOptionDetail <br>
+                                @detail.addPrice
+                            </span>
+                        }
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div id="price">
+                    @item.UnitPrice
+                </div>
+            </div>
+            <div class="groupOrderDiv modal-footer footer mb-1 border-0">
+                <button type="button" class="groupOrderBtn btn rounded-pill" id="removeItem"><i class="fas fa-times"></i><span></span></button>
+            </div>
+        </div>}
                 <div class="otherItems my-3">
                     <label class="w-100" for="oItem"><div>索取餐具、吸管等用品</div></label>
                     <input class="" id="oItem" type="checkbox" style="zoom:180%">
@@ -275,6 +278,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- ------- -->
 <!-- Modal 內容明細-->
@@ -862,7 +866,7 @@
             let cartId = $("#CartId").text();
             let storeName = $("#StoreName").text();
             let cartItems = $("#CartItems").text();
-            let count = $("#Count option:selected ").text();
+            let count = $("#Count").text();
 
             $.ajax({
                 type: "POST",
@@ -871,7 +875,7 @@
                 dataType: "text",
                 success: function (response) {
                     alert(response);
-                    $("holyCart").html(msg);
+                    $("holyCart").text();
                 }
             })
 
@@ -908,7 +912,6 @@
 
         plus.addEventListener('click', function () {
             quantity.innerHTML = quantityValue++
-
 
         })
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace HolyShong.ViewModels
 {
@@ -11,6 +12,7 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// item數量
         /// </summary>
+        [Key] 
         public int RecordId { get; set; }
         /// <summary>
         /// cart

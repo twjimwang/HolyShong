@@ -180,7 +180,7 @@ label.cart {
     border-radius: 20px;
     background: rgb(238, 238, 238);
     justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 /*#quantity {
     height: 36px;
