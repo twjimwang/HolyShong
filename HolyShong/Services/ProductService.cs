@@ -17,33 +17,9 @@ namespace HolyShong.Services
             }
 
             
-           public RestaurantViewModel1 GetStore(int storeId)
-           {
-                #region
-                //var result = new RestaurantViewModel1()
-                //{
-                //    StoreProductCategories = new List<StoreProductCategory>()
-                //    {
-                //        new StoreProductCategory()
-                //        {
-                //            StoreProducts = new List<StoreProduct>()
-                //            {
-                //                new StoreProduct()
-                //                {
-                //                    StoreProductOptions = new List<StoreProductOption>()
-                //                    {
-                //                        new StoreProductOption()
-                //                        {
-                //                            ProductOptionDetails = new List<StoreProductOptionDetail>()
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //};
-                #endregion
-                var result = new RestaurantViewModel1();
+           public ProductViewModel GetStore(int storeId)
+           {           
+                var result = new ProductViewModel();
                 var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == storeId);
                 var storeCategory = _repo.GetAll<StoreCategory>().FirstOrDefault(sc => sc.StoreCategoryId == store.StoreCategoryId);
 
