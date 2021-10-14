@@ -28,6 +28,9 @@ namespace HolyShong.Controllers
         {
             return View();
         }
+
+
+        [HttpGet]
         public ActionResult Cart()
         {
             var holyCartViewmodel = _cartService.GetCartByMemberId(1);
@@ -36,6 +39,16 @@ namespace HolyShong.Controllers
 
             return View();
         }
+        //[HttpPost]
+        //public ActionResult Cart()
+        //{
+        //    var holyCartViewmodel = _cartService.GetCartByMemberId(1);
+        //    TempData["holyCart"] = holyCartViewmodel;
+
+
+        //    return View();
+        //}
+
 
         // 找到 MemberId
         public ActionResult FindCartMemberId(int memberId)

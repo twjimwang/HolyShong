@@ -31,7 +31,7 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 外送指示
         /// </summary>
-        public string info { get; set; }
+        public string note { get; set; }
         /// <summary>
         /// 預計運送時間
         /// </summary>
@@ -93,6 +93,9 @@ namespace HolyShong.ViewModels
         /// </summary>
         public decimal? addPrice { get; set; }
 
+        /// <summary>
+        /// 備註
+        /// </summary>
         public string special { get; set; }
     }
 
