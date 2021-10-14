@@ -100,7 +100,7 @@ namespace HolyShong.Services
             string password = HashService.MD5Hash(HttpUtility.HtmlEncode(loginVM.Password));
 
             Member user = _repo.GetAll<Member>()
-              .Where(x => x.Email.ToUpper() == name.ToUpper() && x.Password == password)
+              .Where(x => x.Email.ToUpper() == name.ToUpper() && x.Password == password && x.IsEnable == true)
               .SingleOrDefault();
             if (user == null)
             {
