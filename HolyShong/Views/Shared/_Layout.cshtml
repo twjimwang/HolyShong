@@ -294,17 +294,11 @@
                     </div>
                 </div>
                 <div class="switch">
-                    @*@if (User.Identity.IsAuthenticated)
-                    {*@
-                        <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Home")'">我想要訂餐</button>
-                        <button class="loginShow btn btn btn-dark  w-100 mb-2">餐廳登入</button>
-                        <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Deliver")'">外送夥伴</button>
-                        <button class="loginShow btn border-secondary w-100 mb-2" onclick="location.href='@Url.Action("SignOut", "Member")'">登出</button>
-                    @*}
-                    else
-                    {*@
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Home")'">我想要訂餐</button>
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("RestaurantRegister", "Member")'">餐廳登入</button>
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("DeliverRegister", "Member")'">外送夥伴</button>
+                    <button class="loginShow btn border-secondary w-100 mb-2" onclick="location.href='@Url.Action("SignOut", "Member")'">登出</button>
                     <button class="noLogin btn btn-dark w-100 mb-2" onclick="location.href='@Url.Action("Login", "Member")'">請先登入</button>
-                    @*}*@
 
                 </div>
             </div>
