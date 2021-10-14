@@ -30,7 +30,7 @@ namespace HolyShong.Services
             //View Model -> Data Model, 並以HtmlEncode做安全性編碼
             Member account = new Member
             {
-                MemberId = 104,
+                MemberId = 106,
                 FirstName = HttpUtility.HtmlEncode(registerVM.FirstName),
                 LastName = HttpUtility.HtmlEncode(registerVM.LastName),
                 //Password = HttpUtility.HtmlEncode(registerVM.Password),
