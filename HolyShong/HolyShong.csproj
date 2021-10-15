@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ECPay.Payment.Integration">
+      <HintPath>.\ECPay.Payment.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
     </Reference>
@@ -311,6 +314,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -353,11 +357,13 @@
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\OperationResultHelper.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\PayServices.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\StoreCategoryService.cs" />
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
+    <Compile Include="ViewModels\ECPayViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
@@ -464,7 +470,10 @@
     <Content Include="Views\Home\SubCategorySearchByPrice.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Store\RestaurantTEST.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
+    <Content Include="Views\Payment\PostResultTpECPay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
