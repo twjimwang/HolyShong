@@ -59,5 +59,13 @@ namespace HolyShong.Controllers
             ViewBag.Html = html;
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult PostResultTpECPay()
+        {
+
+            return View();
+        }
     }
 }
