@@ -1,4 +1,5 @@
 ﻿using HolyShong.Services;
+using HolyShong.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,13 @@ namespace HolyShong.Controllers
             }
             return View(result);
 
+        }
+        
+        [HttpPost]
+        public string GetProductModal(ProductCardViewModel productCard)
+        {
+            var result = _productService.GetStoreProductByProductId(productCard.ProductId);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(result);
         }
         //測試
         //public ActionResult RestaurantTEST(int? storeid)

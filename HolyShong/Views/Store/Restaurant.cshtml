@@ -1,311 +1,313 @@
 ﻿@model RestaurantViewModel1
 
-<!-- top -->
-<div class="topTitle container-fluid">
-    <div class="discount row">
-        <div class="col-12">
-            <a href="#">使用優響方案可享$0外送費</a>
-        </div>
-    </div>
-</div>
-<!-- banner -->
-<div class="banner">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carouselInner">
-            <div class="carouselItem active">
-                <img class="d-block" src="@Model.StoreImg" alt="First slide">
-            </div>
-        </div>
-    </div>
-    <div class="bannerTxtBtn container">
-        <div class="text">
-            <h1>@Model.StoreName</h1>
-            <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-            •<span class="starScore">score</span><span class="comment">(21)</span>
-        </div>
-        <div class="timeHeartBtn">
-            <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
-                <i class="fas fa-calendar-day"></i>
-                安排時間
-            </button>
-            <!-- heart -->
-            <span class="fa-stack fa-1x heart">
-                <i class="far fa-heart fa-stack-1x heartEmpty"></i>
-                <i class="fas fa-heart fa-stack-1x heartSolid"></i>
-            </span>
-            <!-- timeModal -->
-            <div class="timeModal modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="timeModalContent modal-content">
-                        <div class="btn-time btnTimeClose">
-                            <button class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="timeModalHeader modal-header">
-                            <h3 class="openTime modal-title" id="exampleModalLabel">
-                                在<span class="setOpenTime">open</span>
-                                AM開始營業<br><span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
-                            </h3>
-                        </div>
-                        <!-- 下拉選單modal -->
-                        <div class="modal-body">
-                            <select class="formSelect" aria-label="select example">
-                                <option selected>今天，8月26日 週四</option>
-                                <option value="1">明天，8月27日 週五</option>
-                                <option value="2">8月30日 週一</option>
-                                <option value="3">8月31日 週二 </option>
-                            </select>
-                            <select class="formSelect" aria-label="select example">
-                                <option selected>上午07:00 - 上午07:30</option>
-                                <option value="1">上午07:15 - 上午07:45</option>
-                                <option value="2">上午07:30 - 上午08:00</option>
-                                <option value="3">上午07:45 - 上午08:15</option>
-                            </select>
-                        </div>
-                        <div class="selectTime modal-footer">
-                            <button type="button" class="btn btn-lg btn-dark btn-time">安排時間</button>
-                            @*<button type="button" class="btn btn-lg btn-secondary btn-search">查看餐廳</button>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--地址-->
-<div class="wrap container">
-    <div class="address">
-        <p>$ • @Model.StoreCategoryName</p>
-        <p>
-            @Model.StoreAddress • <a data-toggle="modal" data-target="#more"
-                                     href="#">顯示更多</a>
-        </p>
-    </div>
-</div>
-<!-- dataModal -->
-<div class="modal fade" id="more" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="dataModalContent modal-content">
-            <div class="dataModalHeader">
-                <div class="imgClose">
-                    <div type="button" data-dismiss="modal">
-                        <span aria-hidden="true">
-                            <i class="far fa-times-circle fa-3x"></i>
-                        </span>
-                    </div>
-                    <div class="imgClosePic">
-                        <img src="@Model.StoreImg">
-                    </div>
-                </div>
-            </div>
-            <div class="dataModalBody">
-                <div class="store-txt">
-                    <h2 class="p-3">@Model.StoreName</h2>
-                    <span class="p-3">@Model.StoreCategoryName • $</span>
-                </div>
-                <div class="line"></div>
-                <div class="map">
-                    <div class="marker p-3">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="textCenter">
-                        @Model.StoreAddress
-                    </div>
-                    <div class="copy p-3">
-                        <i class="fas fa-clone"></i>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="startTime">
-                    <div class="clock p-3">
-                        <i class="fas fa-clock"></i>
-                    </div>
-
-                    <div class="textCenter">
-                        營業時間:
-                        @*@foreach (var businessHour in Model.BusinesshourList)
-                        {
-                        <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
-                        }*@
-
-                    </div>
-
-                    <div class="plus p-3">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="joinEats">
-                    <div class="ticket p-3">
-                        <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
-                    </div>
-                    <div class="textCenter">
-                        使用優響方案可享$0外送費<br>
-                        <span>Join Eats Pass to save at this store</span>
-                    </div>
-                    <div class="arrow p-3">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div class="score">
-                    <div class="star p-3">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="textCenter"><span class="starScore">score</span> <span class="comment">(21筆評分)</span></div>
-                    <div class="space p-3"></div>
-                </div>
-                <div class="line"></div>
-                <div class="bill">
-                    <p>[本店開立紙本發票]</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- navbar -->
-<div class="container position-relative">
-    <div class="navMove row">
-        <div class="col-12">
-            <div class="navbar">
-                @*@foreach (var ProductCategory in Model.ProductAreaList)
-                    {
-                    <a href="#title_@ProductCategory.Sort">@</a>
-
-                    }
-                        <a href="#titleOne">您專屬的推薦商品</a>
-                        <a href="#titleTwo">人氣精選</a>
-                        <a href="#titleThree">主食</a>
-                        <a href="#titleFour">單點</a>
-                        <a href="#titleTwo">人氣精選</a>
-                        <a href="#titleThree">主食</a>
-                        <a href="#titleFour">單點</a>*@
-            </div>
-        </div>
-    </div>
-
-    @foreach (var storeProductCategory in Model.StoreProductCategories)
-    {
-        <!-- 丼飯 -->
-        <div class="title row">
+<div id="app">
+    <!-- top -->
+    <div class="topTitle container-fluid">
+        <div class="discount row">
             <div class="col-12">
-                <div class="txt" id="title_2">@storeProductCategory.StoreProductCategoryName</div>
+                <a href="#">使用優響方案可享$0外送費</a>
             </div>
         </div>
-
-        <div class="itemGroup row d-flex">
-            @foreach (var storeProduct in storeProductCategory.StoreProducts)
-            {
-                <div class="cardProduct col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#aa_@storeProduct.ProductId">
-                    <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
-                        @if(storeProduct.ProductImg != null)
-                        {
-                            <div class="itemGroupPic">
-                                <img src="@storeProduct.ProductImg" class="card-img-top" alt="...">
+    </div>
+    <!-- banner -->
+    <div class="banner">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carouselInner">
+                <div class="carouselItem active">
+                    <img class="d-block" src="@Model.StoreImg" alt="First slide">
+                </div>
+            </div>
+        </div>
+        <div class="bannerTxtBtn container">
+            <div class="text">
+                <h1>@Model.StoreName</h1>
+                <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
+                •
+                <span class="starScore">score</span>
+                <span class="comment">(21)</span>
+            </div>
+            <div class="timeHeartBtn">
+                <button type="button" class="btn btn-light btn-oblong" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fas fa-calendar-day"></i>
+                    安排時間
+                </button>
+                <!-- heart -->
+                <span class="fa-stack fa-1x heart">
+                    <i class="far fa-heart fa-stack-1x heartEmpty"></i>
+                    <i class="fas fa-heart fa-stack-1x heartSolid"></i>
+                </span>
+                <!-- timeModal -->
+                <div class="timeModal modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="timeModalContent modal-content">
+                            <div class="btn-time btnTimeClose">
+                                <button class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        }
-                        <div class="card-body">
-                            <p class="card-text">@storeProduct.ProductName<br><span class="description">@storeProduct.ProductDescription</span></p>$@storeProduct.UnitPrice
+                            <div class="timeModalHeader modal-header">
+                                <h3 class="openTime modal-title" id="exampleModalLabel">
+                                    在
+                                    <span class="setOpenTime">open</span>
+                                    AM開始營業
+                                    <br>
+                                    <span>這家餐廳目前沒有營業，但您可提前預約訂單。</span>
+                                </h3>
+                            </div>
+                            <!-- 下拉選單modal -->
+                            <div class="modal-body">
+                                <select class="formSelect" aria-label="select example">
+                                    <option selected>今天，8月26日 週四</option>
+                                    <option value="1">明天，8月27日 週五</option>
+                                    <option value="2">8月30日 週一</option>
+                                    <option value="3">8月31日 週二 </option>
+                                </select>
+                                <select class="formSelect" aria-label="select example">
+                                    <option selected>上午07:00 - 上午07:30</option>
+                                    <option value="1">上午07:15 - 上午07:45</option>
+                                    <option value="2">上午07:30 - 上午08:00</option>
+                                    <option value="3">上午07:45 - 上午08:15</option>
+                                </select>
+                            </div>
+                            <div class="selectTime modal-footer">
+                                <button type="button" class="btn btn-lg btn-dark btn-time">安排時間</button>
+                                @*<button type="button" class="btn btn-lg btn-secondary btn-search">查看餐廳</button>*@
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!--地址-->
+    <div class="wrap container">
+        <div class="address">
+            <p>$ • @Model.StoreCategoryName</p>
+            <p>
+                @Model.StoreAddress •
+                <a data-toggle="modal" data-target="#more"
+                   href="#">顯示更多</a>
+            </p>
+        </div>
+    </div>
+    <!-- dataModal -->
+    <div class="modal fade" id="more" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="dataModalContent modal-content">
+                <div class="dataModalHeader">
+                    <div class="imgClose">
+                        <div type="button" data-dismiss="modal">
+                            <span aria-hidden="true">
+                                <i class="far fa-times-circle fa-3x"></i>
+                            </span>
+                        </div>
+                        <div class="imgClosePic">
+                            <img src="@Model.StoreImg">
+                        </div>
+                    </div>
+                </div>
+                <div class="dataModalBody">
+                    <div class="store-txt">
+                        <h2 class="p-3">@Model.StoreName</h2>
+                        <span class="p-3">@Model.StoreCategoryName • $</span>
+                    </div>
+                    <div class="line"></div>
+                    <div class="map">
+                        <div class="marker p-3">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="textCenter">
+                            @Model.StoreAddress
+                        </div>
+                        <div class="copy p-3">
+                            <i class="fas fa-clone"></i>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="startTime">
+                        <div class="clock p-3">
+                            <i class="fas fa-clock"></i>
+                        </div>
 
+                        <div class="textCenter">
+                            營業時間:
+                            @*@foreach (var businessHour in Model.BusinesshourList)
+                                {
+                                <div class="week">@businessHour.WeekDay<span class="setOpenTime">@businessHour.OpenTime - @businessHour.CloseTime</span></div>
+                                }*@
 
-                    <!-- storeModal -->
-                    <div class="modal fade" id="aa_@storeProduct.ProductId" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="storeModalContent modal-content">
-                                <!-- <div class="storeModal modal-header"> -->
-                                <div class="storeModalBody modal-body">
-                                    @if (storeProduct.ProductImg != null)
-                                    {
-                                        <div class="imgAndClose">
-                                            <div class="imgAndClosePic">
-                                                <img src="@storeProduct.ProductImg">
+                        </div>
+
+                        <div class="plus p-3">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="joinEats">
+                        <div class="ticket p-3">
+                            <img src="https://dkl8of78aprwd.cloudfront.net/ticket@3x.png" alt="">
+                        </div>
+                        <div class="textCenter">
+                            使用優響方案可享$0外送費
+                            <br>
+                            <span>Join Eats Pass to save at this store</span>
+                        </div>
+                        <div class="arrow p-3">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="score">
+                        <div class="star p-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="textCenter">
+                            <span class="starScore">score</span>
+                            <span class="comment">(21筆評分)</span>
+                        </div>
+                        <div class="space p-3"></div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="bill">
+                        <p>[本店開立紙本發票]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- navbar -->
+    <div class="container position-relative">
+        <div class="navMove row">
+            <div class="col-12">
+                <div class="navbar">
+                    @*@foreach (var ProductCategory in Model.ProductAreaList)
+                        {
+                        <a href="#title_@ProductCategory.Sort">@</a>
+
+                        }
+                            <a href="#titleOne">您專屬的推薦商品</a>
+                            <a href="#titleTwo">人氣精選</a>
+                            <a href="#titleThree">主食</a>
+                            <a href="#titleFour">單點</a>
+                            <a href="#titleTwo">人氣精選</a>
+                            <a href="#titleThree">主食</a>
+                            <a href="#titleFour">單點</a>*@
+                </div>
+            </div>
+        </div>
+
+        @foreach (var storeProductCategory in Model.StoreProductCategories)
+        {
+            <!-- 丼飯 -->
+            <div class="title row">
+                <div class="col-12">
+                    <div class="txt" id="title_2">@storeProductCategory.StoreProductCategoryName</div>
+                </div>
+            </div>
+
+            <div class="itemGroup row d-flex">
+                @foreach (var storeProduct in storeProductCategory.StoreProducts)
+                {
+                    <div class="cardProduct col-12 col-lg-12 col-xl-4" data-toggle="modal" data-target="#a_@storeProduct.ProductId" data-id="@storeProduct.ProductId">
+                        <div class="card d-flex flex-row-reverse card d-flex flex-row-reverse">
+                            @if (storeProduct.ProductImg != null)
+                            {
+                                <div class="itemGroupPic">
+                                    <img src="@storeProduct.ProductImg" class="card-img-top" alt="...">
+                                </div>
+                            }
+                            <div class="card-body">
+                                <p class="card-text">
+                                    @storeProduct.ProductName
+                                    <br>
+                                    <span class="description">@storeProduct.ProductDescription</span>
+                                </p>$@storeProduct.UnitPrice
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="modal fade" id="a_" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="storeModalContent modal-content">
+                <div class="storeModal modal-header">
+                    <div class="storeModalBody modal-body">
+                        <div v-if="product.ProductImg != ''" class="imgAndClose">
+                            <div class="imgAndClosePic">
+                                <img :src="product.ProductImg">
+                            </div>
+                        </div>
+                        <div class="cardWrap d-flex flex-column">
+                            <div class="scroll">
+                                <div type="button" data-dismiss="modal">
+                                    <span class="crosses" aria-hidden="true">
+                                        <i class="far fa-times-circle fa-3x"></i>
+                                    </span>
+                                </div>
+                                <div class="topWrap">
+                                    <div class="food p-4">
+                                        <h2>{{product.ProductName}}</h2>
+                                        <p>{{product.ProductDescription}}</p>
+                                    </div>
+                                    <div v-for="storeProductOption in product.StoreProductOptions" class="selectedBgc p-4">
+                                        <div class="selected d-flex justify-content-between align-items-center">
+                                            <div class="selectWrap">
+                                                <div class="selectedTitle">{{storeProductOption.ProductOptionName}}</div>
+                                                <div class="selectedTxt">
+                                                    <span>最多可選擇 1 個項目</span>
+                                                </div>
+                                            </div>
+                                            <div class="circleIconDiv">
+                                                <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
                                             </div>
                                         </div>
-                                    }
-                                    <div class="cardWrap d-flex flex-column">
-                                        <div class="scroll">
-                                            <div type="button" data-dismiss="modal">
-                                                <span class="crosses" aria-hidden="true">
-                                                    <i class="far fa-times-circle fa-3x"></i>
+                                        <div v-for="detail in storeProductOption.ProductOptionDetails" class="checkboxDiv d-flex align-items-center p-4">
+                                            <label>
+                                                <input v-model="select" id="checkbox" :value="detail.StoreProductOptioinDetailId" type="radio" :name="storeProductOption.ProductOptionName">{{detail.StoreProductOptioinDetailName}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
+                                <div class="billTxt">
+                                    <p>
+                                        [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
+                                        (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
+                                    </p>
+                                </div>
+                                <div class="addItemBgC">
+                                    <div class="addGroup wrap justify-content-around">
+                                        <div class="quantityAddWrap d-flex">
+                                            <i class="fas fa-minus-circle fa-2x"></i>
+                                            <div class="quantity" style="font-size: 20px;">1</div>
+                                            <i class="fas fa-plus-circle fa-2x"></i>
+                                        </div>
+                                        <div class="addToCartWrap">
+                                            <button type="button" id="abc" class="btn btn-lg btn-dark active">
+                                                <span class="addToCart">
+                                                    新增 1 項商品至訂單
                                                 </span>
-                                            </div>
-                                            <div class="topWrap">
-                                                <div class="food p-4">
-                                                    <h2>@storeProduct.ProductName</h2>
-                                                    <p>@storeProduct.ProductDescription</p>
-                                                </div>
-
-
-                                                @foreach (var storeProductOption in storeProduct.StoreProductOptions)
-                                                {
-                                                    <div class="selectedBgc p-4">
-                                                        <div class="selected d-flex justify-content-between align-items-center">
-                                                            <div class="selectWrap">
-                                                                <div class="selectedTitle">@storeProductOption.ProductOptionName</div>
-                                                                <div class="selectedTxt">
-                                                                    <span>最多可選擇 1 個項目</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="circleIconDiv">
-                                                                <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    foreach (var detail in storeProductOption.ProductOptionDetails)
-                                                    {
-                                                        <div class="checkboxDiv d-flex align-items-center p-4">
-                                                            <label>
-                                                                <input id="checkbox" type="radio">@detail.StoreProductOptioinDetailName
-                                                            </label>
-                                                        </div>
-                                                    }
-                                                }
-                                            </div>
-                                            <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
-                                            <div class="billTxt">
-                                                <p>
-                                                    [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
-                                                    (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
-                                                </p>
-                                            </div>
-                                            <div class="addItemBgC">
-                                                <div class="addGroup wrap justify-content-around">
-                                                    <div class="quantityAddWrap d-flex">
-                                                        <i class="fas fa-minus-circle fa-2x"></i>
-                                                        <div class="quantity" style="font-size: 20px;">1</div>
-                                                        <i class="fas fa-plus-circle fa-2x"></i>
-                                                    </div>
-                                                    <div class="addToCartWrap">
-                                                        <button type="button" class="btn btn-lg btn-dark active">
-                                                            <span class="addToCart">
-                                                                新增 1 項商品至訂單
-                                                            </span>
-                                                            <span class="price">
-                                                                $195.00
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <span class="price">
+                                                    $195.00
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-             }
+                </div>
+            </div>
         </div>
-    }
     </div>
-
+</div>
 
 
 @section topCSS{
@@ -512,13 +514,13 @@
         }
 
         /*  .time {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: auto;
-                    padding: 10px 0;
-                    align-items: center;
-                }
-        */
+                        display: flex;
+                        justify-content: space-between;
+                        margin: auto;
+                        padding: 10px 0;
+                        align-items: center;
+                    }
+            */
         .joinEats {
             display: flex;
             justify-content: space-between;
@@ -677,15 +679,16 @@
             width: 100%;
         }
 
-        .checkboxDiv label input {
-            margin-right: 5px;
-        }
+            .checkboxDiv label input {
+                margin-right: 5px;
+            }
+
         .crosses {
             position: absolute;
             top: 10px;
             right: 28px;
         }
-          
+
 
         /* navbar */
         .navMove {
@@ -729,13 +732,13 @@
 
         .card-body {
             width: 50%;
-            margin:auto;
-            padding-left:17px;
-            padding:0px;
+            margin: auto;
+            padding-left: 17px;
+            padding: 0px;
         }
 
         .card {
-            min-height:100px;
+            min-height: 100px;
             margin: 10px 0;
         }
 
@@ -757,17 +760,20 @@
             height: 100px;
             width: 45%;
         }
+
             .itemGroupPic img {
                 height: 100%;
                 object-fit: cover;
             }
+
         .title .txt {
             font-size: 23px;
             font-weight: bold;
         }
+
         .description {
             font-size: 14px;
-            color:rgb(117, 117, 117);
+            color: rgb(117, 117, 117);
         }
         /* 桌機 */
         @@media screen and (min-width: 992px) {
@@ -804,7 +810,7 @@
             }
 
             .itemGroupPic {
-                height:148px;
+                height: 148px;
                 width: 40%;
             }
 
@@ -813,11 +819,13 @@
                     height: 100%;
                     object-fit: cover;
                 }
+
             .card {
                 min-height: 148px;
             }
-            .card-body{
-                padding:1.25rem;
+
+            .card-body {
+                padding: 1.25rem;
             }
         }
 
@@ -875,38 +883,101 @@
 
 @section endJS
 {
+    @*<script src="~/Assets/JS/Store/restaurant.js" type="text/javascript"></script>*@
     <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                select: '',
+                product: {
+                    ProductId: 1,
+                    ProductName: '',
+                    ProductDescription: '',
+                    UnitPrice: 69.0,
+                    ProductImg: '',
+                    StoreProductOptions: [
+                        {
+                            ProductOptionName: '',
+                            ProductOptionDetails: [
+                                {
+                                    StoreProductOptionDetailId:'',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                }
+                            ]
+                        },
+                        {
+                            ProductOptionName: '',
+                            ProductOptionDetails: [
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                },
+                                {
+                                    StoreProductOptionDetailId: '',
+                                    StoreProductOptioinDetailName: ''
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        });
+
+
         //愛心
         let heartSolid = document.querySelector(".heartSolid");
         let heartEmpty = document.querySelector(".heartEmpty");
-        let heart = document.querySelector(".heart")
+        //let heart = document.querySelector(".heart")
 
-        heart.onclick = function () {
-            if ($('.heartEmpty').css('display') === "block") {
-                heartEmpty.style.display = "none";
-                heartSolid.style.display = "block";
-            } else {
-                heartEmpty.style.display = "block";
-                heartSolid.style.display = "none";
-            }
-        }
-        //下拉選單
-        console.log($('.circleIcon'));
-        $('.circleIcon')[0].on('click', function () {
-            if ($(".checkboxDiv").hasClass('d-flex')) {
-                $('.checkboxDiv').removeClass('d-flex');
-                $('.checkboxDiv').addClass('d-none')
+        //heart.onclick = function () {
+        //    if ($('.heartEmpty').css('display') === "block") {
+        //        heartEmpty.style.display = "none";
+        //        heartSolid.style.display = "block";
+        //    } else {
+        //        heartEmpty.style.display = "block";
+        //        heartSolid.style.display = "none";
+        //    }
+        //}
 
-                $('.circleIcon').removeClass('fa-chevron-circle-down');
-                $('.circleIcon').addClass('fa-chevron-circle-up');
+        //按卡片取product內容
+        let productCards = document.querySelectorAll('.cardProduct');
+        productCards.forEach((card, index) => {
+            card.addEventListener('click', function (event) {
+                let cardid = card.getAttributeNode('data-id').value;
 
-            } else {
-                $('.checkboxDiv').addClass('d-flex');
-                $('.checkboxDiv').removeClass('d-none');
-
-                $('.circleIcon').removeClass('fa-chevron-circle-up');
-                $('.circleIcon').addClass('fa-chevron-circle-down');
-            }
+                console.log(cardid);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Store/GetProductModal',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ ProductId: cardid }),
+                    success: function (res) {
+                        console.log(res);
+                        app.product = JSON.parse(res);
+                        $('#a_').modal('show')
+                    }
+                });
+            });
         });
     </script>
 }

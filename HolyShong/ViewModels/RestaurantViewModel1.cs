@@ -8,6 +8,10 @@ namespace HolyShong.ViewModels
     public class RestaurantViewModel1
     {
         /// <summary>
+        /// 商店Id
+        /// </summary>
+        public int StoreId { get; set; }
+        /// <summary>
         /// 商店名稱
         /// </summary>
         public string StoreName { get; set; }
@@ -77,6 +81,7 @@ namespace HolyShong.ViewModels
     }
     public class StoreProductOption
     {
+        public string SelectOption { get; set; }
         /// <summary>
         /// 商品option名稱(辣度)
         /// </summary>
@@ -92,5 +97,6 @@ namespace HolyShong.ViewModels
         /// 商品optionDetail名稱
         /// </summary>
         public string StoreProductOptioinDetailName { get; set; }
+        public int StoreProductOptionDetailId { get; set; }
     }
 }
