@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
-namespace HolyShong.Controllers
+namespace HolyShong.Services
 {
-    public class PaymentController : Controller
+    public class PayServices
     {
-        // GET: ECPay
-        public ActionResult Index()
+        
+        public string ECPayBasic()
         {
             AllInOne oPayment = new AllInOne();
             /* 服務參數 */
@@ -55,17 +54,7 @@ namespace HolyShong.Controllers
 
             var html = string.Empty;
             oPayment.CheckOutString(ref html);
-            var test = html;
-            ViewBag.Html = html;
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult PostResultTpECPay()
-        {
-
-            return View();
+            return html;
         }
     }
 }
