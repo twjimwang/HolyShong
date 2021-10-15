@@ -55,7 +55,9 @@ namespace HolyShong.Controllers
         [HttpGet]
         public ActionResult Search()
         {
-            return RedirectToAction("Index");
+
+            var result = _storeService.GetAllStoresByKeyword("");
+            return View(result);
         }
 
         [HttpPost]

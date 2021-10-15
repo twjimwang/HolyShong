@@ -112,8 +112,7 @@
                                     </div>
                                 </li>
 
-                                <!-- 飲食限制選項按鈕
-                                 -->
+                                <!-- 按鈕                               -->
                                 <li class="uk-open">
                                     <a class="uk-accordion-title" href="#">飲食限制</a>
                                     <div id="restrict-container" class="uk-accordion-content">
@@ -444,50 +443,6 @@
                     <button type="button" class="btn btn-dark" style="width: 150px;height: 60px;font-size: 18px; " onclick="location.href='@Url.Action("Search", "Home")'">
                         顯示更多餐廳
                     </button>
-                </div>
-
-                <!-- 搜尋頁面(套LEO) -->
-                <div class="unitContainer">
-                    <div class="row row-cols-1  row-cols-lg-3 ">
-                        <!-- 卡片區塊 -->
-                        @foreach (var item in Model.StoreCardBlocks)
-                        {
-                            foreach (var card in item.StoreCards)
-                            {
-                                <div class="cardCol">
-                                    <div class="foodCard " style="cursor:pointer;">
-                                        <a href="~/Store/Restaurant/@card.StoreId" style="text-decoration:none;">
-                                            <div class="headline">
-                                                <img class="pic" src="@card.StoreImg">
-                                                <div class="Tag">買1送1</div>
-                                            </div>
-                                            <div class="foodText">
-                                                <div class="shopNameandPoint">
-                                                    <div id="spName" class="shopName">@card.StoreName</div>
-                                                    <div id="pp" class="point">4.7</div>
-                                                </div>
-                                                <div class="TWD">
-                                                    <span id="ntd" class="">55TWD 費用</span>
-                                                    <div class="dotSpace"><span class="dot"> • </span></div>
-                                                    <span id="min" class="">25–35 分鐘</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="touchZone" style="cursor:pointer;">
-                                        <div class="favoriteHeart">
-                                            <div class="switchP" id="sw" onclick="clickChangeC()">
-                                                <!-- 空心 -->
-                                                <i class="far fa-heart hEmpty"></i>
-                                                <!-- 實心 -->
-                                                <i class="fas fa-heart hSolid"></i>
-                                                <i class="fas fa-heart hSolid4hover"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>}
-                        }
-                    </div>
                 </div>
             </div>
         </div>

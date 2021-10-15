@@ -1,7 +1,7 @@
 ﻿@*@model SearchViewModel
-@{ 
-//var searchModel = Model == null ? new SearchViewModel() { StoreCards = new List<StoreCard>()} : Model
-}*@
+    @{
+    //var searchModel = Model == null ? new SearchViewModel() { StoreCards = new List<StoreCard>()} : Model
+    }*@
 
 <!-- 副分類 -->
 <div id="subcategory" class="subcategory p-3 mb-2 text-dark align-items-start sticky-top mw-100">
@@ -97,43 +97,12 @@
             </div>
         </li>
 
-        <!-- 飲食限制選項按鈕
-        -->
-        <li class="uk-open">
-            <a class="uk-accordion-title" href="#">飲食限制</a>
-            <div id="restrict-container" class="uk-accordion-content">
-                <div class="top-wrap d-flex">
-                    <button type="button" class="btn rounded-pill d-flex">
-                        <div class="font-weight-bold" style="font-size: 14px;">
-                            <i class="fas fa-leaf"></i>
-                            蔬食料理
-                        </div>
-                    </button>
-
-                    <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
-                        <div class="font-weight-bold">
-                            <i class="fas fa-heart"></i>
-                            純素食料理
-                        </div>
-                    </button>
-                </div>
-                <div class="bottom-wrap d-flex">
-                    <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
-                        <div class="font-weight-bold">
-                            <i class="fab fa-pagelines"></i>
-                            無麩質料理
-                        </div>
-                    </button>
-
-                    <button type="button" class="btn rounded-pill ">
-                        <div class="font-weight-bold " style="font-size: 14px;">
-                            <i class="fas fa-ban"></i>
-                            過敏者可食用
-                        </div>
-                    </button>
-                </div>
+        <!-- 確認搜尋按鈕-->
+        <div id="restrict-container" class="uk-accordion-content">
+            <div class="bottom-wrap d-flex flex-row-reverse">
+                <button type="button" class="btn">確定</button>
             </div>
-        </li>
+        </div>
     </ul>
 
 </div>
