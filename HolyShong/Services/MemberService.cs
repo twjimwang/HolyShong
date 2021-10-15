@@ -80,7 +80,7 @@ namespace HolyShong.Services
             smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
 
             var Message = new MailMessage(fromMail, toEmail);
-            Message.Subject = "註冊完成!!";
+            Message.Subject = "給你送!註冊完成!!";
             Message.Body =
             "<br/> 你成功註冊了一個帳號!" +
             "<br/> 請點擊下方連結來登入會員!";
