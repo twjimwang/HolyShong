@@ -14,7 +14,7 @@ namespace HolyShong.Controllers
         {
             AllInOne oPayment = new AllInOne();
             /* 服務參數 */
-            oPayment.ServiceMethod = HttpMethod.HttpPOST;//介接服務時，呼叫 API 的方法
+            oPayment.ServiceMethod = HttpMethod.HttpPOST;//介接服務時，呼叫 API 的方法            
             oPayment.ServiceURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5";//要呼叫介接服務的網址
             oPayment.HashKey = "5294y06JbISpM5x9";//ECPay提供的Hash Key
             oPayment.HashIV = "v77hoKGq4kWxNNIS";//ECPay提供的Hash IV
@@ -28,7 +28,7 @@ namespace HolyShong.Controllers
             oPayment.Send.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");//廠商的交易時間
             oPayment.Send.TotalAmount = Decimal.Parse("30");//交易總金額
             oPayment.Send.TradeDesc = "交易描述";//交易描述
-            oPayment.Send.ChoosePayment = PaymentMethod.ALL;//使用的付款方式
+            oPayment.Send.ChoosePayment = PaymentMethod.Credit;//使用的付款方式
             oPayment.Send.Remark = "";//備註欄位
             oPayment.Send.ChooseSubPayment = PaymentMethodItem.None;//使用的付款子項目
             oPayment.Send.NeedExtraPaidInfo = ExtraPaymentInfo.No;//是否需要額外的付款資訊
