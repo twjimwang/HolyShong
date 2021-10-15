@@ -32,7 +32,7 @@ namespace HolyShong.Services
             //View Model -> Data Model, 並以HtmlEncode做安全性編碼
             Member account = new Member
             {
-                MemberId = 106,
+                MemberId = 109,
                 FirstName = HttpUtility.HtmlEncode(registerVM.FirstName),
                 LastName = HttpUtility.HtmlEncode(registerVM.LastName),
                 //Password = HttpUtility.HtmlEncode(registerVM.Password),
@@ -63,34 +63,43 @@ namespace HolyShong.Services
                     tran.Rollback();
                 }
             }
+
+            //var GenarateUserVerificationLink = "/Register/UserVerification/" + account.ActivetionCode;
+            //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, GenarateUserVerificationLink);
+
+            var fromMail = new MailAddress("holyshong2022@gmail.com"); // set your email    
+            var fromEmailpassword = "Hs20211014"; // Set your password     
+            var toEmail = new MailAddress(account.Email);
+
+            var smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
+
+            var Message = new MailMessage(fromMail, toEmail);
+            Message.Subject = "註冊完成!!";
+            Message.Body =
+            "<br/> 你成功註冊了一個帳號!" +
+            "<br/> 請點擊下方連結來登入會員!";
+            
+            //+"<br/><br/><a href=" + link + ">" + link + "</a>";
+            Message.IsBodyHtml = true;
+            try
+            {
+                smtp.Send(Message);
+                Message.Dispose(); //釋放資源
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            
+
             return status;
         }
-
-        //public void SendEmailToUser(string emailId, string activationCode)
-        //{
-        //    var GenarateUserVerificationLink = "/Register/UserVerification/" + activationCode;
-        //    var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, GenarateUserVerificationLink);
-
-        //    var fromMail = new MailAddress("rakeshchavda404@gmail.com", "Rakesh"); // set your email    
-        //    var fromEmailpassword = "*******"; // Set your password     
-        //    var toEmail = new MailAddress(emailId);
-
-        //    var smtp = new SmtpClient();
-        //    smtp.Host = "smtp.gmail.com";
-        //    smtp.Port = 587;
-        //    smtp.EnableSsl = true;
-        //    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //    smtp.UseDefaultCredentials = false;
-        //    smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
-
-        //    var Message = new MailMessage(fromMail, toEmail);
-        //    Message.Subject = "Registration Completed-Demo";
-        //    Message.Body = "<br/> Your registration completed succesfully." +
-        //                   "<br/> please click on the below link for account verification" +
-        //                   "<br/><br/><a href=" + link + ">" + link + "</a>";
-        //    Message.IsBodyHtml = true;
-        //    smtp.Send(Message);
-        //}
 
         public Member UserLogin(MemberLoginViewModel loginVM)
         {
