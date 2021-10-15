@@ -78,6 +78,8 @@ namespace HolyShong.ViewModels
         /// 很多商品option
         /// </summary>
         public List<StoreProductOption> StoreProductOptions { get; set; }
+
+        public int Quantity { get; set; }
     }
     public class StoreProductOption
     {

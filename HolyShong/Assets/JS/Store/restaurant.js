@@ -1,26 +1,32 @@
 ﻿let app = new Vue({
     el: '#app',
     data: {
+        select: '',
         product: {
             ProductId: 1,
             ProductName: '',
             ProductDescription: '',
             UnitPrice: 69.0,
             ProductImg: '',
+            Quantity: 1,
             StoreProductOptions: [
                 {
                     ProductOptionName: '',
                     ProductOptionDetails: [
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         }
                     ]
@@ -29,20 +35,35 @@
                     ProductOptionName: '',
                     ProductOptionDetails: [
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         },
                         {
+                            StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: ''
                         }
                     ]
                 }
             ]
+        }
+    },
+    methods: {
+        changeAmount(value) {
+            if (this.product.Quantity + value == 0) { return; }
+            this.product.Quantity += value;
+        }
+    },
+    computed: {
+        sum() {
+            return this.product.UnitPrice * this.product.Quantity
         }
     }
 });
@@ -72,12 +93,13 @@ productCards.forEach((card, index) => {
         console.log(cardid);
         $.ajax({
             type: 'POST',
-            url: '/Store/GetProductModal',
+            url: '/api/Store/GetProductModal',
             contentType: 'application/json',
             data: JSON.stringify({ ProductId: cardid }),
             success: function (res) {
                 console.log(res);
-                app.product = JSON.parse(res);
+                app.product = res;
+                $('#cardModal').modal('show')
             }
         });
     });

@@ -57,12 +57,7 @@ namespace HolyShong.Controllers
 
         }
         
-        [HttpPost]
-        public string GetProductModal(ProductCardViewModel productCard)
-        {
-            var result = _productService.GetStoreProductByProductId(productCard.ProductId);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(result);
-        }
+
         //測試
         //public ActionResult RestaurantTEST(int? storeid)
         //{

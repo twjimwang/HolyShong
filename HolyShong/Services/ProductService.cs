@@ -138,6 +138,7 @@ namespace HolyShong.Services
             result.ProductDescription = p.Description;
             result.UnitPrice = p.UnitPrice;
             result.ProductImg = p.Img;
+            result.Quantity = 1;
             result.StoreProductOptions = new List<StoreProductOption>();
 
             foreach (var po in productOption.ToList())

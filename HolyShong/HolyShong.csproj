@@ -374,6 +374,8 @@
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\StoreCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\SubCategorySearchViewModel.cs" />
+    <Compile Include="WebAPI\CartController.cs" />
+    <Compile Include="WebAPI\StoreController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
