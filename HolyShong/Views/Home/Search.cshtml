@@ -1,6 +1,6 @@
 ﻿@model SearchViewModel
 
-<div class="container">
+<div class="container mainPart">
 <!-- 主要頁面 -->
 <div id="mainpage" class="d-flex mw-100">
 
@@ -67,7 +67,12 @@
         * {
             max-width: 100%;
         }
-
+        .lookup{
+            display:unset;
+        }
+        .mainPart{
+            margin-top:230px;
+        }
         .pic {
             width: 100%;
         }
@@ -211,7 +216,6 @@
         /* 內容 */
         .container {
             max-width: 1920px;
-            margin: auto;
         }
 
         /* 商店類別 */
@@ -324,6 +328,12 @@
         }
 
         @@media screen and (min-width:992px) {
+            .mainPart {
+                margin-top: 0;
+            }
+            .lookup {
+                display: flex;
+            }
             .uk-grid {
                 margin-left: -5px;
             }
