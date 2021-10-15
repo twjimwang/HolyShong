@@ -214,11 +214,11 @@
             </div>
             <div>
                 <div id="price">
-                    @item.UnitPrice
+                    @item.TotalPrice
                 </div>
             </div>
             <div class="groupOrderDiv modal-footer footer mb-1 border-0">
-                <button type="button" class="groupOrderBtn btn rounded-pill" id="removeItem"><i class="fas fa-times"></i><span></span></button>
+                <button type="button" class="groupOrderBtn btn rounded-pill" id="removeItem" onclick="location.href='@Url.Action("index", "Home")'"><i class="fas fa-times"></i><span></span></button>
             </div>
         </div>}
                 <div class="otherItems my-3">
@@ -796,7 +796,7 @@
             border-radius: 20px;
             border: 0px;
             line-height: 36px;
-            /* padding:0px 5px 0px 0px; */
+            padding:0px 5px 0px 0px; 
             background: rgb(238, 238, 238);
             text-align: center;
         }
@@ -869,13 +869,14 @@
             let count = $("#Count").text();
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "/Member/AddToHolyCar",
                 data: { CartId: cartId, StoreName: storeName, CartItems: cartItems, count: count },
                 dataType: "text",
                 success: function (response) {
                     alert(response);
-                    $("holyCart").text();
+                    console.log(response);
+                   
                 }
             })
 
