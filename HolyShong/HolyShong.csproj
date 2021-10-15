@@ -238,12 +238,10 @@
     <Compile Include="Services\OperationResultHelper.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\PayService.cs" />
-    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SendConfirmMailService.cs" />
-    <Compile Include="Services\StoreCategoryService.cs" />
-    <Compile Include="Services\StoreService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
+    <Compile Include="ViewModels\ECPayViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
