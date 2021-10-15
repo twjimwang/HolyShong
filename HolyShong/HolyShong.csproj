@@ -471,6 +471,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Store\RestaurantTEST.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
