@@ -30,19 +30,19 @@ namespace HolyShong.Services
                 result.StoreCategoryName = storeCategory.Name;
                 result.StoreProductCategories = new List<StoreProductCategory>();
                 result.SupplyTimes = new List<SupplyTime>();
-
-                //var supplyTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId).GroupBy(bh => bh.WeekDay).Select(bh=>bh.Key);
-                //var sTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId);
-                //foreach(var st in supplyTimes)
-                //{
-                //    new SupplyTime()
-                //    {
-                //        WeekDay=st,
-                //        OpenTime = sTimes.Where(s=>s.WeekDay==st)
-                //    }
-                //}
-
-                var productCategories = _repo.GetAll<ProductCategory>().Where(pc => pc.StoreId == store.StoreId);
+            #region
+            //var supplyTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId).GroupBy(bh => bh.WeekDay).Select(bh=>bh.Key);
+            //var sTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId);
+            //foreach(var st in supplyTimes)
+            //{
+            //    new SupplyTime()
+            //    {
+            //        WeekDay=st,
+            //        OpenTime = sTimes.Where(s=>s.WeekDay==st)
+            //    }
+            //}
+            #endregion
+            var productCategories = _repo.GetAll<ProductCategory>().Where(pc => pc.StoreId == store.StoreId);
                 var products = _repo.GetAll<Product>().Where(p => productCategories.Select(pc => pc.ProductCategoryId).Contains(p.ProductCategoryId));
                 var productOption = _repo.GetAll<ProductOption>().Where(po => products.Select(p => p.ProductId).Contains(po.ProductId));
                 var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOption.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId)).ToList();
