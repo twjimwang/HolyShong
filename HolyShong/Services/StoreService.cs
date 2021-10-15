@@ -99,6 +99,11 @@ namespace HolyShong.Services
                 StoreCards = new List<StoreCard>()
             };
             var stores = _repo.GetAll<Store>().Where(x=>x.KeyWord.Contains(keyword)).ToList();
+            if(stores.Count==0)
+            {
+                return result;
+            }
+
             var cards = new List<StoreCard>();
             foreach (var item in stores)
             {

@@ -22,14 +22,6 @@ namespace HolyShong.Controllers
         }
         //初始
 
-
-        public ActionResult Test()//測試頁面
-        {
-            var result = new SubCategorySearchViewModel();
-            return View(result);
-        }
-
-
         public ActionResult Index()//首頁
         {
             var result = new HomeViewModel()
@@ -60,25 +52,33 @@ namespace HolyShong.Controllers
         }
 
         //test
-        //[HttpGet]
-        //public ActionResult Search()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return RedirectToAction("Index");
+        }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult Search(string keyword)//搜尋頁面
         {
             var result = _storeService.GetAllStoresByKeyword(keyword);
+            ViewBag.keyword = keyword;
             //轉換其它頁面
+            if (result.StoreCards.Count==0)
+            {
+                return View("NoSearch"); 
+            }
+
+            ViewBag.searchCount = result.StoreCards.Count;
+
             return View(result);
         }
 
         public ActionResult SubCategorySearchByPrice()//副分類搜尋頁面
         {
-            //var result = _storeService.GetAllStoresByKeyword();
+            var result = _storeService.GetAllStoresByKeyword("康");
             //轉換其它頁面
-            return View();
+            return View(result);
         }
 
   
