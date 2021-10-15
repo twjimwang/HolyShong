@@ -1,4 +1,5 @@
 ﻿using HolyShong.Services;
+using HolyShong.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,8 @@ namespace HolyShong.Controllers
             return View(result);
 
         }
+        
+
         //測試
         //public ActionResult RestaurantTEST(int? storeid)
         //{

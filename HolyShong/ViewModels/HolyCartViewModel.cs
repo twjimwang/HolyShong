@@ -24,6 +24,7 @@ namespace HolyShong.ViewModels
 
         public bool IsTablewares { get; set; }
         public bool IsPlasticbag { get; set; }
+        public string Notes { get; set; }
     }
 
     public class CartItem

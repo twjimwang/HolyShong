@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Services;
+using HolyShong.ViewModels;
 
 namespace HolyShong.Controllers
 {
@@ -27,6 +28,11 @@ namespace HolyShong.Controllers
             }
             var result = _orderService.GetOrder(id.Value);
             return View(result);
+        }
+
+        public void GetCart(HolyCartViewModel cartVM)
+        {
+            
         }
     }
 }
