@@ -59,11 +59,11 @@
         changeAmount(value) {
             if (this.product.Quantity + value == 0) { return; }
             this.product.Quantity += value;
-        }
+        },
     },
     computed: {
         sum() {
-            return this.product.UnitPrice * this.product.Quantity
+            return this.product.UnitPrice * this.product.Quantity;
         }
     }
 });
@@ -104,3 +104,4 @@ productCards.forEach((card, index) => {
         });
     });
 });
+
