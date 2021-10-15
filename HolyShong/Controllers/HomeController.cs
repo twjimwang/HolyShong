@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HolyShong.Models.HolyShongModel;
-using HolyShong.Services;
 using HolyShong.ViewModels;
 
 namespace HolyShong.Controllers
@@ -23,15 +22,11 @@ namespace HolyShong.Controllers
         }
         //初始
 
-
-        
-
-
         public ActionResult Index()//首頁
         {
             var result = new HomeViewModel()
             {
-                StoreCategories = new List<ViewModels.StoreCategory>(),
+                StoreCategories = new List<HomeStoreCategory>(),
                 NumberArray = new int[5]
             };
 
@@ -57,26 +52,36 @@ namespace HolyShong.Controllers
         }
 
         //test
-        //[HttpGet]
-        //public ActionResult Search()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return RedirectToAction("Index");
+        }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult Search(string keyword)//搜尋頁面
         {
             var result = _storeService.GetAllStoresByKeyword(keyword);
+            ViewBag.keyword = keyword;
             //轉換其它頁面
+            if (result.StoreCards.Count==0)
+            {
+                return View("NoSearch"); 
+            }
+
+            ViewBag.searchCount = result.StoreCards.Count;
+
             return View(result);
         }
 
         public ActionResult SubCategorySearchByPrice()//副分類搜尋頁面
         {
-            //var result = _storeService.GetAllStoresByKeyword();
+            var result = _storeService.GetAllStoresByKeyword("康");
             //轉換其它頁面
-            return View();
+            return View(result);
         }
+
+  
 
         public void AcquireDiscount(string discountName)
         {

@@ -7,12 +7,12 @@ namespace HolyShong.ViewModels
 {
     public class HomeViewModel
     {
-        public List<StoreCategory> StoreCategories { get; set; }
+        public List<HomeStoreCategory> StoreCategories { get; set; }
         public List<StoreCardBlock> StoreCardBlocks { get; set; }
         public int[] NumberArray { get; set; }
     }
     //主分類區
-    public class StoreCategory
+    public class HomeStoreCategory
     {
         public int StoreCategoryId { get; set; }
         public string StoreCategoryImg { get; set; }
@@ -35,5 +35,7 @@ namespace HolyShong.ViewModels
         public int StoreId { get; set; }
         public string StoreImg { get; set; }
         public string StoreName { get; set; }
+        //ff
+        public string ProductCategoryName { get; set; }
     }
 }

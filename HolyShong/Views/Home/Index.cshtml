@@ -7,18 +7,7 @@
 }
 <main>
     <!-- 副分類按鈕(合併進JC) -->
-    <div id="cellphone-subcategory" class="subcategory">
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true" focusable="false">
-                    <circle cx="8" cy="8" r="3" stroke="#000000" stroke-width="2"></circle>
-                    <path d="M11 8H20" stroke="#000000" stroke-width="2"></path>
-                    <circle cx="16" cy="16" r="3" transform="rotate(180 16 16)" stroke="#000000" stroke-width="2"></circle>
-                    <path d="M13 16L4 16" stroke="#000000" stroke-width="2"></path>
-                </svg>
-            </button>
-        </div>
+    <div id="cellphone-subcategory" class="subcategory ">
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -176,7 +165,7 @@
     </div>
 
     <!-- 主分類 -->
-    <ul id="maincategory" class=" border-bottom  d-flex  overflow-auto align-items-center">
+    <ul id="maincategory" class=" border-bottom  d-flex  overflow-auto align-items-center ">
 
         <li class="nav-item ">
             <a class="nav-link" href="#">
@@ -292,134 +281,8 @@
     <div id="mainpage" class="d-flex mw-100">
 
         <!-- 副分類 -->
-        <div id="subcategory" class="subcategory p-3 mb-2 text-dark align-items-start sticky-top mw-100">
-            <!-- 副分類標籤 -->
-            <div>
-                <h1 style="font-size: 28px; font-weight: 700;">所有餐廳門市</h1>
-            </div>
-            <!-- 副分類選項 -->
-            <ul uk-accordion="multiple: true">
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#">分類</a>
-                    <!-- 分類選項 -->
-                    <div class="uk-accordion-content">
+        @Html.Partial("_SubCategoryPartial"); 
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                                   checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                您專屬的推薦餐點(預設)
-                            </label>
-                        </div>
-                        <!-- 間隔區塊 -->
-                        <div class="form-check-space"></div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                                熱門餐點
-                            </label>
-                        </div>
-                        <!-- 間隔區塊 -->
-                        <div class="form-check-space"></div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                            <label class="form-check-label" for="exampleRadios3">
-                                評分
-                            </label>
-                        </div>
-                        <!-- 間隔區塊 -->
-                        <div class="form-check-space"></div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
-                            <label class="form-check-label" for="exampleRadios4">
-                                配送時間
-                            </label>
-                        </div>
-
-                    </div>
-                </li>
-
-
-                <!-- 價格區間 -->
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#">價格範圍</a>
-                    <div class="uk-accordion-content">
-                        <div>
-                            <button type="button" class="btn rounded-pill" onclick="location.href='@Url.Action("SubCategorySearchByPrice.cshtml", "Home")'" >
-                                <div class="font-weight-bold">$</div>
-                            </button>
-
-                            <button type="button" class="btn  rounded-pill" onclick="location.href='@Url.Action("SubCategorySearchByPrice.cshtml", "Home")'">
-                                <div class="font-weight-bold">$$</div>
-                            </button>
-
-                            <button type="button" class="btn  rounded-pill" onclick="location.href='@Url.Action("SubCategorySearchByPrice.cshtml", "Home")'">
-                                <div class="font-weight-bold">$$$</div>
-                            </button>
-
-                            <button type="button" class="btn rounded-pill" onclick="location.href='@Url.Action("SubCategorySearchByPrice.cshtml", "Home")'">
-                                <div class="font-weight-bold">$$$$</div>
-                            </button>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- 外送費選擇條 -->
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#">外送費上限</a>
-                    <div class="uk-accordion-content">
-                        <div>
-                            <input type="range" class="custom-range" min="0" max="3" id="customRange">
-                            <div class="d-flex justify-content-between">
-                                <div>NT$25</div>
-                                <div>NT$40</div>
-                                <div>NT$60</div>
-                                <div>NT$60+</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- 飲食限制選項按鈕
-                -->
-                <li class="uk-open">
-                    <a class="uk-accordion-title" href="#">飲食限制</a>
-                    <div id="restrict-container" class="uk-accordion-content">
-                        <div class="top-wrap d-flex">
-                            <button type="button" class="btn rounded-pill d-flex">
-                                <div class="font-weight-bold" style="font-size: 14px;">
-                                    <i class="fas fa-leaf"></i>
-                                    蔬食料理
-                                </div>
-                            </button>
-
-                            <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
-                                <div class="font-weight-bold">
-                                    <i class="fas fa-heart"></i>
-                                    純素食料理
-                                </div>
-                            </button>
-                        </div>
-                        <div class="bottom-wrap d-flex">
-                            <button type="button" class="btn  rounded-pill" style="font-size: 14px;">
-                                <div class="font-weight-bold">
-                                    <i class="fab fa-pagelines"></i>
-                                    無麩質料理
-                                </div>
-                            </button>
-
-                            <button type="button" class="btn rounded-pill ">
-                                <div class="font-weight-bold " style="font-size: 14px;">
-                                    <i class="fas fa-ban"></i>
-                                    過敏者可食用
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
-        </div>
         <!-- 商品類別 -->
         <div id="shopcategory">
             <!-- 店家欄(分類) -->
@@ -578,7 +441,7 @@
                 }
                 <!-- 顯示更多餐聽 -->
                 <div class="d-flex justify-content-center" style="margin: 40px;">
-                    <button type="button" class="btn btn-dark" style="width: 150px;height: 60px;font-size: 18px;">
+                    <button type="button" class="btn btn-dark" style="width: 150px;height: 60px;font-size: 18px; " onclick="location.href='@Url.Action("Search", "Home")'">
                         顯示更多餐廳
                     </button>
                 </div>
@@ -785,6 +648,11 @@
 
     @*首頁*@
     <style>
+
+        #cellphone-subcategory
+        {
+            margin-top:180px;
+        }
         /* 內容 */
         main {
             padding: 0px 40px;
@@ -957,6 +825,9 @@
         }
 
         @@media screen and (min-width:992px) {
+            *{
+                max-width:unset;
+            }
             .lookup {
                 display: flex;
             }
