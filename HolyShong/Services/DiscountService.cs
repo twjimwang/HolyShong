@@ -105,11 +105,16 @@ namespace HolyShong.Services
         /// 會員的所有有效優惠卷
         /// </summary>
         /// <returns></returns>
-        public List<DiscountViewModel> GetDiscountByMemberId()
+        public List<DiscountViewModel> GetDiscountByMemberId(string memberEmail)
         {
             List<DiscountViewModel> discountVM = new List<DiscountViewModel>();
             //memberId
-            var memberId = 1;
+            var memberId = 17;
+            //var memberId = _repo.GetAll<Member>().FirstOrDefault(m=> m.Email == memberEmail).MemberId;
+            if(memberId == 0)
+            {
+                return discountVM;
+            }
             var memberDiscounts = _repo.GetAll<DiscountMember>().Where(dm => dm.MemberId == memberId);
             if(memberDiscounts == null)
             {
