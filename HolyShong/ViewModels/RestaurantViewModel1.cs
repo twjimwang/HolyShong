@@ -57,6 +57,7 @@ namespace HolyShong.ViewModels
 
     public class StoreProduct
     {
+        public string StoreName { get; set; }
         public int ProductId { get; set; }
         /// <summary>
         /// 商品名稱

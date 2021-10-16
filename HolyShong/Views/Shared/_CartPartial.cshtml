@@ -1,0 +1,75 @@
+﻿
+<div class="cartList" id="cartApp">
+    <div class="list">
+        <!-- 沒有購物車 -->
+        @*<div v-if="product == null" class="noneList">
+            <i class="fas fa-shopping-cart mb-3"></i>
+            <br>
+            <span>選購餐廳或商店中的商品，即可開啟新的購物車</span>
+        </div>*@
+        <!-- 購物車 -->
+        <div class="cart-content">
+            <div class="modal-header">
+                <button type="button">x</button>
+                <h5 class="modal-title m-auto">{{product.StoreName}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="groupOrderDiv modal-footer footer mb-1 border-0">
+                    <button type="button" class="groupOrderBtn btn rounded-pill" data-toggle="modal"
+                            data-target="#groupOrder">
+                        <i class="fas fa-user-plus mx-1"></i><span>團購訂單</span>
+                    </button>
+                </div>
+                <div class="selectList d-flex ml-3">
+                    <div class="d-flex">
+                        <div class="selectDiv d-flex">
+                            <select name="" id="remove">
+                                <option value="">移除</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="orderContentDiv btn" data-toggle="modal"
+                                    data-target="#storeModal">
+                                <span class="mt-1">{{product.ProductName}}</span><br>
+                                <span v-for="storeProductOption in product.StoreProductOptions">
+                                    {{storeProductOption.ProductOptionName}} <br>
+                                    <span v-for="detail in storeProductOption.ProductOptionDetails">
+                                        {{detail.StoreProductOptioinDetailName}}
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="firstPrice">
+                        $99元
+                    </div>
+                </div>
+
+                <div class="otherItems">
+                    <label for="checkbox" class="w-100">
+                        <div>索取餐具、吸管等用品</div>
+                    </label>
+                    <input type="checkbox" id="checkbox" style="zoom:180%">
+                </div>
+                <div class="plasticBag mt-2">
+                    <label for="checkbox2" class="w-100">
+                        <div>索取袋子</div>
+                    </label>
+                    <input type="checkbox" id="checkbox2" style="zoom:180%">
+                </div>
+                <div class="previewOrderDiv">
+                    <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
+                        <span class="previewOrderSpan">前往結帳 • $ {{sum}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section endJS
+{
+    <script src="~/Assets/JS/Cart/cart.js" type="text/javascript"></script>
+}

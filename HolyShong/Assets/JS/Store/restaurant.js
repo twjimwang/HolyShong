@@ -3,6 +3,7 @@
     data: {
         select: '',
         product: {
+            StoreName:'',
             ProductId: 1,
             ProductName: '',
             ProductDescription: '',
@@ -60,6 +61,18 @@
             if (this.product.Quantity + value == 0) { return; }
             this.product.Quantity += value;
         },
+        addToCart() {
+            $.ajax({
+                type: 'POST',
+                url: '/api/Cart/AddToCart',
+                data: this.product,
+                success: function(res) {
+                    console.log(res);
+                    cartApp.product = res;
+
+                }
+            });
+        }
     },
     computed: {
         sum() {

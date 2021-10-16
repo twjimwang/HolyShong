@@ -306,6 +306,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\DeliverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
     <Compile Include="Services\MemberProfileService.cs" />
@@ -356,6 +358,7 @@
     <Compile Include="Services\StoreCategoryService.cs" />
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
@@ -385,6 +388,7 @@
     <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\Images\register.jpg" />
     <Content Include="Assets\Images\noSearch.jpg" />
+    <Content Include="Assets\JS\Cart\cart.js" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Assets\JS\Store\restaurant.js" />
@@ -468,9 +472,11 @@
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Store\RestaurantTEST.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -30,9 +30,5 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public void GetCart(HolyCartViewModel cartVM)
-        {
-            
-        }
     }
 }

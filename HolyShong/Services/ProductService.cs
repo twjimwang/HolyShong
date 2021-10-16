@@ -130,8 +130,10 @@ namespace HolyShong.Services
             var productOptionSource = _repo.GetAll<ProductOption>().Where(po => po.ProductId == productId);
             var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOptionSource.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId)).ToList();
             var productOption = productOptionSource.ToList();
+            var productCategory = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == p.ProductCategoryId);
+            var storeName = _repo.GetAll<Store>().FirstOrDefault(s=>s.StoreId == productCategory.StoreId).Name;
 
-
+            result.StoreName = storeName;
             result.ProductId = p.ProductId;
             result.ProductId = p.ProductId;
             result.ProductName = p.Name;
