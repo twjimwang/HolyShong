@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <label for="inputPassword">密碼(必填)</label>
                                 @*<input type="password" class="form-control" id="inputPassword" placeholder="密碼">*@
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" , @id = "inputPassword" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" , @id = "inputPassword" , @type = "password" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                 <div class="fa-stack fa-1x eye" id="tArea1">
                                     <i class="fas fa-stack-1x eyeOpen1 fa-eye-slash" id="eye"></i>
@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label for="ConfirmPassword">確認密碼(必填)</label>
                                 @*<input type="password" class="form-control" id="ConfirmPassword" placeholder="密碼">*@
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @id = "ConfirmPassword" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @id = "ConfirmPassword", @type = "password" } })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                                 <div class="fa-stack fa-1x eye" id="tArea2">
                                     <i class="fas fa-stack-1x eyeOpen2 fa-eye-slash" id="eye2"></i>
@@ -187,7 +187,7 @@
     </Script>
     <script>
         //eye1 jQuery
-        $('.eye').on('click', function () {
+        $('#eye').on('click', function () {
             if ($('.eyeOpen1').hasClass("fa-eye")) {
                 //如果eyeOpen有fa-eye(show)這個屬性
                 $('.eyeOpen1').removeClass("fa-eye")//就去掉
@@ -200,6 +200,22 @@
                 $('#inputPassword').attr('type', 'text')
             }
         })
+
+        $('#eye2').on('click', function () {
+            if ($('.eyeOpen2').hasClass("fa-eye")) {
+                //如果eyeOpen有fa-eye(show)這個屬性
+                $('.eyeOpen2').removeClass("fa-eye")//就去掉
+                $('.eyeOpen2').addClass("fa-eye-slash")//改加fa-eye-slash(hide)
+                $('#ConfirmPassword').attr('type', 'password')
+                //把input type屬性text改password
+            } else {
+                $('.eyeOpen2').addClass("fa-eye")
+                $('.eyeOpen2').removeClass("fa-eye-slash")
+                $('#ConfirmPassword').attr('type', 'text')
+            }
+        })
+
+
 
     </script>
 }
