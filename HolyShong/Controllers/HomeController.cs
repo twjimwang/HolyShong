@@ -52,27 +52,31 @@ namespace HolyShong.Controllers
         }
 
         //test
+        //[HttpGet]
+        //public ActionResult Search()
+        //{
+
+        //    var result = _storeService.GetAllStoresByKeyword("");
+        //    return View(result);
+        //}
+
         [HttpGet]
-        public ActionResult Search()
+        public ActionResult Search(SearchRequest input)//搜尋頁面
         {
+            input.Keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword;
+            input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
 
-            var result = _storeService.GetAllStoresByKeyword("");
-            return View(result);
-        }
-
-        [HttpPost]
-        public ActionResult Search(string keyword)//搜尋頁面
-        {
-            var result = _storeService.GetAllStoresByKeyword(keyword);
-            ViewBag.keyword = keyword;
+            var result = _storeService.GetAllStoresByKeyword(input.Keyword);
+            
             //轉換其它頁面
             if (result.StoreCards.Count==0)
             {
                 return View("NoSearch"); 
             }
 
-            ViewBag.searchCount = result.StoreCards.Count;
-
+            //ViewBag.searchCount = result.StoreCards.Count;
+            input.SearchCount = result.StoreCards.Count;
+            ViewBag.searchTemp = Newtonsoft.Json.JsonConvert.SerializeObject(input);
             return View(result);
         }
 
