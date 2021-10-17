@@ -9,7 +9,6 @@ namespace HolyShong.Models.HolyShongModel
     [Table("ItemDetail")]
     public partial class ItemDetail
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ItemDetailId { get; set; }
 
         public int ItemId { get; set; }

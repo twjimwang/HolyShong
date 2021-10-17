@@ -31,10 +31,10 @@ namespace HolyShong.Models.HolyShongModel
         public virtual DbSet<ProductOption> ProductOption { get; set; }
         public virtual DbSet<ProductOptionDetail> ProductOptionDetail { get; set; }
         public virtual DbSet<Rank> Rank { get; set; }
-        public virtual DbSet<Score> Score { get; set; }
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<StoreCategory> StoreCategory { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<ECPayRecord> ECPayRecord { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -68,11 +68,6 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<Member>()
                 .HasMany(e => e.Address)
-                .WithRequired(e => e.Member)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Member>()
-                .HasMany(e => e.Cart)
                 .WithRequired(e => e.Member)
                 .WillCascadeOnDelete(false);
 
@@ -153,12 +148,6 @@ namespace HolyShong.Models.HolyShongModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Store>()
-                .HasMany(e => e.Cart)
-                .WithRequired(e => e.Store)
-                .HasForeignKey(e => e.StroreId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Store>()
                 .HasMany(e => e.DiscountStroe)
                 .WithRequired(e => e.Store)
                 .WillCascadeOnDelete(false);
@@ -170,11 +159,6 @@ namespace HolyShong.Models.HolyShongModel
 
             modelBuilder.Entity<Store>()
                 .HasMany(e => e.ProductCategory)
-                .WithRequired(e => e.Store)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Store>()
-                .HasMany(e => e.Score)
                 .WithRequired(e => e.Store)
                 .WillCascadeOnDelete(false);
 

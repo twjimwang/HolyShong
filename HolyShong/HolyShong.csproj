@@ -327,6 +327,7 @@
     <Compile Include="Models\HolyShongModel\Discount.cs" />
     <Compile Include="Models\HolyShongModel\DiscountMember.cs" />
     <Compile Include="Models\HolyShongModel\DiscountStroe.cs" />
+    <Compile Include="Models\HolyShongModel\ECPayRecord.cs" />
     <Compile Include="Models\HolyShongModel\Favorite.cs" />
     <Compile Include="Models\HolyShongModel\HolyShongContext.cs" />
     <Compile Include="Models\HolyShongModel\Item.cs" />
@@ -340,7 +341,6 @@
     <Compile Include="Models\HolyShongModel\ProductOption.cs" />
     <Compile Include="Models\HolyShongModel\ProductOptionDetail.cs" />
     <Compile Include="Models\HolyShongModel\Rank.cs" />
-    <Compile Include="Models\HolyShongModel\Score.cs" />
     <Compile Include="Models\HolyShongModel\Store.cs" />
     <Compile Include="Models\HolyShongModel\StoreCategory.cs" />
     <Compile Include="Models\HolyShongModel\sysdiagrams.cs" />

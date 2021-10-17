@@ -15,7 +15,6 @@ namespace HolyShong.Models.HolyShongModel
             OrderDetailOption = new HashSet<OrderDetailOption>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderDetailId { get; set; }
 
         public int OrderId { get; set; }
