@@ -18,9 +18,10 @@ namespace HolyShong.Services
         }
 
         //取得特定會員Id的Member資料表
+        //因為Rank要取得最新的資料，所以要用Last
         public Member GetMember(int id)
         {
-            return _repo.GetAll<Member>().FirstOrDefault(x => x.MemberId == id);
+            return _repo.GetAll<Member>().LastOrDefault(x => x.MemberId == id);
         }
 
         //取得特定會員Id的Rank資料表
