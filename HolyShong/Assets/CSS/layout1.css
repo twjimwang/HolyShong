@@ -9,7 +9,7 @@
 
 .top {
     width: 100%;
-    padding:0 20px;
+    padding: 0 20px;
     margin: 0 auto;
     display: flex;
     position: fixed;
@@ -105,7 +105,7 @@
 }
 
 .lookup {
-    display:none;
+    display: none;
     position: absolute;
     top: 71px;
     left: 0;
@@ -132,6 +132,7 @@ label.cart {
     right: 5px;
     border: 1px solid #EEEEEE;
     box-shadow: 0px 0px 30px rgb(0 0 0 / 30%);
+    z-index: 99;
 }
 
 .noneList {
@@ -360,8 +361,8 @@ label.cart {
     border-radius: 500px;
     cursor: pointer;
     margin: auto;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* .cart{
@@ -378,8 +379,8 @@ label.cart {
 }
 
 footer {
-    padding: 60px 0;
-    margin-top: 60px;
+    padding: 80px 0;
+    margin-top: 80px;
     background-color: #000;
 }
 
@@ -450,6 +451,23 @@ footer {
 
     .discount-item:last-child {
         border-bottom: none;
+    }
+
+    .discount-item label {
+        margin-bottom: 0;
+        margin: auto 0;
+    }
+
+    .discount-item span {
+        background-color: #EEEEEE;
+        border-radius: 10px;
+        padding: 8px 15px;
+        margin-right: 10px;
+    }
+
+    .discount-item label input:checked ~ span {
+        background-color: rgb(49,75,88);
+        color: #fff;
     }
 
 .discount-body {
@@ -609,8 +627,8 @@ footer {
 
 @media screen and (min-width: 992px) {
     .top {
-        position:unset;
-        padding:0;
+        position: unset;
+        padding: 0;
         height: 95px;
         justify-content: space-between;
     }
@@ -770,6 +788,7 @@ footer {
     .cardWrap {
         width: 50%;
     }
+   
 }
 
 @media screen and (min-width:1024px) {

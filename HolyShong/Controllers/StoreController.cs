@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HolyShong.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,17 +14,11 @@ namespace HolyShong.Controllers
 {
     public class StoreController : Controller
     {
-        private readonly RestaurantService _restaurantService;
+        private readonly ProductService _productService;
         public StoreController()
         {
-            _restaurantService = new RestaurantService();
-
+            _productService = new ProductService();     
         }
-        //public HolyShongContext _ctx;
-        //public StoreController()
-        //{
-        //    _ctx = new HolyShongContext();
-        //}
         // GET: Store
         public ActionResult Index()
         {
@@ -52,11 +47,12 @@ namespace HolyShong.Controllers
             //result.StoreCategoryName = _ctx.StoreCategory.First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
             #endregion
 
-            if(!id.HasValue)
+            if (!id.HasValue)
             {
                 return RedirectToAction("NoSearch", "Home");
             }
-            var result=_restaurantService.GetRestaurant(id);
+            //var result = _restaurantService.GetRestaurant(id);
+            var result = _productService.GetStore(id.Value);
             if (result.StoreName == null)
             {
                 return RedirectToAction("NoSearch", "Home");
@@ -64,22 +60,24 @@ namespace HolyShong.Controllers
             return View(result);
 
         }
-        //public ActionResult Test()
+        //測試
+        //public ActionResult RestaurantTEST(int? storeid)
         //{
-        //    var stores = _ctx.Stores.ToList();
-        //    string Jsonstores = JsonConvert.SerializeObject(stores, new JsonSerializerSettings()
+        //    if (!storeid.HasValue)
         //    {
-        //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        //        PreserveReferencesHandling = PreserveReferencesHandling.Objects
-        //    });
-        //    ViewBag.Jsonstores = Jsonstores;
-        //    return Content(Jsonstores);
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    var result =_productService.GetAllProductsByStoreId(storeid.Value);
+        //    //if (result.StoreName == null)
+        //    //{
+        //    //    return RedirectToAction("NoSearch", "Home");
+        //    //}
+        //    return View(result);
+
         //}
+
+
         public ActionResult Marketing()
-        {
-            return View();
-        }
-        public ActionResult RestaurantRegister()
         {
             return View();
         }

@@ -1,389 +1,95 @@
-﻿
+﻿@model IEnumerable<OrderListViewModel>
 
-<div class="container">
-    
+<div class="container orderGroup">
+
     <div class="row">
         <div class="col-12 mb-4">
-            <h1 class="font-weight-bold passOrder mt-4">過去的訂單</h1>
+            <h1 class="font-weight-bold passOrder mt-4">訂單</h1>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12 historyItem mb-3">
-            <div class="imgDiv">
-                <img src="https://picsum.photos/300/100/?random=1">
-            </div>
-            <div class="itemGroup ml-2">
-                <div class="historyStore d-flex">
-                    <a href="https://www.ubereats.com/tw/store/%E6%B5%B7%E5%A5%B3%E5%92%96%E5%95%A1-%E6%A5%A0%E6%A2%93%E5%BA%97/bKsuO4h6Q8GAHz4gQDn5Dg">海女咖啡 楠梓店</a>
-                    <div>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+    @foreach (var order in Model)
+    {
+        <div class="row">
+            <div class="col-12 historyItem mb-3 pb-3">
+                <div class="imgDiv">
+                    <img src="@order.RestaurantImg">
+                </div>
+                <div class="itemGroup">
+                    <div class="historyStore d-flex">
+                        <h3>@order.RestaurantName</h3>
+                        <div class="my-auto pl-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="itemTitleDiv">
+                        <div class="itemTitle ">
+                            @order.ProductCount 份餐點，共 <div class="itemTitlePrice mx-1">$ @order.Total</div> • @order.DeliverDate
+                        </div>
+                    </div>
+                    <ul>
+                        @foreach (var item in order.ProductLists)
+                        {
+                            <li class="d-flex">
+                                <div class="number border d-flex">
+                                    @item.ProductQuantity
+                                </div>
+                                <div>
+                                    <div>
+                                        @item.ProductName
+                                    </div>
+                                    <span>
+                                        @item.OrderOptions
+                                    </span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="d-flex showContent mb-4">
+                        <span>顯示更多內容</span>
+                        <div class="iconDiv d-flex">
+                            <i class="fas fa-chevron-down icon mx-2"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="itemTitleDiv">
-                    <div class="itemTitle ">
-                        4 份餐點，共 <div class="itemTitlePrice mx-1">$0.00</div> • 8月23日 的 下午02:05
+                @if (order.OrderStatus == 6)
+                {
+                    <div class="checkRes bgBlue">
+                        @Html.ActionLink("檢視餐廳", "Restaurant", "Store", new { id = order.RestaurantId }, new { style = "color:#fff;" });
                     </div>
-                </div>
-                <ul>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    甜澄茉莉咖啡
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    舒芙蕾
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    原味蜂蜜 • 不要伊思尼鮮奶油
-                                </span>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    熱黑糖拿鐵
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    巴斯克乳酪蛋糕
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="sample">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    珍珠奶茶
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    無糖去冰
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="d-flex showContent mb-4">
-                    <span>顯示更多內容</span>
-                    <div class="iconDiv d-flex">
-                        <i class="fas fa-chevron-down icon mx-2"></i>
+                }
+                else
+                {   
+                    <div class="checkRes bgYellow">
+                        @Html.ActionLink("查看訂單", "Index", "Order", new { id = order.OrderId }, new { style = "color:#000;" });
                     </div>
-                </div>
-            </div>
-            <div class="checkRes">
-                <a href="#">檢視餐廳</a>
+                }
+
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12 historyItem mb-3">
-            <div class="imgDiv">
-                <img src="https://picsum.photos/300/100/?random=1">
-            </div>
-            <div class="itemGroup ml-2">
-                <div class="historyStore">
-                    <a href="https://www.ubereats.com/tw/store/%E6%B5%B7%E5%A5%B3%E5%92%96%E5%95%A1-%E6%A5%A0%E6%A2%93%E5%BA%97/bKsuO4h6Q8GAHz4gQDn5Dg">海女咖啡 楠梓店</a>
-                </div>
-                <div class="itemTitleDiv">
-                    <div class="itemTitle ">
-                        4 份餐點，共 <div class="itemTitlePrice mx-1">$0.00</div> • 8月23日 的 下午02:05
-                    </div>
-                </div>
-                <ul>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    甜澄茉莉咖啡
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    舒芙蕾
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    原味蜂蜜 • 不要伊思尼鮮奶油
-                                </span>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    熱黑糖拿鐵
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    巴斯克乳酪蛋糕
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex sample">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    珍珠奶茶
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    無糖去冰
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="d-flex showContent mb-4">
-                    <span>顯示更多內容</span>
-                    <div class="iconDiv d-flex">
-                        <i class="fas fa-chevron-down icon mx-2"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="checkRes">
-                <a href="#">檢視餐廳</a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-12 historyItem">
-            <div class="imgDiv">
-                <img src="https://picsum.photos/300/100/?random=2">
-            </div>
-            <div class="itemGroup ml-2">
-                <div class="historyStore">
-                    <a href="https://www.ubereats.com/tw/store/%E6%B5%B7%E5%A5%B3%E5%92%96%E5%95%A1-%E6%A5%A0%E6%A2%93%E5%BA%97/bKsuO4h6Q8GAHz4gQDn5Dg">BS滷肉飯 忠孝復興店</a>
-                </div>
-                <div class="itemTitleDiv">
-                    <div class="itemTitle ">
-                        4 份餐點，共 <div class="itemTitlePrice mx-1">$0.00</div> • 8月23日 的 下午02:05
-                    </div>
-                </div>
-                <ul>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    甜澄茉莉咖啡
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    舒芙蕾
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    原味蜂蜜 • 不要伊思尼鮮奶油
-                                </span>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    熱黑糖拿鐵
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    巴斯克乳酪蛋糕
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    中 (360 毫升)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="d-flex sample">
-                        <div class="number border d-flex">
-                            1
-                        </div>
-                        <div>
-                            <div>
-                                <div>
-                                    珍珠奶茶
-                                </div>
-                            </div>
-                            <div>
-                                <span>
-                                    無糖去冰
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="d-flex showContent mb-4">
-                    <span>顯示更多內容</span>
-                    <div class="iconDiv d-flex">
-                        <i class="fas fa-chevron-down icon mx-2"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="checkRes">
-                <a href="#">檢視餐廳</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12 col-sm-12">
-            <div class="d-flex my-4 showRestaurant">
-                <button type="button" class="btn btn-lg btn-block rounded-0 d-flex">
-                    <span>顯示更多內容</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 
 @section topCSS{
     <script src="https://kit.fontawesome.com/4f9a2aa392.js" crossorigin="anonymous"></script>
     <style>
+        .orderGroup{
+            margin-top:112px;
+        }
+        .bgBlue {
+            background-color: rgb(49,75,88);
+        }
+        .bgYellow {
+            background-color: rgb(255,205,0);
+        }
+            .bgYellow:hover {
+                background-color: #FFC20E;
+            }
         body {
             font-family: sans-serif;
         }
@@ -405,13 +111,14 @@
 
         .imgDiv {
             width: 100%;
-            height: 140px;
+            height: 250px;
             padding-right: 0px;
         }
 
         .imgDiv img {
             width: 100%;
             height: 100%;
+            object-fit:cover;
         }
 
         .historyItem {
@@ -449,7 +156,6 @@
             }
 
         .checkRes {
-            background-color: black;
             width: 100%;
             height: 56px;
             display: flex;
@@ -458,7 +164,6 @@
         }
 
             .checkRes a {
-                color: white;
                 display: block;
                 text-align: center;
                 width: 100%;
@@ -500,10 +205,6 @@
                 font-size: 10px;
             }
 
-        .sample {
-            display: none;
-        }
-
         .showIcon {
             display: flex;
         }
@@ -527,7 +228,6 @@
             }
 
         .checkResSample {
-            background-color: black;
             width: 302px;
             height: 56px;
             display: flex;
@@ -546,6 +246,12 @@
 
         /* 桌機 */
         @@media screen and (min-width: 992px) {
+            .row{
+                padding:0 20px;
+            }
+            .orderGroup {
+                margin-top: 0;
+            }
             .historyItem {
                 display: flex;
                 border-bottom: 1px solid rgb(238, 238, 238);
@@ -554,8 +260,8 @@
             }
 
             .imgDiv {
-                width: 302px;
-                height: 140px;
+                width: 500px;
+                height: 300px;
                 padding-right: 24px;
             }
 
@@ -589,7 +295,6 @@
 
             .historyStore {
                 margin-top: 0px;
-                justify-content: space-between;
             }
 
                 .historyStore a {
@@ -619,7 +324,6 @@
             }
 
             .checkRes {
-                background-color: black;
                 width: 302px;
                 height: 56px;
                 display: flex;
@@ -628,7 +332,6 @@
             }
 
                 .checkRes a {
-                    color: white;
                     display: block;
                     text-align: center;
                     width: 100%;
@@ -675,28 +378,19 @@
     <script>
         let showIcon = document.querySelector('.iconDiv')
         let showContent = document.querySelector('.showContent')
-        let sample = document.querySelector('.sample')
         showIcon.addEventListener('click', function () {
             if (showContent.style.display == 'flex') {
                 showContent.style.display = 'none'
                 showIcon.style.display = 'none'
-                sample.style.display = 'flex'
             }
             else {
                 showContent.style.display = 'flex'
                 showIcon.style.display = 'flex'
-                sample.style.display = 'none'
             }
         })
         let showRestaurant = document.querySelector('.showRestaurant')
         let historyItemSample = document.querySelector('#historyItemSample')
                 // 延遲載入
 
-
-
-
-
     </script>
-
-
 }

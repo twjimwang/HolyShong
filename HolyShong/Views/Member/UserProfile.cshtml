@@ -1,53 +1,72 @@
-﻿<div class="container">
-    <div class="personalInfo">
-        <div class="name">
-            <div class="nameCircle">
-                <div class="nameImg">
-                    <div class="txt">慧萱</div>
-                </div>
+﻿@model UserProfileViewModel
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.MemberId)
+    @Html.HiddenFor(x => x.Email)
+    <div class="personalGroup container">
+        <div class="personalInfo">
+            <h2>會員資料修改</h2>
+            <div class="name row">
+                <label class="col-4 " for="lastName">會員姓氏</label>
+                @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+                @*<input class="col-8" type="text" id="lastName" value="@Model.LastName">*@
             </div>
-            <div class="fullName">慧萱黃</div>
-        </div>
-        <div class="phone">
-            <label for="tel">電話</label>
-            <input type="tel" id="tel">
-        </div>
-        <div class="address">
-            <div class="addressTxt">聯絡地址</div>
-            <select name="縣市" id="">
-                <option value>請選擇郵遞區號</option>
-            </select>
-        </div>
-        <input class="addressInput" type="text">
-        <div class="carrier">
-            <div class="carrierTxt">發票歸戶</div>
-            <a href="https://einvoice.nat.gov.tw/APCONSUMER/BTC103W/">會員載具歸戶</a>
-        </div>
-        <div class="member">
-            <div class="memberTxt">會員狀態</div>
-            <label>
-                <input type="radio" name="member">
-                一般會員
-            </label>
-            <label>
-                <input type="radio" name="member">
-                優饗會員
-            </label>
-        </div>
-        <div class="email">
-            <div class="emailTxt">電子郵件</div>
-            <div class="emailInfo">sherly800320@gmail.com</div>
-        </div>
+            <div class="name row">
+                <label class="col-4" for="firstName">會員名字</label>
+                @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+                @*<input class="col-8" type="text" id="firstName" value="@Model.FirstName">*@
+            </div>
+            <div class="phone row">
+                <label class="col-4" for="tel">聯絡電話</label>
+                @Html.EditorFor(x => x.Cellphone, new { htmlAttributes = new { @class = "col-8 form-control" } })
+                @Html.ValidationMessageFor(x => x.Cellphone, "", new { @class = "text-danger" })
+                @*<input class="col-8" type="text" id="tel" value="@Model.Cellphone">*@
+            </div>
+            <div class="member row">
+                <div class="memberTxt col-4">會員狀態</div>
+                @if (Model.IsPrimary)
+                {
+                    <div class="col-8">送送會員 <br>到期時間：@Model.PrimaryEndTime</div>
+                }
+                else
+                {
+                    <div class="col-8">
+                        一般會員 <button type="button" class="btn btn-primary btn-sm align-items-center" id="GetPrimary" onclick="location.href='@Url.Action("Index", "Payment")'">升級為送送會員</button>
+                    </div>
+                }
+            </div>
+            <div class="email row">
+                <div class="emailTxt col-4">電子郵件</div>
+                <div class="emailInfo col-8">@Model.Email</div>
+            </div>
 
-        <button type="button" class="saveBtn btn btn-primary">儲存變更</button>
+            <button type="submit" class="saveBtn btn btn-primary" data-toggle="modal" data-target="#submitResultModal">儲存變更</button>
+            @*<div class="modal fade" id="submitResultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">修改結果</h5>
+                            </div>
+                            <div class="modal-body align-items-center">
+                                @ViewBag.commitResult
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">確認</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
 
-        <div class="app">
-            <h4>授權的應用程式</h4>
-            <h4>您沒有任何授權的應用程式</h4>
+            @Html.ValidationSummary()
+
         </div>
     </div>
-</div>
-
+}
 @section topCSS
 {
     <style>
@@ -57,13 +76,24 @@
 
         .container {
             max-width: 1920px;
-            /* padding: 0; */
+        }
+
+        .personalGroup {
             display: flex;
         }
 
         .personalInfo {
-            margin: auto;
+            margin: 23px auto;
         }
+
+            .personalInfo h2 {
+                font-size: 20px;
+            }
+
+            .personalInfo .row .col-4 {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
 
         .layout {
             height: 60px;
@@ -71,101 +101,31 @@
         }
         /* name */
         .name {
-            display: flex;
-            align-items: center;
-            margin-bottom: 23px;
-            margin-top: 5px;
+            margin-top: 16px;
         }
 
-        .nameCircle {
-            width: 100px;
-            margin-right: 24px;
-        }
-
-        .nameImg {
-            width: 64px;
-            height: 64px;
-            border-bottom-left-radius: 50%;
-            border-bottom-right-radius: 50%;
-            border-top-right-radius: 50%;
-            border-top-left-radius: 50%;
-            background-color: #276EF1;
-        }
-
-            .nameImg .txt {
-                color: white;
-                text-align: center;
-                line-height: 64px;
-            }
-
-        .fullName, .emailInfo, .app h4 {
+        .emailInfo, .app h4 {
             font-weight: bold;
         }
         /* phone */
         .phone {
-            margin-bottom: 16px;
+            margin: 16px 0;
         }
 
-            .phone label {
-                width: 100px;
-                margin: 16px 16px 0 0;
-            }
-        /* address */
-        .address {
-            display: flex;
-            margin-bottom: 16px;
-        }
-
-        .addressTxt {
-            width: 98px;
-            margin-right: 22px;
-        }
-
-        .addressInput {
-            margin-left: 120px;
-            margin-bottom: 16px;
-        }
-        /* carrier */
-        .carrier {
-            display: flex;
-            margin-bottom: 16px;
-        }
-
-        .carrierTxt {
-            width: 98px;
-            margin-right: 22px;
-        }
-        /* member */
-        .member {
-            display: flex;
-        }
-
-        .memberTxt {
-            width: 98px;
-            margin-right: 22px;
-        }
-
-        .member label:nth-of-type(2) {
-            margin: 0 23px;
-        }
         /* email */
         .email {
-            display: flex;
-            margin-bottom: 16px;
+            margin: 16px 0;
         }
 
-        .emailTxt {
-            width: 98px;
-            margin-right: 22px;
-        }
         /* saveBtn */
         .saveBtn {
             margin-bottom: 16px;
         }
-        /* app */
-        .app h4 {
-            font-size: 16px;
-        }
     </style>
 }
+
+@section endJS{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 

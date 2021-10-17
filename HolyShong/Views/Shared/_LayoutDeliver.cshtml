@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+    string userid = "";
+    if (cookie != null)
+    {
+        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+        userid = ticket.UserData;
+    }
+    var deliver = new HolyShong.Services.OrderService().GetDeliverInfo(userid);
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,7 +30,9 @@
     @RenderSection("topJS", required: false)
     @RenderSection("topCSS", required: false)
 
-
+    <script>
+        var isOnline = @Json.Encode(deliver.isOnline);
+    </script>
 </head>
 <body>
     <input type="checkbox" class="d-none" id="menu-check">
@@ -35,8 +49,7 @@
 
             <!-- 上線&登入 -->
             <div class="status d-flex">
-                <input type="checkbox" checked data-toggle="toggle" data-on="上線" data-off="下線" data-onstyle="success" data-offstyle="danger">
-                <button class="login btn ml-3">登入</button>
+                <input type="checkbox" @(deliver.isOnline ? "checked" : null) data-toggle="toggle" data-on="上線" data-off="下線" data-onstyle="success" data-offstyle="danger">
             </div>
 
             <div class="menu">
@@ -53,14 +66,20 @@
                 </div>
             </div>
         </div>
+        <div class="bg"></div>
     </header>
+    @if (!deliver.isOnline)
+    {
+        <div class="bgConnection bgConnection-style">
+            <div class="bgInfo">
+                目前離線中，請於右上角切換上線，開始接單
+            </div>
+        </div>
+    }
 
-    <div class="bg"></div>
 
     @RenderBody()
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script src="~/Assets/JS/deliver_layout.js"></script>

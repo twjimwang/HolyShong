@@ -13,6 +13,16 @@
     }
 }
 
+@{
+    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+    string userid = "";
+    if (cookie != null)
+    {
+        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+        userid = ticket.UserData;
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +51,7 @@
             <div class="head d-flex">
                 <label for="menu-check" class="hb"><i class="fas fa-bars align-middle"></i></label>
                 <div class="logo m-auto">
-                    <a class="d-block" href="#"><img src="~/Assets/Images/logo.jpg"></a>
+                    <a class="d-block" href="~/home/index"><img src="~/Assets/Images/logo.jpg"></a>
                 </div>
             </div>
             <div class="lookup">
@@ -57,14 +67,35 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
+
+
+
+
                 <!-- 搜尋 -->
-                <div class="search d-flex">
-                    <label class="w-100">
-                        <i class="fas fa-search p-2"></i>
-                        <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
-                    </label>
-                    <div class="filter"><i class="fas fa-sliders-h"></i></div>
+                @*<div class="search d-flex">
+                        <label class="w-100">
+                            <i class="fas fa-search p-2"></i>
+                            <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                        </label>
+                        <div class="filter"><i class="fas fa-sliders-h"></i></div>
+                    </div>*@
+
+                <div class="search ">
+                    <form action="/Home/Search" method="post" class="d-flex">
+                        <label class="w-100">
+                            <i class="fas fa-search p-2"></i>
+                            <input type="text" name="keyword" id="keyword" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                        </label>
+                        <div data-toggle="modal" data-target="#subcategorymodal" class="filter">                       
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        @*<input type="submit" value="搜尋" class="btn btn-primary">*@
+                    </form>
                 </div>
+
+
+
+
             </div>
             <!-- 購物車&登入 -->
             <div class="status d-flex">
@@ -76,35 +107,35 @@
                 <div class="cartList">
                     <div id="holyCart" class="list">
                         <!-- <div class="noneList">
-                  <i class="fas fa-shopping-cart mb-3"></i>
-                  <br>
-                  <span>選購餐廳或商店中的商品，即可開啟新的購物車</span>
-                </div> -->
+                          <i class="fas fa-shopping-cart mb-3"></i>
+                          <br>
+                          <span>選購餐廳或商店中的商品，即可開啟新的購物車</span>
+                        </div> -->
                         <!-- 購物車 -->
                         @Html.Partial("_CartPartial")
                     </div>
                 </div>
                 <button class="noLogin login btn py-2" onclick="location.href='@Url.Action("Login", "Member")'">登入</button>
-                <button class="login btn mr-3" onclick="location.href='@Url.Action("Login", "Member")'">登入</button>
+
             </div>
 
             <div class="menu">
-                <div class="loginShow name py-2 border-bottom">會員姓名</div>
+                <div class="loginShow name py-2 border-bottom">@User.Identity.Name</div>
                 <div class="function loginShow">
-                    <div class="account item"><i class="fas fa-user"></i>帳戶資訊</div>
-                    <div class="order item"><i class="fas fa-receipt"></i>訂單</div>
-                    <div class="favorite item"><i class="fas fa-heart"></i>最愛餐廳</div>
+                    <div class="account item" onclick="location.href='@Url.Action("UserProfile", "Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
+                    <div class="order item" onclick="location.href='@Url.Action("OrderList", "Member")'"><i class="fas fa-receipt"></i>訂單</div>
+                    <div class="favorite item"><i class="fas fa-heart" onclick="location.href='@Url.Action("Favorite", "Member")'"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠
                     </div>
-                    <div class="eatPass item text-success d-flex">
+                    <div class="eatPass item text-success d-flex" onclick="location.href='@Url.Action("Eatpass", "Member")'">
                         <div><i class="fas fa-ticket-alt"></i></div>
                         <div>
                             <div>優饗方案</div>
                             <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
                         </div>
                     </div>
-                    <div class="invite item d-flex">
+                    <div class="invite item d-flex" onclick="location.href='@Url.Action("Invite", "Member")'">
                         <div><i class="fas fa-gift"></i></div>
                         <div>
                             <div>邀請好友</div>
@@ -113,11 +144,12 @@
                     </div>
                 </div>
                 <div class="switch">
-                    <button class="loginShow btn btn btn-dark d-block w-100 mb-2">我想要訂餐</button>
-                    <button class="loginShow btn btn btn-dark d-block w-100 mb-2">餐廳登入</button>
-                    <button class="loginShow btn btn btn-dark d-block w-100 mb-2">外送夥伴</button>
-                    <button class="loginShow btn border-secondary w-100 mb-2">登出</button>
-                    <button class="noLogin btn btn-dark w-100 mb-2">請先登入</button>
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Home")'">我想要訂餐</button>
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("RestaurantRegister", "Member")'">餐廳登入</button>
+                    <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("DeliverRegister", "Member")'">外送夥伴</button>
+                    <button class="loginShow btn border-secondary w-100 mb-2" onclick="location.href='@Url.Action("SignOut", "Member")'">登出</button>
+                    <button class="noLogin btn btn-dark w-100 mb-2" onclick="location.href='@Url.Action("Login", "Member")'">請先登入</button>
+
                 </div>
             </div>
         </div>
@@ -203,74 +235,7 @@
         </div>
     </div>
 
-    <!-- 優惠Modal -->
-    <div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="discountModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="discountModalLabel">優惠</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <button class="btn px-3 py-2" data-toggle="modal" data-target="#ONdiscountModal"
-                            id="discountAdd">
-                        新增優惠
-                    </button>
-                    <div class="discount-body">
-                        <!-- 優惠內容 -->
-                        <div class="discount-item my-3 py-3">
-                            <div class="discount-txt">40% 折扣優惠 (最多可折抵 $100)</div>
-                            <div>2021 年 12 月 26 日 上午 12 時</div>
-                        </div>
-                        <div class="discount-item my-3 py-3">
-                            <div class="discount-txt">40% 折扣優惠 (最多可折抵 $100)</div>
-                            <div>2021 年 12 月 26 日 上午 12 時</div>
-                        </div>
-                        <div class="discount-item my-3 py-3">
-                            <div class="discount-txt">40% 折扣優惠 (最多可折抵 $100)</div>
-                            <div>2021 年 12 月 26 日 上午 12 時</div>
-                        </div>
-                        <div class="discount-item my-3 py-3">
-                            <div class="discount-txt">40% 折扣優惠 (最多可折抵 $100)</div>
-                            <div>2021 年 12 月 26 日 上午 12 時</div>
-                        </div>
-                        <div class="discount-item my-3 py-3">
-                            <div class="discount-txt">40% 折扣優惠 (最多可折抵 $100)</div>
-                            <div>2021 年 12 月 26 日 上午 12 時</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ON 優惠Modal -->
-    <div class="modal fade" id="ONdiscountModal" tabindex="-1" aria-labelledby="ONdiscountModalLabel" aria-hidden="true"
-         data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="ONdiscount-body">
-                        <h4 class="modal-title mb-3" id="ONdiscountModalLabel">是否有優惠序號？</h4>
-                        <input type="text" placeholder="新增優惠序號">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">套用</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_DiscountPartial")
 
     <!-- 外送地點 -->
     <div class="modal fade" id="destModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
@@ -379,16 +344,70 @@
 
     
 
+    @*副分類篩選*@
+    <div class="modal fade" id="subcategorymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">篩選條件</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_SubCategoryPartial")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="~/Assets/JS/layout.js"></script>
 
     @RenderSection("scripts", required: false)
 
     @RenderSection("endCSS", required: false)
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            let noLogin = document.querySelectorAll('.noLogin');
+            let loginShow = document.querySelectorAll(".loginShow");
+
+            noLogin.forEach((item, index) => {
+                item.classList.add("d-none")
+            })
+            loginShow.forEach((item, index) => {
+                item.classList.remove("d-none")
+            })
+        </script>
+    }
+    else
+    {
+        <script>
+            let noLogin = document.querySelectorAll('.noLogin');
+            let loginShow = document.querySelectorAll(".loginShow");
+
+            noLogin.forEach((item, index) => {
+                item.classList.remove("d-none")
+            })
+            loginShow.forEach((item, index) => {
+                item.classList.add("d-none")
+            })
+        </script>
+    }
+
     @RenderSection("endJS", required: false)
+
+
 
 </body>
 </html>
