@@ -2,7 +2,7 @@
 @using HolyShong.Services;
 @{
     var cartServices = new CartService();
-    var holyCartViewmodel = cartServices.GetCartByMemberId(1);
+    var holyCartViewmodel = cartServices.GetCartByMemberId(4);
 
     int count = 0; 
     if(Session["HolyCartViewModel"] != null)

@@ -78,7 +78,7 @@ namespace HolyShong.Services
                 {
                     ProductOptionId = tempProductOptionDetails.FirstOrDefault(y => y.ProductOptionDetailId == x.ProductOptionDetailId).ProductOptionId,
                     ProductOptionName = pName.FirstOrDefault(y => y.ProductOptionId == tempProductOptionDetails.FirstOrDefault(z => z.ProductOptionDetailId == x.ProductOptionDetailId).ProductOptionId).Name,
-                    addPrice = tempProductOptionDetails.FirstOrDefault(y => y.ProductOptionDetailId == x.ProductOptionDetailId).AddPrice,
+                    AddPrice = tempProductOptionDetails.FirstOrDefault(y => y.ProductOptionDetailId == x.ProductOptionDetailId).AddPrice,
                     ProductOptionDetail = tempProductOptionDetails.FirstOrDefault(y => y.ProductOptionDetailId == x.ProductOptionDetailId).Name
                 }).ToList(); 
             

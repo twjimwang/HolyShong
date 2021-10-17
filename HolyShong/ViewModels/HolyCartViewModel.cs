@@ -33,19 +33,21 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 外送指示
         /// </summary>
-        public string note { get; set; }
+        public string Note { get; set; }
         /// <summary>
         /// 預計運送時間
         /// </summary>
-        public string shippingTime { get; set; }
+        public string ShippingTime { get; set; }
         /// <summary>
         /// 購物車數量
         /// </summary>
         public int Count { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public bool IsplasticBag { get; set; }
+       
         public bool IsTableWares { get; set; }
+
+        public bool IsplasticBag { get; set; }
 
     }
 
@@ -93,12 +95,12 @@ namespace HolyShong.ViewModels
         /// <summary>
         /// 加價 productOptionDetail
         /// </summary>
-        public decimal? addPrice { get; set; }
+        public decimal? AddPrice { get; set; }
 
         /// <summary>
         /// 備註
         /// </summary>
-        public string special { get; set; }
+        public string Special { get; set; }
     }
 
 }

@@ -35,52 +35,52 @@
         <div class="modal-body">
             <div class="groupOrderDiv modal-footer footer mb-1 border-0">
                 @*<button type="button" class="groupOrderBtn btn rounded-pill" data-toggle="modal"
-                            data-target="#groupOrder">
-                        <i class="fas fa-user-plus mx-1"></i><span>團購訂單</span>
-                    </button>*@
+                    data-target="#groupOrder">
+                <i class="fas fa-user-plus mx-1"></i><span>團購訂單</span>
+            </button>*@
             </div>
             @foreach (var item in holyCartViewModel.CartItems)
             {
-        <div class="selectList d-flex ml-3">
-            <div class="d-flex">
-                @*<div class="selectDiv d-flex">
-                <select name="" id="remove">
-                    <option value="">移除</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-                </div>*@
-                <div>
-                    <div id="minus"><i class="fas fa-minus"></i></div>
-                    <!-- <input type="text" name="" id="quantity" value="1"> -->
-                    <div id="quantity">@item.Quantity</div>
-                    <div id="plus"><i class="fas fa-plus"></i></div>
+                <div class="selectList d-flex ml-3">
+                    <div class="d-flex">
+                        @*<div class="selectDiv d-flex">
+                    <select name="" id="remove">
+                        <option value="">移除</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    </div>*@
+                        <div>
+                            <div id="minus"><i class="fas fa-minus"></i></div>
+                            <!-- <input type="text" name="" id="quantity" value="1"> -->
+                            <div id="quantity">@item.Quantity</div>
+                            <div id="plus"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div>
+                            <button class="orderContentDiv btn" data-toggle="modal"
+                                    data-target="#item_@item.ItemId">
+                                <span class="mt-1">@item.ProductName</span><br>
+                                @foreach (var detail in item.ProductOptionCards)
+                                {
+                                    <span>
+                                        @detail.ProductOptionName
+                                        @detail.ProductOptionDetail <br>
+                                        @detail.AddPrice
+                                    </span>
+
+                                }
+                            </button>
+                        </div>
+                    </div>
+                    <div id="firstPrice">
+                        @item.TotalPrice
+                    </div>
+                    <div class="groupOrderDiv modal-footer footer mb-1 border-0">
+                        <button type="button" class="groupOrderBtn btn rounded-pill" id="removeItem" onclick="location.href='@Url.Action("Checkout", "Member")'"><i class="fas fa-times"></i><span></span></button>
+                    </div>
+
                 </div>
-            <div>
-                <button class="orderContentDiv btn" data-toggle="modal"
-                        data-target="#item_@item.ItemId">
-                    <span class="mt-1">@item.ProductName</span><br>
-                    @foreach (var detail in item.ProductOptionCards)
-                    {
-                        <span>
-                            @detail.ProductOptionName
-                            @detail.ProductOptionDetail <br>
-                            @detail.addPrice
-                        </span>
-
-                    }
-                </button>
-            </div>
-        </div>
-            <div id="firstPrice">
-                @item.TotalPrice
-            </div>
-            <div class="groupOrderDiv modal-footer footer mb-1 border-0">
-                <button type="button" class="groupOrderBtn btn rounded-pill" id="removeItem"onclick="location.href='@Url.Action("Checkout", "Member")'"><i class="fas fa-times"></i><span></span></button>
-            </div>
-
-        </div>
 
                 <!-- Modal 內容明細-->
                 <div class="modal fade" id="item_@item.ItemId" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -100,88 +100,86 @@
                                 </div>
 
                                 @*@foreach (var item in holyCartViewmodel.CartItems)
-                                    {
-                                        <div class="cardWrap d-flex flex-column">
-                                            <div class="scroll">
-                                                <div class="topWrap">
-                                                    <div class="food p-4">
-                                                        <h2>@item.ProductName</h2>
-                                                        <p>@item.Description</p>
-                                                    </div>
-                                                    <div class="selectedBgc p-4">
-                                                        <div class="selected d-flex justify-content-between align-items-center">
-                                                            <div class="selectWrap">
-                                                                @foreach (var detail in item.ProductOptionCards)
-                                                                {
-                                                                    <div class="selectedTitle">@detail.ProductOptionName</div>
-                                                                }
-                                                                <div class="selectedTxt">
-                                                                    <span>最多可選擇 1 個項目</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="circleIconDiv">
-                                                                <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
-                                                            </div>
+                            {
+                                <div class="cardWrap d-flex flex-column">
+                                    <div class="scroll">
+                                        <div class="topWrap">
+                                            <div class="food p-4">
+                                                <h2>@item.ProductName</h2>
+                                                <p>@item.Description</p>
+                                            </div>
+                                            <div class="selectedBgc p-4">
+                                                <div class="selected d-flex justify-content-between align-items-center">
+                                                    <div class="selectWrap">
+                                                        @foreach (var detail in item.ProductOptionCards)
+                                                        {
+                                                            <div class="selectedTitle">@detail.ProductOptionName</div>
+                                                        }
+                                                        <div class="selectedTxt">
+                                                            <span>最多可選擇 1 個項目</span>
                                                         </div>
                                                     </div>
-                                                    <div class="checkboxDiv d-flex align-items-center p-4">
-                                                        <label for="checkbox">
-                                                            <input id="checkbox" type="checkbox">小辣
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
-                                                <div class="billTxt">
-                                                    <p>
-                                                        [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
-                                                        (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
-                                                    </p>
-                                                </div>
-                                                <div class="addItemBgC">
-                                                    <div class="addGroup wrap justify-content-around">
-                                                        <div class="quantityAddWrap d-flex">
-                                                            <i class="fas fa-minus-circle fa-2x"></i>
-                                                            <div class="quantity" style="font-size: 20px;">1</div>
-                                                            <i class="fas fa-plus-circle fa-2x"></i>
-                                                        </div>
-                                                        <div class="addToCartWrap">
-                                                            <button type="button" class="btn btn-lg btn-dark active">
-                                                                <span class="addToCart">
-                                                                    新增 1 項商品至訂單
-                                                                </span>
-                                                                <span class="price">
-                                                                    @item.TotalPrice
-                                                                </span>
-                                                            </button>
-                                                        </div>
+                                                    <div class="circleIconDiv">
+                                                        <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="checkboxDiv d-flex align-items-center p-4">
+                                                <label for="checkbox">
+                                                    <input id="checkbox" type="checkbox">小辣
+                                                </label>
+                                            </div>
                                         </div>
-                                    }*@
+                                        <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
+                                        <div class="billTxt">
+                                            <p>
+                                                [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
+                                                (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
+                                            </p>
+                                        </div>
+                                        <div class="addItemBgC">
+                                            <div class="addGroup wrap justify-content-around">
+                                                <div class="quantityAddWrap d-flex">
+                                                    <i class="fas fa-minus-circle fa-2x"></i>
+                                                    <div class="quantity" style="font-size: 20px;">1</div>
+                                                    <i class="fas fa-plus-circle fa-2x"></i>
+                                                </div>
+                                                <div class="addToCartWrap">
+                                                    <button type="button" class="btn btn-lg btn-dark active">
+                                                        <span class="addToCart">
+                                                            新增 1 項商品至訂單
+                                                        </span>
+                                                        <span class="price">
+                                                            @item.TotalPrice
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }*@
                             </div>
                         </div>
                     </div>
                 </div>
             }
-                <div class="otherItems">
-                    <label for="checkbox" class="w-100">
-                        <div>索取餐具、吸管等用品</div>
-                    </label>
-                    <input name="Terms" type="checkbox" id="checkbox" style="zoom:180%">
-                </div>
-                <div class="plasticBag mt-2">
-                    <label for="checkbox2" class="w-100">
-                        <div>索取袋子</div>
-                    </label>
-                    <input type="checkbox" id="checkbox2" style="zoom:180%">
-                </div>
-                <div class="previewOrderDiv">
-                    <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
-                        <span class="previewOrderSpan">前往結帳 • @totalprice</span>
-                    </button>
-                </div>
-            
+            <div class="otherItems my-3">
+                <label class="w-100" for="IsTableWares"><span>索取餐具、吸管等用品</span></label>
+                @Html.CheckBoxFor(m => m.IsTableWares, new { @style = "zoom:180%" })
+                @*<input class="" id="IsTableWares" name="IsTableWares" type="checkbox" style="zoom:180%">*@
+            </div>
+            <div class="plasticBag my-3">
+                <label class="w-100" for="IsplasticBag"><span>索取袋子</span></label>
+                @Html.CheckBoxFor(m => m.IsplasticBag, new { @style = "zoom:180%" })
+                @*<input class="" id="IsplasticBag" name="IsplasticBag" type="checkbox" style="zoom:180%">*@
+            </div>
+            <div class="previewOrderDiv">
+                <button class="btn btn-dark previewOrderBtn" onclick="location.href='@Url.Action("Checkout", "Member")'">
+                    <span class="previewOrderSpan">前往結帳 • @totalprice</span>
+                </button>
+            </div>
+
         </div>
     </div>}
 
@@ -192,6 +190,26 @@
 @section endJS
 {
     <script>
+
+        let plus = document.querySelector('#plus')
+        let minus = document.querySelector('#minus')
+        let quantity = document.querySelector('#quantity')
+
+
+
+
+        plus.addEventListener('click', function () {
+            let quantityValue = document.querySelector('#quantity').innerText
+            quantity.innerText = ++quantityValue
+
+        })
+
+        minus.addEventListener('click', function () {
+            let quantityValue = document.querySelector('#quantity').innerText
+            if (quantityValue > 1) {
+                quantity.innerText = --quantityValue
+            }
+        })  
 
         function cartValue() {
 
@@ -213,21 +231,7 @@
 
 
         }
-        let plus = document.querySelector('#plus') 
-        let minus = document.querySelector('#minus')
-        let removeItem = document.querySelector('#removeItem')
-        let quantityValue = document.querySelector('#quantity').innerHTML
-        let quantity = document.querySelector('#quantity')
-
-
-        plus.addEventListener('click', function () {
-            quantity.innerHTML = quantityValue++
-
-        })
-
-        minus.addEventListener('click', function () {
-            quantity.innerHTML = quantityValue--
-        })  
+       
 
 
     </script>
