@@ -9,15 +9,15 @@
         </div>
         <!-- 購物車 -->
 
-        <div class="cart-content" v-for="(p,index) in product">
-            <div v-if="index==0" class="modal-header">
-                <button type="button">x</button>
+        <div class="cart-content">
+            <div v-for="(p,index) in product" v-if="index==0" class="modal-header">
+                <button v-on:click="closeCart" type="button">x</button>
                 <h5 class="modal-title m-auto">{{p.StoreName}}</h5>
             </div>
-            <div class="modal-body">
-                <div class="selectList d-flex ml-3">
+            <div class="modal-body" v-for="(p,index) in product">
+                <div class="selectList d-flex">
                     <div class="d-flex">
-                        <div class="selectDiv d-flex">
+                        <div class="selectDiv d-flex m-auto">
                             <select v-model="p.Quantity" name="p.ProductName" v-on:change="removeItem(p,index)">
                                 <option value="0">移除</option>
                                 <option value="1">1</option>
@@ -27,20 +27,18 @@
                                 <option value="5">5</option>
                             </select>
                         </div>
-                        <div>
-                            <button class="orderContentDiv btn" data-toggle="modal"
-                                    data-target="#storeModal">
+                        <div class="my-auto">
+                            <div class="orderContentDiv px-3" data-target="#storeModal">
                                 <span class="mt-1">{{p.ProductName}}</span><br>
                                 <span v-for="storeProductOption in p.StoreProductOptions">
-                                    {{storeProductOption.ProductOptionName}} <br>
                                     <span v-for="detail in storeProductOption.ProductOptionDetails" v-show="storeProductOption.SelectOption == detail.StoreProductOptionDetailId">
                                         {{detail.StoreProductOptioinDetailName}} <br>
                                     </span>
                                 </span>
-                            </button>
+                            </div>
                         </div>
                     </div>
-                    <div id="firstPrice">
+                    <div id="firstPrice" class="my-auto">
                         ${{p.UnitPrice * p.Quantity}}元
                     </div>
                 </div>

@@ -16,19 +16,23 @@
                     ProductOptionDetails: [
                         {
                             StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
+                            StoreProductOptioinDetailName: '',
+                            AddPrice: 0
                         },
                         {
                             StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
+                            StoreProductOptioinDetailName: '',
+                            AddPrice: 0
                         },
                         {
                             StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
+                            StoreProductOptioinDetailName: '',
+                            AddPrice: 0
                         },
                         {
                             StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
+                            StoreProductOptioinDetailName: '',
+                            AddPrice: 0
                         }
                     ]
                 },
@@ -54,7 +58,14 @@
                     ]
                 }
             ]
+        },
+        selectDataCheck: {
+            selectDataEmpty : true,
+            selectDataErrorMsg : ''
         }
+    },
+    watch: {
+        
     },
     methods: {
         changeAmount(value) {
@@ -68,6 +79,12 @@
                 data: this.product,
                 success: function(res) {
                     console.log(res);
+                    $('#cardModal').modal('hide');
+
+                    if (document.querySelector('#cart-check').checked == true ) {
+                        $('#cart-check').click();
+                    }
+                    $('#cart-check').click();
                 }
             });
         }
@@ -83,17 +100,17 @@
 //愛心
 let heartSolid = document.querySelector(".heartSolid");
 let heartEmpty = document.querySelector(".heartEmpty");
-//let heart = document.querySelector(".heart")
+let heart = document.querySelector(".heart")
 
-//heart.onclick = function () {
-//    if ($('.heartEmpty').css('display') === "block") {
-//        heartEmpty.style.display = "none";
-//        heartSolid.style.display = "block";
-//    } else {
-//        heartEmpty.style.display = "block";
-//        heartSolid.style.display = "none";
-//    }
-//}
+heart.onclick = function () {
+    if ($('.heartEmpty').css('display') === "block") {
+        heartEmpty.style.display = "none";
+        heartSolid.style.display = "block";
+    } else {
+        heartEmpty.style.display = "block";
+        heartSolid.style.display = "none";
+    }
+}
 
 //按卡片取product內容
 let productCards = document.querySelectorAll('.cardProduct');

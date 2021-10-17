@@ -84,6 +84,7 @@ namespace HolyShong.ViewModels
     }
     public class StoreProductOption
     {
+        public decimal SelectOptionPrice { get; set; }
         public string SelectOption { get; set; }
         /// <summary>
         /// 商品option名稱(辣度)
@@ -101,5 +102,6 @@ namespace HolyShong.ViewModels
         /// </summary>
         public string StoreProductOptioinDetailName { get; set; }
         public int StoreProductOptionDetailId { get; set; }
+        public decimal AddPrice { get; set; }
     }
 }

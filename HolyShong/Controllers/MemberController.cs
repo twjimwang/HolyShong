@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using HolyShong.Repositories;
 using HolyShong.Models.HolyShongModel;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace HolyShong.Controllers
 {
@@ -43,9 +44,10 @@ namespace HolyShong.Controllers
         [HttpPost]
         public ActionResult CheckOut(List<StoreProduct> productCard)
         {
+            //var productCard = (List<StoreProduct>)JsonConvert.DeserializeObject(productCardString);
             //var memberId = Int32.Parse(User.Identity.Name);
             var memberId = 1;
-            _orderService.CheckOutCart(productCard, memberId);
+            _orderService.AddToCart(productCard, memberId);
             return View();
         }
 

@@ -22,46 +22,68 @@ namespace HolyShong.Services
         /// <summary>
         /// 購物車到結帳頁面
         /// </summary>
-        public void CheckOutCart(List<StoreProduct> productCard, int memberId)
+        public OperationResult AddToCart(List<StoreProduct> productCard, int memberId)
         {
+            //初始化OperationResult
+            OperationResult result = new OperationResult();
+
             //存進資料庫
-            var member = _repo.GetAll<Member>().FirstOrDefault(m=>m.MemberId == memberId);
-            //找餐廳
-            var product = _repo.GetAll<Product>().FirstOrDefault(p => productCard.Select(pc => pc.ProductId).Contains(p.ProductId));
-            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreCategoryId == product.ProductCategoryId);
-            Cart cart = new Cart()
-            {
-                MemberId = member.MemberId,
-                IsTablewares = false,
-                IsPlasticbag = false,
-                StroreId = store.StoreId,
-            };
-            //先創才能拿到CartId
-            _repo.Create(cart);
-            //_repo.SaveChange();
+            var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
+            var firstProduct = productCard[0];
+            var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == firstProduct.ProductId);
+            var productCate = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == product.ProductCategoryId);
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == productCate.StoreId);
 
-            foreach (var pd in productCard)
+            DbContext context = new HolyShongContext();
+            using (var tran = context.Database.BeginTransaction())
             {
-                Models.HolyShongModel.Item item = new Models.HolyShongModel.Item()
+                try
                 {
-                    CartId = cart.CartId,
-                    ProductId = pd.ProductId,
-                    Quantity = pd.Quantity,
-                };
-                _repo.Create(item);
-
-                foreach(var productOption in pd.StoreProductOptions)
-                {
-                    ItemDetail itemDetail = new ItemDetail()
+                    Cart cart = new Cart()
                     {
-                        ItemId = item.ItemId,
-                        ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
+                        MemberId = member.MemberId,
+                        IsTablewares = false,
+                        IsPlasticbag = false,
+                        StroreId = store.StoreId,
                     };
-                    _repo.Create(itemDetail);
-                }
-            }
+                    //先創才能拿到CartId
+                    _repo.Create(cart);
+                    _repo.SaveChange();
 
-            _repo.SaveChange();
+                    foreach (var pd in productCard)
+                    {
+                        Models.HolyShongModel.Item item = new Models.HolyShongModel.Item()
+                        {
+                            CartId = cart.CartId,
+                            ProductId = pd.ProductId,
+                            Quantity = pd.Quantity,
+                        };
+                        _repo.Create(item);
+                        _repo.SaveChange();
+
+                        foreach (var productOption in pd.StoreProductOptions)
+                        {
+                            ItemDetail itemDetail = new ItemDetail()
+                            {
+                                ItemId = item.ItemId,
+                                ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
+                            };
+                            _repo.Create(itemDetail);
+
+                        }
+                        _repo.SaveChange();
+                        result.IsSuccessful = true;
+                        tran.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    tran.Rollback();
+                }
+                return result;
+            }
         }
 
         public OperationResult OrderCreate(HolyCartViewModel cartVM)

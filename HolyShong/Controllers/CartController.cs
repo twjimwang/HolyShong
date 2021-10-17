@@ -9,11 +9,19 @@ namespace HolyShong.Controllers
 {
     public class CartController : Controller
     {
-        ////顯示購物車
-        //public ActionResult ShowCart()
-        //{
-
-        //}
+        //確認是否登陸
+        public int IsLogin()
+        {
+            var a = User.Identity.Name;
+            if (User.Identity.Name == "")
+            {
+                return 1; //未登入
+            }
+            else
+            {
+                return 2; //已登入
+            }
+        }
 
 
         //

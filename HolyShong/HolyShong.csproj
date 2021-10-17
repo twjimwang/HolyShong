@@ -366,7 +366,6 @@
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\ECPayViewModel.cs" />
-    <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\DeliverViewModel.cs" />

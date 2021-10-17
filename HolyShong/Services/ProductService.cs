@@ -78,7 +78,7 @@ namespace HolyShong.Services
                     StoreProducts = new List<StoreProduct>()
 
                 };
-                foreach (var p in products.ToList())
+                foreach (var p in products.Where(p=> p.ProductCategoryId == pc.ProductCategoryId).ToList())
                 {
                     var pTemp = new StoreProduct()
                     {
@@ -101,7 +101,8 @@ namespace HolyShong.Services
                         {
                             var podTemp = new StoreProductOptionDetail()
                             {
-                                StoreProductOptioinDetailName = pod.Name
+                                StoreProductOptioinDetailName = pod.Name,
+                                AddPrice = pod.AddPrice == null ? 0 : (decimal)pod.AddPrice
                             };
                             poTemp.ProductOptionDetails.Add(podTemp);
                         }
@@ -156,7 +157,8 @@ namespace HolyShong.Services
                     var podTemp = new StoreProductOptionDetail()
                     {
                         StoreProductOptioinDetailName = pod.Name,
-                        StoreProductOptionDetailId = pod.ProductOptionDetailId
+                        StoreProductOptionDetailId = pod.ProductOptionDetailId,
+                        AddPrice = pod.AddPrice == null ? 0 : (decimal)pod.AddPrice
                     };
                     poTemp.ProductOptionDetails.Add(podTemp);
                 }
