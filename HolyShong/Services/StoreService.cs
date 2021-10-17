@@ -98,8 +98,8 @@ namespace HolyShong.Services
             {
                 StoreCards = new List<StoreCard>()
             };
-            var stores = _repo.GetAll<Store>().Where(x=>x.KeyWord.Contains(keyword)).ToList();
-            if(stores.Count==0)
+            var stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(keyword)).ToList();
+            if (stores.Count == 0)
             {
                 return result;
             }
@@ -119,26 +119,66 @@ namespace HolyShong.Services
             return result;
         }
 
-        public SubCategorySearchViewModel GetAllStoresOrderByPrice(int storeId)
+        public SearchViewModel GetAllStoresBySearchRequest(SearchRequest input)
         {
-            var result = new SubCategorySearchViewModel
+            //參數初始設定
+            var result = new SearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
 
+
             //1.找出所有商店
             var stores = _repo.GetAll<Store>().ToList();
+
+
             //2.找出所有產品類別
-            var productCategories = _repo.GetAll<ProductCategory>().ToList();
+            var allProductCategories = _repo.GetAll<ProductCategory>().ToList();
+
             //3.找出所有商店下面的所有產品
-            var products = _repo.GetAll<Product>().ToList();
-            //4.依商店將後再全部取出
+            var allProducts = _repo.GetAll<Product>().ToList();
+            var productList = new List<Product>();
+
+            //4.找出所有商店的產品平均價格
+
+            //4.1找出每家店
             foreach (var item in stores)
             {
+                var productAveragePriceList = new List<decimal>();
+                //4.1找出每家店本身的產品類別
+                var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId).ToList();
+                //4.2找出每個產品類別下面的所有產品的平均價格
+                foreach (var productCategory in productCategoryList)
+                {
+                    productList = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).ToList();
+                    var productAveragePrice = productList.Select(x => x.UnitPrice).ToList().Average();
+                    productAveragePriceList.Add(productAveragePrice);
+                }
+
+                decimal storeAveragePrice = productAveragePriceList.Average();
+            }
+
+
+            //5.依商店將後再全部取出
+            foreach (var item in stores)
+            {
+
                 //這個商店的產品全部挑出來
-                var temp = stores.Where(x=>x.StoreId==item.StoreId);
+                var temp = stores.Where(x => x.KeyWord.Contains(input.Keyword));
                 ////存成StoreCards
                 var cards = new List<StoreCard>();
+
+                var productAveragePriceList = new List<decimal>();
+
+                //4.1找出每家店本身的產品類別
+                var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId).ToList();
+                //4.2找出每個產品類別下面的所有產品的平均價格
+                foreach (var productCategory in productCategoryList)
+                {
+                    productList = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).ToList();
+                    var productAveragePrice = productList.Select(x => x.UnitPrice).ToList().Average();
+                    productAveragePriceList.Add(productAveragePrice);
+                }
                 foreach (var store in temp)
                 {
                     var card = new StoreCard
@@ -146,17 +186,12 @@ namespace HolyShong.Services
                         StoreId = store.StoreId,
                         StoreImg = store.Img,
                         StoreName = store.Name,
-                        
+                        StoreAveragePrice = productAveragePriceList.Average()
                     };
                     cards.Add(card);
                 }
-
             }
             return result;
         }
-
-
     }
-
-
 }

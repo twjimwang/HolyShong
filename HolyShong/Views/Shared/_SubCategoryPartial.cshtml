@@ -7,9 +7,8 @@
 <div id="subcategory" class="subcategory p-3 mb-2 text-dark align-items-start sticky-top mw-100">
     <!-- 副分類標籤 -->
     <div>
-        <h1 style="font-size: 28px; font-weight: 700;">{{Keyword == '' ? 'All' : `[${Keyword}]`}}</h1>
+        <h1 style="font-size: 28px; font-weight: 700;">{{Keyword == '' ? '所有餐廳門市' : `[${Keyword}]`}}</h1>
         @*<span style="font-size:16px">「@ViewBag.keyword」的 @Model.StoreCards.Count()+筆結果</span>*@
-
         <span v-if="Keyword != ''" style="font-size:16px">「{{ Keyword }}」的 {{SearchCount}} +筆結果</span>
     </div>
     <!-- 副分類選項 -->

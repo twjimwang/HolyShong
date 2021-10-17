@@ -80,15 +80,6 @@ namespace HolyShong.Controllers
             return View(result);
         }
 
-        public ActionResult SubCategorySearchByPrice()//副分類搜尋頁面
-        {
-            var result = _storeService.GetAllStoresByKeyword("康");
-            //轉換其它頁面
-            return View(result);
-        }
-
-  
-
         public void AcquireDiscount(string discountName)
         {
             _discountService.AcquireDiscount(discountName);
