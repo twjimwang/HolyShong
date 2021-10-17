@@ -21,16 +21,10 @@ namespace HolyShong
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
         //webApi ¨Ï¥Îsession
-        protected void Application_PostAuthorizeRequest()
+        public override void Init()
         {
-            if (IsWebApiRequest())
-            {
-                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
-            }
-        }
-        private bool IsWebApiRequest()
-        {
-            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(WebApiConfig.UrlPrefixRelative);
+            this.PostAuthenticateRequest += (sender, e) => HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            base.Init();
         }
     }
 }

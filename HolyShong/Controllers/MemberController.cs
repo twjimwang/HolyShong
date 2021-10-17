@@ -35,11 +35,20 @@ namespace HolyShong.Controllers
         }
 
 
-
-        public ActionResult Checkout()
+        /// <summary>
+        /// 結帳頁面
+        /// </summary>
+        /// <param name="productCard"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CheckOut(List<StoreProduct> productCard)
         {
+            //var memberId = Int32.Parse(User.Identity.Name);
+            var memberId = 1;
+            _orderService.CheckOutCart(productCard, memberId);
             return View();
         }
+
 
         public ActionResult Eatpass()
         {

@@ -20,11 +20,48 @@ namespace HolyShong.Services
 
 
         /// <summary>
-        /// 從購物車取得Order
+        /// 購物車到結帳頁面
         /// </summary>
-        public void PutShoppingCartToOrder()
+        public void CheckOutCart(List<StoreProduct> productCard, int memberId)
         {
+            //存進資料庫
+            var member = _repo.GetAll<Member>().FirstOrDefault(m=>m.MemberId == memberId);
+            //找餐廳
+            var product = _repo.GetAll<Product>().FirstOrDefault(p => productCard.Select(pc => pc.ProductId).Contains(p.ProductId));
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreCategoryId == product.ProductCategoryId);
+            Cart cart = new Cart()
+            {
+                MemberId = member.MemberId,
+                IsTablewares = false,
+                IsPlasticbag = false,
+                StroreId = store.StoreId,
+            };
+            //先創才能拿到CartId
+            _repo.Create(cart);
+            //_repo.SaveChange();
 
+            foreach (var pd in productCard)
+            {
+                Item item = new Item()
+                {
+                    CartId = cart.CartId,
+                    ProductId = pd.ProductId,
+                    Quantity = pd.Quantity,
+                };
+                _repo.Create(item);
+
+                foreach(var productOption in pd.StoreProductOptions)
+                {
+                    ItemDetail itemDetail = new ItemDetail()
+                    {
+                        ItemId = item.ItemId,
+                        ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
+                    };
+                    _repo.Create(itemDetail);
+                }
+            }
+
+            _repo.SaveChange();
         }
 
         public OperationResult OrderCreate(HolyCartViewModel cartVM)

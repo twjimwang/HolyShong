@@ -29,6 +29,5 @@ namespace HolyShong.Controllers
             var result = _orderService.GetOrder(id.Value);
             return View(result);
         }
-
     }
 }

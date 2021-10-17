@@ -48,10 +48,21 @@ namespace HolyShong.WebAPI
         [HttpPost]
         public IHttpActionResult ShowCart()
         {
+
             var session = HttpContext.Current.Session;
-            var cartList = (List<StoreProduct>)session["Cart"];
+            var cartList = (List<StoreProduct>)session["Cart"] == null ? new List<StoreProduct>(): (List<StoreProduct>)session["Cart"];          
 
             return Ok(cartList);
+        }
+
+        [HttpPost]
+        public IHttpActionResult DeleteCartItem(List<StoreProduct> storeProductVMs)
+        {
+            var session = HttpContext.Current.Session;
+            session.Remove("Cart");
+            session["Cart"] = storeProductVMs;
+
+            return Ok();
         }
     }
 }

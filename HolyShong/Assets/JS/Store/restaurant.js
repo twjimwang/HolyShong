@@ -68,8 +68,6 @@
                 data: this.product,
                 success: function(res) {
                     console.log(res);
-                    cartApp.product = res;
-
                 }
             });
         }
