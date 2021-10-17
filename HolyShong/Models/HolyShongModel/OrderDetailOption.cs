@@ -9,7 +9,6 @@ namespace HolyShong.Models.HolyShongModel
     [Table("OrderDetailOption")]
     public partial class OrderDetailOption
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderDetailOptionId { get; set; }
 
         public int? ProductOptionDetailId { get; set; }
