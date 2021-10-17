@@ -49,6 +49,7 @@ namespace HolyShong.Controllers
         [HttpPost]
         public void OrderStateChange(OrderStatusViewModel OrderStatusVM)
         {
+            OrderStatusVM.MemberId = 1;
             //OrderStatusVM.MemberId = Int32.Parse(User.Identity.Name);
             _orderService.ChangeOrderState(OrderStatusVM);
         }

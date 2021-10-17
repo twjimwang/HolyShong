@@ -371,8 +371,8 @@ namespace HolyShong.Services
                     //餐廳完成訂單，安排外送員
                     if (OrderStatusVM.OrderStatus == 4)
                     {
-                        var notSelf = _repo.GetAll<Deliver>().Where(d => d.MemberId != memberId);
-                        var freeDeliver = notSelf.Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
+                        //var notSelf = _repo.GetAll<Deliver>().Where(d => d.MemberId != memberId);
+                        var freeDeliver = _repo.GetAll<Deliver>().Where(d => d.isOnline == true && d.isDelivering == false).OrderBy(d => d.DeliverId).First();
                         order.DeliverId = freeDeliver.DeliverId;
                         //外送員改成送貨中
                         freeDeliver.isDelivering = true;

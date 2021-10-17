@@ -14,7 +14,10 @@
             $.ajax({
                 type: 'POST',
                 url: '/Deliver/OrderStateChange',
-                data: { OrderCode: "EAT00001", OrderStatus: 4 }
+                data: { OrderCode: "EAT00001", OrderStatus: 4 },
+                success: function (response) {
+                    alert('成功完成訂單')
+                }
             });
         });
     </script>

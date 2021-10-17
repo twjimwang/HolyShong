@@ -55,14 +55,35 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
+
+
+
+
                 <!-- 搜尋 -->
-                <div class="search d-flex">
-                    <label class="w-100">
-                        <i class="fas fa-search p-2"></i>
-                        <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
-                    </label>
-                    <div class="filter"><i class="fas fa-sliders-h"></i></div>
+                @*<div class="search d-flex">
+                        <label class="w-100">
+                            <i class="fas fa-search p-2"></i>
+                            <input type="text" id="searchTxt" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                        </label>
+                        <div class="filter"><i class="fas fa-sliders-h"></i></div>
+                    </div>*@
+
+                <div class="search ">
+                    <form action="/Home/Search" method="post" class="d-flex">
+                        <label class="w-100">
+                            <i class="fas fa-search p-2"></i>
+                            <input type="text" name="keyword" id="keyword" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                        </label>
+                        <div data-toggle="modal" data-target="#subcategorymodal" class="filter">                       
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        @*<input type="submit" value="搜尋" class="btn btn-primary">*@
+                    </form>
                 </div>
+
+
+
+
             </div>
             <!-- 購物車&登入 -->
             <div class="status d-flex">
@@ -375,6 +396,26 @@
         </div>
     </div>
 
+    @*副分類篩選*@
+    <div class="modal fade" id="subcategorymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">篩選條件</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_SubCategoryPartial")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
