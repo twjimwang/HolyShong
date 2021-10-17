@@ -15,7 +15,6 @@ namespace HolyShong.Models.HolyShongModel
             ItemDetail = new HashSet<ItemDetail>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ItemId { get; set; }
 
         public int CartId { get; set; }
