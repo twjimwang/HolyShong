@@ -42,7 +42,7 @@ namespace HolyShong.Services
 
             foreach (var pd in productCard)
             {
-                Item item = new Item()
+                Models.HolyShongModel.Item item = new Models.HolyShongModel.Item()
                 {
                     CartId = cart.CartId,
                     ProductId = pd.ProductId,
