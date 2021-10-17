@@ -13,7 +13,6 @@ namespace HolyShong.Models.HolyShongModel
         public Member()
         {
             Address = new HashSet<Address>();
-            Cart = new HashSet<Cart>();
             Deliver = new HashSet<Deliver>();
             DiscountMember = new HashSet<DiscountMember>();
             Favorite = new HashSet<Favorite>();
@@ -61,9 +60,6 @@ namespace HolyShong.Models.HolyShongModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Address { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Cart { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deliver> Deliver { get; set; }
