@@ -10,6 +10,7 @@ namespace HolyShong.ViewModels
         public int CartId { get; set; }
         public int StoreId { get; set; }
         public string StoreName { get; set; }
+        public string StoreAddress { get; set; }
 
         public string CustomerAddress { get; set; }
 

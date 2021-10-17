@@ -44,11 +44,12 @@ namespace HolyShong.Controllers
         [HttpPost]
         public ActionResult CheckOut(List<StoreProduct> productCard)
         {
-            //var productCard = (List<StoreProduct>)JsonConvert.DeserializeObject(productCardString);
-            //var memberId = Int32.Parse(User.Identity.Name);
-            var memberId = 1;
-            _orderService.AddToCart(productCard, memberId);
-            return View();
+            var memberId = Int32.Parse(User.Identity.Name);
+            //先存到資料庫
+            var result = _orderService.AddToCart(productCard, memberId);
+            //渲染畫面
+
+            return View(result);
         }
 
 
@@ -66,9 +67,9 @@ namespace HolyShong.Controllers
         public ActionResult UserProfile()
         {
 
-                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
-                
-                return View(model);
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
+            
+            return View(model);
             
         }
 
