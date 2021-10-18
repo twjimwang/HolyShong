@@ -474,6 +474,7 @@
     <Content Include="Views\Store\RestaurantTEST.cshtml" />
     <Content Include="Views\Payment\BecomeVIP.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
+    <Content Include="Views\Payment\PayForCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

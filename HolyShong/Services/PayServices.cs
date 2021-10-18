@@ -21,86 +21,9 @@ namespace HolyShong.Services
         }
 
         //設定回傳綠界api路徑
-        string VIPReturnURL = "https://bd30-2001-b011-3800-32dc-952f-89e8-beae-d024.ngrok.io/api/payment/GetResultFromECPay";
-        string cartReturnURL = "https://bd30-2001-b011-3800-32dc-952f-89e8-beae-d024.ngrok.io/api/payment/GetResultFromECPay";
-
-
-        /// <summary>
-        /// 購買購物車內商品
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string BuyCart(int id)
-        {
-            var cart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
-            var itemsInCart = _repo.GetAll<Item>().Where(x => x.CartId == cart.CartId);
-            var CartDetail = new ECPayViewModel()
-            {
-                MemberId = id,
-                ReturnURL = cartReturnURL,
-                ClientBackURL = "http://localhost:44360",
-                OrderResultURL = "",
-                MerchantTradeNo = "",
-                TotalAmount = 0,
-                ListItems = new List<BuyItem> { },
-            };
-
-            foreach (var itemInCart in itemsInCart)
-            {
-                var tempItem = new BuyItem
-                {
-                    Name = itemInCart.Product.Name,
-                    Currency = "新臺幣",
-                    Price = itemInCart.Product.UnitPrice,
-                    Quantity = itemInCart.Quantity,
-                    URL = "",
-                };
-                CartDetail.ListItems.Add(tempItem);
-
-
-                //總金額
-                CartDetail.TotalAmount += tempItem.Price;
-            };
-
-
-
-            string html = ECPayBasic(CartDetail);
-            return html;
-        }
-
-        /// <summary>
-        /// 升級送送會員
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string BecomeVIPService(int id)
-        {
-
-            var becomVIPObject = new ECPayViewModel()
-            {
-                MemberId = id,
-                ClientBackURL = "http://localhost:44360/Member/UserProfile",//瀏覽器端返回的廠商網址
-                ReturnURL = VIPReturnURL,
-                OrderResultURL = "",//瀏覽器端回傳付款結果網址
-                MerchantTradeNo = "",//廠商的交易編號
-                TotalAmount = 30,//交易總金額
-                ListItems = new List<BuyItem>
-                {
-                  new BuyItem
-                  {
-                      Name="升級送送會員",
-                      Currency="新臺幣",
-                      Price=30,
-                      Quantity=1,
-                      URL="",
-                  }
-                },
-            };
-
-            string html = ECPayBasic(becomVIPObject);
-            return html;
-        }
-
+        string VIPReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string BuyCartReturnURL = "https://6c84-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";
+        string feeReturnURL = "https://6c84-1-164-235-183.ngrok.io/api/payment/FeeGetResultFromECPay";
 
         /// <summary>
         /// 綠界SDK
@@ -159,6 +82,45 @@ namespace HolyShong.Services
             return html;
         }
 
+
+
+
+
+        /// <summary>
+        /// 升級送送會員
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string BecomeVIPService(int id)
+        {
+
+            var becomVIPObject = new ECPayViewModel()
+            {
+                MemberId = id,
+                ClientBackURL = "http://localhost:44360/Member/UserProfile",//瀏覽器端返回的廠商網址
+                ReturnURL = VIPReturnURL,
+                OrderResultURL = "",//瀏覽器端回傳付款結果網址
+                MerchantTradeNo = "",//廠商的交易編號
+                TotalAmount = 30,//交易總金額
+                ListItems = new List<BuyItem>
+                {
+                  new BuyItem
+                  {
+                      Name="升級送送會員",
+                      Currency="新臺幣",
+                      Price=30,
+                      Quantity=1,
+                      URL="",
+                  }
+                },
+            };
+
+            string html = ECPayBasic(becomVIPObject);
+            return html;
+        }
+
+
+
         /// <summary>
         /// 送送會員付款成功
         /// </summary>
@@ -178,6 +140,7 @@ namespace HolyShong.Services
                 try
                 {
                     _repo.Create<Rank>(rank);
+                    _repo.SaveChange();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -214,6 +177,7 @@ namespace HolyShong.Services
                 try
                 {
                     _repo.Create<ECPayRecord>(record);
+                    _repo.SaveChange();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -221,6 +185,49 @@ namespace HolyShong.Services
                     transaction.Rollback();
                 }
         }
+
+
+        /// <summary>
+        /// 購買購物車內商品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string BuyCartService(int id)
+        {
+            var cart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
+            var itemsInCart = _repo.GetAll<Item>().Where(x => x.CartId == cart.CartId);
+            var CartDetail = new ECPayViewModel()
+            {
+                MemberId = id,
+                ReturnURL = BuyCartReturnURL,
+                ClientBackURL = "http://localhost:44360",
+                OrderResultURL = "",
+                MerchantTradeNo = "",
+                TotalAmount = 0,
+                ListItems = new List<BuyItem> { },
+            };
+
+            foreach (var itemInCart in itemsInCart)
+            {
+                var tempItem = new BuyItem
+                {
+                    Name = itemInCart.Product.Name,
+                    Currency = "新臺幣",
+                    Price = itemInCart.Product.UnitPrice,
+                    Quantity = itemInCart.Quantity,
+                    URL = "",
+                };
+                CartDetail.ListItems.Add(tempItem);
+
+
+                //總金額
+                CartDetail.TotalAmount += tempItem.Price;
+            };
+
+            string html = ECPayBasic(CartDetail);
+            return html;
+        }
+
 
         /// <summary>
         /// 成功購買購物車商品後，清空購物車

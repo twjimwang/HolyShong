@@ -30,8 +30,8 @@ namespace HolyShong.Controllers
         [Authorize]
         public ActionResult PayForCart()
         {
-            //var html = _payServices.BecomeVIP(int.Parse(User.Identity.Name));
-            //ViewBag.Html = html;
+            var html = _payServices.BuyCartService(int.Parse(User.Identity.Name));
+            ViewBag.Html = html;
             return View();
         }
 

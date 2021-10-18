@@ -27,7 +27,7 @@ namespace HolyShong.Services
         //因為Rank中會有memberId重複，而要取得最新的資料，就要用先排序
         public Rank GetRankByMemberId(int id)
         {
-            return _repo.GetAll<Rank>().OrderByDescending(x=>x.EndTime).FirstOrDefault(x => x.MemberId == id);
+            return _repo.GetAll<Rank>().OrderBy(x=>x.EndTime).FirstOrDefault(x => x.MemberId == id);
         }
 
         //建立ViewModel
