@@ -84,7 +84,7 @@ namespace HolyShong.ViewModels
     }
     public class StoreProductOption
     {
-        public decimal SelectOptionPrice { get; set; }
+        public int SelectOptionPrice { get; set; }
         public string SelectOption { get; set; }
         /// <summary>
         /// 商品option名稱(辣度)

@@ -15,11 +15,6 @@ namespace HolyShong.WebAPI
 
     public class CartController : ApiController
     {
-        private readonly CartService _cartService;
-        public CartController()
-        {
-            _cartService = new CartService();
-        }
 
 
         [HttpPost]
@@ -62,7 +57,7 @@ namespace HolyShong.WebAPI
             session.Remove("Cart");
             session["Cart"] = storeProductVMs;
 
-            return Ok();
+            return Ok(storeProductVMs);
         }
     }
 }

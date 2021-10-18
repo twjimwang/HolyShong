@@ -56,23 +56,6 @@ namespace HolyShong.Controllers
             return View(result);
 
         }
-        
-
-        //測試
-        //public ActionResult RestaurantTEST(int? storeid)
-        //{
-        //    if (!storeid.HasValue)
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    var result =_productService.GetAllProductsByStoreId(storeid.Value);
-        //    //if (result.StoreName == null)
-        //    //{
-        //    //    return RedirectToAction("NoSearch", "Home");
-        //    //}
-        //    return View(result);
-
-        //}
 
 
         public ActionResult Marketing()

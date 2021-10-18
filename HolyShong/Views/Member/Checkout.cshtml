@@ -2,21 +2,20 @@
 <div class="container-fluid container-sm" id="checkApp">
     <div class="row align-items-start">
         <div class="col-lg-6 col-sm-12 left">
-            <h1 class="my-3">五桐號 WooTEA 忠孝復興店</h1>
+            <h1 class="my-3">{{store.StoreName}}</h1>
             <div class="mapDiv">
                 <div id=map class="mb-3">
                     map
                 </div>
             </div>
 
-            <!-- Button trigger modal 設定地址-->
+            <!-- 設定地址-->
             <div class="d-flex addressInfo">
                 <div class="iconDiv mb-1">
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="mx-3 flex-grow-1">
-                    <span>Build School忠孝東路三段96號11樓之1</span><br>
-                    <span>台北市大安區</span>
+                    <span>{{store.CustomerAddress}}</span><br>
                 </div>
                 <div>
                     <button type="button" class="editBtn btn  rounded-pill" data-toggle="modal" data-target="#destModal">
@@ -24,7 +23,7 @@
                     </button>
                 </div>
             </div>
-            <!-- Modal -->
+            <!-- 設定外送地址Modal -->
             <div class="modal fade" id="destModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
                  data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
@@ -66,7 +65,7 @@
                 </div>
             </div>
 
-            <!-- Button trigger modal 設定時間 -->
+            <!-- 設定外送指示 -->
             <div class="d-flex info">
                 <div class="iconDiv pt-4 mb-2">
                     <i class="fas fa-child"></i>
@@ -81,7 +80,7 @@
                     </button>
                 </div>
             </div>
-            <!-- Modal -->
+            <!-- 設定外送指示Modal -->
             <div class="modal fade" id="shippingInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -103,6 +102,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 設定外送時間 -->
             <div class="deliverTime d-flex">
                 <h3>預估外送時間</h3>
                 <span>25—35 min</span>
@@ -117,52 +118,9 @@
                 </div>
             </div>
 
-            <!-- 設定付款方式 -->
-            <h3 class="setPavementTitle">付款設定</h3>
-            <div class="d-flex setPavementDiv">
-                <div class="iconDiv">
-                    <i class="fas fa-wallet"></i>
-                </div>
-                <div class="flex-grow-1 mx-3">
-                    <span class="">新增付款方式</span>
-                </div>
-                <div>
-                    <button type="button" class="editBtn btn btn-light rounded-pill" data-toggle="modal" data-target="#pavementModal">
-                        編輯
-                    </button>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade " id="pavementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">新增付款方式</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            信用卡或簽帳金融卡
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark btn-lg btn-block rounded-0" data-dismiss="modal">
-                                完成
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- 您的餐點 -->
-            <div class="addOrderDiv d-flex">
+            <div class="addOrderDiv">
                 <h3 class="mt-2">您的餐點</h3>
-                <div>
-                    <button type="button" class="addOrderBtn rounded-pill">
-                        <i class="fas fa-plus"></i>
-                        <span>新增餐點</span>
-                    </button>
-                </div>
             </div>
             <div class="d-flex orderContent mt-3">
                 <div class="d-flex">
@@ -192,11 +150,11 @@
                 </div>
             </div>
             <div class="otherItems my-3">
-                <label class="w-100" for="oItem"><div>索取餐具、吸管等用品</div></label>
+                <label class="w-100" for="oItem">索取餐具、吸管等用品</label>
                 <input class="" id="oItem" type="checkbox" style="zoom:180%">
             </div>
             <div class="plasticBag my-3">
-                <label class="w-100" for="plastic"><div>索取袋子</div></label>
+                <label class="w-100" for="plastic">索取袋子</label>
                 <input class="" id="plastic" type="checkbox" style="zoom:180%">
             </div>
         </div>
@@ -222,15 +180,11 @@
                         </li>
                         <li class="d-flex">
                             <div>折扣</div>
-                            <span>-$50.00</span>
+                            <span>-$00.00</span>
                         </li>
                         <li class="d-flex">
-                            <div>外送費(含稅)</div>
-                            <span>$49.00</span>
-                        </li>
-                        <li class="d-flex mb-3">
                             <div>外送費</div>
-                            <span>$99.00</span>
+                            <span>$00.00</span>
                         </li>
                     </ul>
                     <div class="total d-flex" id="totalPrice">
@@ -243,83 +197,6 @@
     </div>
 </div>
 
-<!-- ------- -->
-<!-- Modal 內容明細-->
-
-<div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="storeModalContent modal-content">
-            <!-- <div class="storeModal modal-header"> -->
-            <div class="storeModalBody modal-body">
-                <div class="imgAndClose">
-                    <div type="button" data-dismiss="modal">
-                        <span aria-hidden="true">
-                            <i class="far fa-times-circle fa-3x"></i>
-                        </span>
-                    </div>
-                    <div class="imgAndClosePic">
-                        <img src="https://picsum.photos/600/600/?random=1">
-                    </div>
-                </div>
-
-                <div class="cardWrap d-flex flex-column">
-                    <div class="scroll">
-                        <div class="topWrap">
-                            <div class="food p-4">
-                                <h2>蕃茄迷你鍋</h2>
-                                <p>附白飯一碗。恕無客製化醬料，敬請見諒。</p>
-                            </div>
-                            <div class="selectedBgc p-4">
-                                <div class="selected d-flex justify-content-between align-items-center">
-                                    <div class="selectWrap">
-                                        <div class="selectedTitle">辣選擇</div>
-                                        <div class="selectedTxt">
-                                            <span>最多可選擇 1 個項目</span>
-                                        </div>
-                                    </div>
-                                    <div class="circleIconDiv">
-                                        <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkboxDiv d-flex align-items-center p-4">
-                                <label for="checkbox">
-                                    <input id="checkbox" type="checkbox">加辣
-                                </label>
-                            </div>
-                        </div>
-                        <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
-                        <div class="billTxt">
-                            <p>
-                                [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
-                                (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
-                            </p>
-                        </div>
-                        <div class="addItemBgC">
-                            <div class="addGroup wrap justify-content-around">
-                                <div class="quantityAddWrap d-flex">
-                                    <i class="fas fa-minus-circle fa-2x"></i>
-                                    <div class="quantity" style="font-size: 20px;">1</div>
-                                    <i class="fas fa-plus-circle fa-2x"></i>
-                                </div>
-                                <div class="addToCartWrap">
-                                    <button type="button" class="btn btn-lg btn-dark active">
-                                        <span class="addToCart">
-                                            新增 1 項商品至訂單
-                                        </span>
-                                        <span class="price">
-                                            $195.00
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @section topCSS
  {
@@ -803,11 +680,72 @@
         var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 9 })
         map.addLayer(osm);
 
+        console.log('1234');
 
         let checkOut = new Vue({
             el: '#checkApp',
             data: {
-                product: {}
+                store: {
+                    "CartId": 0,
+                    "StoreId": 0,
+                    "StoreName": '',
+                    "StoreAddress": '',
+                    "CustomerAddress": '',
+                    "isTableWares": false,
+                    "isPlastibag": false,
+                    "CreateDate": '',
+                    "CartItems":
+                     [
+                         {
+                             "StoreName": "MACU麻古茶坊",
+                             "ProductId": 401,
+                             "ProductName": "芝芝金萱",
+                             "ProductDescription": "大。",
+                             "UnitPrice": 60,
+                             "ProductImg": "https://res.cloudinary.com/dvyxx4jau/image/upload/v1632415174/%E9%BA%BB%E5%8F%A4%E8%8C%B6%E6%88%BF/8820bcd5-6384-4e83-89e1-b45f862cfce6_p83adp.jpg",
+                             "Quantity": 1,
+                             "StoreProductOptions": [
+                                 {
+                                     "SelectOptionPrice" : 0.0,
+                                     "SelectOption": "401",
+                                     "ProductOptionName": "糖量 Sweetness Level",
+                                     "ProductOptionDetails": [
+                                         {
+                                             "StoreProductOptioinDetailName": "0分糖 Sugar-Free\r\n",
+                                             "StoreProductOptionDetailId": 401,
+                                             "AddPrice": 0
+                                         },
+                                         {
+                                             "StoreProductOptioinDetailName": "1分糖 10% Sugar\r\n",
+                                             "StoreProductOptionDetailId": 402,
+                                             "AddPrice": 0
+                                         },
+                                         {
+                                             "StoreProductOptioinDetailName": "3分糖 30% Sugar\r\n",
+                                             "StoreProductOptionDetailId": 403,
+                                             "AddPrice": 0
+                                         },
+                                         {
+                                             "StoreProductOptioinDetailName": "5分糖 50% Sugar",
+                                             "StoreProductOptionDetailId": 404,
+                                             "AddPrice": 0
+                                         },
+                                         {
+                                             "StoreProductOptioinDetailName": "8分糖 80% Sugar\r\n",
+                                             "StoreProductOptionDetailId": 405,
+                                             "AddPrice": 0
+                                         },
+                                         {
+                                             "StoreProductOptioinDetailName": "全糖 Regular Sugar\r\n",
+                                             "StoreProductOptionDetailId": 406,
+                                             "AddPrice": 0
+                                         }
+                                     ]
+                                 }
+                             ]
+                         }
+                     ]
+                }
             }
         });
 

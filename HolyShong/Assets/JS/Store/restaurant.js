@@ -1,6 +1,7 @@
 ﻿let app = new Vue({
     el: '#app',
     data: {
+        isVerify:true,
         select: '',
         product: {
             StoreName:'',
@@ -12,23 +13,10 @@
             Quantity: 1,
             StoreProductOptions: [
                 {
+                    SelectOption: '',
+                    SelectOptionPrice: '',
                     ProductOptionName: '',
                     ProductOptionDetails: [
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: '',
-                            AddPrice: 0
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: '',
-                            AddPrice: 0
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: '',
-                            AddPrice: 0
-                        },
                         {
                             StoreProductOptionDetailId: '',
                             StoreProductOptioinDetailName: '',
@@ -36,36 +24,16 @@
                         }
                     ]
                 },
-                {
-                    ProductOptionName: '',
-                    ProductOptionDetails: [
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        }
-                    ]
-                }
             ]
-        },
-        selectDataCheck: {
-            selectDataEmpty : true,
-            selectDataErrorMsg : ''
         }
     },
     watch: {
-        
+        'product.StoreProductOptions.SelectOption': {
+            immediate: true,
+            handler() {
+                this.checkVerify();
+            }
+        }
     },
     methods: {
         changeAmount(value) {
@@ -87,11 +55,27 @@
                     $('#cart-check').click();
                 }
             });
-        }
+        },
+        //checkVerify() {
+        //    for (let prop in this.StoreProductOptions.StoreProductOptions) {
+        //        if (this.StoreProductOptions.StoreProductOptions[prop] == null) {
+        //            this.isVerify = false;
+        //            return;
+        //        }
+        //        this.isVerify = true;
+        //    }
+        //}
     },
     computed: {
         sum() {
-            return this.product.UnitPrice * this.product.Quantity;
+            let optionSource = this.product.StoreProductOptions.map(x => x.ProductOptionDetails);
+            let options = optionSource.length == 0 ? [] : optionSource.reduce((a, b) => a.concat(b));
+            let selectOptions = this.product.StoreProductOptions.map(x => x.SelectOption);
+            let bonus = options.filter(x => selectOptions.includes(x.StoreProductOptionDetailId)).map(x => x.AddPrice);
+            let bonusPrice = bonus.length == 0 ? 0 : bonus.reduce((a, b) => a + b);
+
+            return (this.product.UnitPrice + bonusPrice) * this.product.Quantity;
+            //return this.product.UnitPrice * this.product.Quantity;
         }
     }
 });
