@@ -13,11 +13,9 @@ namespace HolyShong.Models.HolyShongModel
         public Store()
         {
             Businesshours = new HashSet<Businesshours>();
-            Cart = new HashSet<Cart>();
             DiscountStroe = new HashSet<DiscountStroe>();
             Favorite = new HashSet<Favorite>();
             ProductCategory = new HashSet<ProductCategory>();
-            Score = new HashSet<Score>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -53,9 +51,6 @@ namespace HolyShong.Models.HolyShongModel
         public virtual ICollection<Businesshours> Businesshours { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Cart { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscountStroe> DiscountStroe { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -65,9 +60,6 @@ namespace HolyShong.Models.HolyShongModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductCategory> ProductCategory { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Score> Score { get; set; }
 
         public virtual StoreCategory StoreCategory { get; set; }
     }
