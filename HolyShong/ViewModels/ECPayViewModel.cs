@@ -12,8 +12,8 @@ namespace HolyShong.ViewModels
     {
         //會員Id，帶資料用不顯示
         public int MemberId { get; set; }
-        //付款完成通知回傳的網址
-        public string ServiceURL { get; set; }
+        public int OrderId { get; set; }
+        public string ReturnURL { get; set; }
         //瀏覽器端返回的廠商網址
         public string ClientBackURL { get; set; }
         //瀏覽器端回傳付款結果網址
@@ -43,6 +43,9 @@ namespace HolyShong.ViewModels
         public string URL { get; set; }
     }
 
+    /// <summary>
+    /// 交易後，綠界傳來的資料
+    /// </summary>
     public class GetResultFromECPay
     {
         //特店編號
@@ -69,9 +72,9 @@ namespace HolyShong.ViewModels
         public string TradeDate { get; set; }
         //是否為模擬付款
         public int SimulatePaid { get; set; }
-        //自訂名稱欄位1
+        //自訂名稱欄位1=>存會員id
         public string CustomField1 { get; set; }
-        //自訂名稱欄位2
+        //自訂名稱欄位2=>存訂單編號
         public string CustomField2 { get; set; }
         //自訂名稱欄位3
         public string CustomField3 { get; set; }
@@ -80,4 +83,5 @@ namespace HolyShong.ViewModels
         //檢查碼
         public string CheckMacValue { get; set; }
     }
+       
 }

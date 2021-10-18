@@ -17,17 +17,17 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        //取得特定會員Id的Member資料表
-        //因為Rank要取得最新的資料，所以要用Last
+        //取得特定會員Id的Member資料表        
         public Member GetMember(int id)
         {
-            return _repo.GetAll<Member>().LastOrDefault(x => x.MemberId == id);
+            return _repo.GetAll<Member>().FirstOrDefault(x => x.MemberId == id);
         }
 
         //取得特定會員Id的Rank資料表
+        //因為Rank中會有memberId重複，而要取得最新的資料，就要用先排序
         public Rank GetRankByMemberId(int id)
         {
-            return _repo.GetAll<Rank>().FirstOrDefault(x => x.MemberId == id);
+            return _repo.GetAll<Rank>().OrderByDescending(x=>x.EndTime).FirstOrDefault(x => x.MemberId == id);
         }
 
         //建立ViewModel
