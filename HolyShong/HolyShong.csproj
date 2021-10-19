@@ -487,7 +487,6 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Store\RestaurantTEST.cshtml" />
     <Content Include="Views\Payment\BecomeVIP.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Views\Payment\PayForCart.cshtml" />
