@@ -99,8 +99,8 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
-        public ActionResult Favorite(int? id)
+        [HttpGet]
+        public ActionResult Favorite1(int? id)
         {
             if (!id.HasValue)
             {

@@ -474,7 +474,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Store\_StoreCardPartial.cshtml" />
-    <Content Include="Views\Member\Favorite.cshtml" />
+    <Content Include="Views\Member\Favorite1.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Member\OrderList.cshtml" />
     <Content Include="Views\Member\RestaurantRegister.cshtml" />
