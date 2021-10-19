@@ -51,14 +51,14 @@ namespace HolyShong.Controllers
             return View();
         }
 
+
+        //Todo 顯示更多餐廳按鈕需導入Search頁面
         [HttpGet]
         public ActionResult Search(SearchRequest input)//搜尋頁面
         {
             input.Keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword;
             input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
 
-            //var result = _storeService.GetAllStoresByKeyword(input.Keyword);
-            //var result = _storeService.GetAllStoresByPrice(input.Price);
             var result = _storeService.GetAllStoresByRequest(input);
 
             //轉換其它頁面
@@ -67,7 +67,6 @@ namespace HolyShong.Controllers
                 return View("NoSearch"); 
             }
 
-            //ViewBag.searchCount = result.StoreCards.Count;
             input.SearchCount = result.StoreCards.Count;
             ViewBag.searchTemp = Newtonsoft.Json.JsonConvert.SerializeObject(input);
             return View(result);
