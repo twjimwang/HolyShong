@@ -22,7 +22,7 @@
                     <input v-model="Type" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1"
                            checked>
                     <label class="form-check-label" for="exampleRadios1">
-                        您專屬的推薦餐點(預設)
+                        您專屬的推薦餐點
                     </label>
                 </div>
                 <!-- 間隔區塊 -->
@@ -59,19 +59,19 @@
             <a class="uk-accordion-title" href="#">價格範圍</a>
             <div class="uk-accordion-content">
                 <div>
-                    <button type="button" class="btn rounded-pill" v-on:click="selectPriceRange('1-100')">
+                    <button type="button" class="btn rounded-pill" v-on:click="selectPriceRange('0-100')">
                         <div class="font-weight-bold">$</div>
                     </button>
 
-                    <button type="button" class="btn  rounded-pill" v-on:click="selectPriceRange('101-200')">
+                    <button type="button" class="btn  rounded-pill" v-on:click="selectPriceRange('100-200')">
                         <div class="font-weight-bold">$$</div>
                     </button>
 
-                    <button type="button" class="btn  rounded-pill" v-on:click="selectPriceRange('201-500')">
+                    <button type="button" class="btn  rounded-pill" v-on:click="selectPriceRange('200-500')">
                         <div class="font-weight-bold">$$$</div>
                     </button>
 
-                    <button type="button" class="btn rounded-pill" v-on:click="selectPriceRange('501-99999')">
+                    <button type="button" class="btn rounded-pill" v-on:click="selectPriceRange('500-99999')">
                         <div class="font-weight-bold">$$$$</div>
                     </button>
                 </div>

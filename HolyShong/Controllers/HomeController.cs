@@ -50,7 +50,6 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
         //test
         //[HttpGet]
         //public ActionResult Search()
@@ -66,8 +65,11 @@ namespace HolyShong.Controllers
             input.Keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword;
             input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
 
-            var result = _storeService.GetAllStoresByKeyword(input.Keyword);
-            
+            //var result = _storeService.GetAllStoresByKeyword(input.Keyword);
+            var result = _storeService.GetAllStoresByPrice(input.Price);
+
+
+
             //轉換其它頁面
             if (result.StoreCards.Count==0)
             {

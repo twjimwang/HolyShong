@@ -7,7 +7,7 @@ namespace HolyShong.ViewModels
 {
     public class SearchViewModel
     {
-        public int StoreCategoryId { get; set; }
+        //public int StoreCategoryId { get; set; }
         public List<StoreCard> StoreCards { get; set; }
     }
 

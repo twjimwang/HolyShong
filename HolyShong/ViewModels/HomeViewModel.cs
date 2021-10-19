@@ -36,7 +36,7 @@ namespace HolyShong.ViewModels
         public string StoreImg { get; set; }
         public string StoreName { get; set; }
 
-        public decimal StoreAveragePrice { get; set; }
+        public string StoreAveragePrice { get; set; }
         //ff
         public string ProductCategoryName { get; set; }
     }
