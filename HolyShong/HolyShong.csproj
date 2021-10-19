@@ -420,6 +420,7 @@
     <Compile Include="ViewModels\ECPayViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
+    <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\DeliverViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
