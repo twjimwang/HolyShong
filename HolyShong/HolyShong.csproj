@@ -360,7 +360,6 @@
     <Compile Include="Repositories\HolyShongRepository.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MarketService.cs" />
-    <Compile Include="Services\MemberIdService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
     <Compile Include="Services\MemberProfileService.cs" />
     <Compile Include="Services\MemberRegisterService.cs" />
@@ -392,7 +391,6 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\StoreCategorySearchViewModel.cs" />
-    <Compile Include="ViewModels\SubCategorySearchViewModel.cs" />
     <Compile Include="WebAPI\PaymentController.cs" />
     <Compile Include="WebAPI\CartController.cs" />
     <Compile Include="WebAPI\StoreController.cs" />
