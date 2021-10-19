@@ -18,6 +18,7 @@ namespace HolyShong.Controllers
         private readonly MemberRegisterService _memberRegisterService;
         private readonly MemberProfileService _memberProfileService;
         private readonly OrderService _orderService;
+        private readonly FavoriteService _favoriteService;
 
         public MemberController()
         {
@@ -25,6 +26,7 @@ namespace HolyShong.Controllers
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
             _orderService = new OrderService();
+            _favoriteService = new FavoriteService();
         }
 
 
@@ -98,9 +100,20 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        public ActionResult Favorite()
+        public ActionResult Favorite(int? id)
         {
-            return View();
+            if (!id.HasValue)
+            {
+                return RedirectToAction("NoSearch", "Home");
+            }
+            //var result = _restaurantService.GetRestaurant(id);
+            var result = _favoriteService.GetFavorite(id.Value);
+            if (result.favoriteStores == null)
+            {
+                return RedirectToAction("NoSearch", "Home");
+            }
+            return View(result);
+
         }
         public ActionResult OrderList()
         {

@@ -348,6 +348,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\FavoriteService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MarketService.cs" />
     <Compile Include="Services\MemberIdService.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\ECPayViewModel.cs" />
+    <Compile Include="ViewModels\FavoriteViewModel.cs" />
     <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />

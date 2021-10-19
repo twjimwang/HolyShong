@@ -15,38 +15,12 @@ namespace HolyShong.Services
         {
             _repo = new HolyShongRepository();
         }
-        public MarketViewModel GetEventRestaurant(int DiscountId)
+        public MarketViewModel GetEventRestaurant(int discountId)
         {
-            var result = new MarketViewModel();
-            #region 一
-            ////找一個優惠
-            //var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == DiscountId);
-            //result.EventTitle = discount.Title;
-            //result.EventContent = discount.Contents;
-            //result.EventStart = (DateTime)discount.StartTime;
-            //result.EventEnd = (DateTime)discount.EndTime;
-
-            //result.eventRestaurants = new List<EventRestaurant>();
-
-            ////找一個優惠下面所有店家
-            //var discountStore = _repo.GetAll<DiscountStroe>().FirstOrDefault(ds => ds.DiscountId == discount.DiscountId);
-            //var store = _repo.GetAll<Store>().Where(s => s.StoreId == discountStore.StoreId);
-            //foreach(var s in store)
-            //{
-            //    var sTemp = new EventRestaurant()
-            //    {
-            //        RestaurantImg = s.Img,
-            //        RestaurantName = s.Name
-            //    };
-            //    result.eventRestaurants.Add(sTemp);
-            //}
-
-            #endregion
-
-            #region 二
-            //方法二
+            var result = new MarketViewModel();          
+                      
             //找一個優惠
-            var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == DiscountId);
+            var discount = _repo.GetAll<Discount>().FirstOrDefault(d => d.DiscountId == discountId);
             var discountStore = _repo.GetAll<DiscountStroe>().Where(ds=>ds.DiscountId==discount.DiscountId);
             var store = _repo.GetAll<Store>().Where(s => discountStore.Select(ds => ds.StoreId).Contains(s.StoreId));
 
@@ -67,8 +41,6 @@ namespace HolyShong.Services
                 };
                 result.eventRestaurants.Add(sTemp);
             }
-            #endregion
-
             return result;
         }
     }

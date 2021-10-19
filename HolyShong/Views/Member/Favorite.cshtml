@@ -1,4 +1,4 @@
-﻿
+﻿@model FavoriteViewModel
 @{
     ViewBag.Title = "Favorite";
 }
@@ -11,42 +11,46 @@
 
     <div class="unitContainer">
         <div class="row row-cols-1  row-cols-lg-3 ">
-            <!-- 卡片區塊 -->
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=1">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
+            @foreach (var f in Model.favoriteStores)
+            {
+                <!-- 卡片區塊 -->
+                <div class="cardCol">
+                    <div class="foodCard" style="cursor:pointer;">
+                        <a href="#" style="text-decoration:none;">
+                            <div class="headline">
+                                <img class="pic" src="@f.StoreImg">
+                                <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
+                                <div class="Tag">活動</div>
                             </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
+                            <div class="foodText">
+                                <div class="shopNameandPoint">
+                                    <div class="shopName">@f.StoreName</div>
+                                    <div class="point">4.7</div>
+                                </div>
+                                <div class="TWD">
+                                    <span class="ntd">@f.DeliveryFee TWD 費用</span>
+                                    <div class="dotSpace"><span class="dot"> • </span></div>
+                                    <span class="min">25–35 分鐘</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
+                        </a>
+                    </div>
+                    <div class="touchZone" style="cursor:pointer;">
+                        <div class="favoriteHeart">
+                            <div class="switchP" onclick="clickChangeC()">
+                                <!-- 空心 -->
+                                <i class="far fa-heart hEmpty"></i>
+                                <!-- 實心 -->
+                                <i class="fas fa-heart hSolid"></i>
+                                <i class="fas fa-heart hSolid4hover"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
 
-            <div class="cardCol">
+
+            <!--<div class="cardCol">
                 <div class="foodCard" style="cursor:pointer;">
                     <a href="#" style="text-decoration:none;">
                         <div class="headline">
@@ -69,11 +73,11 @@
                 </div>
                 <div class="touchZone" style="cursor:pointer;">
                     <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
+                        <div class="switchP" onclick="clickChangeC()">-->
                             <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
+                            <!--<i class="far fa-heart hEmpty"></i>-->
                             <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
+                            <!--<i class="fas fa-heart hSolid"></i>
                             <i class="fas fa-heart hSolid4hover"></i>
                         </div>
                     </div>
@@ -103,11 +107,11 @@
                 </div>
                 <div class="touchZone" style="cursor:pointer;">
                     <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
+                        <div class="switchP" onclick="clickChangeC()">-->
                             <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
+                            <!--<i class="far fa-heart hEmpty"></i>-->
                             <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
+                            <!--<i class="fas fa-heart hSolid"></i>
                             <i class="fas fa-heart hSolid4hover"></i>
                         </div>
                     </div>
@@ -137,16 +141,16 @@
                 </div>
                 <div class="touchZone" style="cursor:pointer;">
                     <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
+                        <div class="switchP" onclick="clickChangeC()">-->
                             <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
+                            <!--<i class="far fa-heart hEmpty"></i>-->
                             <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
+                            <!--<i class="fas fa-heart hSolid"></i>
                             <i class="fas fa-heart hSolid4hover"></i>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
 
 
@@ -155,7 +159,7 @@
     </div>
 
     <!-- 區段2 -->
-    <div class="unitContainer">
+    <!--<div class="unitContainer">
         <h1 class="titleService">(現有的)</h1>
     </div>
 
@@ -184,55 +188,54 @@
                 </div>
                 <div class="touchZone" style="cursor:pointer;">
                     <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
-                        </div>
-                    </div>
+                        <div class="switchP" onclick="clickChangeC()">-->
+    <!-- 空心 -->
+    <!--<i class="far fa-heart hEmpty"></i>-->
+    <!-- 實心 -->
+    <!--<i class="fas fa-heart hSolid"></i>
+                    <i class="fas fa-heart hSolid4hover"></i>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=6">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
-                            </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
-                            </div>
-                        </div>
-                    </a>
+    <div class="cardCol">
+        <div class="foodCard" style="cursor:pointer;">
+            <a href="#" style="text-decoration:none;">
+                <div class="headline">
+                    <img class="pic" src="https://picsum.photos/300/100/?random=6">
+                    <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
+                    <div class="Tag">買1送1</div>
                 </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
+                <div class="foodText">
+                    <div class="shopNameandPoint">
+                        <div class="shopName">Burger King漢堡王 松山店</div>
+                        <div class="point">4.7</div>
+                    </div>
+                    <div class="TWD">
+                        <span class="ntd">55TWD 費用</span>
+                        <div class="dotSpace"><span class="dot"> • </span></div>
+                        <span class="min">25–35 分鐘</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="touchZone" style="cursor:pointer;">
+            <div class="favoriteHeart">
+                <div class="switchP" onclick="clickChangeC()">-->
+    <!-- 空心 -->
+    <!--<i class="far fa-heart hEmpty"></i>-->
+    <!-- 實心 -->
+    <!--<i class="fas fa-heart hSolid"></i>
                             <i class="fas fa-heart hSolid4hover"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </div>-->
     <!-- 區段3 -->
-    <div class="unitContainer">
+    <!--<div class="unitContainer">
         <h1 class="titleService">目前無法供應</h1>
     </div>
 
@@ -261,18 +264,18 @@
                 </div>
                 <div class="touchZone" style="cursor:pointer;">
                     <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
+                        <div class="switchP" onclick="clickChangeC()">-->
+    <!-- 空心 -->
+    <!--<i class="far fa-heart hEmpty"></i>-->
+    <!-- 實心 -->
+    <!--<i class="fas fa-heart hSolid"></i>
                             <i class="fas fa-heart hSolid4hover"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </main>
 
 @section topCSS
