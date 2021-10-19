@@ -27,14 +27,14 @@
             ]
         }
     },
-    watch: {
-        'product.StoreProductOptions.SelectOption': {
-            immediate: true,
-            handler() {
-                this.checkVerify();
-            }
-        }
-    },
+    //watch: {
+    //    'product.StoreProductOptions.SelectOption': {
+    //        immediate: true,
+    //        handler() {
+    //            this.checkVerify();
+    //        }
+    //    }
+    //},
     methods: {
         changeAmount(value) {
             if (this.product.Quantity + value == 0) { return; }

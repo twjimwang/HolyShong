@@ -5,7 +5,19 @@
             {}
     },
     computed: {
-        sum() {
+        //sum(p) {
+        //    console.log(p)
+        //    let addAmount = 0;
+        //    for (var i = 0; i < p.StoreProductOptions.length; i++) {
+        //        for (var j = 0; j < p.StoreProductOptions[i].ProductOptionDetails.length; j++) {
+        //            if (p.StoreProductOptions[i].ProductOptionDetails[j] == p.StoreProductOptions[i].SelectOption) {
+        //                addAmount += p.StoreProductOptions[i].ProductOptionDetails[j].AddPrice;
+        //            }
+        //        }
+        //    }
+        //    return (p.UnitPrice + addAmount) * p.Quantity;
+        //},
+        totalSum() {
             let amount = this.product.map(p => p.Quantity * p.UnitPrice).reduce((a, b) => a + b);
             let addAmount = 0;
             for (var i = 0; i < this.product.length; i++) {

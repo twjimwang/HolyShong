@@ -39,13 +39,13 @@
                         </div>
                     </div>
                     <div id="firstPrice" class="my-auto">
-                        ${{p.UnitPrice * p.Quantity}}元
+                        @*${{sum(p)}}元*@
                     </div>
                 </div>
 
                 <div class="previewOrderDiv">
-                    <button class="btn btn-dark previewOrderBtn" v-on:click="checkOut">
-                        <span class="previewOrderSpan">前往結帳 • $ {{sum}}</span>
+                    <button class="btn btn-dark previewOrderBtn" @*v-on:click="checkOut"*@>
+                        <span class="previewOrderSpan">前往結帳 • $ {{totalSum}}</span>
                     </button>
                 </div>
             </div>
