@@ -41,6 +41,8 @@ namespace HolyShong.Models.HolyShongModel
 
         public string Contents { get; set; }
 
+        public string Img { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiscountMember> DiscountMember { get; set; }
 

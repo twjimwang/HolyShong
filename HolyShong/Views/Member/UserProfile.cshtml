@@ -12,20 +12,17 @@
             <div class="name row mt-3">
                 <label class="col-4 " for="lastName">會員姓氏</label>
                 @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "col-8 form-control" } })
-                @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
-                @*<input class="col-8" type="text" id="lastName" value="@Model.LastName">*@
+                @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })                
             </div>
             <div class="name row mt-3">
                 <label class="col-4" for="firstName">會員名字</label>
                 @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "col-8 form-control" } })
-                @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
-                @*<input class="col-8" type="text" id="firstName" value="@Model.FirstName">*@
+                @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })                
             </div>
             <div class="phone row mt-3">
                 <label class="col-4" for="tel">聯絡電話</label>
                 @Html.EditorFor(x => x.Cellphone, new { htmlAttributes = new { @class = "col-8 form-control" } })
-                @Html.ValidationMessageFor(x => x.Cellphone, "", new { @class = "text-danger" })
-                @*<input class="col-8" type="text" id="tel" value="@Model.Cellphone">*@
+                @Html.ValidationMessageFor(x => x.Cellphone, "", new { @class = "text-danger" })                
             </div>
             <div class="member row mt-3">
                 <div class="col-4 memberTxt">會員狀態</div>

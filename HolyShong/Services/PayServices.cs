@@ -22,8 +22,8 @@ namespace HolyShong.Services
         }
 
         //設定回傳綠界api路徑
-        string VIPReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
-        string BuyCartReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
+        string VIPReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string BuyCartReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
         string feeReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
 
         /// <summary>
@@ -126,12 +126,12 @@ namespace HolyShong.Services
         {
             //製作Rank欄位
             var rank = new Rank()
-            {
-                RankId = 30,
+            {                
                 MemberId = id,
                 IsPrimary = true,
                 EndTime = DateTime.UtcNow.AddHours(8).AddDays(30),
             };
+
             DbContext context = new HolyShongContext();
             using (var transaction = context.Database.BeginTransaction())
                 try
@@ -148,7 +148,7 @@ namespace HolyShong.Services
 
         
 
-
+        //Todo 不能再從資料庫抓購物車資料
         /// <summary>
         /// 購買購物車內商品
         /// </summary>
@@ -161,6 +161,7 @@ namespace HolyShong.Services
             var CartDetail = new ECPayViewModel()
             {
                 MemberId = id,
+                //Todo 改連結=>綠界返回商店的連結
                 ClientBackURL = "http://localhost:44360",
                 ReturnURL = BuyCartReturnURL,
                 OrderResultURL = "",
@@ -173,7 +174,7 @@ namespace HolyShong.Services
             foreach (var itemInCart in itemsInCart)
             {
                 var tempItem = new BuyItem
-                {
+                {                    
                     Name = itemInCart.Product.Name,
                     Currency = "新臺幣",
                     Price = itemInCart.Product.UnitPrice,
@@ -228,44 +229,6 @@ namespace HolyShong.Services
                         _repo.Delete<Item>(newCartItem);
                     }
 
-                    _repo.SaveChange();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-        }
-
-
-        /// <summary>
-        /// 建立ECPayayRecord資料
-        /// </summary>
-        /// <param name="getResultFromECPay"></param>
-        public void SaveECPayRecordTable(GetResultFromECPay getResultFromECPay)
-        {
-            ECPayRecord record = new ECPayRecord
-            {
-                //暫用固定ID之後要改
-                ECPayRecordID = 1,
-                Payment = getResultFromECPay.PaymentType,
-                TradeNo = (int)long.Parse(getResultFromECPay.TradeNo),
-                CheckMacValue = getResultFromECPay.CheckMacValue
-            };
-            if (getResultFromECPay.RtnCode == 1)
-            {
-                record.IsPaySuccess = true;
-            }
-            else
-            {
-                record.IsPaySuccess = false;
-            }
-
-            DbContext context = new HolyShongContext();
-            using (var transaction = context.Database.BeginTransaction())
-                try
-                {
-                    _repo.Create<ECPayRecord>(record);
                     _repo.SaveChange();
                     transaction.Commit();
                 }
