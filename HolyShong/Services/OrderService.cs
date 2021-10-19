@@ -18,7 +18,16 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        public OperationResult Create(HolyCartViewModel cartVM)
+
+        /// <summary>
+        /// 從購物車取得Order
+        /// </summary>
+        public void PutShoppingCartToOrder()
+        {
+
+        }
+
+        public OperationResult OrderCreate(HolyCartViewModel cartVM)
         {
             //初始化OperationResult
             OperationResult result = new OperationResult();
@@ -37,7 +46,7 @@ namespace HolyShong.Services
                         MemberId = memberId,
                         StoreId = _repo.GetAll<Store>().FirstOrDefault(s => s.Name == cartVM.StoreName).StoreId,
                         DeliveryFee = 30, //待確認
-                        Notes = "等資料庫新建cart欄位", //待確認
+                        Notes = cartVM.Notes, 
                         DeliveryAddress = cartVM.Address,
                         IsTablewares = cartVM.IsTablewares,
                         IsPlasticbag = cartVM.IsPlasticbag,
@@ -64,7 +73,7 @@ namespace HolyShong.Services
                             OrderId = order.OrderId,
                             ProductId = product.ProductId,
                             UnitPrice = product.UnitPrice,
-                            Quantity = item.Quantity,  //待確認
+                            Quantity = item.Quantity,
                             Special = item.Special
                         };
                         _repo.Create(orderDetail);
@@ -212,13 +221,7 @@ namespace HolyShong.Services
             return result;
         }
 
-        /// <summary>
-        /// 從購物車取得Order
-        /// </summary>
-        public void PutShoppingCartToOrder()
-        {
 
-        }
 
         //外送員
 

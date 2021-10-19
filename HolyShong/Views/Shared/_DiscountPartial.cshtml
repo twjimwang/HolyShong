@@ -1,5 +1,13 @@
 ﻿@{
-    var discounts = new HolyShong.Services.DiscountService().GetDiscountByMemberId();
+    HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+    string userid = "";
+    if (cookie != null)
+    {
+        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+        userid = ticket.UserData;
+    }
+    var discounts = new HolyShong.Services.DiscountService().GetDiscountByMemberId(userid);
 }
 
 <!-- 優惠Modal -->
