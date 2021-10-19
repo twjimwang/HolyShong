@@ -17,7 +17,7 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        //取得特定會員Id的Member資料表        
+        //取得特定會員Id的Member資料表
         public Member GetMember(int id)
         {
             return _repo.GetAll<Member>().FirstOrDefault(x => x.MemberId == id);
@@ -76,31 +76,7 @@ namespace HolyShong.Services
             member.UpdateTime = DateTime.UtcNow.AddHours(8);
             
             var rank = GetRankByMemberId(memberProfileViewModel.MemberId);
-            //if (rank != null)
-            //{
-            //    rank.IsPrimary = memberProfileViewModel.IsPrimary;
-            //}
-            //else
-            //{
-            //    var newRank = new Rank()
-            //    {
-            //        RankId = 100,
-            //        IsPrimary = false,
-            //        MemberId = memberProfileViewModel.MemberId,
-            //    };
 
-            //    using (var transaction = context.Database.BeginTransaction())
-            //        try
-            //        {
-            //            _repo.Create<Rank>(rank);
-            //            _repo.SaveChange();
-            //            transaction.Commit();
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            transaction.Rollback();
-            //        }
-            //}
             using (var transaction = context.Database.BeginTransaction())
                 try
                 {
@@ -119,51 +95,5 @@ namespace HolyShong.Services
                     return (false);
                 }
         }
-
-
-        //public List<MemberProfileViewModel> GetAllMemberProfile()
-        //{
-        //    var result = new List<MemberProfileViewModel>();
-        //    var members = _repo.GetMembers().ToList();
-        //    var addresses = _repo.GetAddresses()
-        //        .Where(a => members.Select(m => m.MemberId).Contains(a.MemberId)).ToList();
-        //    var ranks = _repo.GetRanks().Where(r => members.Select(m => m.MemberId).Contains(r.MemberId)).ToList();
-
-        //    foreach (var m in members)
-        //    {
-        //        var address = addresses.FirstOrDefault(a => a.MemberId == m.MemberId);
-        //        var rank = ranks.First(r => r.MemberId == m.MemberId);
-        //        var temp = new MemberProfileViewModel
-        //        {
-        //            MemberId = m.MemberId,
-        //            FullName = $"{m.LastName},{m.FirstName}",
-        //            Cellphone = m.Cellphone,
-        //            Zipcode = address?.ZipCode,
-        //            Address = address?.Address1,
-        //            IsPrimary = rank.IsPrimary,
-        //            LevelName = rank.IsPrimary ? "尊貴會員" : "一般會員",
-        //            Email = m.Email
-        //        };
-        //        result.Add(temp);
-
-        //    }
-        //    return result;
-
-
-
-
-
-        //return members.Select(m => new MemberProfileViewModel
-        //{
-        //    MemberId = m.MemberId,
-        //    FullName = $"{m.LastName},{m.FirstName}",
-        //    Cellphone = m.Cellphone,
-        //    Zipcode = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.ZipCode,
-        //    Address = addresses.FirstOrDefault(a => a.MemberId == m.MemberId)?.Address1,
-        //    IsPrimary = ranks.First(r => r.MemberId == m.MemberId).IsPrimary,
-        //    LevelName = ranks.First(r => r.MemberId == m.MemberId).IsPrimary?"尊貴會員":"一般會員",
-        //    Email = m.Email
-        //}).ToList();
-        //}
     }
 }
