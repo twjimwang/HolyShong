@@ -15,16 +15,19 @@ namespace HolyShong.Services
         {
             _repo = new HolyShongRepository();
         }
+        /// <summary>
+        /// 最愛店家頁面
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
         public FavoriteViewModel GetFavorite(int memberId)
         {
             var result = new FavoriteViewModel();
-
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
             var favorite = _repo.GetAll<Favorite>().Where(f => f.MemberId == memberId);
             var store = _repo.GetAll<Store>().Where(s => favorite.Select(f => f.StoreId).Contains(s.StoreId));
+            //todo 缺排順序
             //store.OrderByDescending(s => favorite.Select(f => f.CreateTime));
-
-
 
             result.favoriteStores = new List<FavoriteStore>();
 

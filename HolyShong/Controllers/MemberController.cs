@@ -106,7 +106,7 @@ namespace HolyShong.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize]
-        public ActionResult Favorite()
+        public ActionResult FavoriteStore()
         {
             var memberId = Int32.Parse(User.Identity.Name);
          
