@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;using System;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
@@ -9,6 +11,7 @@ using HolyShong.ViewModels;
 using HolyShong.Models;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Policy;
 
 namespace HolyShong.Services
 {
@@ -64,38 +67,40 @@ namespace HolyShong.Services
                 }
             }
 
-            //var GenarateUserVerificationLink = "/Register/UserVerification/" + account.ActivetionCode;
-            //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, GenarateUserVerificationLink);
+            ////var GenarateUserVerificationLink = "/Register/UserVerification/" + account.ActivetionCode;
+            ////var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, GenarateUserVerificationLink);
 
-            var fromMail = new MailAddress("holyshong2022@gmail.com"); // set your email    
-            var fromEmailpassword = "Hs20211014"; // Set your password     
-            var toEmail = new MailAddress(account.Email);
+            //var fromMail = new MailAddress("holyshong2022@gmail.com"); // set your email    
+            //var fromEmailpassword = "Hs20211014"; // Set your password     
+            //var toEmail = new MailAddress(account.Email);
 
-            var smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
+            //var smtp = new SmtpClient();
+            //smtp.Host = "smtp.gmail.com";
+            //smtp.Port = 587;
+            //smtp.EnableSsl = true;
+            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //smtp.UseDefaultCredentials = false;
+            //smtp.Credentials = new NetworkCredential(fromMail.Address, fromEmailpassword);
 
-            var Message = new MailMessage(fromMail, toEmail);
-            Message.Subject = "給你送!註冊完成!!";
-            Message.Body =
-            "<br/> 你成功註冊了一個帳號!" +
-            "<br/> 請點擊下方連結來登入會員!";
-            
-            //+"<br/><br/><a href=" + link + ">" + link + "</a>";
-            Message.IsBodyHtml = true;
-            try
-            {
-                smtp.Send(Message);
-                Message.Dispose(); //釋放資源
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
+            //var Message = new MailMessage(fromMail, toEmail);
+            //Message.Subject = "給你送!註冊完成!!";
+            //Message.Body =
+            //"<br/> 你成功註冊了一個帳號!" +
+            //"<br/> 請點擊下方連結來登入會員!";
+            ////string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            ////var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            ////await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
+
+            //Message.IsBodyHtml = true;
+            //try
+            //{
+            //    smtp.Send(Message);
+            //    Message.Dispose(); //釋放資源
+            //}
+            //catch (Exception ex)
+            //{
+            //    ex.ToString();
+            //}
             
 
             return status;
