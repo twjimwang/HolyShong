@@ -40,27 +40,15 @@
                     </div>
                 }
             </div>
+
             <div class="email row">
                 <div class="emailTxt col-4">電子郵件</div>
                 <div class="emailInfo col-8">@Model.Email</div>
             </div>
 
             <button type="submit" class="saveBtn btn btn-primary" data-toggle="modal" data-target="#submitResultModal">儲存變更</button>
-            @*<div class="modal fade" id="submitResultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">修改結果</h5>
-                            </div>
-                            <div class="modal-body align-items-center">
-                                @ViewBag.commitResult
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">確認</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+
+
 
             @Html.ValidationSummary()
 
@@ -120,6 +108,12 @@
         /* saveBtn */
         .saveBtn {
             margin-bottom: 16px;
+        }
+
+        @@media screen and (min-width:1200px) {
+            .personalInfo {
+                width: 60%;
+            }
         }
     </style>
 }

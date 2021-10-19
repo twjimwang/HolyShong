@@ -7,6 +7,7 @@ using HolyShong.ViewModels;
 using HolyShong.Models.HolyShongModel;
 using System.Data.Entity;
 using HolyShong.Repositories;
+using Newtonsoft.Json;
 using Item = HolyShong.Models.HolyShongModel.Item;
 
 namespace HolyShong.Services
@@ -22,8 +23,8 @@ namespace HolyShong.Services
 
         //設定回傳綠界api路徑
         string VIPReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
-        string BuyCartReturnURL = "https://6c84-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";
-        string feeReturnURL = "https://6c84-1-164-235-183.ngrok.io/api/payment/FeeGetResultFromECPay";
+        string BuyCartReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
+        string feeReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
 
         /// <summary>
         /// 綠界SDK
@@ -76,14 +77,12 @@ namespace HolyShong.Services
                 });
             }
 
-
+            var temp = JsonConvert.SerializeObject(oPayment.Send);
+          
             var html = string.Empty;
             oPayment.CheckOutString(ref html);
             return html;
         }
-
-
-
 
 
         /// <summary>
@@ -119,8 +118,6 @@ namespace HolyShong.Services
             return html;
         }
 
-
-
         /// <summary>
         /// 送送會員付款成功
         /// </summary>
@@ -148,6 +145,98 @@ namespace HolyShong.Services
                     transaction.Rollback();
                 }
         }
+
+        
+
+
+        /// <summary>
+        /// 購買購物車內商品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string BuyCartService(int id)
+        {
+            var cart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
+            var itemsInCart = _repo.GetAll<Item>().Where(x => x.CartId == cart.CartId);
+            var CartDetail = new ECPayViewModel()
+            {
+                MemberId = id,
+                ClientBackURL = "http://localhost:44360",
+                ReturnURL = BuyCartReturnURL,
+                OrderResultURL = "",
+                MerchantTradeNo = "",
+                ListItems = new List<BuyItem> {
+                },
+
+            };
+            decimal total = 0;
+            foreach (var itemInCart in itemsInCart)
+            {
+                var tempItem = new BuyItem
+                {
+                    Name = itemInCart.Product.Name,
+                    Currency = "新臺幣",
+                    Price = itemInCart.Product.UnitPrice,
+                    Quantity = itemInCart.Quantity,
+                    URL = "",
+                };
+                CartDetail.ListItems.Add(tempItem);
+
+
+                //總金額
+                total += tempItem.Price * tempItem.Quantity;
+            };
+            CartDetail.TotalAmount = (int)total;
+            string html = ECPayBasic(CartDetail);
+            return html;
+        }
+
+        /// <summary>
+        /// 成功購買購物車商品後，清空購物車
+        /// </summary>
+        /// <param name="id"></param>
+        public void BuyCartIsSuccess(int id)
+        {
+            //購物車
+            var deletdeCart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
+            //購物車Item
+            var deleteCartItems = deletdeCart.Item.ToList();
+            //購物車ItemDetails
+            List<ItemDetail> deleteCartItemsDetails = new List<ItemDetail>();            
+            foreach (var deldetCartItem in deleteCartItems)
+            {
+                var deleteCartItemDetails = _repo.GetAll<ItemDetail>().Where(x => x.ItemId == deldetCartItem.ItemId).ToList();
+
+                deleteCartItemsDetails.AddRange(deleteCartItemDetails);
+            };
+
+            DbContext context = new HolyShongContext();
+            using (var transaction = context.Database.BeginTransaction())
+                try
+                {
+                    foreach(var itemDetails in deleteCartItemsDetails)
+                    {
+                    _repo.Delete<ItemDetail>(itemDetails);
+                    }
+                    foreach(var cartItems in deleteCartItems)
+                    {
+                    _repo.Delete<Item>(cartItems);
+                    }
+                    _repo.Delete<Cart>(deletdeCart);
+                    foreach (var newCartItem in deleteCartItems)
+                    {
+                        _repo.Delete<Item>(newCartItem);
+                    }
+
+                    _repo.SaveChange();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+        }
+
 
         /// <summary>
         /// 建立ECPayayRecord資料
@@ -178,85 +267,6 @@ namespace HolyShong.Services
                 {
                     _repo.Create<ECPayRecord>(record);
                     _repo.SaveChange();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-        }
-
-
-        /// <summary>
-        /// 購買購物車內商品
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string BuyCartService(int id)
-        {
-            var cart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
-            var itemsInCart = _repo.GetAll<Item>().Where(x => x.CartId == cart.CartId);
-            var CartDetail = new ECPayViewModel()
-            {
-                MemberId = id,
-                ReturnURL = BuyCartReturnURL,
-                ClientBackURL = "http://localhost:44360",
-                OrderResultURL = "",
-                MerchantTradeNo = "",
-                TotalAmount = 0,
-                ListItems = new List<BuyItem> { },
-            };
-
-            foreach (var itemInCart in itemsInCart)
-            {
-                var tempItem = new BuyItem
-                {
-                    Name = itemInCart.Product.Name,
-                    Currency = "新臺幣",
-                    Price = itemInCart.Product.UnitPrice,
-                    Quantity = itemInCart.Quantity,
-                    URL = "",
-                };
-                CartDetail.ListItems.Add(tempItem);
-
-
-                //總金額
-                CartDetail.TotalAmount += tempItem.Price;
-            };
-
-            string html = ECPayBasic(CartDetail);
-            return html;
-        }
-
-
-        /// <summary>
-        /// 成功購買購物車商品後，清空購物車
-        /// </summary>
-        /// <param name="id"></param>
-        public void BuyCartIsSuccess(int id)
-        {
-            var deletdeCart = _repo.GetAll<Cart>().First(x => x.MemberId == id);
-            var deleteCartItems = deletdeCart.Item.ToList();
-            List<ItemDetail> deleteCartItemsDetails = new List<ItemDetail>();
-            //要問的
-            foreach (var deldetCartItem in deleteCartItems)
-            {
-                var deleteCartItemDetails = _repo.GetAll<ItemDetail>().Where(x => x.ItemId == deldetCartItem.ItemId).ToList();
-
-                //deleteCartItemsDetails.Add(deleteCartItemDetails);
-            };
-
-            DbContext context = new HolyShongContext();
-            using (var transaction = context.Database.BeginTransaction())
-                try
-                {
-                    _repo.Delete<Cart>(deletdeCart);
-                    foreach (var newCartItem in deleteCartItems)
-                    {
-                        _repo.Delete<Item>(newCartItem);
-                    }
-
-                    //_repo.Delete<ItemDetail>();
                     transaction.Commit();
                 }
                 catch (Exception ex)
