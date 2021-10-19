@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class RestaurantViewModel1
+    public class ProductViewModel
     {
         /// <summary>
         /// 商店Id

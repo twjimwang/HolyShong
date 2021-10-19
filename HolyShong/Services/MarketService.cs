@@ -15,6 +15,11 @@ namespace HolyShong.Services
         {
             _repo = new HolyShongRepository();
         }
+        /// <summary>
+        /// 活動店家Read
+        /// </summary>
+        /// <param name="discountId"></param>
+        /// <returns></returns>
         public MarketViewModel GetEventRestaurant(int discountId)
         {
             var result = new MarketViewModel();          

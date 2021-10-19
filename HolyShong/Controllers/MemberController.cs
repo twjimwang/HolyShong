@@ -57,10 +57,10 @@ namespace HolyShong.Controllers
         public ActionResult UserProfile()
         {
 
-                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
-                
-                return View(model);
-            
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
+            return View(model);
+
         }
 
         /// <summary>
@@ -99,15 +99,18 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
-        public ActionResult Favorite(int? id)
+      
+        /// <summary>
+        /// 最愛店家頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult Favorite()
         {
-            if (!id.HasValue)
-            {
-                return RedirectToAction("NoSearch", "Home");
-            }
-            //var result = _restaurantService.GetRestaurant(id);
-            var result = _favoriteService.GetFavorite(id.Value);
+            var memberId = Int32.Parse(User.Identity.Name);
+         
+            var result = _favoriteService.GetFavorite(memberId);
             if (result.favoriteStores == null)
             {
                 return RedirectToAction("NoSearch", "Home");

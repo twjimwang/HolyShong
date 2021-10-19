@@ -16,12 +16,12 @@ namespace HolyShong.Controllers
         {
             _productService = new ProductService();
             _marketService = new MarketService();
-        }
-        // GET: Store
-        public ActionResult Index()
-        {
-            return View();
-        }
+        }     
+        /// <summary>
+        /// 餐廳頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Restaurant(int? id)
         {
             if (!id.HasValue)
@@ -36,7 +36,11 @@ namespace HolyShong.Controllers
             return View(result);
 
         }      
-
+        /// <summary>
+        /// 活動店家頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Marketing(int? id)
         {
             if (!id.HasValue)
