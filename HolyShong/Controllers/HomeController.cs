@@ -50,14 +50,6 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-        //test
-        //[HttpGet]
-        //public ActionResult Search()
-        //{
-
-        //    var result = _storeService.GetAllStoresByKeyword("");
-        //    return View(result);
-        //}
 
         [HttpGet]
         public ActionResult Search(SearchRequest input)//搜尋頁面
@@ -66,9 +58,8 @@ namespace HolyShong.Controllers
             input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
 
             //var result = _storeService.GetAllStoresByKeyword(input.Keyword);
-            var result = _storeService.GetAllStoresByPrice(input.Price);
-
-
+            //var result = _storeService.GetAllStoresByPrice(input.Price);
+            var result = _storeService.GetAllStoresByRequest(input);
 
             //轉換其它頁面
             if (result.StoreCards.Count==0)

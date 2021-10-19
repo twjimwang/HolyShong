@@ -93,18 +93,74 @@ namespace HolyShong.Services
         }
 
         //Search_副分類搜尋
-        public SearchViewModel GetAllStoresByRequest(string keyword)
+        public SearchViewModel GetAllStoresByRequest(SearchRequest input)
         {
             var result = new SearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
+            //一.關鍵字
+            var stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(input.Keyword)).ToList();
+            if (stores.Count == 0)
+            {
+                return result;
+            }
 
+            //二.價格範圍
+            //1.找出所有商店、所有產品類別及所有產品
+            var allProductCategories = _repo.GetAll<ProductCategory>();
+            var allProducts = _repo.GetAll<Product>();
+            var cards = new List<StoreCard>();
+            //2.計算商店價格
+            foreach (var item in stores)
+            {
+                var productCategoryAveragePrice = new List<decimal>();
+                var storePrice = "";
+                //2.1找出每家店本身的產品類別
+                var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId);
+                //2.2找出目前選擇的商店每個產品類別下面的所有產品的平均價格
+                foreach (var productCategory in productCategoryList)
+                {
+                    var productAveragePrice = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).Select(x => x.UnitPrice).ToList();
+                    var averagePrive = productAveragePrice.Count == 0 ? 0 : productAveragePrice.Average();
+                    productCategoryAveragePrice.Add(averagePrive);
+                }
+                var storeAveragePrice = productCategoryAveragePrice.Count == 0 ? 0 : productCategoryAveragePrice.Average();
+                //2.3轉換range
+                if (storeAveragePrice >= 0 && storeAveragePrice <= 100)
+                {
+                    storePrice = "0-100";
+                }
+                else if (storeAveragePrice > 100 && storeAveragePrice <= 200)
+                {
+                    storePrice = "100-200";
+                }
+                else if (storeAveragePrice > 200 && storeAveragePrice <= 500)
+                {
+                    storePrice = "200-500";
+                }
+                else
+                {
+                    storePrice = "500-99999";
+                }
+
+                if (storePrice == input.Price)
+                {
+                    //儲存卡片
+                    var card = new StoreCard
+                    {
+                        StoreId = item.StoreId,
+                        StoreImg = item.Img,
+                        StoreName = item.Name,
+                        StoreAveragePrice = storePrice,
+                    };
+                    cards.Add(card);
+                }
+            }
+            result.StoreCards = cards;
             return result;
         }
-
-
-
+        //關鍵字搜尋
         public SearchViewModel GetAllStoresByKeyword(string keyword)
         {
             var result = new SearchViewModel
@@ -131,7 +187,7 @@ namespace HolyShong.Services
             result.StoreCards = cards;
             return result;
         }
-
+        //店家價格搜尋
         public SearchViewModel GetAllStoresByPrice(string price)
         {
             //店家卡片初始設定
