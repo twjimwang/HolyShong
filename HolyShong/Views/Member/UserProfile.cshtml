@@ -9,44 +9,44 @@
     <div class="personalGroup container">
         <div class="personalInfo">
             <h2>會員資料修改</h2>
-            <div class="name row">
+            <div class="name row mt-3">
                 <label class="col-4 " for="lastName">會員姓氏</label>
                 @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "col-8 form-control" } })
                 @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
                 @*<input class="col-8" type="text" id="lastName" value="@Model.LastName">*@
             </div>
-            <div class="name row">
+            <div class="name row mt-3">
                 <label class="col-4" for="firstName">會員名字</label>
                 @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "col-8 form-control" } })
                 @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
                 @*<input class="col-8" type="text" id="firstName" value="@Model.FirstName">*@
             </div>
-            <div class="phone row">
+            <div class="phone row mt-3">
                 <label class="col-4" for="tel">聯絡電話</label>
                 @Html.EditorFor(x => x.Cellphone, new { htmlAttributes = new { @class = "col-8 form-control" } })
                 @Html.ValidationMessageFor(x => x.Cellphone, "", new { @class = "text-danger" })
                 @*<input class="col-8" type="text" id="tel" value="@Model.Cellphone">*@
             </div>
-            <div class="member row">
-                <div class="memberTxt col-4">會員狀態</div>
+            <div class="member row mt-3">
+                <div class="col-4 memberTxt">會員狀態</div>
                 @if (Model.IsPrimary)
                 {
                     <div class="col-8">送送會員 <br>到期時間：@Model.PrimaryEndTime</div>
                 }
                 else
                 {
-                    <div class="col-8">
-                        一般會員 <button type="button" class="btn btn-primary btn-sm align-items-center" id="GetPrimary" onclick="location.href='@Url.Action("BecomeVIP", "Payment")'">升級為送送會員</button>
+                    <div class="col-8 align-items-center">
+                        <div>一般會員</div> <button type="button" class="btn btn-primary btn-sm align-items-center" id="GetPrimary" onclick="location.href='@Url.Action("BecomeVIP", "Payment")'">升級為送送會員</button>
                     </div>
                 }
             </div>
 
-            <div class="email row">
+            <div class="email row mt-3">
                 <div class="emailTxt col-4">電子郵件</div>
                 <div class="emailInfo col-8">@Model.Email</div>
             </div>
 
-            <button type="submit" class="saveBtn btn btn-primary" data-toggle="modal" data-target="#submitResultModal">儲存變更</button>
+            <button type="submit" class="saveBtn btn btn-primary mt-3" data-toggle="modal" data-target="#submitResultModal">儲存變更</button>
 
 
 
@@ -68,6 +68,7 @@
 
         .personalGroup {
             display: flex;
+            margin-top:80px;
         }
 
         .personalInfo {
@@ -88,22 +89,22 @@
             background: red;
         }
         /* name */
-        .name {
+        /*.name {
             margin-top: 16px;
-        }
+        }*/
 
         .emailInfo, .app h4 {
             font-weight: bold;
         }
         /* phone */
-        .phone {
+        /*.phone {
             margin: 16px 0;
-        }
+        }*/
 
         /* email */
-        .email {
+        /*.email {
             margin: 16px 0;
-        }
+        }*/
 
         /* saveBtn */
         .saveBtn {
@@ -112,7 +113,7 @@
 
         @@media screen and (min-width:1200px) {
             .personalInfo {
-                width: 60%;
+                width: 800px;
             }
         }
     </style>

@@ -82,7 +82,7 @@ namespace HolyShong.Controllers
                 }
                 else
                 {
-                    return Content("修改成功");
+                    return Content("修改失敗");
                 }
 
             }

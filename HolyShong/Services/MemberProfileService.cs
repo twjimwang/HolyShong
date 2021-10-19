@@ -60,6 +60,12 @@ namespace HolyShong.Services
             return result;
         }
 
+
+        /// <summary>
+        /// 修改會員資料
+        /// </summary>
+        /// <param name="memberProfileViewModel"></param>
+        /// <returns></returns>
         public bool EditMemberProfile(UserProfileViewModel memberProfileViewModel)
         {
             DbContext context = new HolyShongContext();
