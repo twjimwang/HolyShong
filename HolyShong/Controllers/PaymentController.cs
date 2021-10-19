@@ -35,19 +35,14 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult DeliverFee()
-        {
-            //var html = _payServices.BecomeVIP(int.Parse(User.Identity.Name));
-            //ViewBag.Html = html;
-            return View();
-        }
-
-        //[HttpPost]
-        //public ActionResult GetResultFromECPay(GetResultFromECPay query)
+        //Todo 有時間再做付小費
+        //[Authorize]
+        //public ActionResult DeliverFee()
         //{
-
+        //    var html = _payServices.BecomeVIP(int.Parse(User.Identity.Name));
+        //    ViewBag.Html = html;
         //    return View();
         //}
+
     }
 }
