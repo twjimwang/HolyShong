@@ -384,6 +384,7 @@
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\StoreCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\SubCategorySearchViewModel.cs" />
+    <Compile Include="WebAPI\PaymentController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\deliver_layout.css" />
@@ -475,9 +476,9 @@
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Store\RestaurantTEST.cshtml" />
-    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Payment\BecomeVIP.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
-    <Content Include="Views\Payment\PostResultTpECPay.cshtml" />
+    <Content Include="Views\Payment\PayForCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -511,7 +512,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59089</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44360/</IISUrl>
+          <IISUrl>http://localhost:44360/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
