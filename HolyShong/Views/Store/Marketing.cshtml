@@ -1,163 +1,54 @@
-﻿<main>
+﻿@model MarketViewModel
+<main>
     <div class="unitContainer">
-        <p class="p1">
-【來點好食在的漢堡王買一送一！】
+<p class="p1">
+<span class="eventTitle">@Model.EventTitle</span>
 
-8/ 25 起至 9/7，於漢堡王選擇 花生培根脆雞堡 享買一送一！
-香濃花生醬搭配經典酥炸脆雞，濃郁的魅力就在 Uber Eats！
+優惠期限為:@Model.EventStart-@Model.EventEnd
 
-⚠️注意事項 ⚠️
-* 活動期間為 2021/08/25 -2021/09/07
-* 本優惠活動，買一送一餐點，數量有限，售完為止
-* 活動期間每人於每家指定活動餐廳僅限使用本活動乙次，即僅限於該家指定活動餐廳取得買一送一餐點優惠乙次
-* 活動內容為每兩個活動單品可享一個免費，以此類推每四個單品則兩個免費。惟活動單品訂購數量若為奇數，則僅有成對部分享有優惠，例如，每五個單品則兩個免費
-* 買一送一活動不包含客製化加價項目，加價項目需依加價商品數量另外付費
-* 各別餐廳優惠不同，以各別餐廳實際優惠情形為主
-* 本活動優惠可與優饗方案及其他優惠序號同時使用
-* 本活動之品項金額不納入其他優惠折抵之計算
-* Uber Eats 保有對本優惠之所有解釋、修改、調整、終止等相關權利，未盡事宜則以 Uber Eats App 內公告為主
+@Model.EventContent
         </p>
     </div>
 
     <div class="unitContainer">
         <div class="row row-cols-1  row-cols-lg-3 ">
-            <!-- 卡片區塊 -->
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=1">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
+            @foreach (var card in Model.eventRestaurants)
+            {
+                <!-- 卡片區塊 -->
+                <div class="cardCol">
+                    <div class="foodCard" style="cursor:pointer;">
+                        <a href="#" style="text-decoration:none;">
+                            <div class="headline">
+                                <img class="pic" src="@card.RestaurantImg">
+                                <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
+                                <div class="Tag">活動</div>
                             </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
+                            <div class="foodText">
+                                <div class="shopNameandPoint">
+                                    <div class="shopName">@card.RestaurantName</div>
+                                    <div class="point">@card.RestaurantScore</div>
+                                </div>
+                                <div class="TWD">
+                                    <span class="ntd">@card.DeliveryFee</span>
+                                    <div class="dotSpace"><span class="dot"> • </span></div>
+                                    <span class="min">25–35 分鐘</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
+                        </a>
+                    </div>
+                    <div class="touchZone" style="cursor:pointer;">
+                        <div class="favoriteHeart">
+                            <div class="switchP" onclick="clickChangeC()">
+                                <!-- 空心 -->
+                                <i class="far fa-heart hEmpty"></i>
+                                <!-- 實心 -->
+                                <i class="fas fa-heart hSolid"></i>
+                                <i class="fas fa-heart hSolid4hover"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=2">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
-                            </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=3">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
-                            </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cardCol">
-                <div class="foodCard" style="cursor:pointer;">
-                    <a href="#" style="text-decoration:none;">
-                        <div class="headline">
-                            <img class="pic" src="https://picsum.photos/300/100/?random=4">
-                            <div class="dark"><i class="fas fa-moon"></i>已關閉</div>
-                            <div class="Tag">買1送1</div>
-                        </div>
-                        <div class="foodText">
-                            <div class="shopNameandPoint">
-                                <div class="shopName">Burger King漢堡王 松山店</div>
-                                <div class="point">4.7</div>
-                            </div>
-                            <div class="TWD">
-                                <span class="ntd">55TWD 費用</span>
-                                <div class="dotSpace"><span class="dot"> • </span></div>
-                                <span class="min">25–35 分鐘</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="touchZone" style="cursor:pointer;">
-                    <div class="favoriteHeart">
-                        <div class="switchP" onclick="clickChangeC()">
-                            <!-- 空心 -->
-                            <i class="far fa-heart hEmpty"></i>
-                            <!-- 實心 -->
-                            <i class="fas fa-heart hSolid"></i>
-                            <i class="fas fa-heart hSolid4hover"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            }         
 
         </div>
     </div>
@@ -166,9 +57,12 @@
 @section topCSS
     {
     <style>
-        main{
-            max-width:1920px;
-            margin:auto;
+        .eventTitle{
+            font-size:36px;
+        }
+        main {
+            max-width: 1920px;
+            margin: auto;
         }
         .pic {
             width: 100%;
