@@ -48,7 +48,6 @@
                 success: function(res) {
                     console.log(res);
                     $('#cardModal').modal('hide');
-
                     if (document.querySelector('#cart-check').checked == true ) {
                         $('#cart-check').click();
                     }
@@ -75,7 +74,6 @@
             let bonusPrice = bonus.length == 0 ? 0 : bonus.reduce((a, b) => a + b);
 
             return (this.product.UnitPrice + bonusPrice) * this.product.Quantity;
-            //return this.product.UnitPrice * this.product.Quantity;
         }
     }
 });

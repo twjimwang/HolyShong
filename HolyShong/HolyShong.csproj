@@ -363,6 +363,7 @@
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\ECPayViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="ViewModels\StoreCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\SubCategorySearchViewModel.cs" />
     <Compile Include="WebAPI\CartController.cs" />
+    <Compile Include="WebAPI\OrderController.cs" />
     <Compile Include="WebAPI\StoreController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +395,7 @@
     <Content Include="Assets\Images\register.jpg" />
     <Content Include="Assets\Images\noSearch.jpg" />
     <Content Include="Assets\JS\Cart\cart.js" />
+    <Content Include="Assets\JS\checkout.js" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Assets\JS\Store\restaurant.js" />

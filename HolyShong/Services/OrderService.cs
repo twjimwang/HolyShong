@@ -20,201 +20,269 @@ namespace HolyShong.Services
 
 
         /// <summary>
-        /// 購物車到結帳頁面
+        /// 購物車到結帳頁面(暫無使用)
         /// </summary>
-        public CartViewModel AddToCart(List<StoreProduct> productCard, int memberId)
+        //public CartViewModel AddToCart(List<StoreProduct> productCard, int memberId)
+        //{
+        //    CartViewModel cartVM = new CartViewModel();
+        //    //初始化OperationResult
+        //    OperationResult result = new OperationResult();
+
+        //    //存進資料庫
+        //    var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
+        //    var firstProduct = productCard[0];
+        //    var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == firstProduct.ProductId);
+        //    var productCate = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == product.ProductCategoryId);
+        //    var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == productCate.StoreId);
+
+        //    Cart cart;
+
+        //    DbContext context = new HolyShongContext();
+        //    using (var tran = context.Database.BeginTransaction())
+        //    {
+        //        try
+        //        {
+        //            cart = new Cart()
+        //            {
+        //                MemberId = member.MemberId,
+        //                IsTablewares = false,
+        //                IsPlasticbag = false,
+        //                StroreId = store.StoreId,
+        //            };
+        //            //先創才能拿到CartId
+        //            _repo.Create(cart);
+        //            _repo.SaveChange();
+
+        //            foreach (var pd in productCard)
+        //            {
+        //                Models.HolyShongModel.Item item = new Models.HolyShongModel.Item()
+        //                {
+        //                    CartId = cart.CartId,
+        //                    ProductId = pd.ProductId,
+        //                    Quantity = pd.Quantity,
+        //                };
+        //                _repo.Create(item);
+        //                _repo.SaveChange();
+
+        //                foreach (var productOption in pd.StoreProductOptions)
+        //                {
+        //                    ItemDetail itemDetail = new ItemDetail()
+        //                    {
+        //                        ItemId = item.ItemId,
+        //                        ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
+        //                    };
+        //                    _repo.Create(itemDetail);
+
+        //                }
+        //                _repo.SaveChange();
+        //            }
+        //            result.IsSuccessful = true;
+        //            //改組成VM去CheckOut頁面
+        //            cartVM = GetCheckOutByCart(cart);
+        //            tran.Commit();
+        //            return cartVM;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            result.IsSuccessful = false;
+        //            result.Exception = ex;
+        //            tran.Rollback();
+        //            return cartVM;
+        //        }
+        //    }
+        //}
+
+        //取得結帳頁面VM
+        //public CartViewModel GetCheckOutByCart(Cart cart)
+        //{
+        //    var customerAddress = _repo.GetAll<Address>().FirstOrDefault(a=>a.MemberId == cart.MemberId && a.IsDefault == true);
+        //    var store = _repo.GetAll<Store>().FirstOrDefault(s=>s.StoreId == cart.StroreId);
+            
+        //    var result = new CartViewModel();
+        //    result.CreatedDate = DateTime.UtcNow;
+        //    result.CustomerAddress = customerAddress.AddressDetail;
+        //    result.IsPlasticbag = false;
+        //    result.IsTablewares = false;
+        //    result.StoreName = store.Name;
+        //    result.StoreId = store.StoreId;
+        //    result.StoreAddress = store.Address; 
+        //    result.CartItems = new List<StoreProduct>();
+
+        //    var items = _repo.GetAll<Models.HolyShongModel.Item>().Where(i=> i.CartId == cart.CartId);
+        //    var itemDetails = _repo.GetAll<ItemDetail>().Where(id=> items.Select(i=> i.ItemId).Contains(id.ItemId));
+        //    var products = _repo.GetAll<Product>().Where(p=> items.Select(i=>i.ProductId).Contains(p.ProductId));
+        //    var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => itemDetails.Select(id => id.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
+        //    var productOptions = _repo.GetAll<ProductOption>().Where(po => productOptionDetails.Select(pod => pod.ProductOptionId).Contains(po.ProductOptionId));
+
+        //    foreach (var item in items)
+        //    {
+        //        var product = products.FirstOrDefault(p => p.ProductId == item.ProductId);
+        //        var tempItem = new CartItem()
+        //        {
+        //            ProductId = item.ProductId,
+        //            ProductName = product.Name,
+        //            UnitPrice = product.UnitPrice,
+        //            Quantity = item.Quantity,
+        //            StoreProductOptions = new List<StoreProductOption>()
+        //        };
+
+        //        foreach (var option in productOptions.Where(po=>po.ProductId == item.ProductId))
+        //        {
+        //            var tempOption = new StoreProductOption()
+        //            {
+        //                ProductOptionName = option.Name,
+        //                ProductOptionDetails = new List<StoreProductOptionDetail>()
+        //            };
+
+        //            foreach(var detail in productOptionDetails.Where(pod=> option.ProductOptionId == pod.ProductOptionId))
+        //            {
+        //                var tempDetail = new StoreProductOptionDetail()
+        //                {
+        //                    StoreProductOptionDetailId = detail.ProductOptionDetailId,
+        //                    StoreProductOptioinDetailName = detail.Name,
+        //                    AddPrice = detail.AddPrice == null ? 0 : (decimal)detail.AddPrice
+        //                };
+        //                tempOption.ProductOptionDetails.Add(tempDetail);
+        //            }
+        //            tempItem.StoreProductOptions.Add(tempOption);
+        //        }
+        //            result.CartItems.Add(tempItem);
+        //    }
+        //    return result;
+        //}
+
+        /// <summary>
+        /// 結帳頁面
+        /// </summary>
+        public CartViewModel ToCheckOut(List<StoreProduct> productCard, int memberId)
         {
             CartViewModel cartVM = new CartViewModel();
-            //初始化OperationResult
-            OperationResult result = new OperationResult();
 
-            //存進資料庫
             var member = _repo.GetAll<Member>().FirstOrDefault(m => m.MemberId == memberId);
+            var customerAddress = _repo.GetAll<Address>().FirstOrDefault(a => a.MemberId == member.MemberId && a.IsDefault == true);
+
             var firstProduct = productCard[0];
             var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == firstProduct.ProductId);
             var productCate = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == product.ProductCategoryId);
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == productCate.StoreId);
 
-            Cart cart;
+            cartVM.StoreId = store.StoreId;
+            cartVM.StoreName = store.Name;
+            cartVM.CustomerAddress = customerAddress.AddressDetail;
+            cartVM.Note = String.Empty;
+            cartVM.IsPlasticbag = false;
+            cartVM.IsTablewares = false;
+            cartVM.CreatedDate = DateTime.UtcNow;
+            cartVM.CartItems = productCard;
 
-            DbContext context = new HolyShongContext();
-            using (var tran = context.Database.BeginTransaction())
-            {
-                try
-                {
-                    cart = new Cart()
-                    {
-                        MemberId = member.MemberId,
-                        IsTablewares = false,
-                        IsPlasticbag = false,
-                        StroreId = store.StoreId,
-                    };
-                    //先創才能拿到CartId
-                    _repo.Create(cart);
-                    _repo.SaveChange();
 
-                    foreach (var pd in productCard)
-                    {
-                        Models.HolyShongModel.Item item = new Models.HolyShongModel.Item()
-                        {
-                            CartId = cart.CartId,
-                            ProductId = pd.ProductId,
-                            Quantity = pd.Quantity,
-                        };
-                        _repo.Create(item);
-                        _repo.SaveChange();
-
-                        foreach (var productOption in pd.StoreProductOptions)
-                        {
-                            ItemDetail itemDetail = new ItemDetail()
-                            {
-                                ItemId = item.ItemId,
-                                ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
-                            };
-                            _repo.Create(itemDetail);
-
-                        }
-                        _repo.SaveChange();
-                    }
-                    result.IsSuccessful = true;
-                    //改組成VM去CheckOut頁面
-                    cartVM = GetCheckOutByCart(cart);
-                    tran.Commit();
-                    return cartVM;
-                }
-                catch (Exception ex)
-                {
-                    result.IsSuccessful = false;
-                    result.Exception = ex;
-                    tran.Rollback();
-                    return cartVM;
-                }
-            }
+            return cartVM;
         }
 
-        //取得結帳頁面VM
-        public CartViewModel GetCheckOutByCart(Cart cart)
-        {
-            var customerAddress = _repo.GetAll<Address>().FirstOrDefault(a=>a.MemberId == cart.MemberId && a.IsDefault == true);
-            var store = _repo.GetAll<Store>().FirstOrDefault(s=>s.StoreId == cart.StroreId);
-            
-            var result = new CartViewModel();
-            result.CartId = cart.CartId;
-            result.CreatedDate = DateTime.UtcNow;
-            result.CustomerAddress = customerAddress.AddressDetail;
-            result.IsPlasticbag = false;
-            result.IsTablewares = false;
-            result.StoreName = store.Name;
-            result.StoreId = store.StoreId;
-            result.StoreAddress = store.Address; 
-            result.CartItems = new List<CartItem>();
-
-            var items = _repo.GetAll<Models.HolyShongModel.Item>().Where(i=> i.CartId == cart.CartId);
-            var itemDetails = _repo.GetAll<ItemDetail>().Where(id=> items.Select(i=> i.ItemId).Contains(id.ItemId));
-            var products = _repo.GetAll<Product>().Where(p=> items.Select(i=>i.ProductId).Contains(p.ProductId));
-            var productOptionDetails = _repo.GetAll<ProductOptionDetail>().Where(pod => itemDetails.Select(id => id.ProductOptionDetailId).Contains(pod.ProductOptionDetailId));
-            var productOptions = _repo.GetAll<ProductOption>().Where(po => productOptionDetails.Select(pod => pod.ProductOptionId).Contains(po.ProductOptionId));
-
-            foreach (var item in items)
-            {
-                var product = products.FirstOrDefault(p => p.ProductId == item.ProductId);
-                var tempItem = new CartItem()
-                {
-                    ProductId = item.ProductId,
-                    ProductName = product.Name,
-                    UnitPrice = product.UnitPrice,
-                    Quantity = item.Quantity,
-                    StoreProductOptions = new List<StoreProductOption>()
-                };
-
-                foreach (var option in productOptions.Where(po=>po.ProductId == item.ProductId))
-                {
-                    var tempOption = new StoreProductOption()
-                    {
-                        ProductOptionName = option.Name,
-                        ProductOptionDetails = new List<StoreProductOptionDetail>()
-                    };
-
-                    foreach(var detail in productOptionDetails.Where(pod=> option.ProductOptionId == pod.ProductOptionId))
-                    {
-                        var tempDetail = new StoreProductOptionDetail()
-                        {
-                            StoreProductOptionDetailId = detail.ProductOptionDetailId,
-                            StoreProductOptioinDetailName = detail.Name,
-                            AddPrice = detail.AddPrice == null ? 0 : (decimal)detail.AddPrice
-                        };
-                        tempOption.ProductOptionDetails.Add(tempDetail);
-                    }
-                    tempItem.StoreProductOptions.Add(tempOption);
-                }
-                    result.CartItems.Add(tempItem);
-            }
-            return result;
-        }
-
-        public OperationResult OrderCreate(HolyCartViewModel cartVM)
+        /// <summary>
+        /// 成立訂單
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="session"></param>
+        /// <param name="checkoutVM"></param>
+        /// <returns></returns>
+        public OperationResult OrderCreate(int memberId,List<StoreProduct> session,CheckOutViewModel checkoutVM)
         {
             //初始化OperationResult
             OperationResult result = new OperationResult();
-
-            //抓到memberID
-            var memberId = cartVM.MemberId;
+            //抓Store
+            var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == (int)session[0].ProductId);
+            var productCate = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == product.ProductCategoryId);
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == productCate.StoreId);
 
             DbContext context = new HolyShongContext();
             using (var tran = context.Database.BeginTransaction())
             {
                 try
                 {
-                    //加入order
+                    //刪除其他未付款的訂單
+                    var notPaidOrders = _repo.GetAll<Order>().Where(o => o.PaymentStatus == 0 && o.OrderStatus == 0);
+                    var notPaidOrderDetails = _repo.GetAll<OrderDetail>().Where(od=> notPaidOrders.Select(npo => npo.OrderId).Contains(od.OrderId));
+                    var notPaidOrderDetailOptions = _repo.GetAll<OrderDetailOption>().Where(npodo => notPaidOrderDetails.Select(npod=> npod.OrderDetailId).Contains(npodo.OrderDetailId));
+
+                    if (notPaidOrderDetailOptions != null)
+                    {
+                        foreach (var npodo in notPaidOrderDetailOptions)
+                        {
+                            _repo.Delete(npodo);
+                        }
+                    }
+
+                    if(notPaidOrderDetails != null)
+                    {
+                        foreach (var npod in notPaidOrderDetails)
+                        {
+                            _repo.Delete(npod);
+                        }
+                    }
+
+                    if(notPaidOrders != null)
+                    {
+                        foreach (var npo in notPaidOrders)
+                        {
+                            _repo.Delete(npo);
+                        }
+                    }
+                    _repo.SaveChange();
+
+
+
+                    //加入新order
                     Order order = new Order()
                     {
                         MemberId = memberId,
-                        StoreId = _repo.GetAll<Store>().FirstOrDefault(s => s.Name == cartVM.StoreName).StoreId,
+                        StoreId = store.StoreId,
                         DeliveryFee = 30, //待確認
-                        Notes = cartVM.Notes, 
-                        DeliveryAddress = cartVM.Address,
-                        IsTablewares = cartVM.IsTablewares,
-                        IsPlasticbag = cartVM.IsPlasticbag,
-                        PaymentStatus = 1,
+                        Notes = checkoutVM.CustomerNote, 
+                        DeliveryAddress = checkoutVM.CustomerAddress,
+                        IsTablewares = checkoutVM.IsTablewares,
+                        IsPlasticbag = checkoutVM.IsPlasticbag,
+                        PaymentStatus = 0,
                         DeliverStatus = 0,
-                        OrderStatus = 1,
+                        OrderStatus = 0,
                         CreateDate = DateTime.UtcNow,
                         RequiredDate = DateTime.UtcNow,
                         OrderStatusUpdateTime = DateTime.UtcNow
                     };
-                    _repo.Create(order);
                     //先存才能拿到orderId
-                    //_repo.SaveChange();
+                    _repo.Create(order);
+                    _repo.SaveChange();
 
 
-                    //加入orderDetail
-                    var products = _repo.GetAll<Product>().Where(p => cartVM.CartItems.Select(c => c.ProductName).Contains(p.Name));
-                    foreach (var item in cartVM.CartItems)
+                    foreach (var p in session)
                     {
-                        var product = products.FirstOrDefault(p => p.Name == item.ProductName);
-
                         OrderDetail orderDetail = new OrderDetail()
                         {
                             OrderId = order.OrderId,
                             ProductId = product.ProductId,
                             UnitPrice = product.UnitPrice,
-                            Quantity = item.Quantity,
-                            Special = item.Special
+                            Quantity = p.Quantity
                         };
                         _repo.Create(orderDetail);
+                        _repo.SaveChange();
                         //先存才能拿到orderId
 
-                        foreach (var detail in item.ProductOptionCards)
+                        if (p.StoreProductOptions != null)
                         {
-                            OrderDetailOption orderDetailOption = new OrderDetailOption()
+                            foreach (var option in p.StoreProductOptions)
                             {
-                                OrderDetailId = orderDetail.OrderDetailId,
-                                ProductOptionDetailId = _repo.GetAll<ProductOptionDetail>().FirstOrDefault(pod => pod.Name == detail.ProductOptionName).ProductOptionDetailId,
-                            };
-                            _repo.Create(orderDetail);
+
+                                OrderDetailOption orderDetailOption = new OrderDetailOption()
+                                {
+                                    OrderDetailId = orderDetail.OrderDetailId,
+                                    ProductOptionDetailId = _repo.GetAll<ProductOptionDetail>().FirstOrDefault(pod => pod.Name == option.ProductOptionName).ProductOptionDetailId,
+                                };
+                                _repo.Create(orderDetail);
+                                _repo.SaveChange();
+                            }
                         }
                     }
-                    _repo.SaveChange();
+
                     result.IsSuccessful = true;
                     tran.Commit();
                 }
@@ -229,6 +297,10 @@ namespace HolyShong.Services
             //刪除購物車?
             //刪除購物車cookie?
         }
+
+        
+
+
 
         /// <summary>
         /// 歷史訂單透過orderId連接

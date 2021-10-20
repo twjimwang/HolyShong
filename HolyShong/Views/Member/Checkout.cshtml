@@ -15,7 +15,7 @@
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="mx-3 flex-grow-1">
-                    <span>{{store.CustomerAddress}}</span><br>
+                    <span v-model="store.CustomerAddress">{{store.CustomerAddress}}</span><br>
                 </div>
                 <div>
                     <button type="button" class="editBtn btn  rounded-pill" data-toggle="modal" data-target="#destModal">
@@ -71,50 +71,26 @@
                     <i class="fas fa-child"></i>
                 </div>
                 <div class="flex-grow-1 mx-3 border-top pt-3">
-                    <span>在門口碰面新增外送指示</span><br>
-                    <span class="addInfo">新增外送指示</span>
-                </div>
-                <div>
-                    <button type="button" class="editBtn btn rounded-pill" data-toggle="modal" data-target="#shippingInfoModal">
-                        編輯
-                    </button>
-                </div>
-            </div>
-            <!-- 設定外送指示Modal -->
-            <div class="modal fade" id="shippingInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">外送詳細資訊 :</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modalAddress modal-body">
-                            <i class="fas fa-map-marker-alt mx-2"></i>
-                            <div>Build School</div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark btn-lg btn-block rounded-0" data-dismiss="modal">
-                                完成
-                            </button>
-                        </div>
-                    </div>
+                    <span>新增外送指示</span><br>
+                    @*<b-form-select v-model="selected" :options="options"></b-form-select>*@
+                    <select v-model="store.Note">
+                        <option value="在門口碰面">在門口碰面</option>
+                        <option value="在外碰面">在外碰面</option>
+                        <option value="放在門口">放在門口</option>
+                    </select>
                 </div>
             </div>
 
             <!-- 設定外送時間 -->
             <div class="deliverTime d-flex">
                 <h3>預估外送時間</h3>
-                <span>25—35 min</span>
             </div>
             <div class="d-flex deliverTimeInfo my-3">
                 <div class="iconDiv">
                     <i class="fas fa-dot-circle"></i>
                 </div>
                 <div class="flex-grow-1 mx-3">
-                    <span>現在</span><br>
-                    <span></span>
+                    <span>25—35 min</span>
                 </div>
             </div>
 
@@ -122,46 +98,39 @@
             <div class="addOrderDiv">
                 <h3 class="mt-2">您的餐點</h3>
             </div>
-            <div class="d-flex orderContent mt-3">
-                <div class="d-flex">
-                    <div class="select d-flex">
-                        <select name="" id="remove" class="my-3">
-                            <option value="">移除</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
-                            <span>荔枝冰凍茶飲</span><br>
-                            <span>
-                                甜度選擇 Sweewness Level<br>
-                                無糖 Sugar-Free($9.00)<br>
-                                仙草凍 Herb Jelly
+            <div class="d-flex orderContent mt-3" v-for="(p,index) in store.CartItems">
+                <div class="d-flex my-auto">
+                    <div class="select my-auto d-flex">{{p.Quantity}}</div>
+                    <div class="my-auto">
+                        <div class="orderContentBtn  ml-2 pt-1">
+                            <span>{{p.ProductName}}</span><br>
+                            <span v-for="storeProductOption in p.StoreProductOptions">
+                                <span v-for="detail in storeProductOption.ProductOptionDetails" v-show="storeProductOption.SelectOption == detail.StoreProductOptionDetailId">
+                                    {{detail.StoreProductOptioinDetailName}} <br>
+                                </span>
                             </span>
-                        </button>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div class="my-auto">
                     <div id="price">
-                        $99元
+                        ${{sum(p)}}
                     </div>
                 </div>
             </div>
             <div class="otherItems my-3">
                 <label class="w-100" for="oItem">索取餐具、吸管等用品</label>
-                <input class="" id="oItem" type="checkbox" style="zoom:180%">
+                <input v-model="store.IsTablewares" class="" id="oItem" type="checkbox" style="zoom:180%">
             </div>
             <div class="plasticBag my-3">
                 <label class="w-100" for="plastic">索取袋子</label>
-                <input class="" id="plastic" type="checkbox" style="zoom:180%">
+                <input v-model="store.IsPlasticbag" class="" id="plastic" type="checkbox" style="zoom:180%">
             </div>
         </div>
         <div class="col-lg-6 col-sm-12 right">
-            <div class="right">
+            <div class="right payOut">
                 <div class="mt-3">
-                    <button type="button" class="finallyOrder rounded-0 btn w-100" onclick="location.href='@Url.Action("OrderDeliver", "Order")'">
+                    <button v-on:click="sendForm" type="button" class="finallyOrder rounded-0 btn w-100">
                         <span>一鍵下訂單</span>
                     </button>
                 </div>
@@ -169,14 +138,11 @@
                     <p>條款： 按一下按鈕送出訂單，即表示您確認已詳閱隱私政策，並且同意 Uber 的 <span>使用條款</span></p>
                     <p>若合作外送夥伴抵達時您不在附近，他們會把訂單放在門口。送出訂單即表示您同意在訂單送達後承擔全部責任。</p>
                 </div>
-                <div class="save">
-                    <p>您可透過 $0 外送費省下費用，此獎勵將於 Sep 22到期</p>
-                </div>
                 <div>
                     <ul class="border-bottom">
                         <li class="d-flex ">
                             <div>小計</div>
-                            <span>$99.00</span>
+                            <span>${{totalSum}}.00</span>
                         </li>
                         <li class="d-flex">
                             <div>折扣</div>
@@ -189,12 +155,39 @@
                     </ul>
                     <div class="total d-flex" id="totalPrice">
                         <div>總計</div>
-                        <div>$99.00</div>
+                        <div>${{totalSum}}.00</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    @using (Html.BeginForm("Index", "Order", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+
+            <div class="form-group">
+                <label for="formAddress">外送地址</label>
+                <input type="text" id="formAddress" v-model="store.CustomerAddress" />
+            </div>
+            <div class="form-group">
+                <label for="formOption">外送選項</label>
+                <input type="text" id="formOption" v-model="store.Note" />
+            </div>
+            <div class="form-group">
+                <label for="formTableware">餐具</label>
+                <input type="checkbox" id="formTableware" v-model="store.IsTablewares" />
+            </div>
+            <div class="form-group">
+                <label for="formPlasticbag">塑膠袋</label>
+                <input type="checkbox" id="formPlasticbag" v-model="store.IsPlasticbag" />
+            </div>
+
+            <input id="sendFormToOrder" type="submit"  />
+        </div>
+    }
 </div>
 
 
@@ -212,12 +205,17 @@
             integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-
-
-
     <style>
-
+        .cart{
+            display:none;
+        }
+        .payOut {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        #checkApp {
+            margin-top: 80px;
+        }
         .leaflet-top, .leaflet-bottom, .leaflet-control {
             z-index: 100;
         }
@@ -631,6 +629,12 @@
 
         /* 桌機 */
         @@media screen and (min-width: 992px) {
+            .payOut {
+                display: unset;
+            }
+            #checkApp {
+                margin-top: 0;
+            }
             .card img {
                 width: 88px;
                 height: 120px;
@@ -668,86 +672,14 @@
         }
     </style>
 }
+
+
+
 @section endJS
 {
     <script>
-        //leafLet
-        let map = L.map('map', {
-            center: [25.0416806, 121.5352095],
-            zoom: 9
-        })
-        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 9 })
-        map.addLayer(osm);
-
-        console.log('1234');
-
-        let checkOut = new Vue({
-            el: '#checkApp',
-            data: {
-                store: {
-                    "CartId": 0,
-                    "StoreId": 0,
-                    "StoreName": '',
-                    "StoreAddress": '',
-                    "CustomerAddress": '',
-                    "isTableWares": false,
-                    "isPlastibag": false,
-                    "CreateDate": '',
-                    "CartItems":
-                     [
-                         {
-                             "StoreName": "MACU麻古茶坊",
-                             "ProductId": 401,
-                             "ProductName": "芝芝金萱",
-                             "ProductDescription": "大。",
-                             "UnitPrice": 60,
-                             "ProductImg": "https://res.cloudinary.com/dvyxx4jau/image/upload/v1632415174/%E9%BA%BB%E5%8F%A4%E8%8C%B6%E6%88%BF/8820bcd5-6384-4e83-89e1-b45f862cfce6_p83adp.jpg",
-                             "Quantity": 1,
-                             "StoreProductOptions": [
-                                 {
-                                     "SelectOptionPrice" : 0.0,
-                                     "SelectOption": "401",
-                                     "ProductOptionName": "糖量 Sweetness Level",
-                                     "ProductOptionDetails": [
-                                         {
-                                             "StoreProductOptioinDetailName": "0分糖 Sugar-Free\r\n",
-                                             "StoreProductOptionDetailId": 401,
-                                             "AddPrice": 0
-                                         },
-                                         {
-                                             "StoreProductOptioinDetailName": "1分糖 10% Sugar\r\n",
-                                             "StoreProductOptionDetailId": 402,
-                                             "AddPrice": 0
-                                         },
-                                         {
-                                             "StoreProductOptioinDetailName": "3分糖 30% Sugar\r\n",
-                                             "StoreProductOptionDetailId": 403,
-                                             "AddPrice": 0
-                                         },
-                                         {
-                                             "StoreProductOptioinDetailName": "5分糖 50% Sugar",
-                                             "StoreProductOptionDetailId": 404,
-                                             "AddPrice": 0
-                                         },
-                                         {
-                                             "StoreProductOptioinDetailName": "8分糖 80% Sugar\r\n",
-                                             "StoreProductOptionDetailId": 405,
-                                             "AddPrice": 0
-                                         },
-                                         {
-                                             "StoreProductOptioinDetailName": "全糖 Regular Sugar\r\n",
-                                             "StoreProductOptionDetailId": 406,
-                                             "AddPrice": 0
-                                         }
-                                     ]
-                                 }
-                             ]
-                         }
-                     ]
-                }
-            }
-        });
-
-    </script>
+        let checkInfo = @Html.Raw(Json.Encode(Model));
+        console.log(checkInfo)
+   </script>
+    <script src="~/Assets/JS/checkout.js" type="text/javascript" > </script>
 }

@@ -28,27 +28,32 @@ namespace HolyShong.Controllers
             _orderService = new OrderService();
         }
 
-
-        // GET: Member
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
         /// <summary>
-        /// 結帳頁面
+        /// 結帳頁面(暫無使用)
         /// </summary>
         /// <param name="productCard"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult CheckOut(List<StoreProduct> productCard)
-        {
-            var memberId = Int32.Parse(User.Identity.Name);
-            //先存到資料庫
-            var result = _orderService.AddToCart(productCard, memberId);
-            //渲染畫面
+        //[HttpPost]
+        //public ActionResult CartCheckOut(List<StoreProduct> productCard)
+        //{
+        //    var memberId = Int32.Parse(User.Identity.Name);
+        //    //先存到資料庫
+        //    var result = _orderService.AddToCart(productCard, memberId);
+        //    //渲染畫面
 
+        //    return View(result);
+        //}
+
+        public ActionResult CheckOut()
+        {
+            var memberId = 0;
+            Int32.TryParse(User.Identity.Name, out memberId);
+            if(memberId == 0)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            var cartItems = (List<StoreProduct>)Session["Cart"];
+            var result = _orderService.ToCheckOut(cartItems, memberId);
             return View(result);
         }
 

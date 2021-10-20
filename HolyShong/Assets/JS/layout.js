@@ -112,8 +112,6 @@ cartInput.addEventListener('click', function () {
         type: 'POST',
         url: '/api/Cart/ShowCart',
         success: function (res) {
-            console.log(res);
-            console.log(JSON.stringify(res));
             cart.product = res;
         }
     });
