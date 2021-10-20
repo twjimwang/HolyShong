@@ -51,37 +51,26 @@ namespace HolyShong.Controllers
             return View();
         }
 
-        //test
-        [HttpGet]
-        public ActionResult Search()
-        {
-            return RedirectToAction("Index");
-        }
 
-        [HttpPost]
-        public ActionResult Search(string keyword)//搜尋頁面
+        //Todo 顯示更多餐廳按鈕需導入Search頁面
+        [HttpGet]
+        public ActionResult Search(SearchRequest input)//搜尋頁面
         {
-            var result = _storeService.GetAllStoresByKeyword(keyword);
-            ViewBag.keyword = keyword;
+            input.Keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword;
+            input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
+
+            var result = _storeService.GetAllStoresByRequest(input);
+
             //轉換其它頁面
             if (result.StoreCards.Count==0)
             {
                 return View("NoSearch"); 
             }
 
-            ViewBag.searchCount = result.StoreCards.Count;
-
+            input.SearchCount = result.StoreCards.Count;
+            ViewBag.searchTemp = Newtonsoft.Json.JsonConvert.SerializeObject(input);
             return View(result);
         }
-
-        public ActionResult SubCategorySearchByPrice()//副分類搜尋頁面
-        {
-            var result = _storeService.GetAllStoresByKeyword("康");
-            //轉換其它頁面
-            return View(result);
-        }
-
-  
 
         public void AcquireDiscount(string discountName)
         {

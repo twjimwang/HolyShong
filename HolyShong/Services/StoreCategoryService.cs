@@ -10,7 +10,7 @@ namespace HolyShong.Services
 {
     public class StoreCategoryService
     {
-        //初始化
+        //相依性注入
         private readonly HolyShongRepository _repo;
         public StoreCategoryService()
         {

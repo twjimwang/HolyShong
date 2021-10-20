@@ -51,11 +51,10 @@ namespace HolyShong.ViewModels
         public int Count { get; set; }
 
         public DateTime CreatedDate { get; set; }
-       
-        public bool IsTableWares { get; set; }
 
-        public bool IsplasticBag { get; set; }
-
+        public bool IsTablewares { get; set; }
+        public bool IsPlasticbag { get; set; }
+        public string Notes { get; set; }
     }
 
     public class CartItem

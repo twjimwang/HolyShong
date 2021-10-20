@@ -166,6 +166,26 @@ namespace HolyShong.Models.HolyShongModel
                 .HasMany(e => e.Store)
                 .WithRequired(e => e.StoreCategory)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ECPayRecord>()
+                .Property(e => e.MerchantID)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ECPayRecord>()
+                .Property(e => e.MerchantTradeNo)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ECPayRecord>()
+                .Property(e => e.TradeAmt)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<ECPayRecord>()
+                .Property(e => e.PaymentType)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ECPayRecord>()
+                .Property(e => e.PaymentTypeChargeFee)
+                .HasPrecision(18, 0);
         }
     }
 }

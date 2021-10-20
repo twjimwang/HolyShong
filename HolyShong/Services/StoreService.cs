@@ -10,33 +10,30 @@ namespace HolyShong.Services
 {
     public class StoreService
     {
-        //初始
+        //初始相依性注入
         private readonly HolyShongRepository _repo;
         public StoreService()
         {
             _repo = new HolyShongRepository();
-
         }
-        //店家卡片
-
+        //Home_找出所有店家
         public HomeViewModel GetAllStores()
         {
             var result = new HomeViewModel
             {
                 StoreCardBlocks = new List<StoreCardBlock>()
             };
-
-
-            //1.找出所有商店類別(不用做)
+            //1.找出所有商店主分類(不用做)
             var storecategories = _repo.GetAll<Models.HolyShongModel.StoreCategory>().ToList();
-            //2.找出所有類別下面的所有店家
+            //2.找出所有店家
             var stores = _repo.GetAll<Store>().ToList();
-            //3.依商店類別將店家分類後再全部取出
+            //3.依商店主分類將店家分類後再全部取出
             foreach (var item in storecategories)
             {
-                //這個類別的商店全部挑出來
+                //3.1這個主分類的商店全部挑出來
                 var temp = stores.Where(x => x.StoreCategoryId == item.StoreCategoryId);
-                //存成StoreCards
+
+                //3.2存成StoreCards
                 var cards = new List<StoreCard>();
                 foreach (var store in temp)
                 {
@@ -48,6 +45,8 @@ namespace HolyShong.Services
                     };
                     cards.Add(card);
                 }
+
+                //3.3存成StoreBlock
                 var block = new StoreCardBlock
                 {
                     StoreCategoryId = item.StoreCategoryId,
@@ -60,6 +59,7 @@ namespace HolyShong.Services
             return result;
         }
 
+        //Search_主分類搜尋
         public StoreCategorySearchViewModel GetAllStoresByStoreCategoryId(int storecategoryId)
         {
             var result = new StoreCategorySearchViewModel
@@ -92,71 +92,171 @@ namespace HolyShong.Services
             return result;
         }
 
-        public SearchViewModel GetAllStoresByKeyword(string keyword)
+        //Todo 使用關鍵字搜尋會有問題(待處理)
+        //Search_副分類搜尋
+        public SearchViewModel GetAllStoresByRequest(SearchRequest input)
         {
             var result = new SearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
-            var stores = _repo.GetAll<Store>().Where(x=>x.KeyWord.Contains(keyword)).ToList();
-            if(stores.Count==0)
+            //一.關鍵字
+            var stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(input.Keyword)).ToList();
+            if (stores.Count == 0)
             {
                 return result;
             }
 
+            //二.價格範圍
+            //1.找出所有商店、所有產品類別及所有產品
+            var allProductCategories = _repo.GetAll<ProductCategory>();
+            var allProducts = _repo.GetAll<Product>();
             var cards = new List<StoreCard>();
+            //2.計算商店價格
             foreach (var item in stores)
             {
-                var temp = new StoreCard()
+                var productCategoryAveragePrice = new List<decimal>();
+                var storePrice = "";
+                //2.1找出每家店本身的產品類別
+                var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId);
+                //2.2找出目前選擇的商店每個產品類別下面的所有產品的平均價格
+                foreach (var productCategory in productCategoryList)
                 {
-                    StoreId = item.StoreId,
-                    StoreImg = item.Img,
-                    StoreName = item.Name
-                };
-                cards.Add(temp);
+                    var productAveragePrice = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).Select(x => x.UnitPrice).ToList();
+                    var averagePrive = productAveragePrice.Count == 0 ? 0 : productAveragePrice.Average();
+                    productCategoryAveragePrice.Add(averagePrive);
+                }
+                var storeAveragePrice = productCategoryAveragePrice.Count == 0 ? 0 : productCategoryAveragePrice.Average();
+                //2.3轉換range
+                if (storeAveragePrice >= 0 && storeAveragePrice <= 100)
+                {
+                    storePrice = "0-100";
+                }
+                else if (storeAveragePrice > 100 && storeAveragePrice <= 200)
+                {
+                    storePrice = "100-200";
+                }
+                else if (storeAveragePrice > 200 && storeAveragePrice <= 500)
+                {
+                    storePrice = "200-500";
+                }
+                else
+                {
+                    storePrice = "500-99999";
+                }
+
+                if (storePrice == input.Price)
+                {
+                    //儲存卡片
+                    var card = new StoreCard
+                    {
+                        StoreId = item.StoreId,
+                        StoreImg = item.Img,
+                        StoreName = item.Name,
+                        StoreAveragePrice = storePrice,
+                    };
+                    cards.Add(card);
+                }
             }
             result.StoreCards = cards;
             return result;
         }
 
-        public SubCategorySearchViewModel GetAllStoresOrderByPrice(int storeId)
-        {
-            var result = new SubCategorySearchViewModel
-            {
-                StoreCards = new List<StoreCard>()
-            };
+        //參考保留關鍵字搜尋
+        //public SearchViewModel GetAllStoresByKeyword(string keyword)
+        //{
+        //    var result = new SearchViewModel
+        //    {
+        //        StoreCards = new List<StoreCard>()
+        //    };
+        //    var stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(keyword)).ToList();
+        //    if (stores.Count == 0)
+        //    {
+        //        return result;
+        //    }
 
-            //1.找出所有商店
-            var stores = _repo.GetAll<Store>().ToList();
-            //2.找出所有產品類別
-            var productCategories = _repo.GetAll<ProductCategory>().ToList();
-            //3.找出所有商店下面的所有產品
-            var products = _repo.GetAll<Product>().ToList();
-            //4.依商店將後再全部取出
-            foreach (var item in stores)
-            {
-                //這個商店的產品全部挑出來
-                var temp = stores.Where(x=>x.StoreId==item.StoreId);
-                ////存成StoreCards
-                var cards = new List<StoreCard>();
-                foreach (var store in temp)
-                {
-                    var card = new StoreCard
-                    {
-                        StoreId = store.StoreId,
-                        StoreImg = store.Img,
-                        StoreName = store.Name,
-                        
-                    };
-                    cards.Add(card);
-                }
-
-            }
-            return result;
-        }
+        //    var cards = new List<StoreCard>();
+        //    foreach (var item in stores)
+        //    {
+        //        var temp = new StoreCard()
+        //        {
+        //            StoreId = item.StoreId,
+        //            StoreImg = item.Img,
+        //            StoreName = item.Name
+        //        };
+        //        cards.Add(temp);
+        //    }
+        //    result.StoreCards = cards;
+        //    return result;
+        //}
 
 
+        ////參考保留店家價格搜尋
+        //public SearchViewModel GetAllStoresByPrice(string price)
+        //{
+        //    //店家卡片初始設定
+        //    var result = new SearchViewModel
+        //    {
+        //        StoreCards = new List<StoreCard>()
+        //    };
+        //    var stores = _repo.GetAll<Store>().ToList();
+
+        //    if (price == null)
+        //    {
+        //        return result;
+        //    }
+
+        //    //1.找出所有商店、所有產品類別及所有產品
+        //    var allProductCategories = _repo.GetAll<ProductCategory>();
+        //    var allProducts = _repo.GetAll<Product>();
+        //    var cards = new List<StoreCard>();
+        //    //2.計算商店價格
+        //    foreach (var item in stores)
+        //    {
+        //        var productCategoryAveragePrice = new List<decimal>();
+        //        var storePrice = "";
+        //        //2.1找出每家店本身的產品類別
+        //        var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId);
+        //        //2.2找出目前選擇的商店每個產品類別下面的所有產品的平均價格
+        //        foreach (var productCategory in productCategoryList)
+        //        {
+        //            var productAveragePrice = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).Select(x => x.UnitPrice).ToList();
+        //            var averagePrive = productAveragePrice.Count == 0 ? 0 : productAveragePrice.Average();
+        //            productCategoryAveragePrice.Add(averagePrive);
+        //        }
+        //        var storeAveragePrice = productCategoryAveragePrice.Count == 0 ? 0 : productCategoryAveragePrice.Average();
+        //        //2.3轉換range
+        //        if (storeAveragePrice >= 0 && storeAveragePrice <= 100)
+        //        {
+        //            storePrice = "0-100";
+        //        }
+        //        else if (storeAveragePrice > 100 && storeAveragePrice <= 200)
+        //        {
+        //            storePrice = "100-200";
+        //        }
+        //        else if (storeAveragePrice > 200 && storeAveragePrice <= 500)
+        //        {
+        //            storePrice = "200-500";
+        //        }
+        //        else
+        //        {
+        //            storePrice = "500-99999";
+        //        }
+
+        //        if (storePrice == price)
+        //        {
+        //            var card = new StoreCard
+        //            {
+        //                StoreId = item.StoreId,
+        //                StoreImg = item.Img,
+        //                StoreName = item.Name,
+        //                StoreAveragePrice = storePrice,
+        //            };
+        //            cards.Add(card);
+        //        }
+        //    }
+        //    result.StoreCards = cards;
+        //    return result;
+        //}
     }
-
-
 }

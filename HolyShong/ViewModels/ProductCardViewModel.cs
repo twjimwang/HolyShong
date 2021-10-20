@@ -5,11 +5,8 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class SubCategorySearchViewModel
+    public class ProductCardViewModel
     {
-        
-        public List<StoreCard> StoreCards { get; set; }
+        public int ProductId { get; set; }
     }
-
-
 }

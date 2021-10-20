@@ -12,7 +12,6 @@ namespace HolyShong.Models.HolyShongModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            ECPayRecord = new HashSet<ECPayRecord>();
             OrderDetail = new HashSet<OrderDetail>();
         }
 
@@ -55,9 +54,6 @@ namespace HolyShong.Models.HolyShongModel
         public virtual Deliver Deliver { get; set; }
 
         public virtual Member Member { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ECPayRecord> ECPayRecord { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
