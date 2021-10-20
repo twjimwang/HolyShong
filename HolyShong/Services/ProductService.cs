@@ -16,9 +16,9 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
 
-        public RestaurantViewModel1 GetStore(int storeId)
+        public ProductViewModel GetStore(int storeId)
         {
-            var result = new RestaurantViewModel1();
+            var result = new ProductViewModel();
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == storeId);
             var storeCategory = _repo.GetAll<StoreCategory>().FirstOrDefault(sc => sc.StoreCategoryId == store.StoreCategoryId);
 

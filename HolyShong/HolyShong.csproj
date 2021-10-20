@@ -374,8 +374,7 @@
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
     <Compile Include="ViewModels\ProductCardViewModel.cs" />
-    <Compile Include="ViewModels\RestaurantViewModel.cs" />
-    <Compile Include="ViewModels\RestaurantViewModel1.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -478,7 +477,6 @@
     <Content Include="Views\Home\SubCategorySearchByPrice.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Store\RestaurantTEST.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Views\Payment\PostResultTpECPay.cshtml" />
