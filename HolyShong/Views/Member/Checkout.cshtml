@@ -163,7 +163,7 @@
     </div>
 
 
-    @using (Html.BeginForm("Index", "Order", FormMethod.Post))
+    @using (Html.BeginForm("PayForCart", "Payment", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <div>
