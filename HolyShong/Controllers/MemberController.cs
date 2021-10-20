@@ -45,7 +45,9 @@ namespace HolyShong.Controllers
 
         public ActionResult Eatpass()
         {
-            return View();
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
+            return View(model);
         }
         /// <summary>
         /// 會員個人資料頁面

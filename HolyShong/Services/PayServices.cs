@@ -22,9 +22,9 @@ namespace HolyShong.Services
         }
 
         //設定回傳綠界api路徑
-        string VIPReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
-        string BuyCartReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
-        string feeReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string VIPReturnURL = "https://e63c-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string BuyCartReturnURL = "https://e63c-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
+        string feeReturnURL = "https://91fa-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
 
         /// <summary>
         /// 綠界SDK
@@ -100,14 +100,14 @@ namespace HolyShong.Services
                 ReturnURL = VIPReturnURL,
                 OrderResultURL = "",//瀏覽器端回傳付款結果網址
                 MerchantTradeNo = "",//廠商的交易編號
-                TotalAmount = 30,//交易總金額
+                TotalAmount = 120,//交易總金額
                 ListItems = new List<BuyItem>
                 {
                   new BuyItem
                   {
                       Name="升級送送會員",
                       Currency="新臺幣",
-                      Price=30,
+                      Price=120,
                       Quantity=1,
                       URL="",
                   }
