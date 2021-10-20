@@ -69,16 +69,16 @@
                     </div>*@
 
                 <div class="search ">
-                    <form action="/Home/Search" method="post" class="d-flex">
+                    <div class="d-flex">
                         <label class="w-100">
                             <i class="fas fa-search p-2"></i>
-                            <input type="text" name="keyword" id="keyword" class="border-none bg-transparent" placeholder="想吃點什麼？">
+                            <input type="text" name="keyword" id="keyword" class="border-none bg-transparent" onkeypress="uberSearch(event)" placeholder="想吃點什麼？">
                         </label>
-                        <div data-toggle="modal" data-target="#subcategorymodal" class="filter">                       
+                        <div data-toggle="modal" data-target="#subcategorymodal" class="filter">
                             <i class="fas fa-sliders-h"></i>
                         </div>
-                        @*<input type="submit" value="搜尋" class="btn btn-primary">*@
-                    </form>
+                        @*<input value="搜尋" class="btn btn-primary p-0">*@
+                    </div>
                 </div>
 
 
@@ -102,7 +102,7 @@
                 <div class="function loginShow">
                     <div class="account item" onclick="location.href='@Url.Action("UserProfile", "Member")'"><i class="fas fa-user"></i>帳戶資訊</div>
                     <div class="order item" onclick="location.href='@Url.Action("OrderList", "Member")'"><i class="fas fa-receipt"></i>訂單</div>
-                    <div class="favorite item"><i class="fas fa-heart" onclick="location.href='@Url.Action("Favorite", "Member")'"></i>最愛餐廳</div>
+                    <div class="favorite item" onclick="location.href='@Url.Action("FavoriteStore", "Member")'"><i class="fas fa-heart"></i>最愛餐廳</div>
                     <div class="discount item" data-toggle="modal" data-target="#discountModal">
                         <i class="fas fa-tag"></i>優惠
                     </div>
@@ -113,13 +113,13 @@
                             <span class="desc text-secondary">免費外送及行程費用折扣優惠</span>
                         </div>
                     </div>
-                    <div class="invite item d-flex" onclick="location.href='@Url.Action("Invite", "Member")'">
+                    @*<div class="invite item d-flex" onclick="location.href='@Url.Action("Invite", "Member")'">
                         <div><i class="fas fa-gift"></i></div>
                         <div>
                             <div>邀請好友</div>
                             <span class="desc text-secondary">您可獲得$100折扣優惠</span>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="switch">
                     <button class="loginShow btn btn btn-dark  w-100 mb-2" onclick="location.href='@Url.Action("Index", "Home")'">我想要訂餐</button>
@@ -423,6 +423,8 @@
     <script src="~/Assets/JS/layout.js"></script>
     <script src="~/Assets/JS/Cart/cart.js" type="text/javascript"></script>
 
+    <script src="~/Assets/JS/Search/subcategorysearch.js"></script>
+
     @RenderSection("scripts", required: false)
 
     @RenderSection("endCSS", required: false)
@@ -459,8 +461,6 @@
     }
 
     @RenderSection("endJS", required: false)
-
-
 
 </body>
 </html>

@@ -19,6 +19,7 @@ namespace HolyShong.Controllers
         private readonly MemberRegisterService _memberRegisterService;
         private readonly MemberProfileService _memberProfileService;
         private readonly OrderService _orderService;
+        private readonly FavoriteService _favoriteService;
 
         public MemberController()
         {
@@ -26,6 +27,7 @@ namespace HolyShong.Controllers
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
             _orderService = new OrderService();
+            _favoriteService = new FavoriteService();
         }
 
         /// <summary>
@@ -60,7 +62,9 @@ namespace HolyShong.Controllers
 
         public ActionResult Eatpass()
         {
-            return View();
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
+            return View(model);
         }
         /// <summary>
         /// 會員個人資料頁面
@@ -72,10 +76,10 @@ namespace HolyShong.Controllers
         public ActionResult UserProfile()
         {
 
-            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
-            
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
             return View(model);
-            
+
         }
 
         /// <summary>
@@ -99,7 +103,7 @@ namespace HolyShong.Controllers
                 }
                 else
                 {
-                    return Content("修改成功");
+                    return Content("修改失敗");
                 }
 
             }
@@ -114,10 +118,24 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
-        public ActionResult Favorite()
+      
+        /// <summary>
+        /// 最愛店家頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult FavoriteStore()
         {
-            return View();
+            var memberId = Int32.Parse(User.Identity.Name);
+         
+            var result = _favoriteService.GetFavorite(memberId);
+            if (result.favoriteStores == null)
+            {
+                return RedirectToAction("NoSearch", "Home");
+            }
+            return View(result);
+
         }
         public ActionResult OrderList()
         {

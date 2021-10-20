@@ -14,12 +14,10 @@ namespace HolyShong.Models.HolyShongModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ECPayRecordID { get; set; }
 
-        public int? OrderID { get; set; }
-
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TradeNo { get; set; }
+        public long TradeNo { get; set; }
 
         [Key]
         [Column(Order = 2)]
@@ -35,6 +33,35 @@ namespace HolyShong.Models.HolyShongModel
         [Column(Order = 4)]
         public string CheckMacValue { get; set; }
 
-        public virtual Order Order { get; set; }
+        [StringLength(10)]
+        public string MerchantID { get; set; }
+
+        [StringLength(20)]
+        public string MerchantTradeNo { get; set; }
+
+        public string RtnMsg { get; set; }
+
+        public decimal? TradeAmt { get; set; }
+
+        public DateTime? PaymentDate { get; set; }
+
+        [StringLength(20)]
+        public string PaymentType { get; set; }
+
+        public DateTime? TradeDate { get; set; }
+
+        [StringLength(50)]
+        public string CustomField1 { get; set; }
+
+        [StringLength(50)]
+        public string CustomField2 { get; set; }
+
+        [StringLength(50)]
+        public string CustomField3 { get; set; }
+
+        [StringLength(50)]
+        public string CustomField4 { get; set; }
+
+        public decimal? PaymentTypeChargeFee { get; set; }
     }
 }

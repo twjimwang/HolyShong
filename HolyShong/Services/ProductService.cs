@@ -29,7 +29,8 @@ namespace HolyShong.Services
             result.StoreCategoryName = storeCategory.Name;
             result.StoreProductCategories = new List<StoreProductCategory>();
             result.SupplyTimes = new List<SupplyTime>();
-
+         
+            //todo
             //var supplyTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId).GroupBy(bh => bh.WeekDay).Select(bh=>bh.Key);
             //var sTimes = _repo.GetAll<Businesshours>().Where(bh => bh.StoreId == store.StoreId);
             //foreach(var st in supplyTimes)
@@ -41,6 +42,7 @@ namespace HolyShong.Services
             //    }
             //}
 
+            //找店家產品資訊
             var productCategories = _repo.GetAll<ProductCategory>().Where(pc => pc.StoreId == store.StoreId);
             var products = _repo.GetAll<Product>().Where(p => productCategories.Select(pc => pc.ProductCategoryId).Contains(p.ProductCategoryId));
             var productOption = _repo.GetAll<ProductOption>().Where(po => products.Select(p => p.ProductId).Contains(po.ProductId));

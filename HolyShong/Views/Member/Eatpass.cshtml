@@ -1,9 +1,21 @@
 ﻿<div class="banner">
     <div class="item-img"></div>
     <div class="item-txt container">
-        <h2>立即加入即可享不限次數 $0 外送費</h2>
-        <span>僅需支付 $120.00/月</span>
-        <button class="btn">立即啟用您的 HolyShong 優饗方案</button>
+        @if (Model.IsPrimary)
+        {
+            <h2>已成為送送會員</h2>
+            <span>到期時間：@Model.PrimaryEndTime</span>
+            <button class="btn" onclick="location.href='@Url.Action("Index", "Home")'">馬上點餐去！</button>
+        }
+        else
+        {
+            <h2>立即加入即可享不限次數 $0 外送費</h2><span>僅需支付 $120.00/月</span><div class="col-8 align-items-center">
+                @using (Html.BeginForm())
+                {
+                    <button class="btn" onclick="location.href='@Url.Action("BecomeVIP", "Payment")'">立即成為 HolyShong 送送會員</button>
+                }
+            </div>
+        }
     </div>
 </div>
 <section class="container">
@@ -66,30 +78,36 @@
 @section topCSS
 {
     <style>
-        section.container{
+        section.container {
             max-width: 1100px;
         }
+
         .discountArea,
         .area,
-        .common{
+        .common {
             margin: 20px 12px 0;
         }
+
         p {
             font-size: 14px;
         }
-        .banner{
-            padding-top:20px;
+
+        .banner {
+            padding-top: 20px;
         }
-        .banner .item-txt.container{
-            max-width:1100px;
-            margin: 20px;
-            padding: 0;
-            width: calc(100% - 40px);
-        }
-        .banner .item-txt span{
-            font-size: 18px;
-            padding: 10px 0;
-        }
+
+            .banner .item-txt.container {
+                max-width: 1100px;
+                margin: 20px;
+                padding: 0;
+                width: calc(100% - 40px);
+            }
+
+            .banner .item-txt span {
+                font-size: 18px;
+                padding: 10px 0;
+            }
+
             .banner .item-txt button {
                 background-color: #000;
                 color: #fff;
@@ -102,67 +120,82 @@
                 z-index: 10;
                 border: 1px solid #fff;
             }
-        .banner .item-txt button:hover{
-            background-color: rgb(26, 26, 26);
-        }
-        .banner .item-img{
-            width: 100%;
-            height: 160px;
-            background: url(https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/88a5e1bdef17324712364769703d49ab.svg) right center / contain no-repeat rgb(255, 192, 67);
-        }
-        .discountArea .item{
+
+                .banner .item-txt button:hover {
+                    background-color: rgb(26, 26, 26);
+                }
+
+            .banner .item-img {
+                width: 100%;
+                height: 160px;
+                background: url(https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/88a5e1bdef17324712364769703d49ab.svg) right center / contain no-repeat rgb(255, 192, 67);
+            }
+
+        .discountArea .item {
             display: flex;
             padding-bottom: 30px;
         }
-        .discountArea .item:last-child{
-            border-bottom: 1px solid #CCC;
-        }
-        .discountArea img{
+
+            .discountArea .item:last-child {
+                border-bottom: 1px solid #CCC;
+            }
+
+        .discountArea img {
             width: 40px;
             height: 40px;
         }
-        .discountArea .item-img{
+
+        .discountArea .item-img {
             padding-right: 20px;
         }
+
         .area .item-img {
             width: 100%;
             height: 320px;
             overflow: hidden;
             background: url(https://dkt2lhvp7vusi.cloudfront.net/eats_pass_94-min.png) center center / cover;
         }
-        .common :last-child{
+
+        .common :last-child {
             border-top: 1px solid #ccc;
             padding-top: 10px;
         }
+
         footer {
             padding: 60px 0 100px;
         }
+
         @@media screen and (min-width:992px) {
-            h2{
+            h2 {
                 font-size: 44px;
                 margin-bottom: 20px;
             }
-            .banner{
-                padding-top:0;
+
+            .banner {
+                padding-top: 0;
                 position: relative;
             }
-            .banner .item-img{
-                height: 320px;
+
+                .banner .item-img {
+                    height: 320px;
+                }
+
+                .banner .item-txt.container {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    top: 30%;
+                    font-weight: bold;
+                    width: 100%;
+                    padding: 0 30px;
+                }
+
+            .container {
+                margin: auto;
             }
-            .banner .item-txt.container{
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                margin:auto;
-                top: 30%;
-                font-weight: bold;
-                width: 100%;
-                padding: 0 30px;
-            }
-            .container{
-                margin:auto;
-            }
+
             .banner .item-txt button {
                 position: unset;
                 background-color: #EEEEEE;
@@ -173,32 +206,39 @@
                 border-radius: 200px;
                 border: none;
             }
-            .banner .item-txt button:hover{
-                background-color: #CCC;
-            }
+
+                .banner .item-txt button:hover {
+                    background-color: #CCC;
+                }
+
             .discountArea,
             .area,
-            .common{
+            .common {
                 margin: 40px 0;
             }
-            .discountArea .item{
-                margin-top: 50px;
-                display: block;
-                text-align: center;
-            }
-            .discountArea .item-img{
-                padding: 0;
-            }
-            .discountArea .item-img img{
-                width: 64px;
-                height: 64px;
-            }
-            .discountArea .item:last-child{
-                border-bottom: 0;
-            }
-            .discountArea .item .item-txt{
-                margin-top: 20px;
-            }
+
+                .discountArea .item {
+                    margin-top: 50px;
+                    display: block;
+                    text-align: center;
+                }
+
+                .discountArea .item-img {
+                    padding: 0;
+                }
+
+                    .discountArea .item-img img {
+                        width: 64px;
+                        height: 64px;
+                    }
+
+                .discountArea .item:last-child {
+                    border-bottom: 0;
+                }
+
+                .discountArea .item .item-txt {
+                    margin-top: 20px;
+                }
         }
     </style>
 }
