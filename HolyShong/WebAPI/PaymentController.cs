@@ -29,8 +29,7 @@ namespace HolyShong.WebAPI
         [HttpPost]
         [Route("api/payment/VIPGetResultFromECPay")]
         public IHttpActionResult VIPGetResultFromECPay(GetResultFromECPay query)
-        {
-            
+        {          
             
             //付款成功
             if (query.RtnCode == 1)
