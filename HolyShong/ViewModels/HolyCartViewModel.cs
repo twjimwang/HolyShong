@@ -26,10 +26,17 @@ namespace HolyShong.ViewModels
         public string StoreName { get; set; }
 
         public List<CartItem> CartItems { get; set; }
+
+        /// <summary>
+        /// 消費者暫存地址
+        /// </summary>
+        public String TempAddress { get; set; }
+
         /// <summary>
         /// 消費者地址
         /// </summary>
         public string Address { get; set; }
+        
         /// <summary>
         /// 外送指示
         /// </summary>

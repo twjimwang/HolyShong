@@ -6,29 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using HolyShong.Models;
 using Newtonsoft.Json;
-using HolyShong.Services;
 using System.Net;
-using HolyShong.ViewModels;
+using System.Web.Security;
+using HolyShong.Models.HolyShongModel;
 
 namespace HolyShong.Controllers
 {
     public class MemberController : Controller
     {
         public CartService _cartService;
-        public HolyCartViewModel _HolyCartViewModel; 
+        public HolyCartViewModel _HolyCartViewModel;
+        public MemberLoginService _memberLoginService;
+        public MemberRegisterService _memberRegisterService;
+        public MemberProfileService _memberProfileService;
+        public OrderService _orderService;
 
         public MemberController()
         {
             _cartService = new CartService();
             _HolyCartViewModel = new HolyCartViewModel();
-        }
-   
-
-        // GET: Member
-        public ActionResult Index()
-        {
             _memberLoginService = new MemberLoginService();
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
@@ -39,13 +36,24 @@ namespace HolyShong.Controllers
         // GET: Member
         public ActionResult Index()
         {
+            _memberLoginService = new MemberLoginService();
+            _memberRegisterService = new MemberRegisterService();
+            _memberProfileService = new MemberProfileService();
+            _orderService = new OrderService();
             return View();
         }
 
 
+        // GET: Member
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+
         [HttpGet]
         public ActionResult Checkout()
-        {   
+        {
             //if(Id == null)
             //    {
             //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -53,7 +61,7 @@ namespace HolyShong.Controllers
             // ViewBag.xtest = _cartService.GetCartViewModels().First();
 
             var model = _cartService.GetCartByMemberId(1);
-           
+
             return View();
         }
         //[HttpPost]
@@ -66,16 +74,19 @@ namespace HolyShong.Controllers
         //    // ViewBag.xtest = _cartService.GetCartViewModels().First();
 
         //    var model = _cartService.GetCartByMemberId(1);
-        
+
         //    return View();
         //}
 
+       
+
         [HttpPost]
-        public ActionResult Checkout([Bind(Include = "IsTableWares, IsplasticBag")] HolyCartViewModel holyCartViewModel)
+        public ActionResult Checkout([Bind(Include = "IsTableWares, IsplasticBag, TempAddress")] HolyCartViewModel holyCartViewModel)
         {
             return View(holyCartViewModel);
         }
 
+       
        
 
 

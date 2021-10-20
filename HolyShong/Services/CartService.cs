@@ -40,7 +40,7 @@ namespace HolyShong.Services
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == cart.StroreId);
            
             // 找item裡面找到包含上面篩選出來的cart的cartId
-            var items = _repo.GetAll<Item>().Where(i => i.CartId == cart.CartId);
+            var items = _repo.GetAll<Models.HolyShongModel.Item>().Where(i => i.CartId == cart.CartId);
             var itemDetails = _repo.GetAll<ItemDetail>().Where(id => items.Select(i => i.ItemId).Contains(id.ItemId));
             var products = _repo.GetAll<Product>().Where(p => items.Select(i => i.ProductId).Contains(p.ProductId));
             result.CartId = cart.CartId;

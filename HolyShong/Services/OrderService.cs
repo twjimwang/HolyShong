@@ -39,8 +39,8 @@ namespace HolyShong.Services
                         DeliveryFee = 30, //待確認
                         Notes = "等資料庫新建cart欄位", //待確認
                         DeliveryAddress = cartVM.Address,
-                        IsTablewares = cartVM.IsTablewares,
-                        IsPlasticbag = cartVM.IsPlasticbag,
+                        //IsTablewares = cartVM.IsTablewares,
+                        //IsPlasticbag = cartVM.IsPlasticbag,
                         PaymentStatus = 1,
                         DeliverStatus = 0,
                         OrderStatus = 1,
@@ -65,7 +65,7 @@ namespace HolyShong.Services
                             ProductId = product.ProductId,
                             UnitPrice = product.UnitPrice,
                             Quantity = item.Quantity,  //待確認
-                            Special = item.Special
+                            //Special = item.Special
                         };
                         _repo.Create(orderDetail);
                         //先存才能拿到orderId

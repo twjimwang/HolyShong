@@ -350,6 +350,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MemberIdService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
@@ -477,6 +478,7 @@
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Views\Payment\PostResultTpECPay.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
