@@ -379,7 +379,6 @@
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\ECPayViewModel.cs" />
     <Compile Include="ViewModels\FavoriteViewModel.cs" />
-    <Compile Include="ViewModels\FindDeliverViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
@@ -495,7 +494,7 @@
     <Content Include="Views\Payment\BecomeVIP.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Views\Payment\PayForCart.cshtml" />
-	<Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

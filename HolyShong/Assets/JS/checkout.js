@@ -16,20 +16,21 @@ let checkOut = new Vue({
     },
     computed: {
         totalSum() {
-            let addAmount = 0;
+            let totalPrice = 0;
             for (var i = 0; i < this.store.CartItems.length; i++) {
-                if (this.store.CartItems[i].StoreProductOptions == null) { break; }
-                for (var j = 0; j < this.store.CartItems[i].StoreProductOptions.length; j++) {
-                    for (var k = 0; k < this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails.length; k++) {
-                        if (this.store.CartItems[i].StoreProductOptions[j].SelectOption == this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails[k].StoreProductOptionDetailId) {
-                            addAmount += this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails[k].AddPrice;
+                let addAmount = 0;
+                if (this.store.CartItems[i].StoreProductOptions != null) {
+                    for (var j = 0; j < this.store.CartItems[i].StoreProductOptions.length; j++) {
+                        for (var k = 0; k < this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails.length; k++) {
+                            if (this.store.CartItems[i].StoreProductOptions[j].SelectOption == this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails[k].StoreProductOptionDetailId) {
+                                addAmount += this.store.CartItems[i].StoreProductOptions[j].ProductOptionDetails[k].AddPrice;
+                            }
                         }
                     }
-
                 }
+                totalPrice += this.store.CartItems[i].Quantity * (this.store.CartItems[i].UnitPrice + addAmount)
             }
-            let amount = this.store.CartItems.map(p => p.Quantity * (p.UnitPrice + addAmount)).reduce((a, b) => a + b);
-            return amount;
+            return totalPrice;
         }
     },
     methods: {

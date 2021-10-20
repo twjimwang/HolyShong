@@ -6,20 +6,22 @@
     },
     computed: {
         totalSum() {
-            let addAmount = 0;
+            let totalPrice = 0;
             for (var i = 0; i < this.product.length; i++) {
-                if (this.product[i].StoreProductOptions == null) { break;}
-                for (var j = 0; j < this.product[i].StoreProductOptions.length; j++) {
-                    for (var k = 0; k < this.product[i].StoreProductOptions[j].ProductOptionDetails.length; k++) {
-                        if (this.product[i].StoreProductOptions[j].SelectOption == this.product[i].StoreProductOptions[j].ProductOptionDetails[k].StoreProductOptionDetailId) {
-                            addAmount += this.product[i].StoreProductOptions[j].ProductOptionDetails[k].AddPrice;
+                let addAmount = 0;
+                if (this.product[i].StoreProductOptions != null) {
+                    for (var j = 0; j < this.product[i].StoreProductOptions.length; j++) {
+                        for (var k = 0; k < this.product[i].StoreProductOptions[j].ProductOptionDetails.length; k++) {
+                            if (this.product[i].StoreProductOptions[j].SelectOption == this.product[i].StoreProductOptions[j].ProductOptionDetails[k].StoreProductOptionDetailId) {
+                                addAmount += this.product[i].StoreProductOptions[j].ProductOptionDetails[k].AddPrice;
+                            }
                         }
                     }
-                    
                 }
+                totalPrice += this.product[i].Quantity * (this.product[i].UnitPrice + addAmount);
             }
-            let amount = this.product.map(p => p.Quantity * (p.UnitPrice + addAmount)).reduce((a, b) => a + b);
-            return amount;
+            //let amount = this.product.map(p => p.Quantity * (p.UnitPrice + addAmount)).reduce((a, b) => a + b);
+            return totalPrice;
         }
     },
     methods: {

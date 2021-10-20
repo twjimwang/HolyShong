@@ -51,7 +51,6 @@ namespace HolyShong.Services
         //            };
         //            //先創才能拿到CartId
         //            _repo.Create(cart);
-        //            _repo.SaveChange();
 
         //            foreach (var pd in productCard)
         //            {
@@ -62,7 +61,6 @@ namespace HolyShong.Services
         //                    Quantity = pd.Quantity,
         //                };
         //                _repo.Create(item);
-        //                _repo.SaveChange();
 
         //                foreach (var productOption in pd.StoreProductOptions)
         //                {
@@ -72,14 +70,14 @@ namespace HolyShong.Services
         //                        ProductOptionDetailId = Int32.Parse(productOption.SelectOption)
         //                    };
         //                    _repo.Create(itemDetail);
-
         //                }
-        //                _repo.SaveChange();
+
         //            }
         //            result.IsSuccessful = true;
         //            //改組成VM去CheckOut頁面
         //            cartVM = GetCheckOutByCart(cart);
         //            tran.Commit();
+        //                _repo.SaveChange();
         //            return cartVM;
         //        }
         //        catch (Exception ex)
@@ -97,7 +95,7 @@ namespace HolyShong.Services
         //{
         //    var customerAddress = _repo.GetAll<Address>().FirstOrDefault(a=>a.MemberId == cart.MemberId && a.IsDefault == true);
         //    var store = _repo.GetAll<Store>().FirstOrDefault(s=>s.StoreId == cart.StroreId);
-            
+
         //    var result = new CartViewModel();
         //    result.CreatedDate = DateTime.UtcNow;
         //    result.CustomerAddress = customerAddress.AddressDetail;
@@ -190,8 +188,9 @@ namespace HolyShong.Services
         {
             //初始化OperationResult
             OperationResult result = new OperationResult();
+            int productId = (int)session[0].ProductId;
             //抓Store
-            var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == (int)session[0].ProductId);
+            var product = _repo.GetAll<Product>().FirstOrDefault(p => p.ProductId == productId);
             var productCate = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == product.ProductCategoryId);
             var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == productCate.StoreId);
 
@@ -251,7 +250,6 @@ namespace HolyShong.Services
                     };
                     //先存才能拿到orderId
                     _repo.Create(order);
-                    _repo.SaveChange();
 
 
                     foreach (var p in session)
@@ -259,32 +257,38 @@ namespace HolyShong.Services
                         OrderDetail orderDetail = new OrderDetail()
                         {
                             OrderId = order.OrderId,
-                            ProductId = product.ProductId,
+                            ProductId = p.ProductId,
                             UnitPrice = product.UnitPrice,
                             Quantity = p.Quantity
                         };
                         _repo.Create(orderDetail);
-                        _repo.SaveChange();
                         //先存才能拿到orderId
 
                         if (p.StoreProductOptions != null)
                         {
                             foreach (var option in p.StoreProductOptions)
                             {
-
-                                OrderDetailOption orderDetailOption = new OrderDetailOption()
+                                foreach(var detail in option.ProductOptionDetails)
                                 {
-                                    OrderDetailId = orderDetail.OrderDetailId,
-                                    ProductOptionDetailId = _repo.GetAll<ProductOptionDetail>().FirstOrDefault(pod => pod.Name == option.ProductOptionName).ProductOptionDetailId,
-                                };
-                                _repo.Create(orderDetail);
-                                _repo.SaveChange();
+                                    if(Int32.Parse(option.SelectOption) == detail.StoreProductOptionDetailId)
+                                    {
+                                        OrderDetailOption orderDetailOption = new OrderDetailOption()
+                                        {
+                                            OrderDetailId = orderDetail.OrderDetailId,
+                                            ProductOptionDetailId = detail.StoreProductOptionDetailId
+                                        };
+                                        _repo.Create(orderDetailOption);
+                                    }
+
+                                }
+                            
                             }
                         }
                     }
 
                     result.IsSuccessful = true;
                     tran.Commit();
+                    _repo.SaveChange();
                 }
                 catch (Exception ex)
                 {
@@ -540,7 +544,6 @@ namespace HolyShong.Services
 
                         //update
                         _repo.Update(freeDeliver);
-                        //_repo.SaveChange();
                     }
                     //開始外送
                     else if(OrderStatusVM.OrderStatus == 5)

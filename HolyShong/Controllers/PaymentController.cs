@@ -12,10 +12,12 @@ namespace HolyShong.Controllers
     public class PaymentController : Controller
     {
         private readonly PayServices _payServices;
+        private readonly OrderService _orderService;
 
         public PaymentController()
         {
             _payServices = new PayServices();
+            _orderService = new OrderService();
         }
 
         // GET: ECPay
@@ -28,10 +30,18 @@ namespace HolyShong.Controllers
         }
 
         [Authorize]
-        public ActionResult PayForCart()
+        public ActionResult PayForCart(CheckOutViewModel checkoutVM)
         {
-            var html = _payServices.BuyCartService(int.Parse(User.Identity.Name));
-            ViewBag.Html = html;
+            //測試訂單
+            var memberId = Int32.Parse(User.Identity.Name);
+            var cart = (List<StoreProduct>)Session["Cart"];//抓session
+
+            //成立訂單
+            var order = _orderService.OrderCreate(memberId, cart, checkoutVM);
+
+
+            //var html = _payServices.BuyCartService(int.Parse(User.Identity.Name));
+            //ViewBag.Html = html;
             return View();
         }
 
