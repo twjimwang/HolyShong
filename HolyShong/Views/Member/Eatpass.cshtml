@@ -1,23 +1,35 @@
-﻿<div class="banner">
-    <div class="item-img"></div>
-    <div class="item-txt container">
-        @if (Model.IsPrimary)
-        {
-            <h2>已成為送送會員</h2>
-            <span>到期時間：@Model.PrimaryEndTime</span>
-            <button class="btn" onclick="location.href='@Url.Action("Index", "Home")'">馬上點餐去！</button>
-        }
-        else
-        {
-            <h2>立即加入即可享不限次數 $0 外送費</h2><span>僅需支付 $120.00/月</span><div class="col-8 align-items-center">
-                @using (Html.BeginForm())
-                {
-                    <button class="btn" onclick="location.href='@Url.Action("BecomeVIP", "Payment")'">立即成為 HolyShong 送送會員</button>
-                }
-            </div>
-        }
+﻿@model UserProfileViewModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.MemberId)
+    @Html.HiddenFor(x => x.Email)
+    @Html.HiddenFor(x => x.Cellphone)
+    @Html.HiddenFor(x => x.FirstName)
+    @Html.HiddenFor(x => x.LastName)
+    @Html.HiddenFor(x => x.UpdateTime)
+    @Html.HiddenFor(x => x.IsPrimary)
+
+
+    <div class="banner">
+        <div class="item-img"></div>
+        <div class="item-txt container">
+            @if (Model.IsPrimary)
+            {
+                <h2>已成為送送會員</h2>
+                <span>到期時間：@Model.PrimaryEndTime</span>
+                <br />
+                <a class="btn gohome" onclick="location.href='@Url.Action("Index", "Home")'">馬上點餐去！</a>
+            }
+            else
+            {
+                <h2>立即加入即可享不限次數 $0 外送費</h2><span>僅需支付 $120.00/月</span><div class="col-8 align-items-center">
+                    <a class="btn becomevip" onclick="location.href='@Url.Action("BecomeVIP", "Payment")'">立即成為 HolyShong 送送會員</a>
+                </div>
+            }
+        </div>
     </div>
-</div>
+}
 <section class="container">
     <div class="discountArea row">
         <div class="item col-12 col-lg-4">
@@ -108,7 +120,8 @@
                 padding: 10px 0;
             }
 
-            .banner .item-txt button {
+            .banner .item-txt .becomevip,
+            .banner .item-txt .gohome {
                 background-color: #000;
                 color: #fff;
                 position: fixed;
@@ -121,9 +134,10 @@
                 border: 1px solid #fff;
             }
 
-                .banner .item-txt button:hover {
-                    background-color: rgb(26, 26, 26);
-                }
+            .banner .item-txt .becomevip:hover, 
+            .banner .item-txt .gohome:hover {
+                background-color: rgb(26, 26, 26);
+            }
 
             .banner .item-img {
                 width: 100%;
@@ -196,7 +210,8 @@
                 margin: auto;
             }
 
-            .banner .item-txt button {
+            .banner .item-txt .becomevip,
+            .banner .item-txt .gohome {
                 position: unset;
                 background-color: #EEEEEE;
                 color: #000;
@@ -207,7 +222,8 @@
                 border: none;
             }
 
-                .banner .item-txt button:hover {
+                .banner .item-txt .becomevip:hover, 
+                .banner .item-txt .gohome:hover {
                     background-color: #CCC;
                 }
 
