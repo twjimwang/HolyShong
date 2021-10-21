@@ -62,11 +62,6 @@ namespace HolyShong.Controllers
         }
 
 
-
-        public ActionResult Checkout()
-        {
-            return View();
-        }
         [HttpGet]
         public ActionResult Eatpass()
         {
