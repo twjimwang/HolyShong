@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HolyShong.ViewModels
 {
-    public class RestaurantViewModel1
+    public class ProductViewModel
     {
         /// <summary>
         /// 商店Id
@@ -57,6 +57,7 @@ namespace HolyShong.ViewModels
 
     public class StoreProduct
     {
+        public string StoreName { get; set; }
         public int ProductId { get; set; }
         /// <summary>
         /// 商品名稱
@@ -83,6 +84,7 @@ namespace HolyShong.ViewModels
     }
     public class StoreProductOption
     {
+        public int SelectOptionPrice { get; set; }
         public string SelectOption { get; set; }
         /// <summary>
         /// 商品option名稱(辣度)
@@ -100,5 +102,6 @@ namespace HolyShong.ViewModels
         /// </summary>
         public string StoreProductOptioinDetailName { get; set; }
         public int StoreProductOptionDetailId { get; set; }
+        public decimal AddPrice { get; set; }
     }
 }

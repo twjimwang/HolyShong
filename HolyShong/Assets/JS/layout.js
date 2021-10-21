@@ -80,7 +80,7 @@ destModalBtn.forEach(button => {
 });
 
 //cartList 按鈕點擊關閉購物車
-let cartBtn = document.querySelector('.cartList .cart-content .modal-header button');
+let cartBtn = document.querySelector('.cartList .modal-header button');
 cartBtn.addEventListener('click', function () {
     let cartInput = document.querySelector('#cart-check');
     cartInput.click();
@@ -103,4 +103,16 @@ $('.circleIcon').on('click', function () {
         $('.circleIcon').removeClass('fa-chevron-circle-up');
         $('.circleIcon').addClass('fa-chevron-circle-down');
     }
+});
+
+//開啟購物車
+let cartInput = document.querySelector('#cart-check');
+cartInput.addEventListener('click', function () {
+    $.ajax({
+        type: 'POST',
+        url: '/api/Cart/ShowCart',
+        success: function (res) {
+            cart.product = res;
+        }
+    });
 });

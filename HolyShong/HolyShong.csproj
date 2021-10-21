@@ -319,6 +319,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\DeliverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -358,6 +359,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\CheckVipDate.cs" />
+    <Compile Include="Services\FavoriteService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MarketService.cs" />
     <Compile Include="Services\MemberLoginService.cs" />
@@ -372,9 +375,11 @@
     <Compile Include="Services\StoreCategoryService.cs" />
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\DeliverConnectionViewModel.cs" />
     <Compile Include="ViewModels\ECPayViewModel.cs" />
-    <Compile Include="ViewModels\FindDeliverViewModel.cs" />
+    <Compile Include="ViewModels\FavoriteViewModel.cs" />
     <Compile Include="ViewModels\HolyCartViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OrderStatusViewModel.cs" />
@@ -384,8 +389,7 @@
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MemberLoginViewModel.cs" />
     <Compile Include="ViewModels\ProductCardViewModel.cs" />
-    <Compile Include="ViewModels\RestaurantViewModel.cs" />
-    <Compile Include="ViewModels\RestaurantViewModel1.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\MemberRegisterViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -393,6 +397,7 @@
     <Compile Include="ViewModels\StoreCategorySearchViewModel.cs" />
     <Compile Include="WebAPI\PaymentController.cs" />
     <Compile Include="WebAPI\CartController.cs" />
+    <Compile Include="WebAPI\OrderController.cs" />
     <Compile Include="WebAPI\StoreController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +408,8 @@
     <Content Include="Assets\Images\logo.jpg" />
     <Content Include="Assets\Images\register.jpg" />
     <Content Include="Assets\Images\noSearch.jpg" />
+    <Content Include="Assets\JS\Cart\cart.js" />
+    <Content Include="Assets\JS\checkout.js" />
     <Content Include="Assets\JS\deliver_layout.js" />
     <Content Include="Assets\JS\layout.js" />
     <Content Include="Assets\JS\Search\subcategorysearch.js" />
@@ -472,7 +479,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Member\DeliverRegister.cshtml" />
     <Content Include="Views\Store\_StoreCardPartial.cshtml" />
-    <Content Include="Views\Member\Favorite.cshtml" />
+    <Content Include="Views\Member\FavoriteStore.cshtml" />
     <Content Include="Views\Store\Marketing.cshtml" />
     <Content Include="Views\Member\OrderList.cshtml" />
     <Content Include="Views\Member\RestaurantRegister.cshtml" />
@@ -485,13 +492,14 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Store\RestaurantTEST.cshtml" />
     <Content Include="Views\Payment\BecomeVIP.cshtml" />
     <Content Include="Views\Shared\_SubCategoryPartial.cshtml" />
     <Content Include="Views\Payment\PayForCart.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,22 +1,19 @@
-﻿
-<div class="container-fluid container-sm ">
+﻿@model CartViewModel
+<div class="container-fluid container-sm" id="checkApp">
     <div class="row align-items-start">
         <div class="col-lg-6 col-sm-12 left">
-            <h1 class="my-3">五桐號 WooTEA 忠孝復興店</h1>
+            <h1 class="my-3">{{store.StoreName}}</h1>
             <div class="mapDiv">
-                <div id=map class="mb-3">
-                    map
-                </div>
+                <div id="map" class="mb-3"></div>
             </div>
 
-            <!-- Button trigger modal 設定地址-->
+            <!-- 設定地址-->
             <div class="d-flex addressInfo">
                 <div class="iconDiv mb-1">
                     <i class="fas fa-home"></i>
                 </div>
-                <div class="mx-3 flex-grow-1">
-                    <span>Build School忠孝東路三段96號11樓之1</span><br>
-                    <span>台北市大安區</span>
+                <div class="mx-1 flex-grow-1">
+                    <span>{{store.CustomerAddress}}</span><br>
                 </div>
                 <div>
                     <button type="button" class="editBtn btn  rounded-pill" data-toggle="modal" data-target="#destModal">
@@ -24,186 +21,72 @@
                     </button>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="destModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
-                 data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div id="destlist" class="modal-body">
-                            <div class="dest-body">
-                                <h4 class="modal-title mb-3" id="destModalLabel">外送地點？</h4>
-                                <input type="text" placeholder="輸入外送地址">
-                                <!-- 紀錄地址 -->
-                                <div class="d-flex justify-content-between my-3">
-                                    <div>
-                                        <i class="fas fa-map-marker-alt p-3"></i>
-                                        <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-pencil-alt p-3"></i>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between my-3">
-                                    <div>
-                                        <i class="fas fa-map-marker-alt p-3"></i>
-                                        <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-pencil-alt p-3"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
-                        </div>
-                    </div>
+
+
+            <!-- 設定外送指示 -->
+            <div class="d-flex info">
+                <div class="iconDiv mb-2">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div class="d-flex flex-grow-1 ml-1">
+                    <span class="flex-grow-1 my-auto">新增外送指示</span><br>
+                    <b-form-select  class="w-50" v-model="store.Note" :options="options"></b-form-select>
+                    @*<select v-model="store.Note">
+                        <option value="在門口碰面">在門口碰面</option>
+                        <option value="在外碰面">在外碰面</option>
+                        <option value="放在門口">放在門口</option>
+                    </select>*@
                 </div>
             </div>
 
-            <!-- Button trigger modal 設定時間 -->
-            <div class="d-flex info">
-                <div class="iconDiv pt-4 mb-2">
-                    <i class="fas fa-child"></i>
-                </div>
-                <div class="flex-grow-1 mx-3 border-top pt-3">
-                    <span>在門口碰面新增外送指示</span><br>
-                    <span class="addInfo">新增外送指示</span>
-                </div>
-                <div>
-                    <button type="button" class="editBtn btn rounded-pill" data-toggle="modal" data-target="#shippingInfoModal">
-                        編輯
-                    </button>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="shippingInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">外送詳細資訊 :</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modalAddress modal-body">
-                            <i class="fas fa-map-marker-alt mx-2"></i>
-                            <div>Build School</div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark btn-lg btn-block rounded-0" data-dismiss="modal">
-                                完成
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="deliverTime d-flex">
-                <h3>預估外送時間</h3>
-                <span>25—35 min</span>
-            </div>
-            <div class="d-flex deliverTimeInfo my-3">
+            <!-- 設定外送時間 -->
+            <div class="d-flex">
                 <div class="iconDiv">
                     <i class="fas fa-dot-circle"></i>
                 </div>
-                <div class="flex-grow-1 mx-3">
-                    <span>現在</span><br>
-                    <span></span>
-                </div>
-            </div>
-
-            <!-- 設定付款方式 -->
-            <h3 class="setPavementTitle">付款設定</h3>
-            <div class="d-flex setPavementDiv">
-                <div class="iconDiv">
-                    <i class="fas fa-wallet"></i>
-                </div>
-                <div class="flex-grow-1 mx-3">
-                    <span class="">新增付款方式</span>
-                </div>
-                <div>
-                    <button type="button" class="editBtn btn btn-light rounded-pill" data-toggle="modal" data-target="#pavementModal">
-                        編輯
-                    </button>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade " id="pavementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">新增付款方式</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            信用卡或簽帳金融卡
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark btn-lg btn-block rounded-0" data-dismiss="modal">
-                                完成
-                            </button>
-                        </div>
-                    </div>
+                <div class="flex-grow-1 deliverTime d-flex">
+                    <span class="ml-1">預估送達時間</span>
+                    <span class="timeAmount mx-3"></span>
                 </div>
             </div>
 
             <!-- 您的餐點 -->
-            <div class="addOrderDiv d-flex">
+            <div class="addOrderDiv">
                 <h3 class="mt-2">您的餐點</h3>
-                <div>
-                    <button type="button" class="addOrderBtn rounded-pill">
-                        <i class="fas fa-plus"></i>
-                        <span>新增餐點</span>
-                    </button>
-                </div>
             </div>
-            <div class="d-flex orderContent mt-3">
-                <div class="d-flex">
-                    <div class="select d-flex">
-                        <select name="" id="remove" class="my-3">
-                            <option value="">移除</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="orderContentBtn btn ml-2 pt-1" data-toggle="modal" data-target="#storeModal">
-                            <span>荔枝冰凍茶飲</span><br>
-                            <span>
-                                甜度選擇 Sweewness Level<br>
-                                無糖 Sugar-Free($9.00)<br>
-                                仙草凍 Herb Jelly
+            <div class="d-flex orderContent mt-3" v-for="(p,index) in store.CartItems">
+                <div class="d-flex my-auto">
+                    <div class="select my-auto d-flex">{{p.Quantity}}</div>
+                    <div class="my-auto">
+                        <div class="orderContentBtn  ml-2 pt-1">
+                            <span>{{p.ProductName}}</span><br>
+                            <span v-for="storeProductOption in p.StoreProductOptions">
+                                <span v-for="detail in storeProductOption.ProductOptionDetails" v-show="storeProductOption.SelectOption == detail.StoreProductOptionDetailId">
+                                    {{detail.StoreProductOptioinDetailName}} <br>
+                                </span>
                             </span>
-                        </button>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <div id="price">
-                        $99元
+                <div class="my-auto">
+                    <div id="price" class="mx-3">
+                        ${{sum(p)}}
                     </div>
                 </div>
             </div>
             <div class="otherItems my-3">
-                <label class="w-100" for="oItem"><div>索取餐具、吸管等用品</div></label>
-                <input class="" id="oItem" type="checkbox" style="zoom:180%">
+                <label class="w-100" for="oItem">索取餐具、吸管等用品</label>
+                <input v-model="store.IsTablewares" class="" id="oItem" type="checkbox" style="zoom:180%">
             </div>
             <div class="plasticBag my-3">
-                <label class="w-100" for="plastic"><div>索取袋子</div></label>
-                <input class="" id="plastic" type="checkbox" style="zoom:180%">
+                <label class="w-100" for="plastic">索取袋子</label>
+                <input v-model="store.IsPlasticbag" class="" id="plastic" type="checkbox" style="zoom:180%">
             </div>
         </div>
         <div class="col-lg-6 col-sm-12 right">
-            <div class="right">
+            <div class="right payOut">
                 <div class="mt-3">
-                    <button type="button" class="finallyOrder rounded-0 btn w-100" onclick="location.href='@Url.Action("OrderDeliver", "Order")'">
+                    <button v-on:click="sendForm" type="button" class="finallyOrder rounded-0 btn w-100">
                         <span>一鍵下訂單</span>
                     </button>
                 </div>
@@ -211,111 +94,95 @@
                     <p>條款： 按一下按鈕送出訂單，即表示您確認已詳閱隱私政策，並且同意 Uber 的 <span>使用條款</span></p>
                     <p>若合作外送夥伴抵達時您不在附近，他們會把訂單放在門口。送出訂單即表示您同意在訂單送達後承擔全部責任。</p>
                 </div>
-                <div class="save">
-                    <p>您可透過 $0 外送費省下費用，此獎勵將於 Sep 22到期</p>
-                </div>
                 <div>
                     <ul class="border-bottom">
                         <li class="d-flex ">
                             <div>小計</div>
-                            <span>$99.00</span>
+                            <span>${{totalSum}}.00</span>
                         </li>
                         <li class="d-flex">
                             <div>折扣</div>
-                            <span>-$50.00</span>
+                            <span>-$00.00</span>
                         </li>
                         <li class="d-flex">
-                            <div>外送費(含稅)</div>
-                            <span>$49.00</span>
-                        </li>
-                        <li class="d-flex mb-3">
                             <div>外送費</div>
-                            <span>$99.00</span>
+                            <span>$00.00</span>
                         </li>
                     </ul>
                     <div class="total d-flex" id="totalPrice">
                         <div>總計</div>
-                        <div>$99.00</div>
+                        <div>${{totalSum}}.00</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+    @using (Html.BeginForm("PayForCart", "Payment", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+
+            <div class="form-group">
+                <label for="formAddress">外送地址</label>
+                <input type="text" id="formAddress" v-model="store.CustomerAddress" name="CustomerAddress" />
+            </div>
+            <div class="form-group">
+                <label for="formOption">外送選項</label>
+                <input type="text" id="formOption" v-model="store.Note" name="CustomerNote" />
+            </div>
+            <div class="form-group">
+                <label for="formTableware">餐具</label>
+                <input type="checkbox" id="formTableware" v-model="store.IsTablewares" name="IsTablewares" />
+            </div>
+            <div class="form-group">
+                <label for="formPlasticbag">塑膠袋</label>
+                <input type="checkbox" id="formPlasticbag" v-model="store.IsPlasticbag" name="IsPlasticbag" />
+            </div>
+            <input id="sendFormToOrder" type="submit" />
+        </div>
+    }
 </div>
 
-<!-- ------- -->
-<!-- Modal 內容明細-->
-
-<div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="storeModalContent modal-content">
-            <!-- <div class="storeModal modal-header"> -->
-            <div class="storeModalBody modal-body">
-                <div class="imgAndClose">
-                    <div type="button" data-dismiss="modal">
-                        <span aria-hidden="true">
-                            <i class="far fa-times-circle fa-3x"></i>
-                        </span>
-                    </div>
-                    <div class="imgAndClosePic">
-                        <img src="https://picsum.photos/600/600/?random=1">
-                    </div>
-                </div>
-
-                <div class="cardWrap d-flex flex-column">
-                    <div class="scroll">
-                        <div class="topWrap">
-                            <div class="food p-4">
-                                <h2>蕃茄迷你鍋</h2>
-                                <p>附白飯一碗。恕無客製化醬料，敬請見諒。</p>
-                            </div>
-                            <div class="selectedBgc p-4">
-                                <div class="selected d-flex justify-content-between align-items-center">
-                                    <div class="selectWrap">
-                                        <div class="selectedTitle">辣選擇</div>
-                                        <div class="selectedTxt">
-                                            <span>最多可選擇 1 個項目</span>
-                                        </div>
-                                    </div>
-                                    <div class="circleIconDiv">
-                                        <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkboxDiv d-flex align-items-center p-4">
-                                <label for="checkbox">
-                                    <input id="checkbox" type="checkbox">加辣
-                                </label>
-                            </div>
+<!-- 設定外送地址Modal -->
+<div class="modal fade" id="destModal" tabindex="-1" aria-labelledby="destModalLabel" aria-hidden="true"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="destlist" class="modal-body">
+                <div class="dest-body">
+                    <h4 class="modal-title mb-3" id="destModalLabel">外送地點？</h4>
+                    <input type="text" placeholder="輸入外送地址">
+                    <!-- 紀錄地址 -->
+                    <div class="d-flex justify-content-between my-3">
+                        <div>
+                            <i class="fas fa-map-marker-alt p-3"></i>
+                            <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
                         </div>
-                        <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
-                        <div class="billTxt">
-                            <p>
-                                [本店免開統一發票] 本商家所提供的商品沒有含有任何依法規應揭露之肉類食材
-                                (上開肉品資訊是由我們所合作之商家合作夥伴所提供。如對上開資訊有任何疑問，請直接與商家合作夥伴聯繫)
-                            </p>
+                        <div>
+                            <i class="fas fa-pencil-alt p-3"></i>
                         </div>
-                        <div class="addItemBgC">
-                            <div class="addGroup wrap justify-content-around">
-                                <div class="quantityAddWrap d-flex">
-                                    <i class="fas fa-minus-circle fa-2x"></i>
-                                    <div class="quantity" style="font-size: 20px;">1</div>
-                                    <i class="fas fa-plus-circle fa-2x"></i>
-                                </div>
-                                <div class="addToCartWrap">
-                                    <button type="button" class="btn btn-lg btn-dark active">
-                                        <span class="addToCart">
-                                            新增 1 項商品至訂單
-                                        </span>
-                                        <span class="price">
-                                            $195.00
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="d-flex justify-content-between my-3">
+                        <div>
+                            <i class="fas fa-map-marker-alt p-3"></i>
+                            <p class="d-inline m-0">台北市大安區忠孝東路三段96號11號樓之1</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-pencil-alt p-3"></i>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark py-3 w-100" data-dismiss="modal">完成</button>
             </div>
         </div>
     </div>
@@ -323,23 +190,36 @@
 
 @section topCSS
  {
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-          crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin=""></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
             integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-
-
-
     <style>
+        .cart {
+            display: none;
+        }
+
+        .payOut {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        #checkApp {
+            margin-top: 80px;
+        }
 
         .leaflet-top, .leaflet-bottom, .leaflet-control {
             z-index: 100;
@@ -373,18 +253,18 @@
 
         .addressInfo {
             font-size: 18px;
-            padding-top: 20px;
-            padding-bottom: 8px;
+            padding: 20px 0;
             justify-content: center;
             align-items: center;
+            border-bottom: 1px solid #ccc;
         }
 
         .info {
             font-size: 18px;
-            padding-top: 10px;
-            padding-bottom: 20px;
+            padding: 20px 0;
             justify-content: center;
             align-items: center;
+            border-bottom: 1px solid #ccc;
         }
 
         .addressInfo span:first-child {
@@ -513,7 +393,8 @@
             display: flex;
             font-size: 18px;
         }
-          .finallyOrder:hover {
+
+            .finallyOrder:hover {
                 background-color: #FFC20E;
             }
 
@@ -599,13 +480,12 @@
         }
 
         .deliverTime {
-            border-top: rgb(238, 238, 238) solid 2px;
             justify-content: space-between;
-            padding-top: 20px;
+            padding: 20px 0;
         }
 
             .deliverTime span {
-                font-size: 18px;
+                font-size: 16px;
             }
 
         .setPavementTitle {
@@ -708,7 +588,8 @@
             text-align: center;
         }
 
-        .price {
+        #price {
+            font-size:16px;
             text-align: right;
         }
 
@@ -754,6 +635,14 @@
 
         /* 桌機 */
         @@media screen and (min-width: 992px) {
+            .payOut {
+                display: unset;
+            }
+
+            #checkApp {
+                margin-top: 0;
+            }
+
             .card img {
                 width: 88px;
                 height: 120px;
@@ -784,6 +673,7 @@
             .cardWrap {
                 width: 50%;
             }
+
             .right {
                 position: sticky;
                 top: 0px;
@@ -791,40 +681,114 @@
         }
     </style>
 }
+
+
+
 @section endJS
-{
+{    <!-- GOOGLE MAP API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrccfSxlJhu9aNlFPl-JTsnRpvFoVUEs0&callback=initMap&libraries=&v=weekly"
+            async></script>
+
     <script>
-        let map = L.map('map', {
-            center: [25.0416806, 121.5352095],
-            zoom: 9
-        })
-        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 9 })
-        map.addLayer(osm)
+        let checkInfo = @Html.Raw(Json.Encode(Model));
+        console.log(checkInfo);
 
-    </script>
+        var map;
+        var markerCustomer, markerRestaurant;
+        //Google Map
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script>
-        //下拉選單
-        $('.circleIcon').on('click', function () {
+            map = new google.maps.Map(document.getElementById('map'), {
+                //抓外送位置
+                center: { lat: 25.03416068163684, lng: 121.56454962636319 },
+                zoom: 15,
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+            });
 
-            if ($(".checkboxDiv").hasClass('d-flex')) {
-                $('.checkboxDiv').removeClass('d-flex');
-                $('.checkboxDiv').addClass('d-none')
+            //消費者地址
+            let customerAddress = "@Html.Raw(Model.CustomerAddress)";
+            geocoder.geocode({ 'address': customerAddress }, function (result, status) {
+                if (status == 'OK') {
+                    markerCustomer = new google.maps.Marker({
+                        map: map,
+                        position: result[0].geometry.location,
+                        icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194189/%E6%93%B7%E5%8F%960-removebg-preview_1_zvsbfo.png"
+                    });
+                }
+                else {
+                    console.log(status);
+                }
+            });
 
-                $('.circleIcon').removeClass('fa-chevron-circle-down');
-                $('.circleIcon').addClass('fa-chevron-circle-up');
+             //餐廳地址
+            let restaurantAddress = "@Html.Raw(Model.StoreAddress)";
+            geocoder.geocode({ 'address': restaurantAddress }, function (result, status) {
+                if (status == 'OK') {
+                    markerRestaurant = new google.maps.Marker({
+                        map: map,
+                        position: result[0].geometry.location,
+                        icon: "https://res.cloudinary.com/dvyxx4jau/image/upload/v1633194643/%E6%93%B7%E5%8F%96-removebg-preview_1_xzrsbn.png"
+                    });
+                }
+                else {
+                    console.log(status);
+                }
+            });
 
-            } else {
-                $('.checkboxDiv').addClass('d-flex');
-                $('.checkboxDiv').removeClass('d-none');
-
-                $('.circleIcon').removeClass('fa-chevron-circle-up');
-                $('.circleIcon').addClass('fa-chevron-circle-down');
+            //引用路線圖資
+            directionsDisplay.setMap(map);
+            var request = {
+                origin: customerAddress,
+                destination: restaurantAddress,
+                travelMode: 'DRIVING',
             }
-        });
-    </script>
 
+            //繪製路線
+            directionsService.route(request, function (result, status) {
+                if (status == 'OK') {
+                    console.log(result.routes[0].legs[0].steps);
+                    directionsDisplay = new google.maps.DirectionsRenderer({
+                        map: map,
+                        directions: result,
+                        suppressMarkers: true
+                    });
+                }
+                else {
+                    console.log(status);
+                }
+            });
+
+            let service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                {
+                    origins: [customerAddress],
+                    destinations: [restaurantAddress],
+                    travelMode: 'DRIVING',
+                    drivingOptions: {
+                        //開始外送時間
+                        departureTime: new Date()
+                    },
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                }, function (response, status) {
+                    if (status !== google.maps.DistanceMatrixStatus.OK) {
+                        window.alert('Error was' + status);
+                    } else {
+                        console.log(response);
+                        //時間顯示
+                        let time = document.querySelector('.timeAmount');
+                        time.innerText = `${new Date(Date.now() + (response.rows[0].elements[0].duration_in_traffic.value) * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+                    }
+                }
+            );
+        }
+    </script>
+    <script src="~/Assets/JS/checkout.js" type="text/javascript"></script>
 }

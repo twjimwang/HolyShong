@@ -16,40 +16,18 @@ namespace HolyShong.Controllers
         {
             _productService = new ProductService();
             _marketService = new MarketService();
-        }
-        // GET: Store
-        public ActionResult Index()
-        {
-            return View();
-        }
+        }     
+        /// <summary>
+        /// 餐廳頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Restaurant(int? id)
         {
-            #region
-            //RestaurantVM result = new RestaurantVM();
-            //var store = _ctx.Store.FirstOrDefault((x) => x.StoreId == id);
-            //if (store == null)
-            //{
-            //    return RedirectToAction("NoSearch", "Home");
-            //}
-            //var productCategories = _ctx.ProductCategory.Where((x) => x.StoreId == store.StoreId);
-
-            //var products = _ctx.Product.Where(x => productCategories.Select(y => y.ProductCategoryId).Contains(x.ProductCategoryId));
-
-            //result.StoreId = store.StoreId;
-            //result.StoreName = store.Name;
-            //result.StorePicture = store.Img;
-            //result.StoreAddress = store.Address;
-            //result.Products = products.ToList();
-            //result.productCategories = productCategories.ToList();
-            //result.Score1 = _ctx.Score.Where(x => x.ScoreId == store.StoreId).Average(x => x.Score1);
-            //result.StoreCategoryName = _ctx.StoreCategory.First(x => x.StoreCategoryId == store.StoreCategoryId).Name;
-            #endregion
-
             if (!id.HasValue)
             {
                 return RedirectToAction("NoSearch", "Home");
-            }
-            //var result = _restaurantService.GetRestaurant(id);
+            }        
             var result = _productService.GetStore(id.Value);
             if (result.StoreName == null)
             {
@@ -57,26 +35,12 @@ namespace HolyShong.Controllers
             }
             return View(result);
 
-        }
-        
-
-        //測試
-        //public ActionResult RestaurantTEST(int? storeid)
-        //{
-        //    if (!storeid.HasValue)
-        //    {
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    var result =_productService.GetAllProductsByStoreId(storeid.Value);
-        //    //if (result.StoreName == null)
-        //    //{
-        //    //    return RedirectToAction("NoSearch", "Home");
-        //    //}
-        //    return View(result);
-
-        //}
-
-
+        }      
+        /// <summary>
+        /// 活動店家頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Marketing(int? id)
         {
             if (!id.HasValue)

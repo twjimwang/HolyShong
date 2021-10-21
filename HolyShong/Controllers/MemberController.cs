@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using HolyShong.Repositories;
 using HolyShong.Models.HolyShongModel;
 using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace HolyShong.Controllers
 {
@@ -18,6 +19,8 @@ namespace HolyShong.Controllers
         private readonly MemberRegisterService _memberRegisterService;
         private readonly MemberProfileService _memberProfileService;
         private readonly OrderService _orderService;
+        private readonly FavoriteService _favoriteService;
+        private readonly CheckVipDate _checkVipDate;
 
         public MemberController()
         {
@@ -25,25 +28,52 @@ namespace HolyShong.Controllers
             _memberRegisterService = new MemberRegisterService();
             _memberProfileService = new MemberProfileService();
             _orderService = new OrderService();
+            _favoriteService = new FavoriteService();
+            _checkVipDate = new CheckVipDate();
         }
 
+        /// <summary>
+        /// 結帳頁面(暫無使用)
+        /// </summary>
+        /// <param name="productCard"></param>
+        /// <returns></returns>
+        //[HttpPost]
+        //public ActionResult CartCheckOut(List<StoreProduct> productCard)
+        //{
+        //    var memberId = Int32.Parse(User.Identity.Name);
+        //    //先存到資料庫
+        //    var result = _orderService.AddToCart(productCard, memberId);
+        //    //渲染畫面
 
-        // GET: Member
-        public ActionResult Index()
+        //    return View(result);
+        //}
+
+        public ActionResult CheckOut()
         {
-            return View();
+            var memberId = 0;
+            Int32.TryParse(User.Identity.Name, out memberId);
+            if(memberId == 0)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            var cartItems = (List<StoreProduct>)Session["Cart"];
+            var result = _orderService.ToCheckOut(cartItems, memberId);
+            return View(result);
         }
 
 
-
-        public ActionResult Checkout()
-        {
-            return View();
-        }
-
+        [HttpGet]
         public ActionResult Eatpass()
         {
-            return View();
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Eatpass(UserProfileViewModel memberProfileViewModel)
+        {
+            _memberProfileService.EditMemberProfile(memberProfileViewModel);
+            return View(memberProfileViewModel);
         }
         /// <summary>
         /// 會員個人資料頁面
@@ -55,10 +85,10 @@ namespace HolyShong.Controllers
         public ActionResult UserProfile()
         {
 
-                var model = _memberProfileService.GetMemberProfileViewModel(int.Parse( User.Identity.Name));
-                
-                return View(model);
-            
+            var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
+
+            return View(model);
+
         }
 
         /// <summary>
@@ -97,10 +127,24 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
-        public ActionResult Favorite()
+      
+        /// <summary>
+        /// 最愛店家頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult FavoriteStore()
         {
-            return View();
+            var memberId = Int32.Parse(User.Identity.Name);
+         
+            var result = _favoriteService.GetFavorite(memberId);
+            if (result.favoriteStores == null)
+            {
+                return RedirectToAction("NoSearch", "Home");
+            }
+            return View(result);
+
         }
         public ActionResult OrderList()
         {
@@ -236,7 +280,7 @@ namespace HolyShong.Controllers
 
             #endregion
 
-
+            _checkVipDate.CheckVip(user.MemberId);
             //5.導向original URL
             return Redirect(url);
         }

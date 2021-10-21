@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace HolyShong.WebAPIControllers
+namespace HolyShong.WebAPI
 {
     public class StoreController : ApiController
     {

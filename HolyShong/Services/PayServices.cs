@@ -22,9 +22,9 @@ namespace HolyShong.Services
         }
 
         //設定回傳綠界api路徑
-        string VIPReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
-        string BuyCartReturnURL = "https://1cb0-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";        
-        string feeReturnURL = "https://d017-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string VIPReturnURL = "https://e63c-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
+        string BuyCartReturnURL = "https://e63c-1-164-235-183.ngrok.io/api/payment/BuyCartGetResultFromECPay";
+        string feeReturnURL = "https://91fa-1-164-235-183.ngrok.io/api/payment/VIPGetResultFromECPay";
 
         /// <summary>
         /// 綠界SDK
@@ -78,7 +78,7 @@ namespace HolyShong.Services
             }
 
             var temp = JsonConvert.SerializeObject(oPayment.Send);
-          
+
             var html = string.Empty;
             oPayment.CheckOutString(ref html);
             return html;
@@ -100,14 +100,14 @@ namespace HolyShong.Services
                 ReturnURL = VIPReturnURL,
                 OrderResultURL = "",//瀏覽器端回傳付款結果網址
                 MerchantTradeNo = "",//廠商的交易編號
-                TotalAmount = 30,//交易總金額
+                TotalAmount = 120,//交易總金額
                 ListItems = new List<BuyItem>
                 {
                   new BuyItem
                   {
                       Name="升級送送會員",
                       Currency="新臺幣",
-                      Price=30,
+                      Price=120,
                       Quantity=1,
                       URL="",
                   }
@@ -126,7 +126,9 @@ namespace HolyShong.Services
         {
             //製作Rank欄位
             var rank = new Rank()
-            {                
+            {
+                //todo 等資料庫改為動態建立id後要刪除
+                RankId = 31,
                 MemberId = id,
                 IsPrimary = true,
                 EndTime = DateTime.UtcNow.AddHours(8).AddDays(30),
@@ -146,7 +148,7 @@ namespace HolyShong.Services
                 }
         }
 
-        
+
 
         //Todo 不能再從資料庫抓購物車資料
         /// <summary>
@@ -166,7 +168,8 @@ namespace HolyShong.Services
                 ReturnURL = BuyCartReturnURL,
                 OrderResultURL = "",
                 MerchantTradeNo = "",
-                ListItems = new List<BuyItem> {
+                ListItems = new List<BuyItem>
+                {
                 },
 
             };
@@ -174,7 +177,7 @@ namespace HolyShong.Services
             foreach (var itemInCart in itemsInCart)
             {
                 var tempItem = new BuyItem
-                {                    
+                {
                     Name = itemInCart.Product.Name,
                     Currency = "新臺幣",
                     Price = itemInCart.Product.UnitPrice,
@@ -203,7 +206,7 @@ namespace HolyShong.Services
             //購物車Item
             var deleteCartItems = deletdeCart.Item.ToList();
             //購物車ItemDetails
-            List<ItemDetail> deleteCartItemsDetails = new List<ItemDetail>();            
+            List<ItemDetail> deleteCartItemsDetails = new List<ItemDetail>();
             foreach (var deldetCartItem in deleteCartItems)
             {
                 var deleteCartItemDetails = _repo.GetAll<ItemDetail>().Where(x => x.ItemId == deldetCartItem.ItemId).ToList();
@@ -215,13 +218,13 @@ namespace HolyShong.Services
             using (var transaction = context.Database.BeginTransaction())
                 try
                 {
-                    foreach(var itemDetails in deleteCartItemsDetails)
+                    foreach (var itemDetails in deleteCartItemsDetails)
                     {
-                    _repo.Delete<ItemDetail>(itemDetails);
+                        _repo.Delete<ItemDetail>(itemDetails);
                     }
-                    foreach(var cartItems in deleteCartItems)
+                    foreach (var cartItems in deleteCartItems)
                     {
-                    _repo.Delete<Item>(cartItems);
+                        _repo.Delete<Item>(cartItems);
                     }
                     _repo.Delete<Cart>(deletdeCart);
                     foreach (var newCartItem in deleteCartItems)
