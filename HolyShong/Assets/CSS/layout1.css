@@ -136,7 +136,7 @@ label.cart {
 }
 
 .noneList {
-    padding: 30px;
+    padding: 80px 20px 0;
 }
 
     .noneList i {
@@ -146,9 +146,10 @@ label.cart {
 
 .cartList .list {
     text-align: center;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 150px);
     overflow-y: scroll;
     background-color: #fff;
+    padding-bottom: 80px;
 }
 
 .cart-content .modal-body {
@@ -601,7 +602,6 @@ footer {
 
 .quantityAddWrap {
     justify-content: space-between;
-    margin: auto;
 }
 
 .addToCartWrap button {

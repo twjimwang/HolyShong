@@ -236,42 +236,44 @@
             <div class="storeModalContent modal-content">
                 <div class="storeModal modal-header">
                     <div class="storeModalBody modal-body">
-                        <div v-if="product.ProductImg != ''" class="imgAndClose">
-                            <div class="imgAndClosePic">
-                                <img :src="product.ProductImg">
-                            </div>
-                        </div>
-                        <div class="cardWrap d-flex flex-column">
+                         <div class="imgAndClose" v-if="product.ProductImg != null">
+                             <div class="imgAndClosePic">
+                                 <img :src="product.ProductImg">
+                             </div>
+                         </div>
+                        <div class="cardWrap d-flex flex-column" >
                             <div class="scroll">
                                 <div type="button" data-dismiss="modal">
                                     <span class="crosses" aria-hidden="true">
                                         <i class="far fa-times-circle fa-3x"></i>
                                     </span>
                                 </div>
-                                <div class="topWrap">
+
+                                <div class="topWrap" >
                                     <div class="food p-4">
                                         <h2>{{product.ProductName}}</h2>
                                         <p>{{product.ProductDescription}}</p>
                                     </div>
-                                    <div v-for="storeProductOption in product.StoreProductOptions" class="selectedBgc p-4">
-                                        <div class="selected d-flex justify-content-between align-items-center">
-                                            <div class="selectWrap">
-                                                <div class="selectedTitle">{{storeProductOption.ProductOptionName}}</div>
-                                                <div class="selectedTxt">
-                                                    <span>最多可選擇 1 個項目</span>
+                                    <div class="accordion" id="accordionStore">
+                                        <div v-for="(storeProductOption,index) in product.StoreProductOptions" class="selectedBgc p-4">
+                                            <div class="selected d-flex justify-content-between align-items-center font-weight-bold" data-toggle="collapse" :data-target="'#option' + index">
+                                                <div class="selectWrap">
+                                                    <div class="selectedTitle">{{storeProductOption.ProductOptionName}}
+                                                        <span v-if="storeProductOption.SelectOption == null" class="text-danger small ml-1">該選項必填</span>
+                                                    </div>
+                                                </div>
+                                                <div class="circleIconDiv">
+                                                    <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
                                                 </div>
                                             </div>
-                                            <div class="circleIconDiv">
-                                                <i class="fas fa-chevron-circle-down circleIcon fa-2x"></i>
+                                            <div :id="'option' + index" data-parent="#accordionStore" class="collapse show">
+                                                <label v-for="detail in storeProductOption.ProductOptionDetails" class="d-block py-3">
+                                                    <input v-model="storeProductOption.SelectOption" :value="detail.StoreProductOptionDetailId" type="radio" :name="storeProductOption.ProductOptionName" class="d-inline-block mr-2">{{detail.StoreProductOptioinDetailName}}(+${{detail.AddPrice}})
+                                                </label>
                                             </div>
                                         </div>
-                                        <div v-for="detail in storeProductOption.ProductOptionDetails" class="checkboxDiv d-flex align-items-center p-4">
-                                            <label>
-                                                <input v-model="storeProductOption.SelectOption" id="checkbox" :value="detail.StoreProductOptionDetailId" type="radio" :name="storeProductOption.ProductOptionName">{{detail.StoreProductOptioinDetailName}}
-                                            </label>
-                                        </div>
                                     </div>
-                                    
+
                                 </div>
                                 <input class="input" type="text" placeholder="新增註記(醬料多一點，不加洋蔥等)">
                                 <div class="billTxt">
@@ -282,13 +284,13 @@
                                 </div>
                                 <div class="addItemBgC">
                                     <div class="addGroup wrap justify-content-around">
-                                        <div class="quantityAddWrap d-flex">
+                                        <div class="quantityAddWrap d-flex my-auto">
                                             <i class="fas fa-minus-circle fa-2x" v-on:click="changeAmount(-1)"></i>
-                                                <div class="quantity" style="font-size: 20px;">{{product.Quantity}}</div>
+                                            <div class="quantity" style="font-size: 20px;">{{product.Quantity}}</div>
                                             <i class="fas fa-plus-circle fa-2x" v-on:click="changeAmount(1)"></i>
                                         </div>
                                         <div class="addToCartWrap">
-                                            <button type="button" id="abc" class="btn btn-lg btn-dark active">
+                                            <button type="button" id="abc" class="btn btn-lg btn-dark active" v-on:click="addToCart">
                                                 <span class="addToCart">
                                                     新增 {{product.Quantity}} 項商品至訂單
                                                 </span>
@@ -667,7 +669,6 @@
 
         .quantityAddWrap {
             justify-content: space-between;
-            margin: auto;
         }
 
         .addToCartWrap button {
@@ -681,7 +682,7 @@
             .checkboxDiv label input {
                 margin-right: 5px;
             }
-
+        
         .crosses {
             position: absolute;
             top: 10px;
@@ -733,7 +734,7 @@
             width: 50%;
             margin: auto;
             padding-left: 17px;
-            padding: 0px;
+            padding: 0 0 0 10px;
         }
 
         .card {
@@ -756,7 +757,6 @@
         }
 
         .itemGroupPic {
-            height: 100px;
             width: 45%;
         }
 
@@ -788,7 +788,6 @@
 
             .quantityAddWrap {
                 justify-content: center;
-                margin: auto 0;
             }
 
             .storeModalBody {

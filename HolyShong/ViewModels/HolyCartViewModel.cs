@@ -17,7 +17,7 @@ namespace HolyShong.ViewModels
         /// store
         /// </summary>
         public string StoreName { get; set; }
-        public List<CartItem> CartItems { get; set; }
+        public List<CartItems> CartItems { get; set; }
         public string Address { get; set; }
         public int Count { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -27,7 +27,7 @@ namespace HolyShong.ViewModels
         public string Notes { get; set; }
     }
 
-    public class CartItem
+    public class CartItems
     {
         /// <summary>
         /// item
@@ -37,7 +37,7 @@ namespace HolyShong.ViewModels
         /// product
         /// </summary>
         public string ProductName { get; set; }
-        public List<ProductOptionCard> ProductOptionCards { get; set; }
+        public List<ProductOptionCards> ProductOptionCards { get; set; }
         /// <summary>
         /// product
         /// </summary>
@@ -52,7 +52,7 @@ namespace HolyShong.ViewModels
         public int Quantity { get; set; }
 
     }
-    public class ProductOptionCard
+    public class ProductOptionCards
     {
         /// <summary>
         /// productOption

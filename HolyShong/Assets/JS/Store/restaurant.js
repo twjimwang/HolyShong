@@ -1,8 +1,10 @@
 ﻿let app = new Vue({
     el: '#app',
     data: {
+        isVerify:true,
         select: '',
         product: {
+            StoreName:'',
             ProductId: 1,
             ProductName: '',
             ProductDescription: '',
@@ -11,59 +13,67 @@
             Quantity: 1,
             StoreProductOptions: [
                 {
+                    SelectOption: '',
+                    SelectOptionPrice: '',
                     ProductOptionName: '',
                     ProductOptionDetails: [
                         {
                             StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
+                            StoreProductOptioinDetailName: '',
+                            AddPrice: 0
                         }
                     ]
                 },
-                {
-                    ProductOptionName: '',
-                    ProductOptionDetails: [
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        },
-                        {
-                            StoreProductOptionDetailId: '',
-                            StoreProductOptioinDetailName: ''
-                        }
-                    ]
-                }
             ]
         }
     },
+    //watch: {
+    //    'product.StoreProductOptions.SelectOption': {
+    //        immediate: true,
+    //        handler() {
+    //            this.checkVerify();
+    //        }
+    //    }
+    //},
     methods: {
         changeAmount(value) {
             if (this.product.Quantity + value == 0) { return; }
             this.product.Quantity += value;
-        }
+        },
+        addToCart() {
+            $.ajax({
+                type: 'POST',
+                url: '/api/Cart/AddToCart',
+                data: this.product,
+                success: function(res) {
+                    console.log(res);
+                    $('#cardModal').modal('hide');
+                    if (document.querySelector('#cart-check').checked == true ) {
+                        $('#cart-check').click();
+                    }
+                    $('#cart-check').click();
+                }
+            });
+        },
+        //checkVerify() {
+        //    for (let prop in this.StoreProductOptions.StoreProductOptions) {
+        //        if (this.StoreProductOptions.StoreProductOptions[prop] == null) {
+        //            this.isVerify = false;
+        //            return;
+        //        }
+        //        this.isVerify = true;
+        //    }
+        //}
     },
     computed: {
         sum() {
-            return this.product.UnitPrice * this.product.Quantity
+            let optionSource = this.product.StoreProductOptions.map(x => x.ProductOptionDetails);
+            let options = optionSource.length == 0 ? [] : optionSource.reduce((a, b) => a.concat(b));
+            let selectOptions = this.product.StoreProductOptions.map(x => x.SelectOption);
+            let bonus = options.filter(x => selectOptions.includes(x.StoreProductOptionDetailId)).map(x => x.AddPrice);
+            let bonusPrice = bonus.length == 0 ? 0 : bonus.reduce((a, b) => a + b);
+
+            return (this.product.UnitPrice + bonusPrice) * this.product.Quantity;
         }
     }
 });
@@ -72,17 +82,17 @@
 //愛心
 let heartSolid = document.querySelector(".heartSolid");
 let heartEmpty = document.querySelector(".heartEmpty");
-//let heart = document.querySelector(".heart")
+let heart = document.querySelector(".heart")
 
-//heart.onclick = function () {
-//    if ($('.heartEmpty').css('display') === "block") {
-//        heartEmpty.style.display = "none";
-//        heartSolid.style.display = "block";
-//    } else {
-//        heartEmpty.style.display = "block";
-//        heartSolid.style.display = "none";
-//    }
-//}
+heart.onclick = function () {
+    if ($('.heartEmpty').css('display') === "block") {
+        heartEmpty.style.display = "none";
+        heartSolid.style.display = "block";
+    } else {
+        heartEmpty.style.display = "block";
+        heartSolid.style.display = "none";
+    }
+}
 
 //按卡片取product內容
 let productCards = document.querySelectorAll('.cardProduct');
@@ -104,3 +114,4 @@ productCards.forEach((card, index) => {
         });
     });
 });
+
