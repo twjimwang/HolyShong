@@ -358,6 +358,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\HolyShongRepository.cs" />
+    <Compile Include="Services\CheckVipDate.cs" />
     <Compile Include="Services\FavoriteService.cs" />
     <Compile Include="Services\HashService.cs" />
     <Compile Include="Services\MarketService.cs" />

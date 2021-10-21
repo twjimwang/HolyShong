@@ -19,6 +19,7 @@ namespace HolyShong.Controllers
         private readonly MemberProfileService _memberProfileService;
         private readonly OrderService _orderService;
         private readonly FavoriteService _favoriteService;
+        private readonly CheckVipDate _checkVipDate;
 
         public MemberController()
         {
@@ -27,6 +28,7 @@ namespace HolyShong.Controllers
             _memberProfileService = new MemberProfileService();
             _orderService = new OrderService();
             _favoriteService = new FavoriteService();
+            _checkVipDate = new CheckVipDate();
         }
 
 
@@ -42,12 +44,18 @@ namespace HolyShong.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public ActionResult Eatpass()
         {
             var model = _memberProfileService.GetMemberProfileViewModel(int.Parse(User.Identity.Name));
 
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult Eatpass(UserProfileViewModel memberProfileViewModel)
+        {
+            _memberProfileService.EditMemberProfile(memberProfileViewModel);
+            return View(memberProfileViewModel);
         }
         /// <summary>
         /// 會員個人資料頁面
@@ -254,7 +262,7 @@ namespace HolyShong.Controllers
 
             #endregion
 
-
+            _checkVipDate.CheckVip(user.MemberId);
             //5.導向original URL
             return Redirect(url);
         }
