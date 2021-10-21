@@ -15,16 +15,11 @@ namespace HolyShong.Services
         {
             _repo = new HolyShongRepository();
         }
-        /// <summary>
-        /// 餐廳頁面Read
-        /// </summary>
-        /// <param name="storeId"></param>
-        /// <returns></returns>
+
         public ProductViewModel GetStore(int storeId)
         {
-            //找店家資訊
-            var result = new ProductViewModel();           
-            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == storeId);           
+            var result = new ProductViewModel();
+            var store = _repo.GetAll<Store>().FirstOrDefault(s => s.StoreId == storeId);
             var storeCategory = _repo.GetAll<StoreCategory>().FirstOrDefault(sc => sc.StoreCategoryId == store.StoreCategoryId);
 
             result.StoreId = storeId;
@@ -61,7 +56,7 @@ namespace HolyShong.Services
                     StoreProducts = new List<StoreProduct>()
 
                 };
-                foreach (var p in products.ToList())
+                foreach (var p in products.Where(p=> p.ProductCategoryId == pc.ProductCategoryId).ToList())
                 {
                     var pTemp = new StoreProduct()
                     {
@@ -84,7 +79,8 @@ namespace HolyShong.Services
                         {
                             var podTemp = new StoreProductOptionDetail()
                             {
-                                StoreProductOptioinDetailName = pod.Name
+                                StoreProductOptioinDetailName = pod.Name,
+                                AddPrice = pod.AddPrice == null ? 0 : (decimal)pod.AddPrice
                             };
                             poTemp.ProductOptionDetails.Add(podTemp);
                         }
@@ -113,8 +109,10 @@ namespace HolyShong.Services
             var productOptionSource = _repo.GetAll<ProductOption>().Where(po => po.ProductId == productId);
             var productOptionDetail = _repo.GetAll<ProductOptionDetail>().Where(pod => productOptionSource.Select(po => po.ProductOptionId).Contains(pod.ProductOptionId)).ToList();
             var productOption = productOptionSource.ToList();
+            var productCategory = _repo.GetAll<ProductCategory>().FirstOrDefault(pc => pc.ProductCategoryId == p.ProductCategoryId);
+            var storeName = _repo.GetAll<Store>().FirstOrDefault(s=>s.StoreId == productCategory.StoreId).Name;
 
-
+            result.StoreName = storeName;
             result.ProductId = p.ProductId;
             result.ProductId = p.ProductId;
             result.ProductName = p.Name;
@@ -137,7 +135,8 @@ namespace HolyShong.Services
                     var podTemp = new StoreProductOptionDetail()
                     {
                         StoreProductOptioinDetailName = pod.Name,
-                        StoreProductOptionDetailId = pod.ProductOptionDetailId
+                        StoreProductOptionDetailId = pod.ProductOptionDetailId,
+                        AddPrice = pod.AddPrice == null ? 0 : (decimal)pod.AddPrice
                     };
                     poTemp.ProductOptionDetails.Add(podTemp);
                 }

@@ -17,22 +17,33 @@ namespace HolyShong.Controllers
         }
         // GET: Order
         /// <summary>
-        /// 消費者外送頁面
+        /// 等綠界回覆，消費者外送頁
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
-            if(!id.HasValue)
-            {
-                return RedirectToAction("Checkout","Member");
-            }
-            var result = _orderService.GetOrder(id.Value);
-            return View(result);
+
+            //抓完成訂單
+            //刪除session
+
+
+            return View();
         }
 
-        public void GetCart(HolyCartViewModel cartVM)
+
+        // GET: Order
+        /// <summary>
+        /// 歷史訂單導向消費者外送頁
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UndoneOrderList(int? id)
         {
-            
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result = _orderService.GetOrder(id.Value);
+            return View("Index",result);
         }
     }
 }
