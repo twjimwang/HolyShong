@@ -30,7 +30,7 @@ namespace HolyShong.Controllers
                 NumberArray = new int[5]
             };
 
-            result = _storeService.GetAllStores();
+            result = _storeService.GetAllStores(1);
             result.StoreCategories = _storecategoryService.GetAllStoreCategories();
             result.NumberArray = _storecategoryService.GetRandomNumber();
             return View(result);
@@ -57,14 +57,14 @@ namespace HolyShong.Controllers
         public ActionResult Search(SearchRequest input)//搜尋頁面
         {
             input.Keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword;
-            input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
+            //input.Price = string.IsNullOrEmpty(input.Price) ? string.Empty : input.Price;
 
             var result = _storeService.GetAllStoresByRequest(input);
 
             //轉換其它頁面
-            if (result.StoreCards.Count==0)
+            if (result.StoreCards.Count == 0)
             {
-                return View("NoSearch"); 
+                return View("NoSearch");
             }
 
             input.SearchCount = result.StoreCards.Count;

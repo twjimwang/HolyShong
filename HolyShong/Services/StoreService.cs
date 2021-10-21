@@ -17,11 +17,12 @@ namespace HolyShong.Services
             _repo = new HolyShongRepository();
         }
         //Home_找出所有店家
-        public HomeViewModel GetAllStores()
+        public HomeViewModel GetAllStores(int? memberId)
         {
             var result = new HomeViewModel
             {
-                StoreCardBlocks = new List<StoreCardBlock>()
+                StoreCardBlocks = new List<StoreCardBlock>(),
+                FavorateStoreCardBlocks = new List<StoreCardBlock>()
             };
             //1.找出所有商店主分類(不用做)
             var storecategories = _repo.GetAll<Models.HolyShongModel.StoreCategory>().ToList();
@@ -56,6 +57,38 @@ namespace HolyShong.Services
                 };
                 result.StoreCardBlocks.Add(block);
             }
+            //4.依據會員找出所有最愛店家
+            var favorites = _repo.GetAll<Favorite>()
+                .Where(f => f.MemberId == memberId)
+                .OrderByDescending(f => f.CreateTime);
+
+            var favoriteStores = _repo.GetAll<Store>()
+                .Where(s => favorites.Select(f => f.StoreId).Contains(s.StoreId)).ToList()
+                .Select(s => new
+                {
+                    StoreId = s.StoreId,
+                    Img = s.Img,
+                    Name = s.Name,
+                    Index = favorites.ToList().FindIndex(f => f.StoreId == s.StoreId)
+                }).OrderBy(s => s.Index);
+            var favoriteCards = new List<StoreCard>();
+            foreach (var store in favoriteStores)
+            {
+                var card = new StoreCard
+                {
+                    StoreId = store.StoreId,
+                    StoreImg = store.Img,
+                    StoreName = store.Name
+                };
+                favoriteCards.Add(card);
+            }
+
+            var favoriteBlock = new StoreCardBlock
+            {
+                    StoreCards = favoriteCards
+            };
+            result.FavorateStoreCardBlocks.Add(favoriteBlock);
+
             return result;
         }
 
@@ -96,56 +129,31 @@ namespace HolyShong.Services
         //Search_副分類搜尋
         public SearchViewModel GetAllStoresByRequest(SearchRequest input)
         {
+            //店家卡片初始化
             var result = new SearchViewModel
             {
                 StoreCards = new List<StoreCard>()
             };
+
             //一.關鍵字
-            var stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(input.Keyword)).ToList();
+            var stores = new List<Store>();
+            if (input.Keyword != string.Empty)
+            {
+                stores = _repo.GetAll<Store>().Where(x => x.KeyWord.Contains(input.Keyword)).ToList();
+            }
+            else
+            {
+                stores = _repo.GetAll<Store>().ToList();
+            }
+
             if (stores.Count == 0)
             {
                 return result;
             }
-
-            //二.價格範圍
-            //1.找出所有商店、所有產品類別及所有產品
-            var allProductCategories = _repo.GetAll<ProductCategory>();
-            var allProducts = _repo.GetAll<Product>();
             var cards = new List<StoreCard>();
-            //2.計算商店價格
-            foreach (var item in stores)
+            if (input.Price == null)
             {
-                var productCategoryAveragePrice = new List<decimal>();
-                var storePrice = "";
-                //2.1找出每家店本身的產品類別
-                var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId);
-                //2.2找出目前選擇的商店每個產品類別下面的所有產品的平均價格
-                foreach (var productCategory in productCategoryList)
-                {
-                    var productAveragePrice = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).Select(x => x.UnitPrice).ToList();
-                    var averagePrive = productAveragePrice.Count == 0 ? 0 : productAveragePrice.Average();
-                    productCategoryAveragePrice.Add(averagePrive);
-                }
-                var storeAveragePrice = productCategoryAveragePrice.Count == 0 ? 0 : productCategoryAveragePrice.Average();
-                //2.3轉換range
-                if (storeAveragePrice >= 0 && storeAveragePrice <= 100)
-                {
-                    storePrice = "0-100";
-                }
-                else if (storeAveragePrice > 100 && storeAveragePrice <= 200)
-                {
-                    storePrice = "100-200";
-                }
-                else if (storeAveragePrice > 200 && storeAveragePrice <= 500)
-                {
-                    storePrice = "200-500";
-                }
-                else
-                {
-                    storePrice = "500-99999";
-                }
-
-                if (storePrice == input.Price)
+                foreach (var item in stores)
                 {
                     //儲存卡片
                     var card = new StoreCard
@@ -153,9 +161,67 @@ namespace HolyShong.Services
                         StoreId = item.StoreId,
                         StoreImg = item.Img,
                         StoreName = item.Name,
-                        StoreAveragePrice = storePrice,
+                        StoreAveragePrice = "",
                     };
                     cards.Add(card);
+                }
+            }
+            else
+            {
+                //二.價格範圍
+                //1.找出所有商店、所有產品類別及所有產品
+                var allProductCategories = _repo.GetAll<ProductCategory>();
+                var allProducts = _repo.GetAll<Product>();
+
+                //2.計算商店價格
+                foreach (var item in stores)
+                {
+                    var productCategoryAveragePrice = new List<decimal>();
+                    var storePrice = "";
+                    //2.1找出每家店本身的產品類別
+                    var productCategoryList = allProductCategories.Where(x => x.StoreId == item.StoreId);
+                    //2.2找出目前選擇的商店每個產品類別下面的所有產品的平均價格
+                    foreach (var productCategory in productCategoryList)
+                    {
+                        var productAveragePrice = allProducts.Where(x => x.ProductCategoryId == productCategory.ProductCategoryId).Select(x => x.UnitPrice).ToList();
+                        var averagePrive = productAveragePrice.Count == 0 ? 0 : productAveragePrice.Average();
+                        productCategoryAveragePrice.Add(averagePrive);
+                    }
+                    var storeAveragePrice = productCategoryAveragePrice.Count == 0 ? 0 : productCategoryAveragePrice.Average();
+                    //2.3轉換range
+                    if (storeAveragePrice >= 0 && storeAveragePrice <= 100)
+                    {
+                        storePrice = "0-100";
+                    }
+                    else if (storeAveragePrice > 100 && storeAveragePrice <= 200)
+                    {
+                        storePrice = "100-200";
+                    }
+                    else if (storeAveragePrice > 200 && storeAveragePrice <= 500)
+                    {
+                        storePrice = "200-500";
+                    }
+                    else
+                    {
+                        storePrice = "500-99999";
+                    }
+                    if (input.Price == null)
+                    {
+
+                    }
+
+                    else if (storePrice == input.Price)
+                    {
+                        //儲存卡片
+                        var card = new StoreCard
+                        {
+                            StoreId = item.StoreId,
+                            StoreImg = item.Img,
+                            StoreName = item.Name,
+                            StoreAveragePrice = storePrice,
+                        };
+                        cards.Add(card);
+                    }
                 }
             }
             result.StoreCards = cards;
