@@ -292,11 +292,11 @@
                     } else {
                         console.log(response);
                         //時間顯示
-                        let departureTime = new Date().getTime();
                         let time = document.querySelector('.info h2.time');
                         time.innerText = `${new Date(Date.now() + (response.rows[0].elements[0].duration_in_traffic.value) * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) }`;
                     }
-                });
+                }
+            );
         }
     </script>
 }

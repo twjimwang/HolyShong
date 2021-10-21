@@ -166,6 +166,7 @@ namespace HolyShong.Services
 
             cartVM.StoreId = store.StoreId;
             cartVM.StoreName = store.Name;
+            cartVM.StoreAddress = store.Address;
             cartVM.CustomerAddress = customerAddress.AddressDetail;
             cartVM.Note = String.Empty;
             cartVM.IsPlasticbag = false;

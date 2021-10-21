@@ -1,17 +1,13 @@
-﻿//leafLet
-let map = L.map('map', {
-    center: [25.0416806, 121.5352095],
-    zoom: 9
-})
-var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 9 })
-map.addLayer(osm);
-
-let checkOut = new Vue({
+﻿let checkOut = new Vue({
 
     el: '#checkApp',
     data: {
         store: checkInfo,
+        options: [
+                { value: '在門口碰面', text: '在門口碰面' },
+                { value: '在外碰面', text: '在外碰面' },
+                { value: '放在門口', text: '放在門口' }
+        ]
 
     },
     computed: {
@@ -57,14 +53,10 @@ let checkOut = new Vue({
 //export default {
 //    data() {
 //        return {
-//            selected: null,
-//            options: [
-//                { value: null, text: 'Please select an option' },
-//                { value: 'a', text: 'This is First option' },
-//                { value: 'b', text: 'Selected Option' },
-//                { value: { C: '3PO' }, text: 'This is an option with object value' },
-//                { value: 'd', text: 'This one is disabled', disabled: true }
-//            ]
+//            
 //        }
 //    }
 //}
+
+
+//google map
